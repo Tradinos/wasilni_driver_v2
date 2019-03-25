@@ -33,8 +33,8 @@ import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 
-import static com.wasilni.wasilnipassengerv2.network.RetorfitSingelton.URL;
-import static com.wasilni.wasilnipassengerv2.util.Constants.ETAG;
+import static com.wasilni.wasilnidriverv2.network.RetorfitSingelton.URL;
+import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
 
 
 public class UtilFunction {

@@ -7,8 +7,9 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.wasilni.wasilnipassengerv2.R;
-import com.wasilni.wasilnipassengerv2.mvp.view.MainContract;
+import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.view.MainContract;
+
 
 public class BasicActivity extends AppCompatActivity implements MainContract.ProgressBar {
     protected ProgressBar progressBar ;

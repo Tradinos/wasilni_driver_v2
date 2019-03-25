@@ -8,10 +8,10 @@ import org.greenrobot.eventbus.EventBus;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import static com.wasilni.wasilnipassengerv2.gps.GPSLocation.locationManager;
+import static com.wasilni.wasilnidriverv2.gps.GPSLocation.locationManager;
 
-public class PassengerApplication extends android.app.Application {
-    public PassengerApplication() {
+public class DriverApplication extends android.app.Application {
+    public DriverApplication() {
 
     }
 

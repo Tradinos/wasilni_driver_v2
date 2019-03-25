@@ -6,8 +6,7 @@ import android.content.Intent;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.wasilni.wasilnipassengerv2.ui.Activities.DriverLocationActivity;
-import com.wasilni.wasilnipassengerv2.ui.Fragment.MyRideFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -200,14 +199,6 @@ public class Booking {
         this.updatedAt = updatedAt;
     }
 
-    public void onclickDriverLocation(){
-        Intent intent = new Intent(activity, DriverLocationActivity.class) ;
-        activity.startActivity(intent);
-    }
-
-    public void setActivity(MyRideFragment activity) {
-        this.activity = activity.getActivity() ;
-    }
 
 
 }

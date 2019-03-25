@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.wasilni.wasilnipassengerv2.R;
+import com.wasilni.wasilnidriverv2.R;
 
 public class SplashActivity extends AppCompatActivity {
     private int SPLASH_TIME_OUT=3000;

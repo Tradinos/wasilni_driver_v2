@@ -1,6 +1,6 @@
 package com.wasilni.wasilnidriverv2.util;
 
-import com.wasilni.wasilnipassengerv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 
 public class UtilUser {
     private static User user ;

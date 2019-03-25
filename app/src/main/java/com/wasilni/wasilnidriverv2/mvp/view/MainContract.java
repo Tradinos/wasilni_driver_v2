@@ -1,6 +1,7 @@
 package com.wasilni.wasilnidriverv2.mvp.view;
 
-import com.wasilni.wasilnipassengerv2.network.Response;
+
+import com.wasilni.wasilnidriverv2.network.Response;
 
 public interface MainContract {
 

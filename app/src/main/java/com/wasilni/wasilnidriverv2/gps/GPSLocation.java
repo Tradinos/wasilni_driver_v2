@@ -6,7 +6,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import static com.wasilni.wasilnipassengerv2.util.Constants.LOCATION;
+import static com.wasilni.wasilnidriverv2.util.Constants.LOCATION;
 
 public class GPSLocation {
     private final static Location[] myLocation = new Location[1];

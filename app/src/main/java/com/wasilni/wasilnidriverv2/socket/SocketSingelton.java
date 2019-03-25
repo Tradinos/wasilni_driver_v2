@@ -3,8 +3,9 @@ package com.wasilni.wasilnidriverv2.socket;
 import android.location.Location;
 import android.util.Log;
 
-import com.wasilni.wasilnipassengerv2.gps.GPSLocation;
-import com.wasilni.wasilnipassengerv2.util.UtilUser;
+
+import com.wasilni.wasilnidriverv2.gps.GPSLocation;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +22,7 @@ import io.realm.RealmQuery;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
-import static com.wasilni.wasilnipassengerv2.util.Constants.ETAG;
+import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
 
 public class SocketSingelton {
     private static final String SOCKET_URL = "http://192.168.9.148:3000/passengers";
@@ -67,12 +68,12 @@ public class SocketSingelton {
 
     }
 
-    public static void startTracking( Location location) {
+    public static void startTracking(final Location location) {
         socket = getInstance();
         Timer timer = new Timer();
 
         GPSLocation.startUpdateLocaiton();
-        Location myLocation = GPSLocation.getMyLocation();
+        final Location myLocation = GPSLocation.getMyLocation();
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
