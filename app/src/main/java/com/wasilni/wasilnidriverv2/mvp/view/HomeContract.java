@@ -7,6 +7,6 @@ public interface HomeContract {
         public void initView();
     }
     public interface HomeActivityPresenter {
-
+        public void driverStatusOnclick();
     }
 }

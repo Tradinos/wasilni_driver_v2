@@ -96,6 +96,12 @@ dependencies {
 
     // dataBase Lib
     implementation 'android.arch.persistence.room:runtime:1.1.1'
+
+    // transition
+    implementation "com.andkulikov:transitionseverywhere:1.8.0"
+    implementation 'com.github.florent37:viewanimator:1.1.0'
+
+
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
 apply plugin: 'realm-android'

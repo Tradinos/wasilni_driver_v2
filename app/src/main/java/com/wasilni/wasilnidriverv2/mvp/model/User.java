@@ -10,6 +10,7 @@ public class User{
 
     private Location location ;
     private boolean isLogingIn ;
+    private boolean isChecked ;
     private boolean isConfirmed ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
@@ -17,6 +18,14 @@ public class User{
             ;
     private boolean verified , gender;
     private int id ;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public Location getLocation() {
         return location;
