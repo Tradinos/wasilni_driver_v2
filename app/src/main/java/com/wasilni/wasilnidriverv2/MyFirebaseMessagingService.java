@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
@@ -10,10 +11,17 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String ADMIN_CHANNEL_ID = "dragon-channel-id";
-
+    private NotificationCompat.Builder notificationBuilder ;
+    private NotificationManager notificationManager ;
+    private NotificationChannel adminChannel;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -22,8 +30,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         super.onMessageReceived(remoteMessage);
     }
+
+
     private void setupNotification(RemoteMessage remoteMessage){
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+        notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -32,7 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true);
 
-        NotificationManager notificationManager =
+        notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
@@ -42,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             CharSequence adminChannelName = "dragon-channel";
             String adminChannelDescription = "notification";
 
-            NotificationChannel adminChannel;
+
 
             adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW);
             adminChannel.setDescription(adminChannelDescription);
@@ -53,6 +63,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.createNotificationChannel(adminChannel);
             }
         }
+        notificationAction(remoteMessage.getData());
+    }
+
+    public void notificationAction(Map<String ,String> data){
+        String  messageCode =  data.get("code");
+        switch (messageCode){
+            case "update_ride" : {
+                Intent intent = new Intent();
+                intent.putExtra("event","update_ride");
+                intent.setAction("com.wasilni.wasilnidriverv2.receivers");
+                sendBroadcast(intent);
+                break;
+            }
+        }
 
     }
+
 }

@@ -65,6 +65,17 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.regesterRecivers();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.unregesterRecivers();
+    }
 
     @Override
     public void onClick(View v) {
