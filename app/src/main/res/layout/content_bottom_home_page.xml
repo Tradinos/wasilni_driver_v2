@@ -3,29 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="220dp"
+    android:layout_height="260dp"
     android:layout_alignParentBottom="true"
     android:layout_margin="8dp"
     android:background="#00FFFFFF">
 
     <ImageView
         android:id="@+id/notification_img"
-        android:layout_width="119dp"
-        android:layout_height="85dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_notifications_active_dark_green_24dp"
+        android:background="@drawable/circle_bg"
+        android:padding="12dp"
+        android:src="@mipmap/alarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="183dp"
+        android:layout_height="222dp"
+        android:background="@drawable/notification_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -36,7 +39,7 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="40dp"
             android:drawableStart="@mipmap/green_marker"
-            android:text="TextView"
+            android:text="ميدان "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="TextView"
+            android:text="جزاماتية - جانب فلال على كيفك"
             app:layout_constraintEnd_toEndOf="@+id/place_name"
             app:layout_constraintHorizontal_bias="0.074"
             app:layout_constraintStart_toStartOf="@+id/place_name"
@@ -57,11 +60,12 @@
             style="@style/botton_notification_big_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="72dp"
             android:layout_marginBottom="8dp"
             android:drawableStart="@mipmap/start_time"
-            android:text="TextView"
+            android:text="3:40 PM"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -75,15 +79,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:drawableStart="@mipmap/est_km"
-            android:text="TextView"
+            android:text="1.5 KM"
             app:layout_constraintBottom_toBottomOf="@+id/e_time"
             app:layout_constraintEnd_toStartOf="@+id/e_time"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/e_time"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/saw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/notification_btn_bg"
+            android:fontFamily="@font/bahij_thesansarabic_bold"
+            android:text="شفت الحجز"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/e_kilometer" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

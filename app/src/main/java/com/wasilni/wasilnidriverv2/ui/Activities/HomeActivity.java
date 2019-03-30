@@ -29,6 +29,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     public ImageView driverStatus;
     public TextView driverStatusTextView ;
     public LinearLayout bottomLinearLayout ;
+    public ImageView notificationImageView ;
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         mapFragment.getMapAsync(this);
         driverStatus = findViewById(R.id.driver_status_image) ;
         bottomLinearLayout = findViewById(R.id.bottom_linear_layout) ;
-
         driverStatusTextView = findViewById(R.id.driver_status);
+        notificationImageView = findViewById(R.id.notification_img);
+        notificationImageView.bringToFront();
+
+
+
         driverStatus.setOnClickListener(this);
         if(!UtilUser.getUserInstance().isChecked()){
             driverStatus.setImageResource(R.mipmap.power_off);
