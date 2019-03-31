@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.view.View;
 
+import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.databinding.ActivityHomeBinding;
@@ -40,10 +42,10 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
             activity.driverStatus.setImageResource(R.mipmap.power_off);
             activity.driverStatusTextView.setText("You're offline");
             ViewAnimator
-                    .animate(activity.bottomLinearLayout)
-                    .translationY(1000 , 0)
+                    .animate(activity.bottomLayout)
+                    .translationY(activity.onlineOfflineLayout.getHeight() , 0)
                     .duration(1000)
-                    .alpha(0,1).start();
+                    .start();
         }
         else
         {
@@ -51,10 +53,10 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
             activity.driverStatus.setImageResource(R.mipmap.power_on);
             activity.driverStatusTextView.setText("You're online");
             ViewAnimator
-                    .animate(activity.bottomLinearLayout)
-                    .translationY(0 , 1000)
+                    .animate(activity.bottomLayout)
+                    .translationY(0 ,activity.onlineOfflineLayout.getHeight() )
                     .duration(1000)
-                    .alpha(1,0).start();
+                    .start();
         }
     }
 

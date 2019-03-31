@@ -1,6 +1,7 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.databinding.DataBindingUtil;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
@@ -28,8 +29,10 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     public GoogleMap mMap;
     public ImageView driverStatus;
     public TextView driverStatusTextView ;
-    public LinearLayout bottomLinearLayout ;
+    public LinearLayout onlineOfflineLayout ;
+    public LinearLayout bottomLayout ;
     public ImageView notificationImageView ;
+    public ConstraintLayout newOrderLayout ;
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,12 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         driverStatus = findViewById(R.id.driver_status_image) ;
-        bottomLinearLayout = findViewById(R.id.bottom_linear_layout) ;
+        onlineOfflineLayout = findViewById(R.id.bottom_linear_layout) ;
         driverStatusTextView = findViewById(R.id.driver_status);
         notificationImageView = findViewById(R.id.notification_img);
         notificationImageView.bringToFront();
-
+        newOrderLayout = findViewById(R.id.new_order_layout) ;
+        bottomLayout = findViewById(R.id.bottom_layout) ;
 
 
         driverStatus.setOnClickListener(this);
