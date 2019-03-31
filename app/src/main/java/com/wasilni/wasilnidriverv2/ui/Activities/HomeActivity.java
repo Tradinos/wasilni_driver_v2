@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     public LinearLayout bottomLayout ;
     public ImageView notificationImageView ;
     public ConstraintLayout newOrderLayout ;
+    public Button notificationButton ;
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,9 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         notificationImageView.bringToFront();
         newOrderLayout = findViewById(R.id.new_order_layout) ;
         bottomLayout = findViewById(R.id.bottom_layout) ;
+        notificationButton = findViewById(R.id.saw);
 
-
+        notificationButton.setOnClickListener(this);
         driverStatus.setOnClickListener(this);
         if(!UtilUser.getUserInstance().isChecked()){
             driverStatus.setImageResource(R.mipmap.power_off);
@@ -92,6 +95,10 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             case R.id.driver_status_image :
                 presenter.driverStatusOnclick();
                 break;
+            case R.id.saw :
+                presenter.notificationButotnOnclick();
+                break;
+
         }
     }
 }

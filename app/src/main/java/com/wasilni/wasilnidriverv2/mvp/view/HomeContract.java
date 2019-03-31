@@ -9,6 +9,7 @@ public interface HomeContract {
     }
     public interface HomeActivityPresenter {
         public void driverStatusOnclick();
+        public void notificationButotnOnclick();
         void regesterNotification();
         public void regesterRecivers();
          void unregesterNotification();

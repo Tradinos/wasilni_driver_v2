@@ -17,6 +17,8 @@ import com.wasilni.wasilnidriverv2.receivers.NotificationReceiver;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
+
 public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresenter {
     HomeActivity activity ;
 
@@ -58,6 +60,11 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
                     .duration(1000)
                     .start();
         }
+    }
+
+    @Override
+    public void notificationButotnOnclick() {
+        activity.newOrderLayout.setVisibility(View.GONE);
     }
 
     @Override
