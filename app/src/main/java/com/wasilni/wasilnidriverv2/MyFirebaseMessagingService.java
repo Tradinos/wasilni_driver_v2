@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,9 +14,12 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wasilni.wasilnidriverv2.receivers.NotificationReceiver;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String ADMIN_CHANNEL_ID = "dragon-channel-id";
@@ -74,6 +78,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 intent.putExtra("event","update_ride");
                 intent.setAction("com.wasilni.wasilnidriverv2.receivers");
                 sendBroadcast(intent);
+                break;
+            }
+            case "new_order" : {
+                p("new order");
+                Intent intent = new Intent("booking_notification");
+                intent.putExtra("event","new_order");
+                intent.setAction("com.wasilni.wasilnidriverv2.receivers");
+                sendOrderedBroadcast(intent,
+                        null,
+                        new NotificationReceiver(),
+                        null,
+                        Activity.RESULT_OK,
+                        null,
+                        null);
                 break;
             }
         }

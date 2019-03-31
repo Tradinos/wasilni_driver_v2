@@ -105,3 +105,4 @@ dependencies {
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
 apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'

@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.wasilni.wasilnidriverv2.ui.Activities.NotificationActivity;
+
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
 
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -14,10 +18,15 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         final int code = getResultCode();
         Bundle extras = intent.getExtras();
-        int state = extras.getInt("extra");
-        boolean booleanState = extras.getBoolean("booleanextra");
+        String event = extras.getString("event");
+        p(event);
         if (code == Activity.RESULT_OK) {
+            switch (event) {
+                case "new_order":
+                    
 
+                    break;
+            }
         }
     }
 }

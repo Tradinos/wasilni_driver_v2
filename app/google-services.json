@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "745870180457",
+    "firebase_url": "https://wasilni-driver.firebaseio.com",
+    "project_id": "wasilni-driver",
+    "storage_bucket": "wasilni-driver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745870180457:android:c0df6623fe22b40e",
+        "android_client_info": {
+          "package_name": "com.wasilni.wasilnidriverv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745870180457-4q7us8d0uikf7n2v7pqt4bbcutm79m5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wasilni.wasilnidriverv2",
+            "certificate_hash": "8f88ce65b943bca30c3d0e3cac46e8dbfc149bed"
+          }
+        },
+        {
+          "client_id": "745870180457-8ku11d98vgkl7pfbk856t892n0en0k6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnvP251XYE9z9Q-8bWvEUgAjo2dr70iD4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745870180457-8ku11d98vgkl7pfbk856t892n0en0k6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
