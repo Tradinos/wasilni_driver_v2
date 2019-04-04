@@ -4,40 +4,61 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
+import android.support.media.ExifInterface;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
+
 
 import static com.wasilni.wasilnidriverv2.network.RetorfitSingelton.URL;
 import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
 
 
 public class UtilFunction {
+    public static String INTENT_REQUESTER = "intent-requester";
 
     public static void setFontBAHIJ(Activity activity) {
         Calligrapher calligrapher = new Calligrapher(activity);
@@ -111,6 +132,7 @@ public class UtilFunction {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
+
     public void dexterLib(Activity activity){
         Dexter.withActivity(activity)
                 .withPermission(Manifest.permission.WRITE_CONTACTS)
@@ -128,6 +150,7 @@ public class UtilFunction {
                     }
                 }).check();
     }
+
     static public String imageToString(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,50,byteArrayOutputStream);
@@ -143,9 +166,267 @@ public class UtilFunction {
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+    public static void hideSoftKeyboard(Activity act){
+        // Check if no view has focus:
+        if(act != null){
+            View view = act.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)act.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
+    public static void setYesNoChoice(Activity activity, boolean yes, TextView noTextView, TextView yesTextView, ColorStateList defaultTextColor, int newColor){
+        if(activity == null) {
+            return;
+        }
+
+        yesTextView.setPaintFlags(yesTextView.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        noTextView.setPaintFlags(noTextView.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+
+        noTextView.setTextColor(defaultTextColor);
+        yesTextView.setTextColor(defaultTextColor);
+
+        yesTextView.setTypeface(null, Typeface.NORMAL);
+        noTextView.setTypeface(null, Typeface.NORMAL);
+
+
+        if(yes) {
+            underlineWidget(yesTextView);
+            yesTextView.setTextColor(activity.getResources().getColor(newColor));
+            yesTextView.setTypeface(null, Typeface.BOLD);
+        }
+        else{
+            underlineWidget(noTextView);
+            noTextView.setTextColor(activity.getResources().getColor(newColor));
+            noTextView.setTypeface(null, Typeface.BOLD);
+        }
+
+    }
+
+    public static void underlineWidget(TextView tv){
+        tv.setPaintFlags(tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    }
+
+    public static void startCameraGalleryDialogFromFragment(final Activity activity, String title, String message, String galleryOption, String cameraOption, final String tempFileName, final Fragment fragment, final int cameraRequestCode, final int galleryRequestCode) {
+        if(activity == null || fragment  == null)
+            return;
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(
+                activity);
+        myAlertDialog.setTitle(title);
+        myAlertDialog.setMessage(message);
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        myAlertDialog.setPositiveButton(galleryOption,
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                    Dexter.withActivity(activity)
+                        .withPermissions(
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                                if(report.areAllPermissionsGranted()) {
+                                    Intent pictureActionIntent = null;
+
+                                    pictureActionIntent = new Intent(
+                                            Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    fragment.startActivityForResult(
+                                            pictureActionIntent,
+                                            galleryRequestCode);
+                                }
+                            }
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                            }
+                        })
+                        .check();
+                }
+            });
+
+        myAlertDialog.setNegativeButton(cameraOption,
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                    Dexter.withActivity(activity)
+                        .withPermissions(
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                                if(report.areAllPermissionsGranted()) {
+                                    Intent intent = new Intent(
+                                            MediaStore.ACTION_IMAGE_CAPTURE);
+                                    File f = new File(Environment
+                                            .getExternalStorageDirectory(),tempFileName);
+                                    intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                            Uri.fromFile(f));
+
+                                    fragment.startActivityForResult(intent,
+                                            cameraRequestCode);
+
+                                }
+                            }
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                            }
+                        })
+                        .check();
+                }
+            });
+        myAlertDialog.show();
+    }
+
+    public static void startCameraGalleryDialog(final Activity activity, String title, String message, String galleryOption, String cameraOption, final String tempFileName) {
+        if(activity == null)
+            return;
+
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder( activity);
+
+        myAlertDialog.setTitle(title);
+        myAlertDialog.setMessage(message);
+
+        myAlertDialog.setPositiveButton(galleryOption,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Dexter.withActivity(activity)
+                            .withPermission(Manifest.permission.CAMERA)
+                            .withListener(new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted(PermissionGrantedResponse response) {
+                                    Intent pictureActionIntent = null;
+
+                                    pictureActionIntent = new Intent(
+                                            Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    activity.startActivityForResult(
+                                            pictureActionIntent,
+                                            1);
+                                }
+
+                                @Override
+                                public void onPermissionDenied(PermissionDeniedResponse response) {
+                                    showToast(activity,"I was denied");
+                                }
+
+                                @Override
+                                public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                                }
+                            })
+                            .check();
+
+                    }
+                });
+
+        myAlertDialog.setNegativeButton(cameraOption,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        Intent intent = new Intent(
+                                MediaStore.ACTION_IMAGE_CAPTURE);
+                        File f = new File(android.os.Environment
+                                .getExternalStorageDirectory(),tempFileName);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                Uri.fromFile(f));
+
+                        activity.startActivityForResult(intent,
+                                0);
+
+                    }
+                });
+        myAlertDialog.show();
+    }
+
+    public static String handleCameraIntent(Activity activity, String tempFile){
+        Bitmap bitmap = null;
+        String imagePath = null;
+        File f = new File( Environment.getExternalStorageDirectory(),tempFile);
+
+        if (!f.exists()) {
+            Toast.makeText(activity,
+                    "Error while capturing image", Toast.LENGTH_LONG)
+                    .show();
+            return imagePath;
+        }
+        try {
+
+
+            return f.getAbsolutePath();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return imagePath;
+    }
+
+    public static String handleGalleryIntent(Activity activity, Intent data) {
+        String selectedImagePath = null;
+        Bitmap bitmap = null;
+        if (data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePath = { MediaStore.Images.Media.DATA };
+            Cursor c = activity.getContentResolver().query(selectedImage, filePath,
+                    null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePath[0]);
+            selectedImagePath = c.getString(columnIndex);
+            c.close();
+
+            bitmap = BitmapFactory.decodeFile(selectedImagePath); // load
+            return selectedImagePath;
+
+        } else {
+            Toast.makeText(activity, "Cancelled",
+                    Toast.LENGTH_SHORT).show();
+        }
+        return selectedImagePath;
+    }
+
+    public static void setTextFromPickingPictureResult(Activity activity, int requestCode, int cameraCode, int galleryCode, String tempFileName, Intent data, TextView tv){
+
+        String filePath = null;
+        if (requestCode == cameraCode) {
+            filePath = UtilFunction.handleCameraIntent(activity,  tempFileName);
+        }
+        else if(requestCode == galleryCode) {
+            filePath = UtilFunction.handleGalleryIntent(activity, data);
+        }
+        if(filePath != null)
+        {
+            tv.setText(new File(filePath).getName());
+        }
+    }
+
+    public static void setErrorToInputLayout(TextInputLayout il, String message){
+        il.setErrorEnabled(true);
+        il.setError(message);
+    }
+
+    public static void removeErrorToInputLayout(TextInputLayout il){
+        il.setErrorEnabled(false);
+        il.setError(null);
+    }
+
+
+
     public static void p(){
         Log.e(ETAG,"00000") ;
     }
+
     public static void p(String s){
         Log.e(ETAG,s) ;
     }

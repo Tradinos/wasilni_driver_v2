@@ -8,4 +8,51 @@
     <string name="welcome">Welcome in wasilni</string>
     <string name="next">Next</string>
     <string name="title_activity_home">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="captain_register">register captain</string>
+    <string name="send">send</string>
+    <string name="one_digit_hint">0</string>
+    <string name="phone_number_hint">98…</string>
+    <string name="country_code">+963</string>
+    <string name="phone_number">phone number</string>
+    <string name="verification_code">verification code</string>
+    <string name="whatsapp_number_same_phone_number">is whatsapp number is same as the phone number</string>
+    <string name="email">email</string>
+    <string name="birthdate">birthdate</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="date_hint">dd/mm/yyyy</string>
+    <string name="region">region</string>
+    <string name="region_details">region details</string>
+    <string name="nationality">nationality</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="image_identification">ID image</string>
+    <string name="the_image">image</string>
+    <string name="has_bank_account">do you have account bank ?</string>
+    <string name="has_no_conviction">do you have a no conviction ?</string>
+    <string name="driving_license">car license</string>
+    <string name="start_date">start date</string>
+    <string name="end_date">end date</string>
+    <string name="car_mechanic">car mechanic</string>
+    <string name="car_insurance">car insurance</string>
+    <string name="brand_manufacture_year">brand and manufacture year</string>
+
+    <string name="front_page">front</string>
+    <string name="back_page">back</string>
+    <string name="color">color</string>
+
+    <string name="dialog_image_title">upload options</string>
+    <string name="dialog_image_message">Please pick your upload option</string>
+    <string name="dialog_image_camera">camera</string>
+    <string name="dialog_image_gallery">gallery</string>
+
+    <string name="required_field">this field is required</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="optional">(optional)</string>
 </resources>

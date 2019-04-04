@@ -11,5 +11,8 @@
     <color name="dark_blue">#435985</color>
     <color name="trgray">#99AAAAAA</color>
 
+    <color name="light_red">#ec4662</color>
+    <color name="dark_red">#c8102f</color>
     <color name="black_overlay">#66000000</color>
+    <color name="wasilni_gray">#f3f3f3 </color>
 </resources>

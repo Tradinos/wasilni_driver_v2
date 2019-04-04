@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="captain_register">تسجيل دخول الكابتن</string>
+    <string name="send">إرسال</string>
+    <string name="one_digit_hint">0</string>
+    <string name="phone_number_hint">98…</string>
+    <string name="phone_number">رقم الموبايل</string>
+    <string name="verification_code">رمز التا:يد</string>
+    <string name="whatsapp_number_same_phone_number">رقم الواتس نفس رقم الموبايل</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="birthdate">تاريخ الولادة</string>
+    <string name="male">ذكر</string>
+    <string name="female">مؤنث</string>
+    <string name="region">منطقة السكن</string>
+    <string name="region_details">تفاصيل السكن</string>
+    <string name="nationality">الجنسية</string>
+    <string name="first_name">الاسم الاول</string>
+    <string name="last_name">الاسم الاخير</string>
+    <string name="start_date">تاريخ البدء</string>
+    <string name="end_date">تاريخ النهاية</string>
+    <string name="image_identification">صورة الهوبة</string>
+    <string name="the_image">الصورة</string>
+    <string name="has_bank_account">هل لديك حساب بنك ؟</string>
+    <string name="has_no_conviction">هل لديك لاحكم عليه ؟</string>
+    <string name="driving_license">شهادة قيادة</string>
+    <string name="car_mechanic">ميكانيك السيارة</string>
+    <string name="car_insurance">تأمين السيارة</string>
+    <string name="brand_manufacture_year">الماركة وسنة التصنيع</string>
+
+    <string name="front_page">الامامية</string>
+    <string name="color">اللون</string>
+    <string name="back_page">الخلفية</string>
+
+    <string name="dialog_image_title">upload options</string>
+    <string name="dialog_image_message">Please pick your upload option</string>
+    <string name="dialog_image_camera">camera</string>
+    <string name="dialog_image_gallery">gallery</string>
+
+    <string name="required_field">الرجاء تعبئة هذا الحق</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="optional">)اختياري)</string>
+
+</resources>
