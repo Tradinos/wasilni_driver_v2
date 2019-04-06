@@ -24,4 +24,11 @@
     <dimen name="star_size">25dp</dimen>
 
     <dimen name="margin_bottom_radio_btn">6dp</dimen>
+    <dimen name="bottom_sheet_margin_hor">8dp</dimen>
+    <dimen name="bottom_sheet_margin_ver">16dp</dimen>
+    <dimen name="bottom_sheet_padding">8dp</dimen>
+
+    <dimen name="trip_width">200dp</dimen>
+    <dimen name="trip_padding">4dp</dimen>
+    <dimen name="trip_margin">8dp</dimen>
 </resources>

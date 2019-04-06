@@ -4,25 +4,29 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.wasilni.wasilnidriverv2.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GettingPassengerFragment.OnFragmentInteractionListener} interface
+ * {@link PickingUpPassengerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GettingPassengerFragment#newInstance} factory method to
+ * Use the {@link PickingUpPassengerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GettingPassengerFragment extends BottomSheetDialogFragment {
+public class PickingUpPassengerFragment extends BottomSheetDialogFragment {
+
     private OnFragmentInteractionListener mListener;
 
-    public GettingPassengerFragment() {
+    public PickingUpPassengerFragment() {
         // Required empty public constructor
     }
 
@@ -30,10 +34,10 @@ public class GettingPassengerFragment extends BottomSheetDialogFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment GettingPassengerFragment.
+     * @return A new instance of fragment PickingUpPassengerFragment.
      */
-    public static GettingPassengerFragment newInstance() {
-        GettingPassengerFragment fragment = new GettingPassengerFragment();
+    public static PickingUpPassengerFragment newInstance() {
+        PickingUpPassengerFragment fragment = new PickingUpPassengerFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -42,7 +46,9 @@ public class GettingPassengerFragment extends BottomSheetDialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+
 
         this.setCancelable(false);
         if (getArguments() != null) {
@@ -53,7 +59,13 @@ public class GettingPassengerFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_getting_passenger, container, false);
+        return inflater.inflate(R.layout.fragment_picking_up_passenger, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     public void onButtonPressed(Uri uri) {

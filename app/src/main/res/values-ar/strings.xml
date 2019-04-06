@@ -41,5 +41,10 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="optional">)اختياري)</string>
+    <string name="seat_count"> عدد المقاعد</string>
+    <string name="ready_to_pick_up_passenger">وصلت خبر الزبون</string>
+    <string name="on_the_way_pick_up_passenger">رايح اخد الزبون</string>
+    <string name="picked_up_passenger">خدت الزبون</string>
+    <string name="drop_off_passenger">تم توصيل</string>
 
 </resources>
