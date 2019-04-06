@@ -9,21 +9,22 @@ import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class ChangeRideStatePresenterImp implements ChangeRideContract.ChangeRidePresenter {
+
     @Override
     public void sendToServer(Booking request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-        int id = request.getId() ;
-        String status = request.getStatus() ;
+
         Call<Response<Booking>> call =
-                service.ChangeState(Token ,  id , status );
+                service.ChangeState(Token ,  request.getId() , request.getStatus()  );
 
         call.enqueue(this);
     }
