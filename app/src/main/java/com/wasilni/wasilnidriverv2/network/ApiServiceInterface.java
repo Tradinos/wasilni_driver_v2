@@ -24,4 +24,9 @@ public interface ApiServiceInterface {
     @PUT("booking/{booking}/action")
     Call<Response<Booking>> ChangeState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
 
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @PUT("check")
+    Call<Response<Boolean>> ChangeState(@Header("Authorization") String Authorization );
+
 }
