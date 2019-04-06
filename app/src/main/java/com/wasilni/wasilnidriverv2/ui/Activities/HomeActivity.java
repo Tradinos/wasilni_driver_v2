@@ -81,7 +81,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
 
 
         ChangeRideStatePresenterImp presenter =new ChangeRideStatePresenterImp();
-        presenter.sendToServer(new Booking("STARTED",1));
+        presenter.sendToServer(new Booking("DONE",1));
 
     }
 

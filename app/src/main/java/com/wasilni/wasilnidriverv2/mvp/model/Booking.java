@@ -16,6 +16,15 @@ public class Booking {
     @SerializedName("dates")
     @Expose
     List<String> dates ;
+    @SerializedName("price")
+    @Expose
+    String price ;
+    @SerializedName("to_pay")
+    @Expose
+    String to_pay ;
+    @SerializedName("summary")
+    @Expose
+    BookingSummary summary ;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -204,6 +213,27 @@ public class Booking {
         this.updatedAt = updatedAt;
     }
 
+    public String getPrice() {
+        return price;
+    }
 
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
+    public String getTo_pay() {
+        return to_pay;
+    }
+
+    public void setTo_pay(String to_pay) {
+        this.to_pay = to_pay;
+    }
+
+    public BookingSummary getSummary() {
+        return summary;
+    }
+
+    public void setSummary(BookingSummary summary) {
+        this.summary = summary;
+    }
 }
