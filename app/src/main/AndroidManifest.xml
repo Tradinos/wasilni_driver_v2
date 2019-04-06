@@ -51,7 +51,11 @@
         <activity
             android:name=".ui.Activities.HomeActivity"
             android:label="@string/title_activity_home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.Activities.Base.BasicActivity" />
         <activity android:name=".ui.Activities.Base.FullScreenActivity" />
@@ -73,11 +77,7 @@
         </service>
 
         <activity android:name=".ui.Activities.RegistrationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
