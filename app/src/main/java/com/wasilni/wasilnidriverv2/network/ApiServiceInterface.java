@@ -1,6 +1,7 @@
 package com.wasilni.wasilnidriverv2.network;
 
 
+import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @PUT("booking/{booking}/action")
-    Call<Response<Ride>> ChangeState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
+    Call<Response<Booking>> ChangeState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
 
 }
