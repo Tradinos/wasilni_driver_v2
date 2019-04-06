@@ -28,7 +28,7 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @GET("captain_rating_cause")
-    Call<Response<PaginationAPI<Cause>>> GetCauses(@Header("Authorization") String Authorization  , @Query("perPage") int perPage);
+    Call<Response<PaginationAPI<List<Cause>>>> GetCauses(@Header("Authorization") String Authorization  , @Query("perPage") int perPage);
 
     @Headers("Accept: application/json")
     @PUT("check")

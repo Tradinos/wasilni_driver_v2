@@ -23,8 +23,10 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.databinding.ActivityHomeBinding;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.ChangeRideStatePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
 import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
@@ -80,9 +82,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         }
 
 
-        ChangeRideStatePresenterImp presenter =new ChangeRideStatePresenterImp();
-        presenter.sendToServer(new Booking("DONE",1));
-
+        CauseContract.CausePresenter presenter = new CausePresenterImp(this);
+        presenter.sendToServer(null);
     }
 
     @Override
