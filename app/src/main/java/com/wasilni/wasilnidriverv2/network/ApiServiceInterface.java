@@ -6,6 +6,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 
 import java.util.List;
@@ -46,5 +47,18 @@ public interface ApiServiceInterface {
     @PUT("booking/{id}/pay")
     Call<Response<Payment>> Pay(@Header("Authorization") String Authorization , @Path("id") int id, @Field("passenger_paid_amount") String passenger_paid_amount );
 
+    @Headers("Accept: application/json")
+    @POST("notification_token")
+    Call<Response> FCMToken(@Header("Authorization") String Authorization ,@Query("notification_token") String notification_token);
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("request/verify")
+    Call<Response<User>> verifyCode(@Field("phone_number") String phone_number  , @Field("activation_code") String activation_code  , @Field("provider") String provider);
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("request/activation_code")
+    Call<Response> requestActivationCode(@Field("phone_number") String phone_number, @Field("provider") String provider);
 
 }
