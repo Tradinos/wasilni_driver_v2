@@ -4,6 +4,7 @@ package com.wasilni.wasilnidriverv2.network;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
+import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 
@@ -43,7 +44,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @PUT("booking/{id}/pay")
-    Call<Response> Pay(@Header("Authorization") String Authorization , @Path("id") int id,@Field("passenger_paid_amount") String passenger_paid_amount );
+    Call<Response<Payment>> Pay(@Header("Authorization") String Authorization , @Path("id") int id, @Field("passenger_paid_amount") String passenger_paid_amount );
 
 
 }
