@@ -10,6 +10,7 @@
 
 
         <include
+            android:id="@+id/include_toolbar"
             layout="@layout/content_toolbar" />
 
         <include layout="@layout/content_navigation" />
@@ -21,7 +22,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@+id/include_toolbar"
             android:layout_marginTop="-4dp"
             tools:context=".ui.Activities.HomeActivity" />
         <LinearLayout

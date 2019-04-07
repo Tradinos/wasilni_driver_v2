@@ -3,14 +3,13 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 import android.databinding.DataBindingUtil;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.ChangeBounds;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.florent37.viewanimator.ViewAnimator;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
-import com.wasilni.wasilnidriverv2.databinding.ActivityHomeBinding;
+import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
@@ -89,8 +85,10 @@ public class HomeActivity extends FragmentActivity implements
             driverStatusTextView.setText("You're online");
         }
 
-        this.testTripList();
         this.testBottomSheet();
+
+        CauseContract.CausePresenter presenter = new CausePresenterImp(this);
+        presenter.sendToServer(null);
     }
 
     @Override

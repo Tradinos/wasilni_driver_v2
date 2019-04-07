@@ -4,30 +4,35 @@ public enum RideStatus {
     // this enum descripe what i should todo now
 
 
-    GET_START_LOCATION(0) ,
-    GET_END_LOCATION (1) ,
-    FINISH_FROM_GET_LOCATION(2),
-    GET_DATA(3) ,
-//    SELECT_TYPE (5),
-//    SELECT_SERVICE(4),
-//    SEND_REQUEST(5)
+    STARTED("STARTED") ,
+    ARRIVED ("ARRIVED") ,
+    PICKED_UP("PICKED_UP"),
+    DONE("DONE") ,
     ;
-    int state ;
-     RideStatus(){
-        state = 0 ;
-    }
-    RideStatus(int state) {
+    String state ;
+
+    public void setState(String state) {
         this.state = state;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    RideStatus(String state) {
         this.state = state;
     }
-    public void nextStatus(){
-         state++;
+    public void nextState(){
+        switch (state){
+            case "STARTED" :
+                state = "ARRIVED";
+                break;
+            case "ARRIVED" :
+                state = "PICKED_UP";
+                break;
+            case "PICKED_UP" :
+                state = "DONE";
+                break;
+        }
     }
 }

@@ -4,7 +4,6 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 
 public class UtilUser {
     private static User user ;
-    public static RideStatus rideStatus = RideStatus.GET_START_LOCATION;
 
     public static User getUserInstance(){
         if(user == null){

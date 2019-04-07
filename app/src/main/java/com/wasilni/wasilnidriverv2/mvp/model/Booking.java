@@ -13,10 +13,18 @@ import java.util.List;
 
 public class Booking {
 
-    Activity activity ;
     @SerializedName("dates")
     @Expose
     List<String> dates ;
+    @SerializedName("price")
+    @Expose
+    String price ;
+    @SerializedName("to_pay")
+    @Expose
+    String to_pay ;
+    @SerializedName("summary")
+    @Expose
+    BookingSummary summary ;
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -31,7 +39,7 @@ public class Booking {
     private GeoJson pullDownLocation;
     @SerializedName("status")
     @Expose
-    private Integer status;
+    private String status;
     @SerializedName("passenger_id")
     @Expose
     private Integer passengerId;
@@ -71,6 +79,12 @@ public class Booking {
     public Booking() {
 
     }
+
+    public Booking(String status,int id) {
+        this.status = status ;
+        this.id = id ;
+    }
+
     public int getSeats() {
         return seats;
     }
@@ -127,11 +141,11 @@ public class Booking {
         this.pullDownLocation = pullDownLocation;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -199,6 +213,27 @@ public class Booking {
         this.updatedAt = updatedAt;
     }
 
+    public String getPrice() {
+        return price;
+    }
 
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
+    public String getTo_pay() {
+        return to_pay;
+    }
+
+    public void setTo_pay(String to_pay) {
+        this.to_pay = to_pay;
+    }
+
+    public BookingSummary getSummary() {
+        return summary;
+    }
+
+    public void setSummary(BookingSummary summary) {
+        this.summary = summary;
+    }
 }
