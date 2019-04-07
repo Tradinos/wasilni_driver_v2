@@ -66,4 +66,8 @@ public interface ApiServiceInterface {
     @POST("login")
     Call<Response<User>> Login(@Field("phone_number") String phone_number,@Field("password") String password, @Field("provider") String provider);
 
+    @Headers("Accept: application/json")
+    @POST("captain")
+    Call<Response<User>> CompleteInfo(@Body User user);
+
 }
