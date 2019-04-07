@@ -54,7 +54,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("request/verify")
-    Call<Response<User>> verifyCode(@Field("phone_number") String phone_number  , @Field("activation_code") String activation_code  , @Field("provider") String provider);
+    Call<Response<User>> VerifyCode(@Field("phone_number") String phone_number  , @Field("activation_code") String activation_code  , @Field("provider") String provider);
 
     @Headers("Accept: application/json")
     @FormUrlEncoded

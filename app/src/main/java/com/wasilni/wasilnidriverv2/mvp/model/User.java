@@ -14,7 +14,7 @@ public class User{
     private boolean isConfirmed ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
-            whatsapp_number="" , id_image="" , password
+            whatsapp_number="" , id_image="" , password="" , activation_code=""
             ;
     private boolean verified , gender;
     private int id ;
@@ -172,4 +172,11 @@ public class User{
         isLogingIn = logingIn;
     }
 
+    public String getActivation_code() {
+        return activation_code;
+    }
+
+    public void setActivation_code(String activation_code) {
+        this.activation_code = activation_code;
+    }
 }
