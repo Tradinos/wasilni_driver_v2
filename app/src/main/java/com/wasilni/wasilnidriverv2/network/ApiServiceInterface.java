@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.network;
 
 
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
@@ -29,7 +30,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("booking/{id}/rate")
-    Call<Response> Rate(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") String rating_cause_id , @Field("extra") String extra);
+    Call<Response<BookingCause>> Rate(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") int rating_cause_id , @Field("extra") String extra);
 
     @Headers("Accept: application/json")
     @GET("captain_rating_cause")

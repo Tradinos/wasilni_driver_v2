@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.mvp.view;
 
+import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -11,7 +12,7 @@ public interface RateCauseContract {
     public interface CausePresenter extends ServerPresenter<PaginationAPI<List<Cause>>> {
 
     }
-    public interface RatePresenter extends ServerPresenter<Object> {
+    public interface RatePresenter extends ServerPresenter<BookingCause> {
 
     }
 }
