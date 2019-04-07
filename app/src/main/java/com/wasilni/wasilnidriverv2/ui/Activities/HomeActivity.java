@@ -1,33 +1,21 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
-import android.databinding.DataBindingUtil;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.transition.ChangeBounds;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.florent37.viewanimator.ViewAnimator;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.databinding.ActivityHomeBinding;
-import com.wasilni.wasilnidriverv2.mvp.model.Booking;
-import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.presenter.ChangeRideStatePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
-import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
@@ -82,7 +70,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         }
 
 
-        CauseContract.CausePresenter presenter = new CausePresenterImp(this);
+        RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
     }
 

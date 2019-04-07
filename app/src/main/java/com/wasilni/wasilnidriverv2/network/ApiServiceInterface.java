@@ -29,7 +29,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("booking/{id}/rate")
-    Call<Response> ChangeState(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") String rating_cause_id , @Field("extra") String extra);
+    Call<Response> Rate(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") String rating_cause_id , @Field("extra") String extra);
 
     @Headers("Accept: application/json")
     @GET("captain_rating_cause")

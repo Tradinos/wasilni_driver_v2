@@ -2,10 +2,9 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
-import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
@@ -17,7 +16,7 @@ import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
-public class CausePresenterImp implements CauseContract.CausePresenter {
+public class CausePresenterImp implements RateCauseContract.CausePresenter {
     HomeActivity activity ;
     public CausePresenterImp(HomeActivity activity) {
         this.activity = activity ;
