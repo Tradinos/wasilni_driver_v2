@@ -55,4 +55,9 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="optional">(optional)</string>
+    <string name="seat_count"> seat count </string>
+    <string name="ready_to_pick_up_passenger">I am here, notify passenger</string>
+    <string name="on_the_way_pick_up_passenger">gonna pick up passenger</string>
+    <string name="picked_up_passenger">picked up passenger</string>
+    <string name="drop_off_passenger">drop-off done</string>
 </resources>

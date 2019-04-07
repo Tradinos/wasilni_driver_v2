@@ -1,8 +1,16 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,10 +24,19 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
+import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
+import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener , OnMapReadyCallback , HomeContract.HomeView {
+public class HomeActivity extends FragmentActivity implements
+        PickingUpPassengerFragment.OnFragmentInteractionListener,
+        View.OnClickListener,
+        OnMapReadyCallback,
+        HomeContract.HomeView {
 
     public GoogleMap mMap;
     public ImageView driverStatus;
@@ -34,6 +51,8 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        this.testTripList();
         initView();
     }
 
@@ -69,6 +88,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
             driverStatusTextView.setText("You're online");
         }
 
+        this.testBottomSheet();
 
         RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
@@ -97,5 +117,30 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
                 break;
 
         }
+    }
+
+    private void testBottomSheet(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment phoneRegFragment = new PickingUpPassengerFragment();
+        fragmentTransaction.add(R.id.fragment_bottom_sheet,phoneRegFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void testTripList(){
+        Log.d("SAED", "testTripList: what is going here");
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // specify an adapter (see also next example)
+        TripsAdapter mAdapter = new TripsAdapter();
+        recyclerView.setAdapter(mAdapter);
     }
 }

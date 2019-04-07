@@ -14,6 +14,9 @@ import android.widget.FrameLayout;
 
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.GettingPassengerFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RatingDialog;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PersonalInfoRegistrationFragment;
@@ -30,6 +33,8 @@ public class RegistrationActivity extends BasicActivity implements
         HomeContract.HomeView,
         PhoneVerificationFragment.OnFragmentInteractionListener ,
         RegistrationFragment.OnFragmentInteractionListener ,
+        PickingUpPassengerFragment.OnFragmentInteractionListener ,
+        GettingPassengerFragment.OnFragmentInteractionListener ,
         PersonalInfoRegistrationFragment.OnFragmentInteractionListener ,
         CivilInfoRegistrationFragment.OnFragmentInteractionListener ,
         CarInfoRegistrationFragment.OnFragmentInteractionListener ,
@@ -53,6 +58,9 @@ public class RegistrationActivity extends BasicActivity implements
         Fragment phoneRegFragment = new PhoneRegistrationFragment();
         fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
         fragmentTransaction.commit();
+
+//        RatingDialog.newInstance().show(getSupportFragmentManager(),"rating_dialog");
+//        PickingUpPassengerFragment.newInstance().show(getSupportFragmentManager(),"PickingUpPassengerFragment");
     }
 
     @Override
