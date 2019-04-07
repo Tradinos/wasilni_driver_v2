@@ -59,7 +59,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("request/activation_code")
-    Call<Response> requestActivationCode(@Field("phone_number") String phone_number, @Field("provider") String provider);
+    Call<Response<User>> RequestActivationCode(@Field("phone_number") String phone_number, @Field("provider") String provider);
 
     @Headers("Accept: application/json")
     @FormUrlEncoded
