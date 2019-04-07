@@ -61,4 +61,9 @@ public interface ApiServiceInterface {
     @POST("request/activation_code")
     Call<Response> requestActivationCode(@Field("phone_number") String phone_number, @Field("provider") String provider);
 
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("login")
+    Call<Response<User>> Login(@Field("phone_number") String phone_number,@Field("password") String password, @Field("provider") String provider);
+
 }
