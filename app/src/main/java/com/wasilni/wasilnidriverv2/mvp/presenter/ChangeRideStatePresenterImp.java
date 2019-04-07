@@ -24,7 +24,7 @@ public class ChangeRideStatePresenterImp implements ChangeRideContract.ChangeRid
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<Response<Booking>> call =
-                service.ChangeState(Token ,  request.getId() , request.getStatus()  );
+                service.ChangeBookingState(Token ,  request.getId() , request.getStatus()  );
 
         call.enqueue(this);
     }

@@ -27,7 +27,7 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
 
         /** Call the method with parameter in the interface to get the notice data*/
         Call<Response<Boolean>> call =
-                service.ChangeState(Token);
+                service.ChangeDriverState(Token);
 
         call.enqueue(this);
     }

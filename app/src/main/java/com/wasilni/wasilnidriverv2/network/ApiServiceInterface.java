@@ -25,7 +25,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @PUT("booking/{booking}/action")
-    Call<Response<Booking>> ChangeState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
+    Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
 
     @Headers("Accept: application/json")
     @FormUrlEncoded
@@ -38,6 +38,12 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @PUT("check")
-    Call<Response<Boolean>> ChangeState(@Header("Authorization") String Authorization );
+    Call<Response<Boolean>> ChangeDriverState(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @PUT("booking/{id}/pay")
+    Call<Response> Pay(@Header("Authorization") String Authorization , @Path("id") int id,@Field("passenger_paid_amount") String passenger_paid_amount );
+
 
 }
