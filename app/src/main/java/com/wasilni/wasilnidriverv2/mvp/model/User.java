@@ -14,7 +14,7 @@ public class User{
     private boolean isConfirmed ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
-            whatsapp_number="" , id_image=""
+            whatsapp_number="" , id_image="" , password
             ;
     private boolean verified , gender;
     private int id ;
@@ -148,7 +148,13 @@ public class User{
     }
 
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public boolean isConfirmed() {
         return isConfirmed;
