@@ -50,7 +50,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
 
     @Override
     public int getItemViewType(int position) {
-
+        Log.e("status", "getItemViewType: "+position+" "+list.get(position).getStatus());
         switch (list.get(position).getStatus()){
             case "PENDING" :{
                 return 0;

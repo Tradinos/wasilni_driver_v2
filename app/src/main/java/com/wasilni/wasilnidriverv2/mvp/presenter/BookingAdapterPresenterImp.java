@@ -11,6 +11,8 @@ import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
+import java.util.List;
+
 public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresenter<Booking, BookingAdapter.BookingItemViewHolder> {
 
     BookingAdapter mAdapter;
@@ -41,6 +43,11 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
                 Log.e("change1", "onClick: "+object.getStatus() );
 
                 object.setStatus(RideStatus.nextState(object.getStatus()));
+                if(object.getStatus().equals("DONE")){
+                    List<Booking> list = mAdapter.getList();
+                    list.remove(object);
+                    mAdapter.setList(list);
+                }
                 // refreshAdapter and recycler view
                 Log.e("change2", "onClick: "+object.getStatus() );
                 mAdapter.notifyDataSetChanged();
