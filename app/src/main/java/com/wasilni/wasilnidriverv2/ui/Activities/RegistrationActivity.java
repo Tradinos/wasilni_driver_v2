@@ -2,39 +2,28 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.transition.FragmentTransitionSupport;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.GettingPassengerFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.RatingDialog;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PersonalInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
-import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import com.wasilni.wasilnidriverv2.R;
-
-import org.greenrobot.eventbus.util.ErrorDialogManager;
 
 public class RegistrationActivity extends BasicActivity implements
         HomeContract.HomeView,
         PhoneVerificationFragment.OnFragmentInteractionListener ,
         RegistrationFragment.OnFragmentInteractionListener ,
-        PickingUpPassengerFragment.OnFragmentInteractionListener ,
-        GettingPassengerFragment.OnFragmentInteractionListener ,
         PersonalInfoRegistrationFragment.OnFragmentInteractionListener ,
         CivilInfoRegistrationFragment.OnFragmentInteractionListener ,
         CarInfoRegistrationFragment.OnFragmentInteractionListener ,
@@ -60,7 +49,6 @@ public class RegistrationActivity extends BasicActivity implements
         fragmentTransaction.commit();
 
 //        RatingDialog.newInstance().show(getSupportFragmentManager(),"rating_dialog");
-//        PickingUpPassengerFragment.newInstance().show(getSupportFragmentManager(),"PickingUpPassengerFragment");
     }
 
     @Override

@@ -25,19 +25,11 @@ import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.DropOffPassengerFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.GettingPassengerFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.PickedUpPassengerFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public class HomeActivity extends FragmentActivity implements
-        PickingUpPassengerFragment.OnFragmentInteractionListener,
-        PickedUpPassengerFragment.OnFragmentInteractionListener,
-        GettingPassengerFragment.OnFragmentInteractionListener,
-        DropOffPassengerFragment.OnFragmentInteractionListener,
         TripPassengersActionsFragment.OnFragmentInteractionListener,
         View.OnClickListener,
         OnMapReadyCallback,
