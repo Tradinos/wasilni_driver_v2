@@ -23,11 +23,10 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
-import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
+import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -141,16 +140,12 @@ public class HomeActivity extends FragmentActivity implements
         Log.d("SAED", "testTripList: what is going here");
         recyclerView = findViewById(R.id.my_recycler_view);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        TripsAdapter mAdapter = new TripsAdapter();
+        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter();
         recyclerView.setAdapter(mAdapter);
     }
 }

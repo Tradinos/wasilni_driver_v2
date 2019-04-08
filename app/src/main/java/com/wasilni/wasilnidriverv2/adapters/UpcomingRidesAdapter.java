@@ -1,6 +1,5 @@
 package com.wasilni.wasilnidriverv2.adapters;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,17 +10,17 @@ import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
 
-public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.MyViewHolder> {
+public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdapter.MyViewHolder> {
     private String[] mDataset;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TripsAdapter() {
+    public UpcomingRidesAdapter() {
 //        mDataset = myDataset;
     }
 
     @Override
-    public TripsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+    public UpcomingRidesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                int viewType) {
         // create a new view
         View v;
         if(viewType == 1)
