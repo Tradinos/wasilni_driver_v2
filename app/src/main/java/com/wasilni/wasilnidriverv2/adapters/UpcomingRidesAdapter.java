@@ -12,22 +12,26 @@ import android.widget.TextView;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.UpComingRidesAdapterPresenterImp;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
 import java.util.List;
 
 public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdapter.RideViewHolder> {
     private List<Ride> list ;
     private Activity activity ;
+    private TripPassengersActionsFragment fragment;
     private UpComingRidesAdapterPresenterImp presenter ;
     // Provide a suitable constructor (depends on the kind of dataset)
     public UpcomingRidesAdapter() {
 //        mDataset = myDataset;
     }
 
-    public UpcomingRidesAdapter(List<Ride> list, Activity activity) {
-        this.list = list;
-        this.activity = activity;
-        presenter = new UpComingRidesAdapterPresenterImp();
+    public UpcomingRidesAdapter(List<Ride> list, Activity activity, TripPassengersActionsFragment tripPassengersActionsFragment) {
+        this.list = list ;
+        this.activity =activity ;
+        this.fragment = tripPassengersActionsFragment;
+        presenter = new UpComingRidesAdapterPresenterImp(fragment);
     }
 
     @Override
@@ -51,7 +55,9 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 1)
+
+        Ride ride = list.get(position );
+        if(ride.getBookings_count() > 1)
         {
             return 1;
         }
@@ -76,8 +82,8 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
 
     public static class RideViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        TextView startPlace , duration , passengerName ;
-        CardView allItem ;
+        public TextView startPlace , duration , passengerName ;
+        public CardView allItem ;
         public RideViewHolder(View v) {
             super(v);
             startPlace = v.findViewById(R.id.start_place);

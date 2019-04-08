@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class TripPassengersActionsFragment extends BottomSheetFragment {
     private OnFragmentInteractionListener mListener;
-
+    public BookingAdapter mAdapter ;
     public TripPassengersActionsFragment() {
         // Required empty public constructor
     }
@@ -98,7 +98,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
         list.add(new Booking(RideStatus.DONE.toString()));
 
 
-        BookingAdapter mAdapter = new BookingAdapter(list,getActivity()  );
+        mAdapter = new BookingAdapter(list,getActivity()  );
         recyclerView.setAdapter(mAdapter);
     }
     public void onButtonPressed(Uri uri) {

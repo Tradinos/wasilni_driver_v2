@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
@@ -27,6 +28,9 @@ import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -45,7 +49,7 @@ public class HomeActivity extends FragmentActivity implements
     public Button notificationButton ;
     public ImageButton passengersActionsBtn;
     public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance();
-    private BottomSheetLayout bottomSheet;
+    public BottomSheetLayout bottomSheet;
 
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
@@ -145,7 +149,12 @@ public class HomeActivity extends FragmentActivity implements
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter();
+        List<Ride> list = new ArrayList();
+        list.add(new Ride("mahmoud","مزة",1));
+        list.add(new Ride("ahmad","حمرا",1));
+        list.add(new Ride("kinan","ركن الدين",1));
+        list.add(new Ride("mahmoud","ميدان",3));
+        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter(list,this,tripPassengersActionsFragment);
         recyclerView.setAdapter(mAdapter);
     }
 }
