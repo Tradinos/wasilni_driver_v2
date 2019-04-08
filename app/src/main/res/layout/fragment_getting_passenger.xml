@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Dialogs.GettingPassengerFragment">
 
@@ -11,6 +11,7 @@
         android:layout_marginStart="@dimen/bottom_sheet_margin_hor"
         android:layout_marginBottom="@dimen/bottom_sheet_margin_ver"
         app:cardCornerRadius="15dp"
+        android:id="@+id/item"
         app:cardBackgroundColor="@color/wasilni_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -79,11 +80,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/region"
+                        android:id="@+id/start_place"
                         android:text="مرة اتوستراد"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/details"
                         android:text="مفرق مدرسة عادلة الثانوية "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -93,7 +95,7 @@
                     android:id="@+id/seat_img"
                     android:src="@drawable/car_seat"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/seat_count"
+                    app:layout_constraintBottom_toBottomOf="@id/seat_count"
                     app:layout_constraintTop_toTopOf="@id/seat_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -125,25 +127,26 @@
                 android:padding="@dimen/bottom_sheet_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/call_passenger"
-                    android:src="@drawable/whatsapp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/whatsapp_passenger"
-                    android:src="@drawable/ic_call"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/whatsapp" />
+
+                <ImageView
+                    android:id="@+id/call_passenger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_call" />
 
                 <Button
                     android:layout_weight="1"
-                    android:id="@+id/saw"
+                    android:id="@+id/change_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/notification_btn_bg"
