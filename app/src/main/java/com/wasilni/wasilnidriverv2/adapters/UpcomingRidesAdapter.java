@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.presenter.UpComingRidesAdapterPresenterImp;
 
 import java.util.List;
 
 public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdapter.RideViewHolder> {
     private List<Ride> list ;
     private Activity activity ;
+    private UpComingRidesAdapterPresenterImp presenter ;
     // Provide a suitable constructor (depends on the kind of dataset)
     public UpcomingRidesAdapter() {
 //        mDataset = myDataset;
@@ -25,6 +27,7 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     public UpcomingRidesAdapter(List<Ride> list, Activity activity) {
         this.list = list;
         this.activity = activity;
+        presenter = new UpComingRidesAdapterPresenterImp();
     }
 
     @Override
@@ -61,7 +64,8 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     @Override
     public void onBindViewHolder(RideViewHolder holder, int position) {
 //        holder.textView.setText(mDataset[position]);
-
+        Ride ride = list.get(position) ;
+        presenter.ObjectToHolder(ride , holder, activity);
     }
 
     @Override
