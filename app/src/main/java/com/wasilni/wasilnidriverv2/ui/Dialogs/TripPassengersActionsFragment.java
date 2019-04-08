@@ -1,30 +1,25 @@
 package com.wasilni.wasilnidriverv2.ui.Dialogs;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.TripPassengersActionsAdapter;
+import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.util.RideStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,14 +83,22 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
+       // recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        TripPassengersActionsAdapter mAdapter = new TripPassengersActionsAdapter();
+        List<Booking> list = new ArrayList<>() ;
+        list.add(new Booking(RideStatus.STARTED.toString()));
+        list.add(new Booking(RideStatus.ARRIVED.toString()));
+        list.add(new Booking(RideStatus.PENDING.toString()));
+        list.add(new Booking(RideStatus.PICKED_UP.toString()));
+        list.add(new Booking(RideStatus.DONE.toString()));
+
+
+        BookingAdapter mAdapter = new BookingAdapter(list,getActivity()  );
         recyclerView.setAdapter(mAdapter);
     }
     public void onButtonPressed(Uri uri) {

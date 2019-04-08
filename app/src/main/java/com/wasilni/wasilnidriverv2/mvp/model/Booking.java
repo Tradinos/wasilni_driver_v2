@@ -80,7 +80,11 @@ public class Booking {
 
     }
 
-    public Booking(String status,int id) {
+    public Booking(String status) {
+        this.status = status;
+    }
+
+    public Booking(String status, int id) {
         this.status = status ;
         this.id = id ;
     }
