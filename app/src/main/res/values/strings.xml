@@ -26,6 +26,7 @@
     <string name="male">male</string>
     <string name="female">female</string>
     <string name="date_hint">dd/mm/yyyy</string>
+    <string name="time_hint">hh:mm</string>
     <string name="region">region</string>
     <string name="region_details">region details</string>
     <string name="nationality">nationality</string>
@@ -60,4 +61,15 @@
     <string name="on_the_way_pick_up_passenger">gonna pick up passenger</string>
     <string name="picked_up_passenger">picked up passenger</string>
     <string name="drop_off_passenger">drop-off done</string>
+
+    <string name="preferred_time_interview">preferred time for an interview </string>
+    <string name="preferred_date_interview">preferred date for an interview </string>
+
+    <string name="waslni_region">Baramkah</string>
+    <string name="waslni_address">free zone - Nahaas company</string>
+
+    <string name="rate">rate</string>
+    <string name="waiting"> waiting </string>
+    <string name="calculated_cost"> calculated cost</string>
+    <string name="booking_cost"> booking cost </string>
 </resources>

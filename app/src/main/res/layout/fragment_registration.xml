@@ -17,7 +17,7 @@
 
 
     <android.support.design.widget.TabLayout
-        android:id="@id/tab_layout"
+        android:id="@+id/tab_layout"
         app:layout_constraintBottom_toTopOf="@+id/register"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@id/register"
+        android:id="@+id/register"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/captain_register"
         android:textColor="@color/white"

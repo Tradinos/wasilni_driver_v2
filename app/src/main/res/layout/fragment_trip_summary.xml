@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.Dialogs.TripSummaryFragment">
+    <android.support.constraint.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            android:padding="@dimen/register_card_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="116dp"
+                    android:text="Sara"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/rate_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rate"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_goneMarginEnd="12dp" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:padding="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/marker_red"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/marker_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/trip_source"
+                    android:text="mazxa highway - alakram"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/marker_red"
+                    app:layout_constraintBottom_toBottomOf="@id/marker_red"
+                    app:layout_constraintTop_toTopOf="@id/marker_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/dots"
+                    android:text="........."
+                    app:layout_constraintStart_toEndOf="@id/trip_source"
+                    app:layout_constraintBottom_toBottomOf="@id/marker_red"
+                    app:layout_constraintTop_toTopOf="@id/marker_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/trip_destination"
+                    android:text="mazxa highway - alakram"
+                    app:layout_constraintStart_toEndOf="@id/dots"
+                    app:layout_constraintBottom_toBottomOf="@id/marker_red"
+                    app:layout_constraintTop_toTopOf="@id/marker_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/station"
+                    app:layout_constraintStart_toStartOf="@id/marker_red"
+                    app:layout_constraintEnd_toEndOf="@id/marker_red"
+                    app:layout_constraintTop_toBottomOf="@id/marker_red"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/gasoline_station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/trip_length"
+                    android:text="4 كم"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/station"
+                    app:layout_constraintBottom_toBottomOf="@id/station"
+                    app:layout_constraintTop_toTopOf="@id/station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/time_img"
+                    app:layout_constraintStart_toStartOf="@id/marker_red"
+                    app:layout_constraintEnd_toEndOf="@id/marker_red"
+                    app:layout_constraintTop_toBottomOf="@id/station"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/watch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/trip_duration"
+                    android:text="4 د"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/time_img"
+                    app:layout_constraintBottom_toBottomOf="@id/time_img"
+                    app:layout_constraintTop_toTopOf="@id/time_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/trip_wait_duration"
+                    android:text="0 د"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/time_img"
+                    app:layout_constraintTop_toTopOf="@id/time_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="الانتظار"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/trip_wait_duration"
+                    app:layout_constraintBottom_toBottomOf="@id/time_img"
+                    app:layout_constraintTop_toTopOf="@id/time_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:paddingTop="@dimen/register_card_padding"
+                android:paddingBottom="@dimen/register_card_padding"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:background="@drawable/gray_border"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginStart="4dp"
+                        android:text="@string/calculated_cost"
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@color/gray"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/calculated_cost"
+                        android:layout_marginStart="4dp"
+                        android:text="500"
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:background="@drawable/gray_border"
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginStart="4dp"
+                        android:text="@string/booking_cost"
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@color/gray"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/booking_cost"
+                        android:layout_marginStart="4dp"
+                        android:text="500"
+                        android:src="@drawable/coins"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <EditText
+                android:paddingBottom="@dimen/register_card_padding"
+                android:hint="took"
+                android:padding="4dp"
+                android:gravity="center"
+                android:id="@+id/delivered_money"
+                android:background="@drawable/primary_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/done_label"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/gradient_red_radius_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/passenger_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:src="@drawable/test_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

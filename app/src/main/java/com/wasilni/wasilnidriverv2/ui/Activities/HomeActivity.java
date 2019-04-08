@@ -26,11 +26,13 @@ import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
+        TripSummaryFragment.OnFragmentInteractionListener ,
         View.OnClickListener,
         OnMapReadyCallback,
         HomeContract.HomeView {
@@ -112,6 +114,7 @@ public class HomeActivity extends FragmentActivity implements
         RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
         passengersActionsBtn.setOnClickListener(this);
+        TripSummaryFragment.newInstance().show(getSupportFragmentManager(), "TripSummaryFragment");
     }
 
     @Override

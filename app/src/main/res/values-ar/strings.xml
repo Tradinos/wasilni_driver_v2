@@ -47,4 +47,14 @@
     <string name="picked_up_passenger">خدت الزبون</string>
     <string name="drop_off_passenger">تم توصيل</string>
 
+    <string name="preferred_time_interview">التوقيت المناسب لإجراء المقابلة</string>
+    <string name="preferred_date_interview">التاريخ المناسب لإجراء المقابلة</string>
+
+    <string name="waslni_region">برامكة</string>
+    <string name="waslni_address">المنطقة الحرة - شركة نحاس</string>
+
+    <string name="rate">تقييم</string>
+    <string name="waiting"> الانتظار </string>
+    <string name="calculated_cost">التكلفة المستحقة</string>
+    <string name="booking_cost"> تكلفة الحجز </string>
 </resources>
