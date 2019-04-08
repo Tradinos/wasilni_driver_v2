@@ -28,6 +28,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
         presenter = new BookingAdapterPresenterImp(this);
     }
 
+    public List<Booking> getList() {
+        return list;
+    }
+
+    public void setList(List<Booking> list) {
+        this.list = list;
+    }
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(BookingItemViewHolder holder, int position) {

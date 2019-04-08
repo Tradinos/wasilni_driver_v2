@@ -9,9 +9,17 @@ public class Ride  {
     String status ;
     String start_datetime ;
     String passengaer_name;
+    String pick_up_location_name;
+    int bookings_count ;
     List<Booking> bookings ;
     public Ride(String status ) {
         this.status = status ;
+    }
+
+    public Ride(String passengaer_name, String pick_up_location_name, int bookings_count) {
+        this.passengaer_name = passengaer_name;
+        this.pick_up_location_name = pick_up_location_name;
+        this.bookings_count = bookings_count;
     }
 
     public String getStatus() {
@@ -44,5 +52,22 @@ public class Ride  {
 
     public void setPassengaer_name(String passengaer_name) {
         this.passengaer_name = passengaer_name;
+    }
+
+    public int getBookings_count() {
+        return bookings_count;
+    }
+
+    public void setBookings_count(int bookings_count) {
+        this.bookings_count = bookings_count;
+    }
+
+
+    public String getPick_up_location_name() {
+        return pick_up_location_name;
+    }
+
+    public void setPick_up_location_name(String pick_up_location_name) {
+        this.pick_up_location_name = pick_up_location_name;
     }
 }
