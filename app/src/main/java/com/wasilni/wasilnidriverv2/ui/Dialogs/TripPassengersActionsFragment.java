@@ -91,7 +91,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
 
         // specify an adapter (see also next example)
         List<Booking> list = new ArrayList<>() ;
-        list.add(new Booking(RideStatus.STARTED.toString()));
+        list.add(new Booking(RideStatus.DONE.toString()));
         list.add(new Booking(RideStatus.ARRIVED.toString()));
         list.add(new Booking(RideStatus.PENDING.toString()));
         list.add(new Booking(RideStatus.PICKED_UP.toString()));

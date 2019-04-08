@@ -49,6 +49,10 @@ public class HomeActivity extends FragmentActivity implements
     public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance();
     private BottomSheetLayout bottomSheet;
 
+    public static final int PEEK_HEIGHT_DROP_OFF = 250;
+    public static final int PEEK_HEIGHT_PICKED_UP = 150;
+    public static final int PEEK_HEIGHT_NOMRAL = 200;
+
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,7 @@ public class HomeActivity extends FragmentActivity implements
         bottomSheet.setInterceptContentTouch(false);
         bottomSheet.setShouldDimContentView(false);
         bottomSheet.setPeekOnDismiss(true);
-        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this,200));
+        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this,PEEK_HEIGHT_NOMRAL));
 
         bottomSheet.addOnSheetDismissedListener(new OnSheetDismissedListener() {
             @Override
@@ -133,6 +137,11 @@ public class HomeActivity extends FragmentActivity implements
                 this.passengersActionsBtn.setVisibility(View.INVISIBLE);
                 break;
         }
+    }
+
+    public void changePeekHeight(int height){
+        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, height));
+
     }
 
     private void testBottomSheet(){
