@@ -44,6 +44,7 @@ public class HomeActivity extends FragmentActivity implements
         HomeContract.HomeView {
 
     public GoogleMap mMap;
+    public RecyclerView recyclerView;
     public ImageView driverStatus;
     public TextView driverStatusTextView ;
     public LinearLayout onlineOfflineLayout ;
@@ -89,7 +90,7 @@ public class HomeActivity extends FragmentActivity implements
 
 
         // Init bottom sheet
-        bottomSheet = (BottomSheetLayout) findViewById(R.id.bottomsheet);
+        bottomSheet =  findViewById(R.id.bottomsheet);
         bottomSheet.setInterceptContentTouch(false);
         bottomSheet.setShouldDimContentView(false);
         bottomSheet.setPeekOnDismiss(true);
@@ -104,16 +105,7 @@ public class HomeActivity extends FragmentActivity implements
 
         notificationButton.setOnClickListener(this);
         driverStatus.setOnClickListener(this);
-        if(!UtilUser.getUserInstance().isChecked()){
-            driverStatus.setImageResource(R.mipmap.power_off);
-            driverStatusTextView.setText("You're offline");
-        }
-        else
-        {
-            driverStatus.setImageResource(R.mipmap.power_on);
-            driverStatusTextView.setText("You're online");
-        }
-
+        presenter.checkDriverStatus();
         this.testBottomSheet();
 
 
@@ -155,7 +147,7 @@ public class HomeActivity extends FragmentActivity implements
 
     private void testTripList(){
         Log.d("SAED", "testTripList: what is going here");
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView = findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView

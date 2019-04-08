@@ -43,6 +43,9 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
             UtilUser.getUserInstance().setChecked(false);
             activity.driverStatus.setImageResource(R.mipmap.power_off);
             activity.driverStatusTextView.setText("You're offline");
+            activity.passengersActionsBtn.setVisibility(View.INVISIBLE);
+            activity.recyclerView.setVisibility(View.INVISIBLE);
+
             ViewAnimator
                     .animate(activity.bottomLayout)
                     .translationY(activity.onlineOfflineLayout.getHeight() , 0)
@@ -55,6 +58,10 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
             UtilUser.getUserInstance().setChecked(true);
             activity.driverStatus.setImageResource(R.mipmap.power_on);
             activity.driverStatusTextView.setText("You're online");
+            activity.passengersActionsBtn.setVisibility(View.VISIBLE);
+            activity.recyclerView.setVisibility(View.VISIBLE);
+
+
             ViewAnimator
                     .animate(activity.bottomLayout)
                     .translationY(0 ,activity.onlineOfflineLayout.getHeight() )
@@ -90,5 +97,23 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
     @Override
     public void unregesterRecivers() {
         unregesterNotification();
+    }
+
+    @Override
+    public void checkDriverStatus() {
+        if(!UtilUser.getUserInstance().isChecked()){
+            activity.driverStatus.setImageResource(R.mipmap.power_off);
+            activity.driverStatusTextView.setText("You're offline");
+            activity.passengersActionsBtn.setVisibility(View.INVISIBLE);
+            activity.recyclerView.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            activity.driverStatus.setImageResource(R.mipmap.power_on);
+            activity.driverStatusTextView.setText("You're online");
+            activity.passengersActionsBtn.setVisibility(View.VISIBLE);
+            activity.recyclerView.setVisibility(View.VISIBLE);
+        }
+
     }
 }
