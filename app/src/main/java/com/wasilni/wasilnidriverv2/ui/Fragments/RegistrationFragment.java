@@ -111,15 +111,32 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.register:
-                if(((FormContract)this.registrationViewPagerAdapter.getCurrentFragment()).validate()) {
-                    UtilFunction.showToast(getActivity(),"I am valid");
-                } else {
-                    UtilFunction.showToast(getActivity(),"I am not valid damn it");
-                }
+                this.validate();
+//                if(((FormContract)this.registrationViewPagerAdapter.getCurrentFragment()).validate()) {
+//                    UtilFunction.showToast(getActivity(),"I am valid");
+//                } else {
+//                    UtilFunction.showToast(getActivity(),"I am not valid damn it");
+//                }
             break;
         }
     }
 
+    private void validate(){
+
+        boolean valid = true;
+        for (int i = 0 ; i < 3 ; i++){
+            if(!((FormContract)this.registrationViewPagerAdapter.getItem(i)).validate()) {
+                valid = false;
+                this.viewPager.setCurrentItem(i,true);
+                break;
+            }
+        }
+        if(valid)
+        {
+            this.mListener.goToInterviewBooking();
+        }
+
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -131,5 +148,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void goToInterviewBooking();
     }
 }

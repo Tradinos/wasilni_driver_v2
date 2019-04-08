@@ -11,8 +11,10 @@ import android.widget.FrameLayout;
 
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
+import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PersonalInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
@@ -24,6 +26,7 @@ public class RegistrationActivity extends BasicActivity implements
         HomeContract.HomeView,
         PhoneVerificationFragment.OnFragmentInteractionListener ,
         RegistrationFragment.OnFragmentInteractionListener ,
+        InterviewRegistrationFragment.OnFragmentInteractionListener ,
         PersonalInfoRegistrationFragment.OnFragmentInteractionListener ,
         CivilInfoRegistrationFragment.OnFragmentInteractionListener ,
         CarInfoRegistrationFragment.OnFragmentInteractionListener ,
@@ -44,11 +47,12 @@ public class RegistrationActivity extends BasicActivity implements
         Log.d("SAED", "initView: I am doing this for the greater good ");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment phoneRegFragment = new PhoneRegistrationFragment();
+        Fragment phoneRegFragment = new RegistrationFragment();
         fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
         fragmentTransaction.commit();
 
 //        RatingDialog.newInstance().show(getSupportFragmentManager(),"rating_dialog");
+//        PickingUpPassengerFragment.newInstance().show(getSupportFragmentManager(),"PickingUpPassengerFragment");
     }
 
     @Override
@@ -73,6 +77,10 @@ public class RegistrationActivity extends BasicActivity implements
     @Override
     public void goToRegistrationFragment() {
         changeFragment(new RegistrationFragment());
+    }
 
+    @Override
+    public void goToInterviewBooking() {
+        changeFragment(new InterviewRegistrationFragment());
     }
 }

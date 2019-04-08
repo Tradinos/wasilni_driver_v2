@@ -27,6 +27,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.List;
 
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
+        TripSummaryFragment.OnFragmentInteractionListener ,
         View.OnClickListener,
         OnMapReadyCallback,
         HomeContract.HomeView {

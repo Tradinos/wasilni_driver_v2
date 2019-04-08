@@ -9,9 +9,12 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PersonalInfoRegistrationFragment;
 
+import java.util.ArrayList;
+
 public class RegistrationViewPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentFragment;
+    private ArrayList<Fragment> fragments;
 
     public Fragment getCurrentFragment() {
         return mCurrentFragment;
@@ -19,28 +22,25 @@ public class RegistrationViewPagerAdapter extends FragmentPagerAdapter {
 
     public RegistrationViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        this.fragments = new ArrayList<>();
+        this.fragments.add(new PersonalInfoRegistrationFragment());
+        this.fragments.add(new CivilInfoRegistrationFragment());
+        this.fragments.add(new CarInfoRegistrationFragment());
+
     }
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (getCurrentFragment() != object) {
             mCurrentFragment = ((Fragment) object);
         }
+
         super.setPrimaryItem(container, position, object);
     }
 
 
     @Override
     public Fragment getItem(int i) {
-        switch (i)
-        {
-            case 0:
-                return new PersonalInfoRegistrationFragment(); //ChildFragment1 at position 0
-            case 1:
-                return new CivilInfoRegistrationFragment(); //ChildFragment1 at position 0
-            case 2:
-                return new CarInfoRegistrationFragment(); //ChildFragment1 at position 0
-        }
-        return null; //does not happen
+        return fragments.get(i);
     }
 
     @Override
