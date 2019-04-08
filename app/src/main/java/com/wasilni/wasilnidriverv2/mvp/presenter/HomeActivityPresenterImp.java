@@ -9,7 +9,6 @@ import android.view.View;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.databinding.ActivityHomeBinding;
 import com.wasilni.wasilnidriverv2.databinding.ContentToolbarBinding;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
