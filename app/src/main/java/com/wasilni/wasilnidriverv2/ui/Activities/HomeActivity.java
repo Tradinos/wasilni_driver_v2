@@ -1,8 +1,10 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
-import android.databinding.DataBindingUtil;
+import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -11,12 +13,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.flipboard.bottomsheet.OnSheetDismissedListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -26,11 +33,20 @@ import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.DropOffPassengerFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.GettingPassengerFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.PickedUpPassengerFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.PickingUpPassengerFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public class HomeActivity extends FragmentActivity implements
         PickingUpPassengerFragment.OnFragmentInteractionListener,
+        PickedUpPassengerFragment.OnFragmentInteractionListener,
+        GettingPassengerFragment.OnFragmentInteractionListener,
+        DropOffPassengerFragment.OnFragmentInteractionListener,
+        TripPassengersActionsFragment.OnFragmentInteractionListener,
         View.OnClickListener,
         OnMapReadyCallback,
         HomeContract.HomeView {
@@ -43,6 +59,10 @@ public class HomeActivity extends FragmentActivity implements
     public ImageView notificationImageView ;
     public ConstraintLayout newOrderLayout ;
     public Button notificationButton ;
+    public ImageButton passengersActionsBtn;
+    public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance();
+    private BottomSheetLayout bottomSheet;
+
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +70,7 @@ public class HomeActivity extends FragmentActivity implements
         setContentView(R.layout.activity_home);
 
         this.testTripList();
+
         initView();
     }
 
@@ -72,6 +93,34 @@ public class HomeActivity extends FragmentActivity implements
         newOrderLayout = findViewById(R.id.new_order_layout) ;
         bottomLayout = findViewById(R.id.bottom_layout) ;
         notificationButton = findViewById(R.id.saw);
+        passengersActionsBtn = findViewById(R.id.passenger_actions_btn);
+
+
+        // Init bottom sheet
+        bottomSheet = (BottomSheetLayout) findViewById(R.id.bottomsheet);
+        bottomSheet.setInterceptContentTouch(false);
+        bottomSheet.setShouldDimContentView(false);
+        bottomSheet.setPeekOnDismiss(true);
+        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this,200));
+
+        bottomSheet.addOnSheetStateChangeListener(new BottomSheetLayout.OnSheetStateChangeListener() {
+            @Override
+            public void onSheetStateChanged(BottomSheetLayout.State state) {
+//                if(state == BottomSheetLayout.State.EXPANDED)
+//                {
+//                    bottomSheet.setShouldDimContentView(true);
+//                }
+//                else{
+//                    bottomSheet.setShouldDimContentView(false);
+//                }
+            }
+        });
+        bottomSheet.addOnSheetDismissedListener(new OnSheetDismissedListener() {
+            @Override
+            public void onDismissed(BottomSheetLayout bottomSheetLayout) {
+                passengersActionsBtn.setVisibility(View.VISIBLE);
+            }
+        });
 
         notificationButton.setOnClickListener(this);
         driverStatus.setOnClickListener(this);
@@ -88,7 +137,9 @@ public class HomeActivity extends FragmentActivity implements
         this.testBottomSheet();
 
         CauseContract.CausePresenter presenter = new CausePresenterImp(this);
+
         presenter.sendToServer(null);
+        passengersActionsBtn.setOnClickListener(this);
     }
 
     @Override
@@ -112,16 +163,25 @@ public class HomeActivity extends FragmentActivity implements
             case R.id.saw :
                 presenter.notificationButotnOnclick();
                 break;
-
+            case R.id.passenger_actions_btn:
+                this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
+                this.passengersActionsBtn.setVisibility(View.INVISIBLE);
+                break;
         }
     }
 
     private void testBottomSheet(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment phoneRegFragment = new PickingUpPassengerFragment();
-        fragmentTransaction.add(R.id.fragment_bottom_sheet,phoneRegFragment);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        Fragment phoneRegFragment = new PickingUpPassengerFragment();
+//        fragmentTransaction.add(R.id.fragment_bottom_sheet,phoneRegFragment);
+//        fragmentTransaction.commit();
+
+
+//        test.show(getSupportFragmentManager(),"TripPassengersActionsFragment");
+
+//        bottomSheet.showWithSheetView(LayoutInflater.from(this).inflate(R.layout.fragment_trip_passengers_actions, bottomSheet, false));
+
     }
 
     private void testTripList(){
