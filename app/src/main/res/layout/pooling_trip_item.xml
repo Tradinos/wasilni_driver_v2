@@ -26,7 +26,6 @@
 
                 <ImageView
                     android:src="@drawable/ic_people_outline_primary_24dp"
-                    android:id="@+id/passenger_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -49,20 +48,23 @@
                 android:paddingStart="@dimen/trip_margin"
                 android:paddingEnd="@dimen/trip_margin"
                 android:layout_margin="4dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/watch_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="0dp"
                     android:src="@mipmap/stopwatch"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/duration"
+                    style="@style/rideText"
                     android:text="3 min"
                     android:layout_marginStart="@dimen/trip_margin"
                     app:layout_constraintStart_toEndOf="@id/watch_image"
@@ -78,10 +80,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/watch_image"
                     app:layout_constraintTop_toBottomOf="@id/watch_image"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/start_place"
+                    style="@style/rideText"
                     android:text="مشروع دمر لاجمزيرة الرابعة جامع خالد"
                     android:layout_marginStart="@dimen/trip_margin"
                     app:layout_constraintStart_toEndOf="@id/marker_image"
