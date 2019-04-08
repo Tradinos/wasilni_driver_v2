@@ -2,40 +2,29 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.Cause;
-import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
-import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.view.CompleteDataContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
-import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
-
-import java.util.List;
 
 import retrofit2.Call;
 
-import static com.wasilni.wasilnidriverv2.util.Constants.Token;
-
-public class CausePresenterImp implements RateCauseContract.CausePresenter {
-    HomeActivity activity ;
-    public CausePresenterImp(HomeActivity activity) {
-        this.activity = activity ;
-    }
-
+public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDataPresenter {
     @Override
-    public void sendToServer(PaginationAPI<List<Cause>> request) {
+    public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<PaginationAPI<List<Cause>>>> call =
-                service.GetCauses(Token , 100);
+        Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
+                service.CompleteInfo( request);
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<PaginationAPI<List<Cause>>>> call, retrofit2.Response<Response<PaginationAPI<List<Cause>>>> response) {
+    public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
 
         switch (response.code())
@@ -54,7 +43,7 @@ public class CausePresenterImp implements RateCauseContract.CausePresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<List<Cause>>>> call, Throwable t) {
+    public void onFailure(Call<Response<User>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 }

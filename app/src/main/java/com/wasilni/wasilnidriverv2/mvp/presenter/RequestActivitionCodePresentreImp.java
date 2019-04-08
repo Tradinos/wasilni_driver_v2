@@ -1,36 +1,32 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
-import android.content.Intent;
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.Booking;
-import com.wasilni.wasilnidriverv2.mvp.model.Ride;
-import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
-import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
-import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
-import static com.wasilni.wasilnidriverv2.util.Constants.Token;
-
-public class ChangeRideStatePresenterImp implements ChangeRideContract.ChangeRidePresenter {
-
+public class RequestActivitionCodePresentreImp implements RequestActivitionCodeContract.RequestActivitionCodePresentre {
     @Override
-    public void sendToServer(Booking request) {
+    public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<Booking>> call =
-                service.ChangeBookingState(Token ,  request.getId() , request.getStatus()  );
+        Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
+                service.RequestActivationCode( request.getPhone_number(), "captains");
 
         call.enqueue(this);
     }
 
+
+
     @Override
-    public void onResponse(Call<Response<Booking>> call, retrofit2.Response<Response<Booking>> response) {
+    public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response<User>> call, Response<com.wasilni.wasilnidriverv2.network.Response<User>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
 
         switch (response.code())
@@ -49,7 +45,7 @@ public class ChangeRideStatePresenterImp implements ChangeRideContract.ChangeRid
     }
 
     @Override
-    public void onFailure(Call<Response<Booking>> call, Throwable t) {
+    public void onFailure(Call call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 }

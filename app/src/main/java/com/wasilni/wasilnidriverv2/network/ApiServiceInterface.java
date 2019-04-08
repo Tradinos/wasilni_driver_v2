@@ -2,8 +2,11 @@ package com.wasilni.wasilnidriverv2.network;
 
 
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
+import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 
 import java.util.List;
@@ -24,12 +27,12 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @PUT("booking/{booking}/action")
-    Call<Response<Booking>> ChangeState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
+    Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
 
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("booking/{id}/rate")
-    Call<Response> ChangeState(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") String rating_cause_id , @Field("extra") String extra);
+    Call<Response<BookingCause>> Rate(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") int rating_cause_id , @Field("extra") String extra);
 
     @Headers("Accept: application/json")
     @GET("captain_rating_cause")
@@ -37,6 +40,34 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @PUT("check")
-    Call<Response<Boolean>> ChangeState(@Header("Authorization") String Authorization );
+    Call<Response<Boolean>> ChangeDriverState(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @PUT("booking/{id}/pay")
+    Call<Response<Payment>> Pay(@Header("Authorization") String Authorization , @Path("id") int id, @Field("passenger_paid_amount") String passenger_paid_amount );
+
+    @Headers("Accept: application/json")
+    @POST("notification_token")
+    Call<Response> FCMToken(@Header("Authorization") String Authorization ,@Query("notification_token") String notification_token);
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("request/verify")
+    Call<Response<User>> VerifyCode(@Field("phone_number") String phone_number  , @Field("activation_code") String activation_code  , @Field("provider") String provider);
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("request/activation_code")
+    Call<Response<User>> RequestActivationCode(@Field("phone_number") String phone_number, @Field("provider") String provider);
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("login")
+    Call<Response<User>> Login(@Field("phone_number") String phone_number,@Field("password") String password, @Field("provider") String provider);
+
+    @Headers("Accept: application/json")
+    @POST("captain")
+    Call<Response<User>> CompleteInfo(@Body User user);
 
 }

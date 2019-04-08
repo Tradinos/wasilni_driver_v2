@@ -1,22 +1,14 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
-import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,10 +20,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.view.CauseContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
+import com.wasilni.wasilnidriverv2.adapters.TripsAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.DropOffPassengerFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.GettingPassengerFragment;
@@ -103,18 +95,6 @@ public class HomeActivity extends FragmentActivity implements
         bottomSheet.setPeekOnDismiss(true);
         bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this,200));
 
-        bottomSheet.addOnSheetStateChangeListener(new BottomSheetLayout.OnSheetStateChangeListener() {
-            @Override
-            public void onSheetStateChanged(BottomSheetLayout.State state) {
-//                if(state == BottomSheetLayout.State.EXPANDED)
-//                {
-//                    bottomSheet.setShouldDimContentView(true);
-//                }
-//                else{
-//                    bottomSheet.setShouldDimContentView(false);
-//                }
-            }
-        });
         bottomSheet.addOnSheetDismissedListener(new OnSheetDismissedListener() {
             @Override
             public void onDismissed(BottomSheetLayout bottomSheetLayout) {
@@ -136,8 +116,8 @@ public class HomeActivity extends FragmentActivity implements
 
         this.testBottomSheet();
 
-        CauseContract.CausePresenter presenter = new CausePresenterImp(this);
 
+        RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
         passengersActionsBtn.setOnClickListener(this);
     }
@@ -171,17 +151,6 @@ public class HomeActivity extends FragmentActivity implements
     }
 
     private void testBottomSheet(){
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        Fragment phoneRegFragment = new PickingUpPassengerFragment();
-//        fragmentTransaction.add(R.id.fragment_bottom_sheet,phoneRegFragment);
-//        fragmentTransaction.commit();
-
-
-//        test.show(getSupportFragmentManager(),"TripPassengersActionsFragment");
-
-//        bottomSheet.showWithSheetView(LayoutInflater.from(this).inflate(R.layout.fragment_trip_passengers_actions, bottomSheet, false));
-
     }
 
     private void testTripList(){
