@@ -139,12 +139,14 @@ public class LoginFragment extends Fragment implements
 
     @Override
     public void resetValidation() {
-
+        UtilFunction.removeErrorToInputLayout(phoneLayout);
+        UtilFunction.removeErrorToInputLayout(passwordLayout);
     }
 
     @Override
-    public void submit() {
+    public boolean submit() {
         mListener.goToMainView();
+        return true;
     }
 
 

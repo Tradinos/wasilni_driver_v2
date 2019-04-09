@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,9 +106,7 @@ public class PhoneRegistrationFragment extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.register:
-                if(this.validate()){
-                    this.submit();
-                }
+                this.submit();
                 break;
             case R.id.login:
                 mListener.goToLogin();
@@ -120,25 +119,30 @@ public class PhoneRegistrationFragment extends Fragment implements
         resetValidation();
 
         boolean valid = true;
+        String requiredFieldStrId = getString(R.string.required_field);
         if(phoneEdit.getText().toString().isEmpty())
         {
             valid = false;
-            phoneLayout.setErrorEnabled(true);
-            phoneLayout.setError(getString(R.string.required_field));
+            UtilFunction.setErrorToInputLayout(phoneLayout,requiredFieldStrId);
         }
         return valid;
     }
 
     @Override
     public void resetValidation(){
-        phoneLayout.setErrorEnabled(false);
-        phoneLayout.setError(null);
+        UtilFunction.removeErrorToInputLayout(phoneLayout);
 
     }
 
     @Override
-    public void submit() {
-        this.mListener.goToPhoneVerification();
+    public boolean submit() {
+        if(this.validate()) {
+            this.mListener.goToPhoneVerification(this.phoneEdit.getText().toString());
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
@@ -153,7 +157,7 @@ public class PhoneRegistrationFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void goToPhoneVerification();
+        void goToPhoneVerification(String phoneNumber);
         void goToLogin();
     }
 }

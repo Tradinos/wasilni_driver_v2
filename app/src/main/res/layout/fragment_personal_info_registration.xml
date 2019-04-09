@@ -242,11 +242,13 @@
                         android:layout_height="wrap_content">
 
                         <AutoCompleteTextView
+
                             android:id="@+id/region_auto_complete"
                             android:hint="@string/region"
                             android:layout_gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:completionThreshold="1"
                             android:spinnerMode="dropdown"/>
 
                         <android.support.design.widget.TextInputLayout
@@ -281,10 +283,10 @@
                         android:layout_width="@dimen/icon_size_height"
                         android:layout_height="@dimen/icon_size_height" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/nationality_auto_complete"
-                        android:hint="@string/nationality"
-                        android:layout_gravity="center"
+                    <Spinner
+                        android:id="@+id/nationality"
+                        android:background="@drawable/bg_spinner"
+                        android:layout_gravity="bottom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:spinnerMode="dropdown"/>

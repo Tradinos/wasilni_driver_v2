@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.adapters.RegistrationViewPagerAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
@@ -32,6 +33,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private ViewPager viewPager;
     private RegistrationViewPagerAdapter registrationViewPagerAdapter;
     private Button registerBtn;
+    private User user;
 
     public RegistrationFragment() {
         // Required empty public constructor
@@ -125,7 +127,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         boolean valid = true;
         for (int i = 0 ; i < 3 ; i++){
-            if(!((FormContract)this.registrationViewPagerAdapter.getItem(i)).validate()) {
+            if(!((FormContract)this.registrationViewPagerAdapter.getItem(i)).submit()) {
                 valid = false;
                 this.viewPager.setCurrentItem(i,true);
                 break;
@@ -133,9 +135,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }
         if(valid)
         {
-            this.mListener.goToInterviewBooking();
+            this.mListener.completeRegistration();
         }
-
     }
     /**
      * This interface must be implemented by activities that contain this
@@ -149,5 +150,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
      */
     public interface OnFragmentInteractionListener {
         void goToInterviewBooking();
+        void completeRegistration();
     }
 }

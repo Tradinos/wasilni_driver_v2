@@ -44,6 +44,7 @@
     <string name="car_mechanic">car mechanic</string>
     <string name="car_insurance">car insurance</string>
     <string name="brand_manufacture_year">brand and manufacture year</string>
+    <string name="number">number</string>
 
     <string name="front_page">front</string>
     <string name="back_page">back</string>

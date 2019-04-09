@@ -5,6 +5,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
+import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
@@ -77,6 +78,6 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @POST("captain")
-    Call<Response<User>> CompleteInfo(@Body User user);
+    Call<Response<RegisterCaptain>> CompleteInfo(@Body RegisterCaptain registerCaptain);
 
 }

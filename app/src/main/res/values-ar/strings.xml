@@ -29,6 +29,7 @@
     <string name="car_mechanic">ميكانيك السيارة</string>
     <string name="car_insurance">تأمين السيارة</string>
     <string name="brand_manufacture_year">الماركة وسنة التصنيع</string>
+    <string name="number">رقم</string>
 
     <string name="front_page">الامامية</string>
     <string name="color">اللون</string>

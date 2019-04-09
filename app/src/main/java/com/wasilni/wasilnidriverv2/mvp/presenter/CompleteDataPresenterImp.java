@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
 
+import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.CompleteDataContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
@@ -12,19 +13,20 @@ import retrofit2.Call;
 
 public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDataPresenter {
     @Override
-    public void sendToServer(User request) {
+    public void sendToServer(RegisterCaptain request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
+        Log.d("SAED", "sendToServer: " + request);
+        Call<com.wasilni.wasilnidriverv2.network.Response<RegisterCaptain>> call =
                 service.CompleteInfo( request);
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
+    public void onResponse(Call<Response<RegisterCaptain>> call, retrofit2.Response<Response<RegisterCaptain>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
 
         switch (response.code())
@@ -43,7 +45,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
     }
 
     @Override
-    public void onFailure(Call<Response<User>> call, Throwable t) {
+    public void onFailure(Call<Response<RegisterCaptain>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 }
