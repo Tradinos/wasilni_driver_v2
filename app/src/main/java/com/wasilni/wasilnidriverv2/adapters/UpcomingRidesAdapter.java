@@ -24,13 +24,12 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     private TripPassengersActionsFragment fragment;
     private UpComingRidesAdapterPresenterImp presenter ;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public UpcomingRidesAdapter( TripPassengersActionsFragment tripPassengersActionsFragment) {
+    public UpcomingRidesAdapter( TripPassengersActionsFragment tripPassengersActionsFragment,Activity activity) {
 //        mDataset = myDataset;
 
         list = new ArrayList<>();
         this.fragment = tripPassengersActionsFragment;
-        presenter = new UpComingRidesAdapterPresenterImp(fragment);
-
+        presenter = new UpComingRidesAdapterPresenterImp(fragment,activity);
     }
 
     public List<Ride> getList() {
@@ -39,13 +38,6 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
 
     public void setList(List<Ride> list) {
         this.list = list;
-    }
-
-    public UpcomingRidesAdapter(List<Ride> list, Activity activity, TripPassengersActionsFragment tripPassengersActionsFragment) {
-        this.list = list ;
-        this.activity =activity ;
-        this.fragment = tripPassengersActionsFragment;
-        presenter = new UpComingRidesAdapterPresenterImp(fragment);
     }
 
     @Override

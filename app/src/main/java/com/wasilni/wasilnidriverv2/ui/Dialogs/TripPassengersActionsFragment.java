@@ -33,6 +33,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
     private OnFragmentInteractionListener mListener;
     public BookingAdapter mAdapter ;
     public TripPassengersActionsFragment() {
+        mAdapter = new BookingAdapter(new ArrayList<Booking>() , this.getActivity());
         // Required empty public constructor
     }
 
@@ -90,14 +91,6 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        List<Booking> list = new ArrayList<>() ;
-        list.add(new Booking(RideStatus.ARRIVED.toString()));
-        list.add(new Booking(RideStatus.APPROVED.toString()));
-        list.add(new Booking(RideStatus.APPROVED.toString()));
-        list.add(new Booking(RideStatus.PICKED_UP.toString()));
-
-
-        mAdapter = new BookingAdapter(list,getActivity()  );
         recyclerView.setAdapter(mAdapter);
     }
     public void onButtonPressed(Uri uri) {
