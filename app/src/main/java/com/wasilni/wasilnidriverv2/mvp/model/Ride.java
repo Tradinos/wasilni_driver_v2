@@ -10,7 +10,7 @@ public class Ride  {
     String start_datetime ;
     String passengaer_name;
     String pick_up_location_name;
-    int bookings_count ;
+    int bookings_count , id;
     List<Booking> bookings ;
     public Ride(String status ) {
         this.status = status ;
@@ -20,6 +20,14 @@ public class Ride  {
         this.passengaer_name = passengaer_name;
         this.pick_up_location_name = pick_up_location_name;
         this.bookings_count = bookings_count;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStatus() {
