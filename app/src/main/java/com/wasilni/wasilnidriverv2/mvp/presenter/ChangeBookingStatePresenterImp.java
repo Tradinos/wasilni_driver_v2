@@ -15,7 +15,7 @@ import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
-public class ChangeRideStatePresenterImp implements ChangeRideContract.ChangeRidePresenter {
+public class ChangeBookingStatePresenterImp implements ChangeRideContract.ChangeBookingPresenter {
 
     @Override
     public void sendToServer(Booking request) {
