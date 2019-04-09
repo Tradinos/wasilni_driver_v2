@@ -1,7 +1,10 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
+import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
@@ -20,8 +23,10 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
 
     TripPassengersActionsFragment activity ;
-    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment) {
+    Activity context ;
+    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment , Activity activity) {
         this.activity = fragment ;
+        context = activity ;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         {
             case 200 :
                 Log.e("booking list :",response.body().getData().getBookings().toString()) ;
+                activity.show(((FragmentActivity)context ).getSupportFragmentManager() , R.id.bottomsheet);
                 activity.mAdapter.setList(response.body().getData().getBookings());
                 activity.mAdapter.notifyDataSetChanged();
                 break;

@@ -102,7 +102,7 @@ public class HomeActivity extends FragmentActivity implements
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment) ;
+        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment,this) ;
         recyclerView.setAdapter(mAdapter);
 
         myRidesPresenter.sendToServer(null);
@@ -181,8 +181,8 @@ public class HomeActivity extends FragmentActivity implements
         list.add(new Ride("ahmad","حمرا",1));
         list.add(new Ride("kinan","ركن الدين",1));
         list.add(new Ride("mahmoud","ميدان",3));
-        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter(list,this,tripPassengersActionsFragment);
-        recyclerView.setAdapter(mAdapter);
+//        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter(list,this,tripPassengersActionsFragment);
+//        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

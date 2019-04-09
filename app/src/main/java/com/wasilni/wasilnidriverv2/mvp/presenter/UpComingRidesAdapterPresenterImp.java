@@ -19,10 +19,11 @@ import java.util.List;
 public class UpComingRidesAdapterPresenterImp implements AdapterContract.AdapterPresenter<Ride, UpcomingRidesAdapter.RideViewHolder> {
     private TripPassengersActionsFragment fragment;
     RideContruct.RideBookingsPresenter presenter ;
-
-    public UpComingRidesAdapterPresenterImp(TripPassengersActionsFragment fragment) {
+    Activity activity ;
+    public UpComingRidesAdapterPresenterImp(TripPassengersActionsFragment fragment, Activity activity) {
         this.fragment = fragment;
-        presenter = new RideBookingsPresenterImp(fragment);
+        presenter = new RideBookingsPresenterImp(fragment,activity);
+        this.activity = activity ;
     }
 
     @Override
