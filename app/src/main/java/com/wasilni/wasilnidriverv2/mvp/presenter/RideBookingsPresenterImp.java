@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
 import java.util.List;
 
@@ -17,6 +18,11 @@ import retrofit2.Call;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
+
+    TripPassengersActionsFragment activity ;
+    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment) {
+        this.activity = fragment ;
+    }
 
     @Override
     public void sendToServer(Ride request) {
@@ -38,6 +44,8 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         {
             case 200 :
                 Log.e("booking list :",response.body().getData().getBookings().toString()) ;
+                activity.mAdapter.setList(response.body().getData().getBookings());
+                activity.mAdapter.notifyDataSetChanged();
                 break;
             case 422 :
                 break;

@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
@@ -17,9 +18,11 @@ import java.util.List;
 
 public class UpComingRidesAdapterPresenterImp implements AdapterContract.AdapterPresenter<Ride, UpcomingRidesAdapter.RideViewHolder> {
     private TripPassengersActionsFragment fragment;
+    RideContruct.RideBookingsPresenter presenter ;
 
     public UpComingRidesAdapterPresenterImp(TripPassengersActionsFragment fragment) {
         this.fragment = fragment;
+        presenter = new RideBookingsPresenterImp(fragment);
     }
 
     @Override
@@ -28,13 +31,8 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
             @Override
             public void onClick(View v) {
                 // change bottom sheet adapter data ;
-                List<Booking> list = new ArrayList<>() ;
-                list.add(new Booking(RideStatus.STARTED.toString()));
-                if(object.getBookings_count()>1) {
-                    list.add(new Booking(RideStatus.ARRIVED.toString()));
-                }
-                fragment.mAdapter.setList(list);
-                fragment.mAdapter.notifyDataSetChanged();
+                presenter.sendToServer(object);
+
             }
         });
         holder.duration.setText(object.getStart_datetime());

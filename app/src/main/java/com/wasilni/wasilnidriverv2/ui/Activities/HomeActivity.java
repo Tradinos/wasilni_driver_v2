@@ -129,8 +129,6 @@ public class HomeActivity extends FragmentActivity implements
         this.testBottomSheet();
 
 
-        RideContruct.RideBookingsPresenter bookingsPresenter = new RideBookingsPresenterImp();
-        bookingsPresenter.sendToServer(new Ride(2));
         passengersActionsBtn.setOnClickListener(this);
     }
 
