@@ -51,8 +51,7 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
         switch (response.code())
         {
             case 200 :
-
-                if(mBooking.getStatus().equals("FINISH")){
+                if(mBooking.getStatus().equals("DONE")){
                     Booking object = response.body().getData();
                     List<Booking> list = mAdapter.getList();
                     list.remove(mBooking);
