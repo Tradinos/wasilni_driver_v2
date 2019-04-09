@@ -86,10 +86,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         null);
                 break;
             }
-            case "new_order" : {
-                p("new order");
+            case "new_ride" : {
+                p("new_ride");
                 Intent intent = new Intent("booking_notification");
-                intent.putExtra("event","new_order");
+                intent.putExtra("event","new_ride");
                 intent.setAction("com.wasilni.wasilnidriverv2.receivers");
                 sendOrderedBroadcast(intent,
                         null,
