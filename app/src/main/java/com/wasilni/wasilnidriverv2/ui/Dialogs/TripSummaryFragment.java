@@ -50,6 +50,7 @@ public class TripSummaryFragment extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
 
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+        this.setCancelable(false);
 
         if (getArguments() != null) {
         }
