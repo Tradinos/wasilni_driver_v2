@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
+import com.wasilni.wasilnidriverv2.mvp.model.Car;
+import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.CompleteDataPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
@@ -35,13 +38,21 @@ public class RegistrationActivity extends BasicActivity implements
         PhoneRegistrationFragment.OnFragmentInteractionListener {
 
     private FrameLayout frameContent;
+    private User user;
+    private Car car;
+
+    private CompleteDataPresenterImp completeDataPresenterImp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 
+        this.user = new User();
+        this.completeDataPresenterImp = new CompleteDataPresenterImp();
         this.initView();
+
     }
 
     @Override
@@ -72,7 +83,8 @@ public class RegistrationActivity extends BasicActivity implements
     }
 
     @Override
-    public void goToPhoneVerification() {
+    public void goToPhoneVerification(String phoneNumber) {
+        this.user.setPhone_number(phoneNumber);
         changeFragment(new PhoneVerificationFragment());
     }
 
@@ -92,6 +104,14 @@ public class RegistrationActivity extends BasicActivity implements
     }
 
     @Override
+    public void completeRegistration() {
+        RegisterCaptain reg = new RegisterCaptain();
+        reg.setUser(this.user);
+        reg.setCar(this.car);
+        this.completeDataPresenterImp.sendToServer(reg);
+    }
+
+    @Override
     public void goToPhoneRegistration() {
         changeFragment(new PhoneRegistrationFragment());
     }
@@ -101,5 +121,47 @@ public class RegistrationActivity extends BasicActivity implements
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void submitCarData(int color, int model, String manufactureYear, int brand, String number) {
+        this.car.setColorId(color);
+        this.car.setModelId(model);
+        this.car.setCarManufactureYear(manufactureYear);
+        this.car.setBrandId(brand);
+        this.car.setNumber(number);
+    }
+
+    @Override
+    public void submitCivilData(String licenseStartDate, String licenseEndDate, String bank) {
+        this.user.setLicenseEnd(licenseEndDate);
+        this.user.setLicenseStart(licenseStartDate);
+    }
+
+    @Override
+    public void submitPersonalData(String firstName,
+                                   String lastName,
+                                   String email,
+                                   String whatsappNumber,
+                                   int region,
+                                   int nationality,
+                                   String birthdate, int gender, String address) {
+
+        this.user.setWhatsapp_number(whatsappNumber);
+        this.user.setFirst_name(firstName);
+        this.user.setLast_name(lastName);
+        this.user.setEmail(email);
+        this.user.setBirthday(birthdate);
+        this.user.setAddress(address);
+        this.user.setRegionId(region);
+        this.user.setNationalityId(nationality);
+
+        if(gender == 0) {
+            this.user.setGender(true);
+        }
+        else{
+            this.user.setGender(false);
+        }
+
     }
 }

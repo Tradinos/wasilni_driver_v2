@@ -6,20 +6,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
-import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,6 +42,8 @@ public class CarInfoRegistrationFragment extends Fragment implements
     Spinner brandSp, manufacturYearSp, modelSp, colorSp;
     TextView insuranceImageTV, insuranceDateTV;
     TextView mechanicFrontPageTV, mechanicBackPageTV;
+    TextInputEditText carNumberET;
+    TextInputLayout carNumberLY;
     CalendarDatePickerDialogFragment cdpInsuranceDate;
 
     private final int CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE = 1;
@@ -111,6 +114,8 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.manufacturYearSp = view.findViewById(R.id.manufacture_year);
         this.brandSp = view.findViewById(R.id.brand);
         this.colorSp = view.findViewById(R.id.car_color);
+        this.carNumberET = view.findViewById(R.id.car_number_edit);
+        this.carNumberLY = view.findViewById(R.id.car_number_layout);
 
         UtilFunction.underlineWidget(this.insuranceDateTV);
         UtilFunction.underlineWidget(this.insuranceImageTV);
@@ -121,6 +126,39 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
         this.insuranceDateTV.setOnClickListener(this);
+
+
+
+        String[] colors = new String[]{
+                "red",
+                "black",
+                "green",
+                "blue"
+        };
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, colors);
+        this.colorSp.setAdapter(adapter3);
+
+        String[] brands = new String[]{
+                "brand 1",
+                "brand 2",
+                "brand 3",
+                "brand 4",
+        };
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, brands);
+        this.brandSp.setAdapter(adapter4);
+
+        String[] models = new String[]{
+                "model 1",
+                "model 2",
+                "model 3",
+                "model 4",
+        };
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, models);
+        this.modelSp.setAdapter(adapter5);
+
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, UtilFunction.generateYears(2000,2020));
+        this.manufacturYearSp.setAdapter(adapter6);
+
     }
 
     @Override
@@ -249,8 +287,19 @@ public class CarInfoRegistrationFragment extends Fragment implements
     }
 
     @Override
-    public void submit() {
-
+    public boolean submit() {
+        if (this.validate())
+        {
+            this.mListener.submitCarData(this.colorSp.getSelectedItemPosition(),
+                    this.modelSp.getSelectedItemPosition(),
+                    (String)this.manufacturYearSp.getSelectedItem(),
+                    this.brandSp.getSelectedItemPosition(),
+                    this.carNumberET.getText().toString());
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /**
@@ -264,5 +313,6 @@ public class CarInfoRegistrationFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void submitCarData(int color, int model, String manufactureYear, int brand, String number);
     }
 }

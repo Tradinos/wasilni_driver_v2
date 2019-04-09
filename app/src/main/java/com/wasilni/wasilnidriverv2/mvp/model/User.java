@@ -14,10 +14,12 @@ public class User{
     private boolean isConfirmed ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
-            whatsapp_number="" , id_image="" , password="" , activation_code=""
-            ;
+            whatsapp_number="" , id_image="" , password="" , activation_code="",
+            address = "" ;
+
+    private String licenseStart , licenseEnd;
     private boolean verified , gender;
-    private int id ;
+    private int id, regionId, nationalityId;
 
     public boolean isChecked() {
         return isChecked;
@@ -144,6 +146,7 @@ public class User{
     public String toString() {
         return  "verified:"+verified+"\nid:"+id+"\nEmail : " + email + "\nFullName : " + username + "\nfirst name :" +
                 first_name + "\nlast name :" +last_name + "\ngender :"+gender +
+                 "\nbirthdat :" + birthday + "\nwhatsapp number :" +whatsapp_number + "\naddress :"+address +
                 "\nphone number :" + phone_number + "\ntoken:"+accessToken;
     }
 
@@ -172,11 +175,51 @@ public class User{
         isLogingIn = logingIn;
     }
 
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getActivation_code() {
         return activation_code;
     }
 
     public void setActivation_code(String activation_code) {
         this.activation_code = activation_code;
+    }
+
+    public int getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
+    }
+
+    public int getNationalityId() {
+        return nationalityId;
+    }
+
+    public void setNationalityId(int nationalityId) {
+        this.nationalityId = nationalityId;
+    }
+
+    public String getLicenseStart() {
+        return licenseStart;
+    }
+
+    public void setLicenseStart(String licenseStart) {
+        this.licenseStart = licenseStart;
+    }
+
+    public String getLicenseEnd() {
+        return licenseEnd;
+    }
+
+    public void setLicenseEnd(String licenseEnd) {
+        this.licenseEnd = licenseEnd;
     }
 }

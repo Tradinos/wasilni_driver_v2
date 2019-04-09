@@ -299,7 +299,15 @@ public class CivilInfoRegistrationFragment extends Fragment implements
     }
 
     @Override
-    public void submit() {
+    public boolean submit() {
+        if(this.validate())
+        {
+            this.mListener.submitCivilData(this.licenseStartDateTV.getText().toString(), this.licenseEndDateTV.getText().toString(), "");
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
@@ -315,5 +323,6 @@ public class CivilInfoRegistrationFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
+        void submitCivilData(String licenseStartDate, String licenseEndDate, String bank);
     }
 }

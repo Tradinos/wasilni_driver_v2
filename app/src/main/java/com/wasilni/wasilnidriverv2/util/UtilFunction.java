@@ -50,6 +50,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -433,6 +434,13 @@ public class UtilFunction {
         return px;
     }
 
+    public static ArrayList<String> generateYears(int from, int to){
+        ArrayList<String> years = new ArrayList<>();
+        for (Integer i = from ; i <= to; i++){
+            years.add(i.toString());
+        }
+        return years;
+    }
 
 
     public static void p(){

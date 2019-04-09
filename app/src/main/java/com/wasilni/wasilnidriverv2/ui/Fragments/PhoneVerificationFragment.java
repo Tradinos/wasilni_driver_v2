@@ -194,8 +194,9 @@ public class PhoneVerificationFragment extends Fragment implements
     }
 
     @Override
-    public void submit() {
+    public boolean submit() {
         this.mListener.goToRegistrationFragment();
+        return true;
     }
 
     private String getVerificationcCode(){
