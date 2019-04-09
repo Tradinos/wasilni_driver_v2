@@ -63,10 +63,10 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                     List<Booking> list = mAdapter.getList();
                     list.remove(mBooking);
                     mAdapter.setList(list);
+                    mAdapter.notifyDataSetChanged();
                     fragment.show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
                 }
                 // refreshAdapter and recycler view
-                mAdapter.notifyDataSetChanged();
                 break;
             case 422 :
                 break;
