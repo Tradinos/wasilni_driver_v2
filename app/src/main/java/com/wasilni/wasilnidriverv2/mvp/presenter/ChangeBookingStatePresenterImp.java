@@ -1,8 +1,12 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
@@ -11,6 +15,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
@@ -23,9 +28,11 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
 
     BookingAdapter mAdapter ;
     Booking mBooking;
-
-    public ChangeBookingStatePresenterImp(BookingAdapter mAdapter) {
+    Activity activity ;
+    TripSummaryFragment fragment = TripSummaryFragment.newInstance();
+    public ChangeBookingStatePresenterImp(BookingAdapter mAdapter, Activity activity) {
         this.mAdapter = mAdapter ;
+        this.activity = activity ;
     }
 
     @Override
@@ -56,6 +63,7 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                     List<Booking> list = mAdapter.getList();
                     list.remove(mBooking);
                     mAdapter.setList(list);
+                    fragment.show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
                 }
                 // refreshAdapter and recycler view
                 mAdapter.notifyDataSetChanged();
@@ -64,9 +72,9 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                 break;
             case 500 :
                 break;
-            case 400:
+            case 400 :
                 break;
-            case 401:
+            case 401 :
                 break;
         }
     }

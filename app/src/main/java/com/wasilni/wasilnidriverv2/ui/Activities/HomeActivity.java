@@ -169,7 +169,6 @@ public class HomeActivity extends FragmentActivity implements
     }
 
     private void testTripList(){
-        Log.d("SAED", "testTripList: what is going here");
         recyclerView = findViewById(R.id.my_recycler_view);
 
         // use a linear layout manager
@@ -188,30 +187,24 @@ public class HomeActivity extends FragmentActivity implements
 
     @Override
     public void itemChanged(String status) {
-        Log.d("SAED", "itemChanged: I am inside " + status);
         switch (status){
             case "APPROVED" :{
-                Log.d("SAED", "itemChanged: " + 1);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
                 break;
             }
             case "STARTED" :{
-                Log.d("SAED", "itemChanged: " + 2);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
                 break;
             }
             case "ARRIVED" :{
-                Log.d("SAED", "itemChanged: " + 3);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_PICKED_UP));
                 break;
             }
             case "PICKED_UP" :{
-                Log.d("SAED", "itemChanged: " + 4);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_DROP_OFF));
                 break;
             }
             case "DONE" :{
-                Log.d("SAED", "itemChanged: " + 5);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
                 break;
             }

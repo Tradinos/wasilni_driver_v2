@@ -18,9 +18,9 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
 
     BookingAdapter mAdapter;
     ChangeRideContract.ChangeBookingPresenter presenter ;
-    public BookingAdapterPresenterImp(BookingAdapter bookingAdapter) {
+    public BookingAdapterPresenterImp(BookingAdapter bookingAdapter ,Activity activity) {
         this.mAdapter = bookingAdapter;
-        presenter = new ChangeBookingStatePresenterImp(mAdapter);
+        presenter = new ChangeBookingStatePresenterImp(mAdapter,activity);
     }
 
 

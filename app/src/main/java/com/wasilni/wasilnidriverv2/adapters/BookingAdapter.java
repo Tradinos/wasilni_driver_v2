@@ -25,7 +25,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
     public BookingAdapter(List<Booking> list, Activity activity) {
         this.list = list;
         this.activity = activity;
-        presenter = new BookingAdapterPresenterImp(this);
+        presenter = new BookingAdapterPresenterImp(this,activity);
     }
 
     public List<Booking> getList() {
