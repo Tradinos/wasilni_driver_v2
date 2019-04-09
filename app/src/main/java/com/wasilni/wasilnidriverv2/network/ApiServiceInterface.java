@@ -40,7 +40,11 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @GET("ride")
-    Call<Response<PaginationAPI<List<Ride>>>> GetRide(@Header("Authorization") String Authorization  , @Query("perPage") int perPage);
+    Call<Response<PaginationAPI<List<Ride>>>> GetRide(@Header("Authorization") String Authorization  ,@Query("perPage") int perPage);
+
+    @Headers("Accept: application/json")
+    @GET("ride/{ride_id}/bookings")
+    Call<Response<PaginationAPI<List<Booking>>>> GetRideBookings(@Header("Authorization") String Authorization  , @Path("ride_id") int ride_id, @Query("perPage") int perPage);
 
 
     @Headers("Accept: application/json")
