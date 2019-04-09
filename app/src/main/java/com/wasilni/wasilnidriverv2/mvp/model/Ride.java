@@ -8,7 +8,7 @@ import java.util.List;
 public class Ride  {
     String status ;
     String start_datetime ;
-    String passengaer_name;
+    String passenger_name;
     String pick_up_location_name;
     int bookings_count , id;
     List<Booking> bookings ;
@@ -21,7 +21,7 @@ public class Ride  {
     }
 
     public Ride(String passengaer_name, String pick_up_location_name, int bookings_count) {
-        this.passengaer_name = passengaer_name;
+        this.passenger_name = passengaer_name;
         this.pick_up_location_name = pick_up_location_name;
         this.bookings_count = bookings_count;
     }
@@ -59,11 +59,11 @@ public class Ride  {
     }
 
     public String getPassengaer_name() {
-        return passengaer_name;
+        return passenger_name;
     }
 
     public void setPassengaer_name(String passengaer_name) {
-        this.passengaer_name = passengaer_name;
+        this.passenger_name = passengaer_name;
     }
 
     public int getBookings_count() {
@@ -85,6 +85,6 @@ public class Ride  {
 
     @Override
     public String toString() {
-        return ""+id+" "+bookings_count+" "+passengaer_name ;
+        return ""+id+" "+bookings_count+" "+passenger_name ;
     }
 }
