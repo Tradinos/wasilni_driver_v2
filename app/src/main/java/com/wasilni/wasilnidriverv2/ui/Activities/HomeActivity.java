@@ -116,7 +116,6 @@ public class HomeActivity extends FragmentActivity implements
         RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
         passengersActionsBtn.setOnClickListener(this);
-        TripSummaryFragment.newInstance().show(getSupportFragmentManager(),"TripSummaryFragment");
     }
 
     @Override

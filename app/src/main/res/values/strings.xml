@@ -14,6 +14,8 @@
 
 
     <string name="captain_register">register captain</string>
+    <string name="login">login</string>
+    <string name="password">password</string>
     <string name="send">send</string>
     <string name="one_digit_hint">0</string>
     <string name="phone_number_hint">98…</string>
