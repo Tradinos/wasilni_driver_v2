@@ -12,7 +12,7 @@ public interface RideContruct {
     public interface MyRidesPresenter extends ServerPresenter<PaginationAPI<List<Ride>>> {
 
     }
-    public interface RideBookingsPresenter extends ServerPresenter<PaginationAPI<List<Booking>>>{
+    public interface RideBookingsPresenter extends ServerPresenter<PaginationAPI<Ride>>{
 
     }
 }

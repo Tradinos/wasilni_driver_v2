@@ -21,9 +21,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.RideBookingsPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
@@ -97,7 +99,7 @@ public class HomeActivity extends FragmentActivity implements
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = null ;
+        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment) ;
         recyclerView.setAdapter(mAdapter);
 
         myRidesPresenter.sendToServer(null);
@@ -124,8 +126,10 @@ public class HomeActivity extends FragmentActivity implements
         this.testBottomSheet();
 
 
-        RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
-        presenter.sendToServer(null);
+        RideContruct.RideBookingsPresenter bookingsPresenter = new RideBookingsPresenterImp();
+        PaginationAPI<Ride> api = new PaginationAPI<Ride>();
+        api.setData(new Ride(1));
+        bookingsPresenter.sendToServer(api);
         passengersActionsBtn.setOnClickListener(this);
     }
 

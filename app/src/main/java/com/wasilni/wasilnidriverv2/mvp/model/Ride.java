@@ -16,6 +16,10 @@ public class Ride  {
         this.status = status ;
     }
 
+    public Ride(int id) {
+        this.id = id;
+    }
+
     public Ride(String passengaer_name, String pick_up_location_name, int bookings_count) {
         this.passengaer_name = passengaer_name;
         this.pick_up_location_name = pick_up_location_name;
@@ -77,5 +81,10 @@ public class Ride  {
 
     public void setPick_up_location_name(String pick_up_location_name) {
         this.pick_up_location_name = pick_up_location_name;
+    }
+
+    @Override
+    public String toString() {
+        return ""+id+" "+bookings_count+" "+passengaer_name ;
     }
 }
