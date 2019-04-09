@@ -190,7 +190,7 @@ public class HomeActivity extends FragmentActivity implements
     public void itemChanged(String status) {
         Log.d("SAED", "itemChanged: I am inside " + status);
         switch (status){
-            case "PENDING" :{
+            case "APPROVED" :{
                 Log.d("SAED", "itemChanged: " + 1);
                 bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
                 break;

@@ -59,7 +59,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
         }
 
         switch (list.get(position).getStatus()){
-            case "PENDING" :{
+            case "APPROVED" :{
                 return 0;
             }
             case "STARTED" :{

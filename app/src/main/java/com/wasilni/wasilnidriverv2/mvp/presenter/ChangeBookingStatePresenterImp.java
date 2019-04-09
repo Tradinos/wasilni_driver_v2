@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.content.Intent;
 import android.util.Log;
 
+import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
@@ -10,6 +11,9 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.RideStatus;
+
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -17,8 +21,19 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class ChangeBookingStatePresenterImp implements ChangeRideContract.ChangeBookingPresenter {
 
+    BookingAdapter mAdapter ;
+    Booking mBooking;
+
+    public ChangeBookingStatePresenterImp(BookingAdapter mAdapter) {
+        this.mAdapter = mAdapter ;
+    }
+
     @Override
     public void sendToServer(Booking request) {
+        request.setStatus(RideStatus.nextState(request.getStatus()));
+
+        mBooking = request ;
+
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
@@ -31,11 +46,20 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
 
     @Override
     public void onResponse(Call<Response<Booking>> call, retrofit2.Response<Response<Booking>> response) {
-        Log.e("onResponse",response.message()+" code :"+response.code());
+        Log.e("onResponse do action",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
+
+                if(mBooking.getStatus().equals("FINISH")){
+                    Booking object = response.body().getData();
+                    List<Booking> list = mAdapter.getList();
+                    list.remove(mBooking);
+                    mAdapter.setList(list);
+                }
+                // refreshAdapter and recycler view
+                mAdapter.notifyDataSetChanged();
                 break;
             case 422 :
                 break;
@@ -50,6 +74,22 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
 
     @Override
     public void onFailure(Call<Response<Booking>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+        Log.e("onFailure do action",t.getMessage());
+        Log.e("onFailure do action",mBooking.getStatus());
+        switch (mBooking.getStatus()){
+            case "STARTED" :
+                mBooking.setStatus("APPROVED") ;
+            case "ARRIVED" :
+                mBooking.setStatus("STARTED") ;
+            case "PICKED_UP" :
+                mBooking.setStatus("ARRIVED") ;
+            case "DONE" :
+                mBooking.setStatus("PICKED_UP") ;
+            case "FINISH" :
+                mBooking.setStatus("DONE") ;
+
+        }
+        Log.e("onFailure do action",mBooking.getStatus());
+
     }
 }
