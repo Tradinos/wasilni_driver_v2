@@ -8,6 +8,8 @@ import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -17,6 +19,11 @@ import retrofit2.Response;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class PayPresenterImp implements PayContract.PayPresenter {
+    TripSummaryFragment fragment ;
+    public PayPresenterImp(TripSummaryFragment tripSummaryFragment) {
+        fragment = tripSummaryFragment;
+    }
+
     @Override
     public void sendToServer(Payment request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
@@ -32,11 +39,14 @@ public class PayPresenterImp implements PayContract.PayPresenter {
 
     @Override
     public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response<Payment>> call, Response<com.wasilni.wasilnidriverv2.network.Response<Payment>> response) {
-        Log.e("onResponse",response.message()+" code :"+response.code());
+        Log.e("onResponse pay",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
+                UtilFunction.showToast(fragment.getActivity(),"Done");
+                fragment.dismiss();
+                fragment.moneyCost.setText("");
                 break;
             case 422 :
                 break;
