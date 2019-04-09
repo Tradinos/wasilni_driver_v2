@@ -89,8 +89,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        String date = ""+year+"-"+monthOfYear+"-"+dayOfMonth ;
-                        insuranceDateTV.setText(date);
+                        insuranceDateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -283,6 +282,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.modelSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
         this.manufacturYearSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
         this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
+        this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
 
     }
 
@@ -294,7 +294,8 @@ public class CarInfoRegistrationFragment extends Fragment implements
                     this.modelSp.getSelectedItemPosition(),
                     (String)this.manufacturYearSp.getSelectedItem(),
                     this.brandSp.getSelectedItemPosition(),
-                    this.carNumberET.getText().toString());
+                    this.carNumberET.getText().toString(),
+                    this.insuranceDateTV.getText().toString() );
             return true;
         }
         else{
@@ -313,6 +314,6 @@ public class CarInfoRegistrationFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void submitCarData(int color, int model, String manufactureYear, int brand, String number);
+        void submitCarData(int color, int model, String manufactureYear, int brand, String number, String insuranceDate);
     }
 }

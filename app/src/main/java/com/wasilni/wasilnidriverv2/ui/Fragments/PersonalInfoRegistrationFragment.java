@@ -45,8 +45,8 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
-    private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, addressDetailsEdit;
-    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN;
+    private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, passwordET, addressDetailsEdit;
+    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT;
 
     private AutoCompleteTextView regionAC;
     private TextView birthdateTV, noWhatsappTV, yesWhatsappTV;
@@ -100,9 +100,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-//                    UtilFunction.showToast(getActivity() ,""+year+ " "+monthOfYear+" "+dayOfMonth );
-                        String birthdate = ""+year+"-"+monthOfYear+"-"+dayOfMonth ;
-                        birthdateTV.setText(birthdate);
+                        birthdateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -135,6 +133,8 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         this.regionAC = view.findViewById(R.id.region_auto_complete);
         this.nationalityAC = view.findViewById(R.id.nationality);
         this.addressDetailsEdit = view.findViewById(R.id.address_details_edit);
+        this.passwordET = view.findViewById(R.id.password_edit);
+        this.passwordLT = view.findViewById(R.id.password_layout);
 
 
         this.defaultTextColor = this.noWhatsappTV.getTextColors();
@@ -300,6 +300,10 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
 
+        if(this.passwordET.getText().toString().isEmpty()){
+            valid = false;
+            UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
+        }
         return valid;
     }
 
@@ -327,7 +331,8 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                     1,
                     this.birthdateTV.getText().toString(),
                     this.genderSp.getSelectedItemPosition(),
-                    this.addressDetailsEdit.getText().toString()
+                    this.addressDetailsEdit.getText().toString(),
+                    this.passwordET.getText().toString()
             );
             return true;
         }
@@ -348,7 +353,6 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // firstname, lastname, email, whatsappphone, region, nationality, birthdate
         void submitPersonalData(String firstName,
                                 String lastName,
                                 String email,
@@ -356,6 +360,6 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                                 int region,
                                 int nationality,
                                 String birthdate,
-                                int gender, String address);
+                                int gender, String address, String password);
     }
 }

@@ -27,7 +27,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
 
     @Override
     public void onResponse(Call<Response<RegisterCaptain>> call, retrofit2.Response<Response<RegisterCaptain>> response) {
-        Log.e("onResponse",response.message()+" code :"+response.code());
+        Log.e("onResponse register",response.message()+" code :"+response.code());
 
         switch (response.code())
         {

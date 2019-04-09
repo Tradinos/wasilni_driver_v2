@@ -50,7 +50,10 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -440,6 +443,16 @@ public class UtilFunction {
             years.add(i.toString());
         }
         return years;
+    }
+
+    public static String generateDate(int year, int month, int day){
+        Calendar c = Calendar.getInstance();
+        c.set(year,month,day);
+
+        Date date = new Date(c.getTimeInMillis());
+
+        String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        return dateStr;
     }
 
 
