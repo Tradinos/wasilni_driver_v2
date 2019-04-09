@@ -27,6 +27,14 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
 //        mDataset = myDataset;
     }
 
+    public List<Ride> getList() {
+        return list;
+    }
+
+    public void setList(List<Ride> list) {
+        this.list = list;
+    }
+
     public UpcomingRidesAdapter(List<Ride> list, Activity activity, TripPassengersActionsFragment tripPassengersActionsFragment) {
         this.list = list ;
         this.activity =activity ;

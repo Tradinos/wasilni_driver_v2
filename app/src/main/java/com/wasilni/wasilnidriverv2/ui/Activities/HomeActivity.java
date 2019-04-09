@@ -22,10 +22,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
@@ -58,13 +60,15 @@ public class HomeActivity extends FragmentActivity implements
     public static final int PEEK_HEIGHT_NOMRAL = 200;
 
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
+    public RideContruct.MyRidesPresenter myRidesPresenter ;
+
+    public UpcomingRidesAdapter mAdapter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        this.testTripList();
-
+        myRidesPresenter = new GetMyRidesPresenterImp(this);
         initView();
     }
 
@@ -88,6 +92,16 @@ public class HomeActivity extends FragmentActivity implements
         bottomLayout = findViewById(R.id.bottom_layout) ;
         notificationButton = findViewById(R.id.saw);
         passengersActionsBtn = findViewById(R.id.passenger_actions_btn);
+        recyclerView = findViewById(R.id.my_recycler_view);
+
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = null ;
+        recyclerView.setAdapter(mAdapter);
+
+        myRidesPresenter.sendToServer(null);
+
 
 
         // Init bottom sheet
