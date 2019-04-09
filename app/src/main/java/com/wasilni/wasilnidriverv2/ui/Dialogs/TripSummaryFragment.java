@@ -9,10 +9,16 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.mvp.model.Payment;
+import com.wasilni.wasilnidriverv2.mvp.presenter.PayPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 
 /**
  * A simple {@link BottomSheetDialogFragment} subclass.
@@ -25,8 +31,18 @@ import com.wasilni.wasilnidriverv2.R;
 public class TripSummaryFragment extends BottomSheetDialogFragment {
     private ImageView passengerPictureIV;
     private TextView rateBtn;
-
+    private Button submit ;
+    public EditText moneyCost ;
     private OnFragmentInteractionListener mListener;
+    private Booking dataToShow , mBooking;
+
+    public void setDataToShow(Booking dataToShow) {
+        this.dataToShow = dataToShow;
+    }
+
+    public void setmBooking(Booking mBooking) {
+        this.mBooking = mBooking;
+    }
 
     public TripSummaryFragment() {
         // Required empty public constructor
@@ -69,7 +85,17 @@ public class TripSummaryFragment extends BottomSheetDialogFragment {
 
         this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
         this.rateBtn = view.findViewById(R.id.rate_btn);
+        this.submit = view.findViewById(R.id.done_btn);
+        this.moneyCost = view.findViewById(R.id.delivered_money);
+        final PayContract.PayPresenter presenter = new PayPresenterImp(this);
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sendToServer(new Payment(mBooking , moneyCost.getText().toString()));
+
+            }
+        });
 
     }
 

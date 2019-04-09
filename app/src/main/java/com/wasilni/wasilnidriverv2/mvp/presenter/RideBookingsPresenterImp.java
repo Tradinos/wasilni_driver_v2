@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
 import java.util.List;
 
@@ -18,26 +19,33 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
 
+    TripPassengersActionsFragment activity ;
+    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment) {
+        this.activity = fragment ;
+    }
+
     @Override
-    public void sendToServer(PaginationAPI<Ride> request) {
+    public void sendToServer(Ride request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<PaginationAPI<Ride>>> call =
-                service.GetRideBookings( Token ,request.getData().getId(), 20 );
+        Call<Response<Ride>> call =
+                service.GetRideBookings( Token ,request.getId(), 20 );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<PaginationAPI<Ride>>> call, retrofit2.Response<Response<PaginationAPI<Ride>>> response) {
+    public void onResponse(Call<Response<Ride>> call, retrofit2.Response<Response<Ride>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                Log.e("booking list :",response.body().getData().getData().getBookings().toString()) ;
+                Log.e("booking list :",response.body().getData().getBookings().toString()) ;
+                activity.mAdapter.setList(response.body().getData().getBookings());
+                activity.mAdapter.notifyDataSetChanged();
                 break;
             case 422 :
                 break;
@@ -51,7 +59,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+    public void onFailure(Call<Response<Ride>> call, Throwable t) {
+        Log.e("onFailure ride booking",t.getMessage());
     }
 }

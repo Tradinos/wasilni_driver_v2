@@ -4,7 +4,7 @@ public enum RideStatus {
     // this enum descripe what i should todo now
 
 
-    PENDING("PENDING") ,
+    APPROVED("APPROVED") ,
     STARTED("STARTED") ,
     ARRIVED ("ARRIVED") ,
     PICKED_UP("PICKED_UP"),
@@ -25,7 +25,7 @@ public enum RideStatus {
     }
     public static String nextState(String state){
         switch (state){
-            case "PENDING" :
+            case "APPROVED" :
                 return "STARTED" ;
             case "STARTED" :
                 return "ARRIVED";
@@ -33,6 +33,8 @@ public enum RideStatus {
                 return  "PICKED_UP";
             case "PICKED_UP" :
                 return  "DONE";
+            case "DONE" :
+                return  "FINISH";
         }
         return  null;
     }

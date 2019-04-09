@@ -11,6 +11,11 @@ public class Payment {
     @Expose
     String passenger_paid_amount ;
 
+    public Payment(Booking booking, String passenger_paid_amount) {
+        this.booking = booking;
+        this.passenger_paid_amount = passenger_paid_amount;
+    }
+
     public Booking getBooking() {
         return booking;
     }

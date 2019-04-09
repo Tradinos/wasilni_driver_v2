@@ -6,7 +6,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 
 public interface ChangeRideContract {
-    public interface ChangeRidePresenter extends ServerPresenter<Booking> {
+    public interface ChangeBookingPresenter extends ServerPresenter<Booking> {
 
     }
 }

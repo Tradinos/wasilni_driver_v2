@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
+import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
@@ -16,18 +17,16 @@ import java.util.List;
 public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresenter<Booking, BookingAdapter.BookingItemViewHolder> {
 
     BookingAdapter mAdapter;
-
-    public BookingAdapterPresenterImp(BookingAdapter bookingAdapter) {
+    ChangeRideContract.ChangeBookingPresenter presenter ;
+    public BookingAdapterPresenterImp(BookingAdapter bookingAdapter ,Activity activity) {
         this.mAdapter = bookingAdapter;
+        presenter = new ChangeBookingStatePresenterImp(mAdapter,activity);
     }
+
 
     @Override
     public void ObjectToHolder(final Booking object, BookingAdapter.BookingItemViewHolder holder, Activity activity) {
-//        if(object.getStatus().equals("DONE")){
-//
-//            holder.ChangeButton.setVisibility(View.GONE);
-//            return;
-//        }
+
         holder.timeTextView.setText(object.getDatetime());
 //        holder.dateTextView.setText(object.getDates().get(0));
         //holder.DetailsTextView.setText();
@@ -40,14 +39,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             @Override
             public void onClick(View v) {
 
-                object.setStatus(RideStatus.nextState(object.getStatus()));
-                if(object.getStatus().equals("DONE")){
-                    List<Booking> list = mAdapter.getList();
-                    list.remove(object);
-                    mAdapter.setList(list);
-                }
-                // refreshAdapter and recycler view
-                mAdapter.notifyDataSetChanged();
+                presenter.sendToServer(object);
             }
         });
         if(!object.getStatus().equals("PICKED_UP")) {
