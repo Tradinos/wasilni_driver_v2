@@ -43,6 +43,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
         presenter.ObjectToHolder(booking , holder,activity);
     }
 
+
     @Override
     public int getItemCount() {
         return list.size();
@@ -50,6 +51,13 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
 
     @Override
     public int getItemViewType(int position) {
+        Log.d("SAED", "getItemViewType:  I am changing postition " + position);
+        Log.e("Booking View Type",list.get(position).getStatus()) ;
+        if(position == 0 && this.activity instanceof BookingAdapter.OnAdapterInteractionListener)
+        {
+            ((BookingAdapter.OnAdapterInteractionListener)this.activity).itemChanged(list.get(position).getStatus());
+        }
+
         switch (list.get(position).getStatus()){
             case "PENDING" :{
                 return 0;
@@ -119,5 +127,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
             callImageView = v.findViewById(R.id.call_passenger);
             Log.d("SED", "BookingItemViewHolder: I am doing it the right way right ?");
         }
+    }
+
+    public interface OnAdapterInteractionListener {
+        void itemChanged(String status);
     }
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="captain_register">تسجيل دخول الكابتن</string>
+    <string name="captain_register">تسجيل حساب الكابتن</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="password">كلمة السر</string>
     <string name="send">إرسال</string>
     <string name="one_digit_hint">0</string>
     <string name="phone_number_hint">98…</string>
