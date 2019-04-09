@@ -89,7 +89,6 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         // specify an adapter (see also next example)
         recyclerView.setAdapter(mAdapter);
     }

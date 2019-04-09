@@ -104,10 +104,10 @@ public class UtilFunction {
 
 
 
-    public static void showToast(Activity activity , int messageID){
+    public static void showToast(Context activity , int messageID){
         Toast.makeText(activity ,messageID,Toast.LENGTH_SHORT ).show();
     }
-    public static void showToast(Activity activity , String message){
+    public static void showToast(Context activity , String message){
         Toast.makeText(activity ,message,Toast.LENGTH_SHORT ).show();
     }
 

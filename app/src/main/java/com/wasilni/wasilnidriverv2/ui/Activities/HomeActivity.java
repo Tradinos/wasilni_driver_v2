@@ -39,6 +39,8 @@ import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wasilni.wasilnidriverv2.mvp.presenter.RideBookingsPresenterImp.ischecked;
+
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
         TripSummaryFragment.OnFragmentInteractionListener ,
@@ -63,16 +65,17 @@ public class HomeActivity extends FragmentActivity implements
     public static final int PEEK_HEIGHT_DROP_OFF = 210;
     public static final int PEEK_HEIGHT_PICKED_UP = 150;
     public static final int PEEK_HEIGHT_NORMAL = 200;
-
+    public static HomeActivity homeActivity ;
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     public RideContruct.MyRidesPresenter myRidesPresenter ;
 
     public UpcomingRidesAdapter mAdapter ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ischecked = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        homeActivity = this;
         myRidesPresenter = new GetMyRidesPresenterImp(this);
         initView();
     }
@@ -154,8 +157,16 @@ public class HomeActivity extends FragmentActivity implements
                 presenter.notificationButotnOnclick();
                 break;
             case R.id.passenger_actions_btn:
-                this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
-                this.passengersActionsBtn.setVisibility(View.INVISIBLE);
+                if(!tripPassengersActionsFragment.isAdded()) {
+                    this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
+                }
+                if(ischecked) {
+                    this.passengersActionsBtn.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    UtilFunction.showToast(this, "please select ride");
+                }
                 break;
         }
     }

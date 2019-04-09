@@ -77,7 +77,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Intent intent = new Intent();
                 intent.putExtra("event","update_ride");
                 intent.setAction("com.wasilni.wasilnidriverv2.receivers");
-                sendBroadcast(intent);
+                sendOrderedBroadcast(intent,
+                        null,
+                        new NotificationReceiver(),
+                        null,
+                        Activity.RESULT_OK,
+                        null,
+                        null);
                 break;
             }
             case "new_order" : {

@@ -24,6 +24,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
 
     TripPassengersActionsFragment activity ;
     Activity context ;
+    public static boolean ischecked = false  ;
     public RideBookingsPresenterImp(TripPassengersActionsFragment fragment , Activity activity) {
         this.activity = fragment ;
         context = activity ;
@@ -49,7 +50,10 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         {
             case 200 :
                 Log.e("booking list :",response.body().getData().getBookings().toString()) ;
-                activity.show(((FragmentActivity)context ).getSupportFragmentManager() , R.id.bottomsheet);
+                ischecked = true;
+                if(!activity.isAdded()) {
+                    activity.show(((FragmentActivity) context).getSupportFragmentManager(), R.id.bottomsheet);
+                }
                 activity.mAdapter.setList(response.body().getData().getBookings());
                 activity.mAdapter.notifyDataSetChanged();
                 break;

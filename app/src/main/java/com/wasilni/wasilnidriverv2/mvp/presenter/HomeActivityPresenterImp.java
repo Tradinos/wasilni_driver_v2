@@ -113,6 +113,7 @@ public class HomeActivityPresenterImp implements HomeContract.HomeActivityPresen
             activity.driverStatusTextView.setText("You're online");
             activity.passengersActionsBtn.setVisibility(View.VISIBLE);
             activity.recyclerView.setVisibility(View.VISIBLE);
+            activity.bottomLayout.setVisibility(View.INVISIBLE);
         }
 
     }
