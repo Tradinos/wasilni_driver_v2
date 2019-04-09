@@ -20,6 +20,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CausePresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
@@ -36,6 +38,7 @@ import java.util.List;
 public class HomeActivity extends FragmentActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
         TripSummaryFragment.OnFragmentInteractionListener ,
+        BookingAdapter.OnAdapterInteractionListener,
         View.OnClickListener,
         OnMapReadyCallback,
         HomeContract.HomeView {
@@ -53,9 +56,9 @@ public class HomeActivity extends FragmentActivity implements
     public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance();
     public BottomSheetLayout bottomSheet;
 
-    public static final int PEEK_HEIGHT_DROP_OFF = 250;
+    public static final int PEEK_HEIGHT_DROP_OFF = 210;
     public static final int PEEK_HEIGHT_PICKED_UP = 150;
-    public static final int PEEK_HEIGHT_NOMRAL = 200;
+    public static final int PEEK_HEIGHT_NORMAL = 200;
 
     public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
     @Override
@@ -95,7 +98,7 @@ public class HomeActivity extends FragmentActivity implements
         bottomSheet.setInterceptContentTouch(false);
         bottomSheet.setShouldDimContentView(false);
         bottomSheet.setPeekOnDismiss(true);
-        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this,PEEK_HEIGHT_NOMRAL));
+        bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
 
         bottomSheet.addOnSheetDismissedListener(new OnSheetDismissedListener() {
             @Override
@@ -113,6 +116,7 @@ public class HomeActivity extends FragmentActivity implements
         RateCauseContract.CausePresenter presenter = new CausePresenterImp(this);
         presenter.sendToServer(null);
         passengersActionsBtn.setOnClickListener(this);
+        TripSummaryFragment.newInstance().show(getSupportFragmentManager(),"TripSummaryFragment");
     }
 
     @Override
@@ -167,5 +171,38 @@ public class HomeActivity extends FragmentActivity implements
         list.add(new Ride("mahmoud","ميدان",3));
         UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter(list,this,tripPassengersActionsFragment);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void itemChanged(String status) {
+        Log.d("SAED", "itemChanged: I am inside " + status);
+        switch (status){
+            case "PENDING" :{
+                Log.d("SAED", "itemChanged: " + 1);
+                bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
+                break;
+            }
+            case "STARTED" :{
+                Log.d("SAED", "itemChanged: " + 2);
+                bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
+                break;
+            }
+            case "ARRIVED" :{
+                Log.d("SAED", "itemChanged: " + 3);
+                bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_PICKED_UP));
+                break;
+            }
+            case "PICKED_UP" :{
+                Log.d("SAED", "itemChanged: " + 4);
+                bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_DROP_OFF));
+                break;
+            }
+            case "DONE" :{
+                Log.d("SAED", "itemChanged: " + 5);
+                bottomSheet.setPeekSheetTranslation(UtilFunction.convertDpToPx(this, PEEK_HEIGHT_NORMAL));
+                break;
+            }
+        }
+        this.bottomSheet.peekSheet();
     }
 }

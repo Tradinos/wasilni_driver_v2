@@ -148,7 +148,8 @@
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_weight="1"
-                    android:padding="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:gravity="center"
                     android:background="@drawable/gray_border"
                     android:orientation="horizontal"
@@ -183,7 +184,8 @@
 
                 <LinearLayout
                     android:layout_weight="1"
-                    android:padding="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center"
                     android:background="@drawable/gray_border"
