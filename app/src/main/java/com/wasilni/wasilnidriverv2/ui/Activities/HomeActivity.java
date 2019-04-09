@@ -127,9 +127,7 @@ public class HomeActivity extends FragmentActivity implements
 
 
         RideContruct.RideBookingsPresenter bookingsPresenter = new RideBookingsPresenterImp();
-        PaginationAPI<Ride> api = new PaginationAPI<Ride>();
-        api.setData(new Ride(1));
-        bookingsPresenter.sendToServer(api);
+        bookingsPresenter.sendToServer(new Ride(2));
         passengersActionsBtn.setOnClickListener(this);
     }
 
