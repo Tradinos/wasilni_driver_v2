@@ -26,11 +26,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
 
     @Override
     public void ObjectToHolder(final Booking object, BookingAdapter.BookingItemViewHolder holder, Activity activity) {
-//        if(object.getStatus().equals("DONE")){
-//
-//            holder.ChangeButton.setVisibility(View.GONE);
-//            return;
-//        }
+
         holder.timeTextView.setText(object.getDatetime());
 //        holder.dateTextView.setText(object.getDates().get(0));
         //holder.DetailsTextView.setText();
