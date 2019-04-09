@@ -39,6 +39,15 @@ public interface ApiServiceInterface {
     Call<Response<PaginationAPI<List<Cause>>>> GetCauses(@Header("Authorization") String Authorization  , @Query("perPage") int perPage);
 
     @Headers("Accept: application/json")
+    @GET("ride")
+    Call<Response<PaginationAPI<List<Ride>>>> GetRides(@Header("Authorization") String Authorization  ,@Query("perPage") int perPage,@Query("filter") String filter);
+
+    @Headers("Accept: application/json")
+    @GET("ride/{ride_id}/bookings")
+    Call<Response<PaginationAPI<Ride>>> GetRideBookings(@Header("Authorization") String Authorization  , @Path("ride_id") int ride_id, @Query("perPage") int perPage);
+
+
+    @Headers("Accept: application/json")
     @PUT("check")
     Call<Response<Boolean>> ChangeDriverState(@Header("Authorization") String Authorization );
 

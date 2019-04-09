@@ -240,4 +240,9 @@ public class Booking {
     public void setSummary(BookingSummary summary) {
         this.summary = summary;
     }
+
+    @Override
+    public String toString() {
+        return ""+id +" "+ passengerId;
+    }
 }

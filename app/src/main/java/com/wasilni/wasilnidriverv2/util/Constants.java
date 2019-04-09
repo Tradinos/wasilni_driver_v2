@@ -8,12 +8,7 @@ public class Constants {
     public static final String PROVIDER = "passengers" ;
     public static final String ETAG = "!!!!!!!";
     public static final String LOCATION = "lat&lng";
-    public static final String Token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjkwMDdiNTEyODEwZmQ5MDdhOGI0NTljZWYyMmFlNWNkMTZlMmI5YjgyOTEyYjA0OWE2ZTczNWJiOGFjOTk3MTJlYjI1MjQyZGVmMGJjYmQ2In0.eyJhdWQiOiIxIiwianRpIjoiOTAwN2I1MT" +
-            "I4MTBmZDkwN2E4YjQ1OWNlZjIyYWU1Y2QxNmUyYjliODI5MTJiMDQ5YTZlNzM1YmI4YWM5OTcxMmViMjUyNDJkZWYwYmNiZDYiLCJpYXQiOjE1NTQ1NDcxNzQsIm5iZiI6MTU1NDU0NzE3NCwiZXhwIjoxNTg2MTY5NTc0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jQlMfSMFkBGQ" +
-            "RhGEAdPKTqlUdyNsbGQZjtNlGS7ICa7muxtyFwHE7EkGov8DWapRMvYC5Ad2blnb5cxqsxDLvAdewC8C-x4x-RV8mEg1AKxTRRqLdn7wYsv_E73Q3SDIWSW07qRvj6QGof0E4ogdwgcoDvQUij-nXjIaFPZk3xK_aZXV_sQvy5JL03aeGzKFk1T4BA0E4yz31vArfgjCIk9Lbgmj7q" +
-            "M0NrlmqPBzSTETfRkhcqAyM2tmSFq8Pj-IprWAYEXIcxvXs_QRg6NxeEXjoEc_2BEkI1_OTeJpR-IYWbbwmMb__mtqH_L5OJuxmSs9jkh3DHfmmuPkHCamEyadhXIcpjeBnO2KDa34uR_GgUQDP_irU9eKQRY6SQyWx1MoZHyASzr0myM2nucyReukv_rdS5yOwznI20f36BMvF0LO" +
-            "z6_E1o1sz1782qbnR2uOSyng9bHedRfHZYf94aOUULV1Za1VD6nsMkYmpYO4z5E1dgBuStGDlndUWEjZ8a-isI8Ypg05ezGeUzw-4dW-LsinpaCAb8I134OjQH2549t9QNiJ8Eyna0YAZ9wImG0Z8FUaurTmn8T6yrJYJJVclgbZmF4Svc2q161O_X8zyUGEsqsnzwmv83mqgC-wap" +
-            "ParRwdsioCbe3cxBk4F5Xod0JIZzf-b7BCZITWDmk";
+    public static final String Token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA2OWZhZDU2YmEzZDg1ZGQ3YmM1NjI0NDg5NDdmNjM5OWZkN2YxZWEzNGUzNjk0ZTFmMjMzNzQ3MDhiOTc2ODFmOTFlODYyOGM2MWEyODRjIn0.eyJhdWQiOiIxIiwianRpIjoiMDY5ZmFkNTZiYTNkODVkZDdiYzU2MjQ0ODk0N2Y2Mzk5ZmQ3ZjFlYTM0ZTM2OTRlMWYyMzM3NDcwOGI5NzY4MWY5MWU4NjI4YzYxYTI4NGMiLCJpYXQiOjE1NTQ3OTUxNjgsIm5iZiI6MTU1NDc5NTE2OCwiZXhwIjoxNTg2NDE3NTY4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.KS9GBHnkxWzxGE-2LGZAQJvP9dKaxkEvAhSuB9AtKiW5fCb6HtjsJGZNb4siQyiB8iWtV-Rj-Fl4WTpbuCrMogq_QdhpZ1wJrhAFASsnkWyshmQdwRdg3sIRN803uBDZIx0tGYW_Xelfvt8e5OTYvggZXaWF2l9xStavk6VyNPaKR4pTlZZ8JUGov80NTaaHEPG1iEL0b_eAxkGspNTiFS0_Ey6kXuum93_1l9s_LqNw4joRept48EQ3dF9YGt1Oj8yfVSpTvW2KwYrgnE9nld-A0-b_Gk_wlIgoLnmGv8bO8gsAUytiljFku_l_k_lsguFZjAMYtKCjxPElMnQ3cYQ6ICnBphPEFcBvXXlniOPxMWMTuPYRaoCwC9BRqpG7_k7eXRrkZfqEjFxwj9KZGi-kkiPVcIO4qa0-6YFpkVnseoyy4yGGx_uun6e8HTyw0n9c33L-IkPeq8RgVpiqSzwvNk4rDkxJ9QeoUJ0p0-GYzgc6IBwi656o_eLypVpmi3s2popxajoPwoQ3I9Wj9swAsbNpFqB8ZgM18Tq1GZTZ45xXvvG2XH3bUf1mDF0qRglwhi3jY3R-PjgjiB6Ias2jP9J9NHhPfQ5MZ3ep-DpPqoH3lNo-9NfjYLkFO6nPDk8WWPBVvLgz5qIhaDm5s8Ryx6c4hCGN4_DJQnChm-w";
     public static final String MAPKEY = "AIzaSyCdHpUzZnuN8JyZ5vKUxNwU7pQBWQZzoFM";
     public static final String DTAG = "#######";
     public static final Float ZOOM = 15.96F;

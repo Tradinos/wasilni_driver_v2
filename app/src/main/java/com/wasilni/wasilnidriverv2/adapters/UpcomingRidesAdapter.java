@@ -15,6 +15,7 @@ import com.wasilni.wasilnidriverv2.mvp.presenter.UpComingRidesAdapterPresenterIm
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdapter.RideViewHolder> {
@@ -23,8 +24,21 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     private TripPassengersActionsFragment fragment;
     private UpComingRidesAdapterPresenterImp presenter ;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public UpcomingRidesAdapter() {
+    public UpcomingRidesAdapter( TripPassengersActionsFragment tripPassengersActionsFragment) {
 //        mDataset = myDataset;
+
+        list = new ArrayList<>();
+        this.fragment = tripPassengersActionsFragment;
+        presenter = new UpComingRidesAdapterPresenterImp(fragment);
+
+    }
+
+    public List<Ride> getList() {
+        return list;
+    }
+
+    public void setList(List<Ride> list) {
+        this.list = list;
     }
 
     public UpcomingRidesAdapter(List<Ride> list, Activity activity, TripPassengersActionsFragment tripPassengersActionsFragment) {
