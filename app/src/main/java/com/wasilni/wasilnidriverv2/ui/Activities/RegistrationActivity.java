@@ -50,6 +50,7 @@ public class RegistrationActivity extends BasicActivity implements
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 
         this.user = new User();
+        this.car = new Car();
         this.completeDataPresenterImp = new CompleteDataPresenterImp();
         this.initView();
 
@@ -84,6 +85,7 @@ public class RegistrationActivity extends BasicActivity implements
 
     @Override
     public void goToPhoneVerification(String phoneNumber) {
+        this.user.setUsername(phoneNumber);
         this.user.setPhone_number(phoneNumber);
         changeFragment(new PhoneVerificationFragment());
     }
@@ -106,7 +108,7 @@ public class RegistrationActivity extends BasicActivity implements
     @Override
     public void completeRegistration() {
         RegisterCaptain reg = new RegisterCaptain();
-        reg.setUser(this.user);
+        reg.setCaptain(this.user);
         reg.setCar(this.car);
         this.completeDataPresenterImp.sendToServer(reg);
     }
@@ -124,18 +126,19 @@ public class RegistrationActivity extends BasicActivity implements
     }
 
     @Override
-    public void submitCarData(int color, int model, String manufactureYear, int brand, String number) {
-        this.car.setColorId(color);
-        this.car.setModelId(model);
-        this.car.setCarManufactureYear(manufactureYear);
-        this.car.setBrandId(brand);
+    public void submitCarData(int color, int model, String manufactureYear, int brand, String number, String insuranceDate) {
+        this.car.setColor_id(color);
+        this.car.setBrand_model_id(model);
+        this.car.setCar_manufacture_year(manufactureYear);
+        this.car.setBrand_id(brand);
         this.car.setNumber(number);
+        this.car.setInsurance_expired_date(insuranceDate);
     }
 
     @Override
     public void submitCivilData(String licenseStartDate, String licenseEndDate, String bank) {
-        this.user.setLicenseEnd(licenseEndDate);
-        this.user.setLicenseStart(licenseStartDate);
+        this.user.setDriving_certificate_end_date(licenseEndDate);
+        this.user.setDriving_certificate_start_date(licenseStartDate);
     }
 
     @Override
@@ -145,7 +148,7 @@ public class RegistrationActivity extends BasicActivity implements
                                    String whatsappNumber,
                                    int region,
                                    int nationality,
-                                   String birthdate, int gender, String address) {
+                                   String birthdate, int gender, String address, String password) {
 
         this.user.setWhatsapp_number(whatsappNumber);
         this.user.setFirst_name(firstName);
@@ -154,7 +157,10 @@ public class RegistrationActivity extends BasicActivity implements
         this.user.setBirthday(birthdate);
         this.user.setAddress(address);
         this.user.setRegionId(region);
-        this.user.setNationalityId(nationality);
+        this.user.setNationality_id(nationality);
+        this.user.setPassword(password);
+        this.user.setPassword_confirmation(password);
+        this.user.setActivation_code("123456");
 
         if(gender == 0) {
             this.user.setGender(true);

@@ -2,16 +2,16 @@ package com.wasilni.wasilnidriverv2.mvp.model;
 
 public class RegisterCaptain {
 
-    private User user;
+    private User captain;
 
     private Car car;
 
-    public User getUser() {
-        return user;
+    public User getCaptain() {
+        return captain;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCaptain(User captain) {
+        this.captain = captain;
     }
 
     public Car getCar() {

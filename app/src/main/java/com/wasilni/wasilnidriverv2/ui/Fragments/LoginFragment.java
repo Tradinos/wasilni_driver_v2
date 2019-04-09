@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.LoginPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
@@ -33,6 +35,8 @@ public class LoginFragment extends Fragment implements
     TextInputLayout phoneLayout, passwordLayout;
     TextInputEditText phoneEdit, passwordEdit;
     Button registerBtn, loginBtn;
+
+    LoginPresenterImp loginPresenterImp;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -53,6 +57,8 @@ public class LoginFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loginPresenterImp = new LoginPresenterImp(getActivity());
         if (getArguments() != null) {
         }
     }
@@ -145,7 +151,11 @@ public class LoginFragment extends Fragment implements
 
     @Override
     public boolean submit() {
-        mListener.goToMainView();
+        User user = new User();
+        user.setPassword(this.passwordEdit.getText().toString());
+        user.setPhone_number(this.phoneEdit.getText().toString());
+        this.loginPresenterImp.sendToServer(user);
+//        mListener.goToMainView();
         return true;
     }
 

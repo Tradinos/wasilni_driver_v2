@@ -14,12 +14,12 @@ public class User{
     private boolean isConfirmed ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
-            whatsapp_number="" , id_image="" , password="" , activation_code="",
+            whatsapp_number="" , id_image="" , password="", password_confirmation = "", activation_code="",
             address = "" ;
 
-    private String licenseStart , licenseEnd;
+    private String driving_certificate_start_date, driving_certificate_end_date;
     private boolean verified , gender;
-    private int id, regionId, nationalityId;
+    private int id, regionId, nationality_id;
 
     public boolean isChecked() {
         return isChecked;
@@ -199,27 +199,35 @@ public class User{
         this.regionId = regionId;
     }
 
-    public int getNationalityId() {
-        return nationalityId;
+    public int getNationality_id() {
+        return nationality_id;
     }
 
-    public void setNationalityId(int nationalityId) {
-        this.nationalityId = nationalityId;
+    public void setNationality_id(int nationality_id) {
+        this.nationality_id = nationality_id;
     }
 
-    public String getLicenseStart() {
-        return licenseStart;
+    public String getDriving_certificate_start_date() {
+        return driving_certificate_start_date;
     }
 
-    public void setLicenseStart(String licenseStart) {
-        this.licenseStart = licenseStart;
+    public void setDriving_certificate_start_date(String driving_certificate_start_date) {
+        this.driving_certificate_start_date = driving_certificate_start_date;
     }
 
-    public String getLicenseEnd() {
-        return licenseEnd;
+    public String getDriving_certificate_end_date() {
+        return driving_certificate_end_date;
     }
 
-    public void setLicenseEnd(String licenseEnd) {
-        this.licenseEnd = licenseEnd;
+    public void setDriving_certificate_end_date(String driving_certificate_end_date) {
+        this.driving_certificate_end_date = driving_certificate_end_date;
+    }
+
+    public String getPassword_confirmation() {
+        return password_confirmation;
+    }
+
+    public void setPassword_confirmation(String password_confirmation) {
+        this.password_confirmation = password_confirmation;
     }
 }

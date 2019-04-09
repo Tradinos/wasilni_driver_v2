@@ -1,23 +1,23 @@
 package com.wasilni.wasilnidriverv2.mvp.model;
 
 public class Car {
-    private int colorId, brandId, modelId;
-    private String number, insuranceExpireDate, carManufactureYear;
+    private int color_id, brand_id, brand_model_id;
+    private String number, insurance_expired_date, car_manufacture_year;
 
-    public int getColorId() {
-        return colorId;
+    public int getColor_id() {
+        return color_id;
     }
 
-    public void setColorId(int colorId) {
-        this.colorId = colorId;
+    public void setColor_id(int color_id) {
+        this.color_id = color_id;
     }
 
-    public int getBrandId() {
-        return brandId;
+    public int getBrand_id() {
+        return brand_id;
     }
 
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
+    public void setBrand_id(int brand_id) {
+        this.brand_id = brand_id;
     }
 
     public String getNumber() {
@@ -28,27 +28,27 @@ public class Car {
         this.number = number;
     }
 
-    public String getInsuranceExpireDate() {
-        return insuranceExpireDate;
+    public String getInsurance_expired_date() {
+        return insurance_expired_date;
     }
 
-    public void setInsuranceExpireDate(String insuranceExpireDate) {
-        this.insuranceExpireDate = insuranceExpireDate;
+    public void setInsurance_expired_date(String insurance_expired_date) {
+        this.insurance_expired_date = insurance_expired_date;
     }
 
-    public String getCarManufactureYear() {
-        return carManufactureYear;
+    public String getCar_manufacture_year() {
+        return car_manufacture_year;
     }
 
-    public void setCarManufactureYear(String carManufactureYear) {
-        this.carManufactureYear = carManufactureYear;
+    public void setCar_manufacture_year(String car_manufacture_year) {
+        this.car_manufacture_year = car_manufacture_year;
     }
 
-    public int getModelId() {
-        return modelId;
+    public int getBrand_model_id() {
+        return brand_model_id;
     }
 
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
+    public void setBrand_model_id(int brand_model_id) {
+        this.brand_model_id = brand_model_id;
     }
 }

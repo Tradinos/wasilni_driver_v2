@@ -94,8 +94,7 @@ public class CivilInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        String date = ""+year+"-"+monthOfYear+"-"+dayOfMonth ;
-                        licenseStartDateTV.setText(date);
+                        licenseStartDateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -108,12 +107,11 @@ public class CivilInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        String date = ""+year+"-"+monthOfYear+"-"+dayOfMonth ;
-                        licenseEndDateTV.setText(date);
+                        licenseEndDateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setPreselectedDate(2015, 12, 1)
+                .setPreselectedDate(2022, 12, 1)
                 .setDoneText(getActivity().getString(R.string.yes))
                 .setCancelText(getActivity().getString(R.string.no))//.setThemeLight();
                 .setThemeCustom(R.style.MyCustomBetterPickersDialogs);

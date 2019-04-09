@@ -74,7 +74,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("login")
-    Call<Response<User>> Login(@Field("phone_number") String phone_number,@Field("password") String password, @Field("provider") String provider);
+    Call<Response<User>> Login(@Field("username") String phone_number,@Field("password") String password, @Field("provider") String provider);
 
     @Headers("Accept: application/json")
     @POST("captain")
