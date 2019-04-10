@@ -21,4 +21,13 @@ public class FullScreenActivity extends BasicActivity {
 
     }
 
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
+
+    @Override
+    public void responseCode200() {
+
+    }
 }

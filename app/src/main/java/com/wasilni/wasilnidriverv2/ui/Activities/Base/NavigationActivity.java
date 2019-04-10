@@ -72,4 +72,14 @@ public class NavigationActivity extends BasicActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
+
+    @Override
+    public void responseCode200() {
+
+    }
 }

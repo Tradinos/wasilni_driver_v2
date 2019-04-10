@@ -11,7 +11,7 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.MainContract;
 
 
-public class BasicActivity extends AppCompatActivity implements MainContract.ProgressBar {
+public abstract class BasicActivity extends AppCompatActivity implements MainContract {
     protected ProgressBar progressBar ;
     protected RelativeLayout BasicmainLayout , grayLayout ;
     @Override
@@ -47,5 +47,25 @@ public class BasicActivity extends AppCompatActivity implements MainContract.Pro
     public void hideProgressBar() {
         grayLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void responseCode422() {
+
+    }
+
+    @Override
+    public void responseCode500() {
+
+    }
+
+    @Override
+    public void responseCode400() {
+
+    }
+
+    @Override
+    public void responseCode401() {
+
     }
 }

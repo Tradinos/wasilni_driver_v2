@@ -170,4 +170,14 @@ public class RegistrationActivity extends BasicActivity implements
         }
 
     }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
+
+    @Override
+    public void responseCode200() {
+
+    }
 }
