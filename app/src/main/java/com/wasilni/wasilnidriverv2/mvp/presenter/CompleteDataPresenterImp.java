@@ -19,14 +19,15 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         /** Call the method with parameter in the interface to get the notice data*/
 
         Log.d("SAED", "sendToServer: " + request);
-        Call<com.wasilni.wasilnidriverv2.network.Response<RegisterCaptain>> call =
+        Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
                 service.CompleteInfo( request);
 
         call.enqueue(this);
     }
 
+
     @Override
-    public void onResponse(Call<Response<RegisterCaptain>> call, retrofit2.Response<Response<RegisterCaptain>> response) {
+    public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse register",response.message()+" code :"+response.code());
 
         switch (response.code())
@@ -45,7 +46,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
     }
 
     @Override
-    public void onFailure(Call<Response<RegisterCaptain>> call, Throwable t) {
+    public void onFailure(Call<Response<User>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 }

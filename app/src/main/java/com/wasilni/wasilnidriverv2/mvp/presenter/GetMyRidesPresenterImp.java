@@ -25,7 +25,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     }
 
     @Override
-    public void sendToServer(PaginationAPI<List<Ride>> request) {
+    public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
@@ -62,4 +62,5 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     public void onFailure(Call<Response<PaginationAPI<List<Ride>>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
+
 }

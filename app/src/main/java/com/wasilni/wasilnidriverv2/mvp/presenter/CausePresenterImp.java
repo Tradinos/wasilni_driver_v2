@@ -22,8 +22,9 @@ public class CausePresenterImp implements RateCauseContract.CausePresenter {
         this.activity = activity ;
     }
 
+
     @Override
-    public void sendToServer(PaginationAPI<List<Cause>> request) {
+    public void sendToServer(Cause request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
@@ -57,4 +58,5 @@ public class CausePresenterImp implements RateCauseContract.CausePresenter {
     public void onFailure(Call<Response<PaginationAPI<List<Cause>>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
+
 }

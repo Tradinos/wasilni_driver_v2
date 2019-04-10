@@ -4,7 +4,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 
 public interface RegistrationContract {
-    public interface RegistrationPresenter extends ServerPresenter<User> {
+    public interface RegistrationPresenter extends ServerPresenter<User,User> {
 
     }
 

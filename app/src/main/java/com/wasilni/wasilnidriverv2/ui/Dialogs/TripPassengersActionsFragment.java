@@ -1,5 +1,7 @@
 package com.wasilni.wasilnidriverv2.ui.Dialogs;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +38,11 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
         mAdapter = new BookingAdapter(new ArrayList<Booking>() , this.getActivity());
         // Required empty public constructor
     }
+    @SuppressLint("ValidFragment")
+    public TripPassengersActionsFragment(Activity activity) {
+        mAdapter = new BookingAdapter(new ArrayList<Booking>() , activity);
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -43,8 +50,8 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
      *
      * @return A new instance of fragment TripPassengersActionsFragment.
      */
-    public static TripPassengersActionsFragment newInstance() {
-        TripPassengersActionsFragment fragment = new TripPassengersActionsFragment();
+    public static TripPassengersActionsFragment newInstance(Activity activity) {
+        TripPassengersActionsFragment fragment = new TripPassengersActionsFragment(activity);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

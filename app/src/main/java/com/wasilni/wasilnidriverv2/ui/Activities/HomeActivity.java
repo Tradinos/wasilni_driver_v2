@@ -59,7 +59,7 @@ public class HomeActivity extends FragmentActivity implements
     public ConstraintLayout newOrderLayout ;
     public Button notificationButton ;
     public ImageButton passengersActionsBtn;
-    public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance();
+    public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance(this);
     public BottomSheetLayout bottomSheet;
 
     public static final int PEEK_HEIGHT_DROP_OFF = 210;

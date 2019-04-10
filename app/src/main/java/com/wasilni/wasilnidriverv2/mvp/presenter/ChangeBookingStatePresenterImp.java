@@ -68,6 +68,9 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                     fragment.setmBooking(mBooking);
                     fragment.show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
                 }
+                else {
+                    mAdapter.notifyDataSetChanged();
+                }
                 // refreshAdapter and recycler view
                 break;
             case 422 :

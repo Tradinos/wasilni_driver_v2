@@ -5,7 +5,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 
 public interface PayContract {
-    public interface PayPresenter extends ServerPresenter<Payment> {
+    public interface PayPresenter extends ServerPresenter<Payment,Payment> {
 
     }
 }

@@ -5,7 +5,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 
 public interface CompleteDataContract {
-    public interface CompleteDataPresenter extends ServerPresenter<RegisterCaptain> {
+    public interface CompleteDataPresenter extends ServerPresenter<RegisterCaptain,User> {
 
     }
 }

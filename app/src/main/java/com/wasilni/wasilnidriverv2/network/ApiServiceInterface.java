@@ -78,6 +78,6 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @POST("captain")
-    Call<Response<RegisterCaptain>> CompleteInfo(@Body RegisterCaptain registerCaptain);
+    Call<Response<User>> CompleteInfo(@Body RegisterCaptain registerCaptain);
 
 }
