@@ -16,13 +16,19 @@ import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Bank;
+import com.wasilni.wasilnidriverv2.mvp.presenter.BanksPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +39,7 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class CivilInfoRegistrationFragment extends Fragment implements
+        BanksPresenterImp.OnResponseInterface,
         FormContract,
         View.OnClickListener {
 
@@ -62,6 +69,9 @@ public class CivilInfoRegistrationFragment extends Fragment implements
     private final int GALLERY_CONVICTION_IMAGE_REQUEST_CODE = 6;
     private String cameraTempFileConviction = "wasilni_conviction_" + (new Date().getTime()) +  ".jpg";
 
+    private ObjectNameAdapter banksAdapter;
+    private BanksPresenterImp banksPresenterImp;
+
     public CivilInfoRegistrationFragment() {
         // Required empty public constructor
     }
@@ -82,6 +92,8 @@ public class CivilInfoRegistrationFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.banksPresenterImp = new BanksPresenterImp(this, getActivity());
         if (getArguments() != null) {
         }
     }
@@ -154,7 +166,26 @@ public class CivilInfoRegistrationFragment extends Fragment implements
         this.idBackImageTV.setOnClickListener(this);
         this.idFrontImageTV.setOnClickListener(this);
         this.convicatedImage.setOnClickListener(this);
+
+
+        this.setUpAdapters();
+
+        this.fetchData();
     }
+
+
+    private void setUpAdapters() {
+
+        banksAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.bank));
+        bankSp.setAdapter(banksAdapter);
+        this.populateBanks(new ArrayList<Bank>());
+
+    }
+
+    private void fetchData(){
+        this.banksPresenterImp.sendToServer(null);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -281,7 +312,7 @@ public class CivilInfoRegistrationFragment extends Fragment implements
             this.licenseStartDateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_white_border_red));
         }
 
-        if(this.hasAccountBank && this.bankSp.getSelectedItemPosition() == 1){
+        if(this.hasAccountBank && this.bankSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.bankSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
@@ -306,6 +337,22 @@ public class CivilInfoRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+
+    }
+
+    @Override
+    public void populateBanks(List<Bank> banks) {
+
+//        ArrayList<Bank> items = new ArrayList<>();
+//
+//        items.add(new Bank(1,"syria"));
+//        items.add(new Bank(2,"egypt"));
+//        items.add(new Bank(3,"jordan"));
+        banksAdapter.updateItems((List)banks);
+    }
+
+    @Override
+    public void onFailure(List<String> errors) {
 
     }
 

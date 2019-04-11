@@ -1,9 +1,14 @@
 package com.wasilni.wasilnidriverv2.network;
 
 
+import com.wasilni.wasilnidriverv2.mvp.model.Bank;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.BookingCause;
+import com.wasilni.wasilnidriverv2.mvp.model.Brand;
+import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
+import com.wasilni.wasilnidriverv2.mvp.model.Color;
+import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
@@ -80,4 +85,23 @@ public interface ApiServiceInterface {
     @POST("captain")
     Call<Response<User>> CompleteInfo(@Body RegisterCaptain registerCaptain);
 
+    @Headers("Accept: application/json")
+    @GET("color")
+    Call<Response<List<Color>>> Colors(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @GET("brand")
+    Call<Response<List<Brand>>> Brands(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @GET("nationality")
+    Call<Response<List<Nationality>>> Nationalities(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @GET("bank")
+    Call<Response<List<Bank>>> Banks(@Header("Authorization") String Authorization );
+
+    @Headers("Accept: application/json")
+    @GET("/car_brand/{car_brand_id}/models")
+    Call<Response<List<BrandModel>>> BrandModels(@Header("Authorization") String Authorization, @Path("car_brand_id") int carBrandId);
 }

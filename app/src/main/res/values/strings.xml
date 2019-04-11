@@ -44,6 +44,10 @@
     <string name="car_mechanic">car mechanic</string>
     <string name="car_insurance">car insurance</string>
     <string name="brand_manufacture_year">brand and manufacture year</string>
+    <string name="brand">brand</string>
+    <string name="model">model</string>
+    <string name="year">year</string>
+    <string name="bank">bank</string>
     <string name="number">number</string>
 
     <string name="front_page">front</string>
@@ -75,4 +79,5 @@
     <string name="waiting"> waiting </string>
     <string name="calculated_cost"> calculated cost</string>
     <string name="booking_cost"> booking cost </string>
+    <string name="gender"> gender</string>
 </resources>

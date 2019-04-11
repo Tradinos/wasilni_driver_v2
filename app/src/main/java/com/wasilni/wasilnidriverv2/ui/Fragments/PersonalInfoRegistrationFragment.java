@@ -23,14 +23,20 @@ import android.widget.TextView;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
+import com.wasilni.wasilnidriverv2.mvp.presenter.NationalitiesPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +48,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class PersonalInfoRegistrationFragment extends Fragment implements
         FormContract,
+        NationalitiesPresenterImp.OnResponseInterface,
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +71,9 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     private final int GALLERY_PROFILE_IMAGE_REQUEST_CODE = 1;
     private final int CAMERA_PROFILE_IMAGE_REQUEST_CODE = 2;
 
-    String[] genders;
+    ArrayList<String> genders;
+    private ObjectNameAdapter nationalitiesAdapter;
+    private NationalitiesPresenterImp nationalitiesPresenterImp;
 
     public PersonalInfoRegistrationFragment() {
         // Required empty public constructor
@@ -87,6 +96,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.nationalitiesPresenterImp = new NationalitiesPresenterImp(this, getActivity());
         if (getArguments() != null) {
         }
     }
@@ -141,22 +151,30 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
 
         UtilFunction.underlineWidget(this.birthdateTV);
 
-        this.genders  = new String[]{
-            getString(R.string.female),
-            getString(R.string.male)
-        };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, genders);
+        this.birthdateTV.setOnClickListener(this);
+        this.noWhatsappTV.setOnClickListener(this);
+        this.yesWhatsappTV.setOnClickListener(this);
+        this.profilePicture.setOnClickListener(this);
+
+        this.setWhatsappChoice(true);
+
+        this.setUpAdapters();
+
+        this.fetchData();
+    }
+
+    private void setUpAdapters(){
+
+        this.genders = new ArrayList<>();
+        this.genders.add(getString(R.string.female));
+        this.genders.add(getString(R.string.male));
+
+        ObjectNameAdapter adapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, (ArrayList)genders, getString(R.string.gender));
         this.genderSp.setAdapter(adapter);
 
-        String[] nations = new String[]{
-                "syria",
-                "Iraq",
-                "Egypt",
-                "lebanon"
-        };
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, nations);
-        this.nationalityAC.setAdapter(adapter2);
+        nationalitiesAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.nationality));
+        this.nationalityAC.setAdapter(nationalitiesAdapter);
 
         String[] regions = new String[]{
                 "maza",
@@ -170,12 +188,10 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, regions);
         this.regionAC.setAdapter(adapter3);
 
-        this.birthdateTV.setOnClickListener(this);
-        this.noWhatsappTV.setOnClickListener(this);
-        this.yesWhatsappTV.setOnClickListener(this);
-        this.profilePicture.setOnClickListener(this);
+    }
 
-        this.setWhatsappChoice(true);
+    private void fetchData(){
+        this.nationalitiesPresenterImp.sendToServer(null);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -295,7 +311,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             this.regionAC.setError(requiredFieldStrId);
         }
 
-        if(this.nationalityAC.getSelectedItemPosition() == 1){
+        if(this.nationalityAC.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
@@ -304,6 +320,12 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             valid = false;
             UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
         }
+
+        if(this.genderSp.getSelectedItemPosition() != DISABLED_ITEM_INDEX){
+            valid = false;
+            this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
+        }
+
         return valid;
     }
 
@@ -316,6 +338,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         UtilFunction.removeErrorToInputLayout(whatsappPhoneIN);
         this.birthdateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.gray_border));
         this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
+        this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
     }
 
     @Override
@@ -339,6 +362,16 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+
+    }
+
+    @Override
+    public void populateNationalities(List<Nationality> items) {
+        this.nationalitiesAdapter.updateItems((List)items);
+    }
+
+    @Override
+    public void onFailure(List<String> errors) {
 
     }
 

@@ -16,7 +16,6 @@
     <string name="female">مؤنث</string>
     <string name="region">منطقة السكن</string>
     <string name="region_details">تفاصيل السكن</string>
-    <string name="nationality">الجنسية</string>
     <string name="first_name">الاسم الاول</string>
     <string name="last_name">الاسم الاخير</string>
     <string name="start_date">تاريخ البدء</string>
@@ -60,4 +59,11 @@
     <string name="waiting"> الانتظار </string>
     <string name="calculated_cost">التكلفة المستحقة</string>
     <string name="booking_cost"> تكلفة الحجز </string>
+
+    <string name="brand">النوع</string>
+    <string name="model">الموديل</string>
+    <string name="bank">البنك</string>
+    <string name="year">النسة</string>
+    <string name="nationality">الجنسية</string>
+    <string name="gender">الجنس</string>
 </resources>
