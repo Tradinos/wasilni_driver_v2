@@ -66,4 +66,6 @@
     <string name="year">النسة</string>
     <string name="nationality">الجنسية</string>
     <string name="gender">الجنس</string>
+
+    <string name="auto_complete_selection">الرجاء اختيار اخدى الخيارات المقرحة</string>
 </resources>

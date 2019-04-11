@@ -27,6 +27,7 @@ public class ObjectNameAdapter extends ArrayAdapter{
     private LayoutInflater mInfalter;
     private int mResource;
     private Object labelObject;
+    private List<Object> mObjects;
 
     public static final int DISABLED_ITEM_INDEX = 0;
 
@@ -39,6 +40,7 @@ public class ObjectNameAdapter extends ArrayAdapter{
         this.mResource = resource;
         this.labelObject = new Color(-1, label);
         this.insertLabelObject();
+        this.mObjects = objects;
 
         this.mInfalter = LayoutInflater.from(context);
 
@@ -126,6 +128,7 @@ public class ObjectNameAdapter extends ArrayAdapter{
     }
 
     public void updateItems(List<Object> items){
+        this.mObjects = items;
         this.clear();
         this.addAll(items);
 

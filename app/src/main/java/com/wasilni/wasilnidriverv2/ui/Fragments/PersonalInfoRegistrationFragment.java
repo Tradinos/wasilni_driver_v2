@@ -13,8 +13,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -31,6 +33,7 @@ import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +56,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
 
     private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, passwordET, addressDetailsEdit;
-    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT;
+    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT, regionLT;
 
     private AutoCompleteTextView regionAC;
     private TextView birthdateTV, noWhatsappTV, yesWhatsappTV;
@@ -75,6 +78,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     private ObjectNameAdapter nationalitiesAdapter;
     private NationalitiesPresenterImp nationalitiesPresenterImp;
 
+    ArrayList<String> regions = new ArrayList<String>();
     public PersonalInfoRegistrationFragment() {
         // Required empty public constructor
     }
@@ -141,6 +145,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         this.emailET = view.findViewById(R.id.email_edit);
         this.emailIN = view.findViewById(R.id.email_layout);
         this.regionAC = view.findViewById(R.id.region_auto_complete);
+        this.regionLT = view.findViewById(R.id.region_layout);
         this.nationalityAC = view.findViewById(R.id.nationality);
         this.addressDetailsEdit = view.findViewById(R.id.address_details_edit);
         this.passwordET = view.findViewById(R.id.password_edit);
@@ -176,18 +181,29 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         nationalitiesAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.nationality));
         this.nationalityAC.setAdapter(nationalitiesAdapter);
 
-        String[] regions = new String[]{
-                "maza",
-                "mazraa",
-                "free zone",
-                "free dude",
-                "free man",
-                "free guy",
-                "baramka"
-        };
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, regions);
+        regions.add("maza");
+        regions.add("mazaraa");
+        regions.add("free zone");
+        regions.add("free dude");
+        regions.add("free man");
+        regions.add("free guy");
+        regions.add("baramka");
+
+        ArrayAdapter adapter3 = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, regions );
         this.regionAC.setAdapter(adapter3);
 
+        this.regionAC.setOnFocusChangeListener(
+            new View.OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (regions.size() == 0 ||
+                                regions.indexOf(regionAC.getText().toString()) == -1) {
+                            regionAC.setError(getString(R.string.auto_complete_selection));
+                        };
+                    }
+                }
+            }
+        );
     }
 
     private void fetchData(){
@@ -306,11 +322,6 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
            birthdateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_white_border_red));
         }
 
-        if(this.regionAC.getText().toString().isEmpty()){
-            valid = false;
-            this.regionAC.setError(requiredFieldStrId);
-        }
-
         if(this.nationalityAC.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
@@ -326,6 +337,11 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
 
+        if (regions.size() == 0 || regions.indexOf(regionAC.getText().toString()) == -1) {
+            valid = false;
+            UtilFunction.setErrorToInputLayout(regionLT, getString(R.string.auto_complete_selection));
+        }
+
         return valid;
     }
 
@@ -336,6 +352,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         UtilFunction.removeErrorToInputLayout(firstnameIL);
         UtilFunction.removeErrorToInputLayout(lastnameIL);
         UtilFunction.removeErrorToInputLayout(whatsappPhoneIN);
+        UtilFunction.removeErrorToInputLayout(regionLT);
         this.birthdateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.gray_border));
         this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
         this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
