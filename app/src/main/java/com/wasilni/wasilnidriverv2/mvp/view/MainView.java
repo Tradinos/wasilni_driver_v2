@@ -7,6 +7,6 @@ import android.view.View;
  */
 public interface MainView extends View.OnClickListener {
     public void initView();
-    public void getDateFromView();
-    public void setDataToView();
+    public void onSuccess();
+    public void onFailuer();
 }

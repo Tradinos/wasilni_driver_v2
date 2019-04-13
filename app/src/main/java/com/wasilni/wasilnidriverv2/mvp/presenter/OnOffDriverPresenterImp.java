@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.mvp.view.OnOffDriverContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -14,11 +15,9 @@ import retrofit2.Call;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverPresenter {
-    HomeActivityPresenterImp parent ;
     HomeActivity activity ;
-    public OnOffDriverPresenterImp(HomeActivityPresenterImp homeActivityPresenterImp) {
-        this.parent = homeActivityPresenterImp ;
-        this.activity = parent.activity ;
+    public OnOffDriverPresenterImp(HomeActivity activity) {
+        this.activity = activity ;
     }
 
     @Override
@@ -39,14 +38,19 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
         switch (response.code())
         {
             case 200 :
+                activity.responseCode200();
                 break;
             case 422 :
+                activity.responseCode422();
                 break;
             case 500 :
+                activity.responseCode500();
                 break;
             case 400:
+                activity.responseCode400();
                 break;
             case 401:
+                activity.responseCode401();
                 break;
         }
     }
@@ -54,5 +58,6 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
     @Override
     public void onFailure(Call<Response<Boolean>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
+        activity.onFailure(t);
     }
 }

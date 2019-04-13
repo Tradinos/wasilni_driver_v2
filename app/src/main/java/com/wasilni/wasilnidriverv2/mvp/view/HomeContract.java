@@ -5,9 +5,6 @@ import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 public interface HomeContract {
     public interface HomeView{
         public void initView();
-
-    }
-    public interface HomeActivityPresenter {
         public void driverStatusOnclick();
         public void notificationButotnOnclick();
         public void regesterNotification();
@@ -15,5 +12,9 @@ public interface HomeContract {
         public void unregesterNotification();
         public void unregesterRecivers();
         public void checkDriverStatus();
+
+    }
+    public interface HomeActivityPresenter {
+
     }
 }

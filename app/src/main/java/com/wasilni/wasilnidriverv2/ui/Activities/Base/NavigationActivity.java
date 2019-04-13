@@ -13,16 +13,18 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
-public  class NavigationActivity extends AppCompatActivity
+public abstract class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         NavigationContract.NavigationView {
     protected DrawerLayout mainLayout ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +59,6 @@ public  class NavigationActivity extends AppCompatActivity
         }
     }
 
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -84,7 +84,40 @@ public  class NavigationActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void showProgressBar() {
 
+    }
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    @Override
+    public ProgressBar initProgressBar() {
+        return null;
+    }
+
+    @Override
+    public void responseCode422() {
+
+    }
+
+    @Override
+    public void responseCode500() {
+
+    }
+
+    @Override
+    public void responseCode400() {
+
+    }
+
+    @Override
+    public void responseCode401() {
+
+    }
 
 
 }
