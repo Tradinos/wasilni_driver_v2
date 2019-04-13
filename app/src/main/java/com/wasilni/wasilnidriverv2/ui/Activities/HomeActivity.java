@@ -277,6 +277,7 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void onFailure(Throwable t) {
+        UtilFunction.showToast(this,"onFailure : "+t.getMessage());
 
     }
 

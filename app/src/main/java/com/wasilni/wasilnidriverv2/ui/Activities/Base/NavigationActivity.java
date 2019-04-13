@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public abstract class NavigationActivity extends AppCompatActivity
@@ -101,22 +102,22 @@ public abstract class NavigationActivity extends AppCompatActivity
 
     @Override
     public void responseCode422() {
-
+        UtilFunction.showToast(this,"422");
     }
 
     @Override
     public void responseCode500() {
-
+        UtilFunction.showToast(this,"500");
     }
 
     @Override
     public void responseCode400() {
-
+        UtilFunction.showToast(this,"400");
     }
 
     @Override
     public void responseCode401() {
-
+        UtilFunction.showToast(this,"401");
     }
 
 
