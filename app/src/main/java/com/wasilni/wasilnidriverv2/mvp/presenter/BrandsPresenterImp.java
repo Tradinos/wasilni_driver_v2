@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Brand;
+import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.BrandContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -31,20 +32,20 @@ public class BrandsPresenterImp implements BrandContract.BrandsPresenter {
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<List<Brand>>> call =
+        Call<Response<PaginationAPI<Brand>>> call =
                 service.Brands( Token );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<List<Brand>>> call, retrofit2.Response<Response<List<Brand>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Brand>>> call, retrofit2.Response<Response<PaginationAPI<Brand>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                this.responseInterface.populateBrands((List<Brand>) response.body());
+                this.responseInterface.populateBrands((List<Brand>) response.body().getData().getData());
                 break;
             case 422 :
                 break;
@@ -58,8 +59,8 @@ public class BrandsPresenterImp implements BrandContract.BrandsPresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<List<Brand>>> call, Throwable t) {
-
+    public void onFailure(Call<Response<PaginationAPI<Brand>>> call, Throwable t) {
+        t.printStackTrace();
     }
 
     public interface OnResponseInterface{

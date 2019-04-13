@@ -59,10 +59,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".ui.Activities.HomeActivity"
-           >
+        <activity android:name=".ui.Activities.HomeActivity" >
         </activity>
+        
         <activity android:name=".ui.Activities.Base.BasicActivity" />
         <activity android:name=".ui.Activities.Base.FullScreenActivity" />
         <activity android:name=".ui.Activities.Base.NavigationActivity" />
@@ -83,14 +82,11 @@
         </service>
 
         <activity android:name=".ui.Activities.RegistrationActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
     </application>
 

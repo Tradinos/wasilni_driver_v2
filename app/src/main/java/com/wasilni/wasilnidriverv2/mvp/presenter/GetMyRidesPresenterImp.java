@@ -30,14 +30,14 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<PaginationAPI<List<Ride>>>> call =
+        Call<Response<PaginationAPI<Ride>>> call =
                 service.GetRides( Token , 20,"NOT_DONE" );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<PaginationAPI<List<Ride>>>> call, retrofit2.Response<Response<PaginationAPI<List<Ride>>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Ride>>> call, retrofit2.Response<Response<PaginationAPI<Ride>>> response) {
         Log.e("onResponse GetRides",response.message()+" code :"+response.code());
 
         switch (response.code())
@@ -59,7 +59,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<List<Ride>>>> call, Throwable t) {
+    public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 

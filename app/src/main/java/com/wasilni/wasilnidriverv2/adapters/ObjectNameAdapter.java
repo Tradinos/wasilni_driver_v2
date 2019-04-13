@@ -35,6 +35,17 @@ public class ObjectNameAdapter extends ArrayAdapter{
         super(context, resource);
     }
 
+    public ObjectNameAdapter(@NonNull Context context, int resource,  ArrayList<Object> objects){
+        super(context, resource, objects);
+        this.mResource = resource;
+        this.labelObject = null;
+        this.mObjects = objects;
+
+        this.mInfalter = LayoutInflater.from(context);
+
+    }
+
+
     public ObjectNameAdapter(@NonNull Context context, int resource,  ArrayList<Object> objects, String label){
         super(context, resource, objects);
         this.mResource = resource;
@@ -136,8 +147,11 @@ public class ObjectNameAdapter extends ArrayAdapter{
         this.notifyDataSetChanged();
     }
 
-    public void insertLabelObject(){
-        this.insert(labelObject,0);
+    private void insertLabelObject(){
+        if(labelObject != null)
+        {
+            this.insert(labelObject,0);
+        }
     }
 
 }

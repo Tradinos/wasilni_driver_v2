@@ -1,14 +1,16 @@
 package com.wasilni.wasilnidriverv2.mvp.model.pojo;
 
+import java.util.List;
+
 public class PaginationAPI<T> {
-    protected T data ;
+    protected List<T> data ;
     private int current_page,from ,last_page,per_page,to,total;
     private String first_page_url ,last_page_url,next_page_url,path ,prev_page_url;
 
     public PaginationAPI() {
     }
 
-    public PaginationAPI(T data, int current_page, int from, int last_page, int per_page, int to, int total, String first_page_url, String last_page_url, String next_page_url, String path, String prev_page_url) {
+    public PaginationAPI(List<T> data, int current_page, int from, int last_page, int per_page, int to, int total, String first_page_url, String last_page_url, String next_page_url, String path, String prev_page_url) {
         this.data = data;
         this.current_page = current_page;
         this.from = from;
@@ -23,11 +25,11 @@ public class PaginationAPI<T> {
         this.prev_page_url = prev_page_url;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 

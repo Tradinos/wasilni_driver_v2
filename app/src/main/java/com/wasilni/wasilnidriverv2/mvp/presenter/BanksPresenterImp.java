@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Bank;
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
+import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.BankContract;
 import com.wasilni.wasilnidriverv2.mvp.view.NationalityContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
@@ -33,20 +34,21 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<List<Bank>>> call =
+        Call<Response<PaginationAPI<Bank>>> call =
                 service.Banks( Token );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<List<Bank>>> call, retrofit2.Response<Response<List<Bank>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Bank>>> call, retrofit2.Response<Response<PaginationAPI<Bank>>> response) {
+        Log.d("SAED", "onResponse: I am having problem");
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                this.responseInterface.populateBanks((List<Bank>) response.body());
+                this.responseInterface.populateBanks((List<Bank>) response.body().getData().getData());
                 break;
             case 422 :
                 break;
@@ -60,8 +62,8 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<List<Bank>>> call, Throwable t) {
-
+    public void onFailure(Call<Response<PaginationAPI<Bank>>> call, Throwable t) {
+        t.printStackTrace();
     }
 
     public interface OnResponseInterface{
