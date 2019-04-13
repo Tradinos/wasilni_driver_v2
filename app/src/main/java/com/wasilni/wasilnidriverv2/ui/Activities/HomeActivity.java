@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -123,12 +124,7 @@ public class HomeActivity extends NavigationActivity implements
         });
 
         notificationButton.setOnClickListener(this);
-        driverStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("TAG", "onClick: " );
-            }
-        });
+        driverStatus.setOnClickListener(this);
         presenter.checkDriverStatus();
         this.testBottomSheet();
 
