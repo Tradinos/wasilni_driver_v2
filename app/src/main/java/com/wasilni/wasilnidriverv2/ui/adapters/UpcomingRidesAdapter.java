@@ -1,4 +1,4 @@
-package com.wasilni.wasilnidriverv2.adapters;
+package com.wasilni.wasilnidriverv2.ui.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.CardView;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.UpComingRidesAdapterPresenterImp;
-import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
 import java.util.ArrayList;
@@ -24,12 +23,12 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     private TripPassengersActionsFragment fragment;
     private UpComingRidesAdapterPresenterImp presenter ;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public UpcomingRidesAdapter( TripPassengersActionsFragment tripPassengersActionsFragment,Activity activity) {
+    public UpcomingRidesAdapter( TripPassengersActionsFragment tripPassengersActionsFragment) {
 //        mDataset = myDataset;
 
         list = new ArrayList<>();
         this.fragment = tripPassengersActionsFragment;
-        presenter = new UpComingRidesAdapterPresenterImp(fragment,activity);
+        presenter = new UpComingRidesAdapterPresenterImp(fragment);
     }
 
     public List<Ride> getList() {
@@ -75,9 +74,8 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RideViewHolder holder, int position) {
-//        holder.textView.setText(mDataset[position]);
         Ride ride = list.get(position) ;
-        presenter.ObjectToHolder(ride , holder, activity);
+        presenter.ObjectToHolder(ride , holder);
     }
 
     @Override

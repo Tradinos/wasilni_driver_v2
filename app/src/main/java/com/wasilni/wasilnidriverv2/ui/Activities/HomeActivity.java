@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,30 +23,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
-import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.presenter.OnOffDriverPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.mvp.view.OnOffDriverContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.receivers.NotificationReceiver;
-import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.wasilni.wasilnidriverv2.mvp.presenter.RideBookingsPresenterImp.ischecked;
+import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
 
 public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
-        TripSummaryFragment.OnFragmentInteractionListener ,
+        RideSummaryFragment.OnFragmentInteractionListener ,
         BookingAdapter.OnAdapterInteractionListener,
         View.OnClickListener,
         OnMapReadyCallback,
@@ -65,7 +62,6 @@ public class HomeActivity extends NavigationActivity implements
     public ImageButton passengersActionsBtn;
     public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance(this);
     public BottomSheetLayout bottomSheet;
-
 
     private NotificationReceiver notificationReceiver = new NotificationReceiver() {
         @Override
@@ -85,6 +81,13 @@ public class HomeActivity extends NavigationActivity implements
     private OnOffDriverContract.OnOffDriverPresenter onOffDriverPresenter = new OnOffDriverPresenterImp(this);
 
     public UpcomingRidesAdapter mAdapter ;
+
+    @Override
+    public void setRides(List<Ride> data) {
+        mAdapter.setList(data);
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ischecked = false;
@@ -113,14 +116,13 @@ public class HomeActivity extends NavigationActivity implements
         notificationImageView.bringToFront();
         newOrderLayout = findViewById(R.id.new_order_layout) ;
         bottomLayout = findViewById(R.id.bottom_layout) ;
-        notificationButton = findViewById(R.id.saw);
         passengersActionsBtn = findViewById(R.id.passenger_actions_btn);
         recyclerView = findViewById(R.id.my_recycler_view);
 
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment,this) ;
+        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment) ;
         recyclerView.setAdapter(mAdapter);
 
         myRidesPresenter.sendToServer(null);
@@ -140,7 +142,6 @@ public class HomeActivity extends NavigationActivity implements
                 passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
-
         checkDriverStatus();
 
 
@@ -169,9 +170,6 @@ public class HomeActivity extends NavigationActivity implements
         switch (v.getId()){
             case R.id.driver_status_image :
                 driverStatusOnclick();
-                break;
-            case R.id.saw :
-                notificationButotnOnclick();
                 break;
             case R.id.passenger_actions_btn:
                 if(!tripPassengersActionsFragment.isAdded()) {
@@ -226,10 +224,6 @@ public class HomeActivity extends NavigationActivity implements
         onOffDriverPresenter.sendToServer(null);
     }
 
-    @Override
-    public void notificationButotnOnclick() {
-        newOrderLayout.setVisibility(View.GONE);
-    }
 
     @Override
     public void regesterNotification() {

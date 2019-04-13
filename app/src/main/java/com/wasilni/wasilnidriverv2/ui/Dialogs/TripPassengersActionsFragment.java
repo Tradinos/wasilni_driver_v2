@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,9 +17,10 @@ import android.view.ViewGroup;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
-import com.wasilni.wasilnidriverv2.util.RideStatus;
+import com.wasilni.wasilnidriverv2.mvp.model.Ride;
+import com.wasilni.wasilnidriverv2.mvp.view.BookingsFragmentContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +33,17 @@ import java.util.List;
  * Use the {@link TripPassengersActionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TripPassengersActionsFragment extends BottomSheetFragment {
+@SuppressLint("ValidFragment")
+public class TripPassengersActionsFragment extends BottomSheetFragment implements BookingsFragmentContract.BookingFragmentView {
     private OnFragmentInteractionListener mListener;
     public BookingAdapter mAdapter ;
-    public TripPassengersActionsFragment() {
-        mAdapter = new BookingAdapter(new ArrayList<Booking>() , this.getActivity());
-        // Required empty public constructor
-    }
-    @SuppressLint("ValidFragment")
+    public Activity activity ;
     public TripPassengersActionsFragment(Activity activity) {
-        mAdapter = new BookingAdapter(new ArrayList<Booking>() , activity);
+        this.activity = activity ;
+        mAdapter = new BookingAdapter(new ArrayList<Booking>() , this);
         // Required empty public constructor
     }
-
+    public static boolean ischecked = false  ;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -81,24 +81,11 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
         int flags = this.getActivity().getWindow().getAttributes().flags;
         Log.d("SAED", "onViewCreated: flags babye" + flags);
 
-        testTripList();
+        initView();
 
     }
 
-    private void testTripList(){
-        Log.d("SAED", "testTripList: what is going here");
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.trip_passengers_actions);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-       // recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        // specify an adapter (see also next example)
-        recyclerView.setAdapter(mAdapter);
-    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
         }
@@ -107,6 +94,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -119,6 +107,43 @@ public class TripPassengersActionsFragment extends BottomSheetFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+    @Override
+    public void updateListList() {
+        mAdapter.notifyDataSetChanged();
+    }
+    @Override
+    public void deleteBooking(Booking data) {
+        List<Booking> list = mAdapter.getList();
+        list.remove(data);
+        mAdapter.setList(list);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void initView() {
+        RecyclerView recyclerView =  getView().findViewById(R.id.trip_passengers_actions);
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void setBookings(Ride ride) {
+
+        ischecked = true;
+        if(!this.isAdded()) {
+            this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+        }
+        mAdapter.setList(ride.getBookings());
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFailuer() {
+
     }
 
     /**

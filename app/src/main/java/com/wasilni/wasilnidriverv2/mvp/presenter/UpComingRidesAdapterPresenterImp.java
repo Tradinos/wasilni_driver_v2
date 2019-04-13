@@ -1,33 +1,24 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
-import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
-import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.ui.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
-import com.wasilni.wasilnidriverv2.util.RideStatus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UpComingRidesAdapterPresenterImp implements AdapterContract.AdapterPresenter<Ride, UpcomingRidesAdapter.RideViewHolder> {
     private TripPassengersActionsFragment fragment;
     RideContruct.RideBookingsPresenter presenter ;
-    Activity activity ;
-    public UpComingRidesAdapterPresenterImp(TripPassengersActionsFragment fragment, Activity activity) {
+    public UpComingRidesAdapterPresenterImp(TripPassengersActionsFragment fragment) {
         this.fragment = fragment;
-        presenter = new RideBookingsPresenterImp(fragment,activity);
-        this.activity = activity ;
+        presenter = new RideBookingsPresenterImp(fragment);
     }
 
     @Override
-    public void ObjectToHolder(final Ride object, UpcomingRidesAdapter.RideViewHolder holder, Activity activity) {
+    public void ObjectToHolder(final Ride object, UpcomingRidesAdapter.RideViewHolder holder) {
         holder.allItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

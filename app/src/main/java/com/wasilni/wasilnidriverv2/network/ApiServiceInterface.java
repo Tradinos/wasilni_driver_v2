@@ -33,7 +33,7 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @FormUrlEncoded
     @PUT("booking/{booking}/action")
-    Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking, @Field("status") String status);
+    Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking);
 
     @Headers("Accept: application/json")
     @FormUrlEncoded

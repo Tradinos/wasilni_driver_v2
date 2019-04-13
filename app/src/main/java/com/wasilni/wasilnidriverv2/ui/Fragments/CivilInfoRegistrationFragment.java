@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Bank;
 import com.wasilni.wasilnidriverv2.mvp.presenter.BanksPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
+import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.

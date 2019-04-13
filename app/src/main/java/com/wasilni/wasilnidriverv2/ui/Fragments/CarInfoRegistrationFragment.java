@@ -14,17 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Brand;
 import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
 import com.wasilni.wasilnidriverv2.mvp.model.Color;
-import com.wasilni.wasilnidriverv2.mvp.presenter.BanksPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.BrandModelsPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.BrandsPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.ColorsPresenterImp;
@@ -37,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
+import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.

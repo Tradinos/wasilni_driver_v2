@@ -1,9 +1,7 @@
-package com.wasilni.wasilnidriverv2.adapters;
+package com.wasilni.wasilnidriverv2.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.Color;
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.annotation.Nonnegative;
 
 public class ObjectNameAdapter extends ArrayAdapter{
     private LayoutInflater mInfalter;

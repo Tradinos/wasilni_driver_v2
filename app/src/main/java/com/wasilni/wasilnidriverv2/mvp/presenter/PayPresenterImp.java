@@ -2,16 +2,12 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
-import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -19,9 +15,9 @@ import retrofit2.Response;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class PayPresenterImp implements PayContract.PayPresenter {
-    TripSummaryFragment fragment ;
-    public PayPresenterImp(TripSummaryFragment tripSummaryFragment) {
-        fragment = tripSummaryFragment;
+    RideSummaryFragment fragment ;
+    public PayPresenterImp(RideSummaryFragment rideSummaryFragment) {
+        fragment = rideSummaryFragment;
     }
 
     @Override
