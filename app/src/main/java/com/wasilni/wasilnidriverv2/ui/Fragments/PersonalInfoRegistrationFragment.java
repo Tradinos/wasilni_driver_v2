@@ -13,8 +13,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -23,14 +25,21 @@ import android.widget.TextView;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
+import com.wasilni.wasilnidriverv2.mvp.presenter.NationalitiesPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,11 +51,12 @@ import static android.app.Activity.RESULT_OK;
  */
 public class PersonalInfoRegistrationFragment extends Fragment implements
         FormContract,
+        NationalitiesPresenterImp.OnResponseInterface,
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
     private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, passwordET, addressDetailsEdit;
-    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT;
+    private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT, regionLT;
 
     private AutoCompleteTextView regionAC;
     private TextView birthdateTV, noWhatsappTV, yesWhatsappTV;
@@ -64,8 +74,11 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     private final int GALLERY_PROFILE_IMAGE_REQUEST_CODE = 1;
     private final int CAMERA_PROFILE_IMAGE_REQUEST_CODE = 2;
 
-    String[] genders;
+    ArrayList<String> genders;
+    private ObjectNameAdapter nationalitiesAdapter;
+    private NationalitiesPresenterImp nationalitiesPresenterImp;
 
+    ArrayList<String> regions = new ArrayList<String>();
     public PersonalInfoRegistrationFragment() {
         // Required empty public constructor
     }
@@ -87,6 +100,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.nationalitiesPresenterImp = new NationalitiesPresenterImp(this, getActivity());
         if (getArguments() != null) {
         }
     }
@@ -131,6 +145,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         this.emailET = view.findViewById(R.id.email_edit);
         this.emailIN = view.findViewById(R.id.email_layout);
         this.regionAC = view.findViewById(R.id.region_auto_complete);
+        this.regionLT = view.findViewById(R.id.region_layout);
         this.nationalityAC = view.findViewById(R.id.nationality);
         this.addressDetailsEdit = view.findViewById(R.id.address_details_edit);
         this.passwordET = view.findViewById(R.id.password_edit);
@@ -141,34 +156,6 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
 
         UtilFunction.underlineWidget(this.birthdateTV);
 
-        this.genders  = new String[]{
-            getString(R.string.female),
-            getString(R.string.male)
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, genders);
-        this.genderSp.setAdapter(adapter);
-
-        String[] nations = new String[]{
-                "syria",
-                "Iraq",
-                "Egypt",
-                "lebanon"
-        };
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, nations);
-        this.nationalityAC.setAdapter(adapter2);
-
-        String[] regions = new String[]{
-                "maza",
-                "mazraa",
-                "free zone",
-                "free dude",
-                "free man",
-                "free guy",
-                "baramka"
-        };
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, regions);
-        this.regionAC.setAdapter(adapter3);
 
         this.birthdateTV.setOnClickListener(this);
         this.noWhatsappTV.setOnClickListener(this);
@@ -176,6 +163,51 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         this.profilePicture.setOnClickListener(this);
 
         this.setWhatsappChoice(true);
+
+        this.setUpAdapters();
+
+        this.fetchData();
+    }
+
+    private void setUpAdapters(){
+
+        this.genders = new ArrayList<>();
+        this.genders.add(getString(R.string.female));
+        this.genders.add(getString(R.string.male));
+
+        ObjectNameAdapter adapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, (ArrayList)genders, getString(R.string.gender));
+        this.genderSp.setAdapter(adapter);
+
+        nationalitiesAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.nationality));
+        this.nationalityAC.setAdapter(nationalitiesAdapter);
+
+        regions.add("maza");
+        regions.add("mazaraa");
+        regions.add("free zone");
+        regions.add("free dude");
+        regions.add("free man");
+        regions.add("free guy");
+        regions.add("baramka");
+
+        ArrayAdapter adapter3 = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, regions );
+        this.regionAC.setAdapter(adapter3);
+
+        this.regionAC.setOnFocusChangeListener(
+            new View.OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (regions.size() == 0 ||
+                                regions.indexOf(regionAC.getText().toString()) == -1) {
+                            regionAC.setError(getString(R.string.auto_complete_selection));
+                        };
+                    }
+                }
+            }
+        );
+    }
+
+    private void fetchData(){
+        this.nationalitiesPresenterImp.sendToServer(null);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -290,12 +322,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
            birthdateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_white_border_red));
         }
 
-        if(this.regionAC.getText().toString().isEmpty()){
-            valid = false;
-            this.regionAC.setError(requiredFieldStrId);
-        }
-
-        if(this.nationalityAC.getSelectedItemPosition() == 1){
+        if(this.nationalityAC.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
@@ -304,6 +331,17 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             valid = false;
             UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
         }
+
+        if(this.genderSp.getSelectedItemPosition() != DISABLED_ITEM_INDEX){
+            valid = false;
+            this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
+        }
+
+        if (regions.size() == 0 || regions.indexOf(regionAC.getText().toString()) == -1) {
+            valid = false;
+            UtilFunction.setErrorToInputLayout(regionLT, getString(R.string.auto_complete_selection));
+        }
+
         return valid;
     }
 
@@ -314,8 +352,10 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         UtilFunction.removeErrorToInputLayout(firstnameIL);
         UtilFunction.removeErrorToInputLayout(lastnameIL);
         UtilFunction.removeErrorToInputLayout(whatsappPhoneIN);
+        UtilFunction.removeErrorToInputLayout(regionLT);
         this.birthdateTV.setBackground(getActivity().getResources().getDrawable(R.drawable.gray_border));
         this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
+        this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
     }
 
     @Override
@@ -339,6 +379,16 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+
+    }
+
+    @Override
+    public void populateNationalities(List<Nationality> items) {
+        this.nationalitiesAdapter.updateItems((List)items);
+    }
+
+    @Override
+    public void onFailure(List<String> errors) {
 
     }
 

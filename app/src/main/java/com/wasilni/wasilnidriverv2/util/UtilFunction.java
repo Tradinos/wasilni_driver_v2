@@ -437,7 +437,7 @@ public class UtilFunction {
         return px;
     }
 
-    public static ArrayList<String> generateYears(int from, int to){
+    public static List<String> generateYears(int from, int to){
         ArrayList<String> years = new ArrayList<>();
         for (Integer i = from ; i <= to; i++){
             years.add(i.toString());

@@ -9,22 +9,35 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Brand;
+import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
+import com.wasilni.wasilnidriverv2.mvp.model.Color;
+import com.wasilni.wasilnidriverv2.mvp.presenter.BanksPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.BrandModelsPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.BrandsPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.ColorsPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +48,9 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class CarInfoRegistrationFragment extends Fragment implements
+        ColorsPresenterImp.OnResponseInterface,
+        BrandsPresenterImp.OnResponseInterface,
+        BrandModelsPresenterImp.OnResponseInterface,
         FormContract,
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
@@ -57,6 +73,11 @@ public class CarInfoRegistrationFragment extends Fragment implements
     private final int CAMERA_INSURANCE_IMAGE_REQUEST_CODE = 5;
     private final int GALLERY_INSURANCE_IMAGE_REQUEST_CODE = 6;
     private String cameraTempFileInsurance = "wasilni_insurance_mechanic" + (new Date().getTime()) +  ".jpg";
+
+    private ObjectNameAdapter colorsAdapter, brandsAdapter, brandModelsAdapter;
+    private BrandsPresenterImp brandsPresenterImp;
+    private BrandModelsPresenterImp brandModelsPresenterImp;
+    private ColorsPresenterImp colorsPresenterImp;
 
     public CarInfoRegistrationFragment() {
         // Required empty public constructor
@@ -98,6 +119,10 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 .setCancelText(getActivity().getString(R.string.no))//.setThemeLight();
                 .setThemeCustom(R.style.MyCustomBetterPickersDialogs);
 
+        this.brandModelsPresenterImp = new BrandModelsPresenterImp(this,getActivity());
+        this.brandsPresenterImp = new BrandsPresenterImp(this,getActivity());
+        this.colorsPresenterImp = new ColorsPresenterImp(this,getActivity());
+
         return inflater.inflate(R.layout.fragment_car_info_registration, container, false);
     }
 
@@ -125,39 +150,64 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
         this.insuranceDateTV.setOnClickListener(this);
+        this.setUpAdapters();
 
+        this.fetchData();
 
+    }
 
-        String[] colors = new String[]{
-                "red",
-                "black",
-                "green",
-                "blue"
-        };
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, colors);
-        this.colorSp.setAdapter(adapter3);
+    private void setUpAdapters(){
 
-        String[] brands = new String[]{
-                "brand 1",
-                "brand 2",
-                "brand 3",
-                "brand 4",
-        };
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, brands);
-        this.brandSp.setAdapter(adapter4);
+        colorsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.color));
+        brandsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.brand));
+        brandModelsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.model));
 
-        String[] models = new String[]{
-                "model 1",
-                "model 2",
-                "model 3",
-                "model 4",
-        };
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, models);
-        this.modelSp.setAdapter(adapter5);
+        brandSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("SAED", "onItemSelected: I am around here");
+                if(brandSp.getSelectedItem() instanceof Brand) {
+                    brandModelsPresenterImp.sendToServer((Brand)brandSp.getSelectedItem());
+                    populateBrandModels(null);
+                }
+            }
 
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, UtilFunction.generateYears(2000,2020));
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ObjectNameAdapter adapter6 = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, (ArrayList)UtilFunction.generateYears(2000,2020),getString(R.string.year));
+        this.populateBrandModels(new ArrayList<BrandModel>());
+        this.populateBrands(new ArrayList<Brand>());
+        this.populateColors(new ArrayList<Color>());
+
+        this.colorSp.setAdapter(colorsAdapter);
+        this.brandSp.setAdapter(brandsAdapter);
+        this.modelSp.setAdapter(brandModelsAdapter);
         this.manufacturYearSp.setAdapter(adapter6);
+    }
 
+    private void fetchData(){
+        this.colorsPresenterImp.sendToServer(null);
+//        this.brandsPresenterImp.sendToServer(null);
+
+
+        List<Brand> brands = new ArrayList<>();
+        List<BrandModel> brandsModel = new ArrayList<>();
+
+        brands.add(new Brand(1,"syria"));
+        brands.add(new Brand(2,"egypt"));
+        brands.add(new Brand(3,"jordan"));
+
+
+        brandsModel.add(new BrandModel(1,"syria"));
+        brandsModel.add(new BrandModel(2,"egypt"));
+        brandsModel.add(new BrandModel(3,"jordan"));
+
+        this.populateBrandModels(brandsModel);
+        this.populateBrands(brands);
     }
 
     @Override
@@ -257,19 +307,19 @@ public class CarInfoRegistrationFragment extends Fragment implements
     @Override
     public boolean validate() {
         boolean valid = true;
-        if( this.brandSp.getSelectedItemPosition() == 1){
+        if( this.brandSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        if( this.modelSp.getSelectedItemPosition() == 1){
+        if( this.modelSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.modelSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        if( this.manufacturYearSp.getSelectedItemPosition() == 1){
+        if( this.manufacturYearSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.manufacturYearSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        if( this.colorSp.getSelectedItemPosition() == 1){
+        if( this.colorSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.colorSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
@@ -301,6 +351,28 @@ public class CarInfoRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+    }
+
+    @Override
+    public void populateBrandModels(List<BrandModel> brandModels) {
+        brandModelsAdapter.updateItems((List)brandModels);
+    }
+
+    @Override
+    public void populateBrands(List<Brand> brands) {
+        brandsAdapter.updateItems((List)brands);
+
+    }
+
+    @Override
+    public void populateColors(List<Color> colors) {
+        colorsAdapter.updateItems((List)colors);
+
+    }
+
+    @Override
+    public void onFailure(List<String> errors) {
+
     }
 
     /**

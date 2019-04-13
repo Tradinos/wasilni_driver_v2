@@ -6,7 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetorfitSingelton {
 
     private static Retrofit retrofit;
-    public static final String URL ="http://192.168.9.175:8000";
+//    public static final String URL ="http://192.168.9.175:8000";
+    public static final String URL ="http://wasilni.com:8899";
     public static final String BASE_URL = URL+"/api/";
 
     private RetorfitSingelton() {
