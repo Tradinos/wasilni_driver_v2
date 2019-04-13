@@ -14,11 +14,8 @@
 
 
 
-        <include
-            android:id="@+id/include_toolbar"
-            layout="@layout/content_toolbar" />
 
-        <include layout="@layout/content_navigation" />
+
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"

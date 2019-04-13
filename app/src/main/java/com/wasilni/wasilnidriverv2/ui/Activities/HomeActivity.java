@@ -32,6 +32,8 @@ import com.wasilni.wasilnidriverv2.mvp.view.RateCauseContract;
 import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
@@ -41,7 +43,7 @@ import java.util.List;
 
 import static com.wasilni.wasilnidriverv2.mvp.presenter.RideBookingsPresenterImp.ischecked;
 
-public class HomeActivity extends FragmentActivity implements
+public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
         TripSummaryFragment.OnFragmentInteractionListener ,
         BookingAdapter.OnAdapterInteractionListener,
@@ -74,7 +76,7 @@ public class HomeActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         ischecked = false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
         homeActivity = this;
         myRidesPresenter = new GetMyRidesPresenterImp(this);
         initView();
@@ -127,7 +129,12 @@ public class HomeActivity extends FragmentActivity implements
         });
 
         notificationButton.setOnClickListener(this);
-        driverStatus.setOnClickListener(this);
+        driverStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TAG", "onClick: " );
+            }
+        });
         presenter.checkDriverStatus();
         this.testBottomSheet();
 
@@ -222,4 +229,6 @@ public class HomeActivity extends FragmentActivity implements
         }
         this.bottomSheet.peekSheet();
     }
+
+
 }
