@@ -10,7 +10,7 @@ import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 import java.util.List;
 
 public interface ColorContract {
-    public interface ColorsPresenter extends ServerPresenter<Color, List<Color>>{
+    public interface ColorsPresenter extends ServerPresenter<Color, PaginationAPI<Color>>{
 
     }
 }

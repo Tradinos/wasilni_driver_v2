@@ -331,7 +331,10 @@ public class CivilInfoRegistrationFragment extends Fragment implements
     public boolean submit() {
         if(this.validate())
         {
-            this.mListener.submitCivilData(this.licenseStartDateTV.getText().toString(), this.licenseEndDateTV.getText().toString(), "");
+            this.mListener.submitCivilData(
+                    this.licenseStartDateTV.getText().toString(),
+                    this.licenseEndDateTV.getText().toString(),
+                    ((Bank)this.bankSp.getSelectedItem()).getName());
             return true;
         }
         else{
@@ -343,11 +346,6 @@ public class CivilInfoRegistrationFragment extends Fragment implements
     @Override
     public void populateBanks(List<Bank> banks) {
 
-//        ArrayList<Bank> items = new ArrayList<>();
-//
-//        items.add(new Bank(1,"syria"));
-//        items.add(new Bank(2,"egypt"));
-//        items.add(new Bank(3,"jordan"));
         banksAdapter.updateItems((List)banks);
     }
 

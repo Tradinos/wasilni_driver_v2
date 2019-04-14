@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Brand;
 import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
+import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.BrandModelContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -32,20 +33,20 @@ public class BrandModelsPresenterImp implements BrandModelContract.BrandModelsPr
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<List<BrandModel>>> call =
+        Call<Response<PaginationAPI<BrandModel>>> call =
                 service.BrandModels( Token, request.getId());
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<List<BrandModel>>> call, retrofit2.Response<Response<List<BrandModel>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<BrandModel>>> call, retrofit2.Response<Response<PaginationAPI<BrandModel>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                this.responseInterface.populateBrandModels((List<BrandModel>) response.body());
+                this.responseInterface.populateBrandModels((List<BrandModel>) response.body().getData().getData());
                 break;
             case 422 :
                 break;
@@ -59,8 +60,8 @@ public class BrandModelsPresenterImp implements BrandModelContract.BrandModelsPr
     }
 
     @Override
-    public void onFailure(Call<Response<List<BrandModel>>> call, Throwable t) {
-
+    public void onFailure(Call<Response<PaginationAPI<BrandModel>>> call, Throwable t) {
+        t.printStackTrace();
     }
 
     public interface OnResponseInterface{

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
+import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
 import com.wasilni.wasilnidriverv2.mvp.view.NationalityContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -32,20 +33,20 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<List<Nationality>>> call =
+        Call<Response<PaginationAPI<Nationality>>> call =
                 service.Nationalities( Token );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<List<Nationality>>> call, retrofit2.Response<Response<List<Nationality>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Nationality>>> call, retrofit2.Response<Response<PaginationAPI<Nationality>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                this.responseInterface.populateNationalities((List<Nationality>) response.body());
+                this.responseInterface.populateNationalities((List<Nationality>) response.body().getData().getData());
                 break;
             case 422 :
                 break;
@@ -59,7 +60,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
     }
 
     @Override
-    public void onFailure(Call<Response<List<Nationality>>> call, Throwable t) {
+    public void onFailure(Call<Response<PaginationAPI<Nationality>>> call, Throwable t) {
         t.printStackTrace();
 //        Log.d("SAED", t.getStackTrace());
         Log.e("onFailure RideBooking",t.getStackTrace().toString());

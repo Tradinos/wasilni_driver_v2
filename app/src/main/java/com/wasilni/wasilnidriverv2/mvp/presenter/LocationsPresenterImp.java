@@ -3,9 +3,9 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.app.Activity;
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.Color;
+import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
-import com.wasilni.wasilnidriverv2.mvp.view.ColorContract;
+import com.wasilni.wasilnidriverv2.mvp.view.LocationContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
@@ -16,36 +16,36 @@ import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
-public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
+public class LocationsPresenterImp implements LocationContract.LocationsPresenter {
 
     OnResponseInterface responseInterface ;
     Activity context ;
     public static boolean ischecked = false  ;
-    public ColorsPresenterImp(OnResponseInterface _responseInterface , Activity activity) {
+    public LocationsPresenterImp(OnResponseInterface _responseInterface , Activity activity) {
         this.responseInterface = _responseInterface ;
         this.context = activity ;
     }
 
     @Override
-    public void sendToServer(Color request) {
+    public void sendToServer(Location request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Call<Response<PaginationAPI<Color>>> call =
-                service.Colors( Token );
+        Call<Response<PaginationAPI<Location>>> call =
+                service.Locations( Token, request.getName() );
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<PaginationAPI<Color>>> call, retrofit2.Response<Response<PaginationAPI<Color>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Location>>> call, retrofit2.Response<Response<PaginationAPI<Location>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
-                this.responseInterface.populateColors((List<Color>) response.body().getData().getData());
+                this.responseInterface.populateLocations((List<Location>) response.body().getData().getData());
                 break;
             case 422 :
                 break;
@@ -59,12 +59,12 @@ public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<Color>>> call, Throwable t) {
-        t.printStackTrace();
+    public void onFailure(Call<Response<PaginationAPI<Location>>> call, Throwable t) {
+
     }
 
     public interface OnResponseInterface{
-        void populateColors(List<Color> colors);
+        void populateLocations(List<Location> locations);
         void onFailure(List<String> errors);
     }
 }

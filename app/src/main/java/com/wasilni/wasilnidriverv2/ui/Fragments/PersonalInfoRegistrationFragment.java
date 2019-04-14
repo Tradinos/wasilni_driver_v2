@@ -10,6 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +27,9 @@ import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialo
 import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter;
+import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
+import com.wasilni.wasilnidriverv2.mvp.presenter.LocationsPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.presenter.NationalitiesPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
@@ -49,7 +54,7 @@ import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED
 public class PersonalInfoRegistrationFragment extends Fragment implements
         FormContract,
         NationalitiesPresenterImp.OnResponseInterface,
-        View.OnClickListener {
+        View.OnClickListener, LocationsPresenterImp.OnResponseInterface {
     private OnFragmentInteractionListener mListener;
 
     private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, passwordET, addressDetailsEdit;
@@ -72,8 +77,9 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     private final int CAMERA_PROFILE_IMAGE_REQUEST_CODE = 2;
 
     ArrayList<String> genders;
-    private ObjectNameAdapter nationalitiesAdapter;
+    private ObjectNameAdapter nationalitiesAdapter, regionsAdapter;
     private NationalitiesPresenterImp nationalitiesPresenterImp;
+    private LocationsPresenterImp locationsPresenterImp;
 
     ArrayList<String> regions = new ArrayList<String>();
     public PersonalInfoRegistrationFragment() {
@@ -98,6 +104,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         super.onCreate(savedInstanceState);
 
         this.nationalitiesPresenterImp = new NationalitiesPresenterImp(this, getActivity());
+        this.locationsPresenterImp = new LocationsPresenterImp(this, getActivity());
         if (getArguments() != null) {
         }
     }
@@ -178,16 +185,25 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         nationalitiesAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.nationality));
         this.nationalityAC.setAdapter(nationalitiesAdapter);
 
-        regions.add("maza");
-        regions.add("mazaraa");
-        regions.add("free zone");
-        regions.add("free dude");
-        regions.add("free man");
-        regions.add("free guy");
-        regions.add("baramka");
+        this.regionsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>());
+        this.regionAC.setAdapter(regionsAdapter);
 
-        ArrayAdapter adapter3 = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, regions );
-        this.regionAC.setAdapter(adapter3);
+        this.regionAC.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                locationsPresenterImp.sendToServer(new Location(0, regionAC.getText().toString()));
+            }
+        });
 
         this.regionAC.setOnFocusChangeListener(
             new View.OnFocusChangeListener() {
@@ -365,7 +381,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                     this.emailET.getText().toString(),
                     this.whatsappPhoneET.getText().toString(),
                     1,
-                    1,
+                    ((Nationality)this.nationalityAC.getSelectedItem()).getId(),
                     this.birthdateTV.getText().toString(),
                     this.genderSp.getSelectedItemPosition(),
                     this.addressDetailsEdit.getText().toString(),
@@ -382,6 +398,12 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     @Override
     public void populateNationalities(List<Nationality> items) {
         this.nationalitiesAdapter.updateItems((List)items);
+    }
+
+    @Override
+    public void populateLocations(List<Location> locations) {
+        Log.d("SIZE", "populateLocations: " + locations.size());
+        this.regionsAdapter.updateItems((List)locations);
     }
 
     @Override

@@ -67,9 +67,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        >
 
         </activity>
+        <activity android:name=".ui.Activities.Base.BasicActivity" />
+        <activity android:name=".ui.Activities.Base.FullScreenActivity" />
         <activity android:name=".ui.Activities.Base.NavigationActivity"
             android:theme="@style/AppTheme">
             >

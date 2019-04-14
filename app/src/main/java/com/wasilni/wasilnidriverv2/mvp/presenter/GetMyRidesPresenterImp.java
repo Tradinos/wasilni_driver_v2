@@ -58,7 +58,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<List<Ride>>>> call, Throwable t) {
+    public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
     }
 

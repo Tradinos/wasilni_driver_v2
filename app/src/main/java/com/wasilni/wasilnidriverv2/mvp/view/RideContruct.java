@@ -10,7 +10,7 @@ import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 import java.util.List;
 
 public interface RideContruct {
-    public interface MyRidesPresenter extends ServerPresenter<User,PaginationAPI<List<Ride>>> {
+    public interface MyRidesPresenter extends ServerPresenter<User,PaginationAPI<Ride>> {
 
     }
     public interface RideBookingsPresenter extends ServerPresenter<Ride,Ride>{

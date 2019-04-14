@@ -166,7 +166,6 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 Log.d("SAED", "onItemSelected: I am around here");
                 if(brandSp.getSelectedItem() instanceof Brand) {
                     brandModelsPresenterImp.sendToServer((Brand)brandSp.getSelectedItem());
-                    populateBrandModels(null);
                 }
             }
 
@@ -189,23 +188,23 @@ public class CarInfoRegistrationFragment extends Fragment implements
 
     private void fetchData(){
         this.colorsPresenterImp.sendToServer(null);
-//        this.brandsPresenterImp.sendToServer(null);
+        this.brandsPresenterImp.sendToServer(null);
 
 
-        List<Brand> brands = new ArrayList<>();
-        List<BrandModel> brandsModel = new ArrayList<>();
-
-        brands.add(new Brand(1,"syria"));
-        brands.add(new Brand(2,"egypt"));
-        brands.add(new Brand(3,"jordan"));
-
-
-        brandsModel.add(new BrandModel(1,"syria"));
-        brandsModel.add(new BrandModel(2,"egypt"));
-        brandsModel.add(new BrandModel(3,"jordan"));
-
-        this.populateBrandModels(brandsModel);
-        this.populateBrands(brands);
+//        List<Brand> brands = new ArrayList<>();
+//        List<BrandModel> brandsModel = new ArrayList<>();
+//
+//        brands.add(new Brand(1,"syria"));
+//        brands.add(new Brand(2,"egypt"));
+//        brands.add(new Brand(3,"jordan"));
+//
+//
+//        brandsModel.add(new BrandModel(1,"syria"));
+//        brandsModel.add(new BrandModel(2,"egypt"));
+//        brandsModel.add(new BrandModel(3,"jordan"));
+//
+//        this.populateBrandModels(brandsModel);
+//        this.populateBrands(brands);
     }
 
     @Override
@@ -339,9 +338,9 @@ public class CarInfoRegistrationFragment extends Fragment implements
         if (this.validate())
         {
             this.mListener.submitCarData(this.colorSp.getSelectedItemPosition(),
-                    this.modelSp.getSelectedItemPosition(),
+                    ((BrandModel)this.modelSp.getSelectedItem()).getId(),
                     (String)this.manufacturYearSp.getSelectedItem(),
-                    this.brandSp.getSelectedItemPosition(),
+                    ((Brand)this.brandSp.getSelectedItem()).getId(),
                     this.carNumberET.getText().toString(),
                     this.insuranceDateTV.getText().toString() );
             return true;
