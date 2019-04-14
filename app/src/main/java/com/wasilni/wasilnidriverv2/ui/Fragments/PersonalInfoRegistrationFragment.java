@@ -12,6 +12,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -187,15 +188,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         nationalitiesAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.nationality));
         this.nationalityAC.setAdapter(nationalitiesAdapter);
 
-        regions.add("maza");
-        regions.add("mazaraa");
-        regions.add("free zone");
-        regions.add("free dude");
-        regions.add("free man");
-        regions.add("free guy");
-        regions.add("baramka");
-
-        this.regionsAdapter = new ObjectNameAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, new ArrayList<Object>());
+        this.regionsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>());
         this.regionAC.setAdapter(regionsAdapter);
 
         this.regionAC.addTextChangedListener(new TextWatcher() {
@@ -391,7 +384,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                     this.emailET.getText().toString(),
                     this.whatsappPhoneET.getText().toString(),
                     1,
-                    1,
+                    ((Nationality)this.nationalityAC.getSelectedItem()).getId(),
                     this.birthdateTV.getText().toString(),
                     this.genderSp.getSelectedItemPosition(),
                     this.addressDetailsEdit.getText().toString(),
@@ -412,6 +405,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
 
     @Override
     public void populateLocations(List<Location> locations) {
+        Log.d("SIZE", "populateLocations: " + locations.size());
         this.regionsAdapter.updateItems((List)locations);
     }
 

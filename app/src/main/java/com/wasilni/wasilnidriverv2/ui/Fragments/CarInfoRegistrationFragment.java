@@ -340,9 +340,9 @@ public class CarInfoRegistrationFragment extends Fragment implements
         if (this.validate())
         {
             this.mListener.submitCarData(this.colorSp.getSelectedItemPosition(),
-                    this.modelSp.getSelectedItemPosition(),
+                    ((BrandModel)this.modelSp.getSelectedItem()).getId(),
                     (String)this.manufacturYearSp.getSelectedItem(),
-                    this.brandSp.getSelectedItemPosition(),
+                    ((Brand)this.brandSp.getSelectedItem()).getId(),
                     this.carNumberET.getText().toString(),
                     this.insuranceDateTV.getText().toString() );
             return true;

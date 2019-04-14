@@ -33,7 +33,7 @@ public class LocationsPresenterImp implements LocationContract.LocationsPresente
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<Response<PaginationAPI<Location>>> call =
-                service.Locations( Token );
+                service.Locations( Token, request.getName() );
 
         call.enqueue(this);
     }

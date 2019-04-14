@@ -92,7 +92,7 @@ public interface ApiServiceInterface {
 
     @Headers("Accept: application/json")
     @GET("location")
-    Call<Response<PaginationAPI<Location>>> Locations(@Header("Authorization") String Authorization );
+    Call<Response<PaginationAPI<Location>>> Locations(@Header("Authorization") String Authorization, @Query("search") String search );
 
     @Headers("Accept: application/json")
     @GET("car_brand")

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
@@ -15,6 +16,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.Bank;
 import com.wasilni.wasilnidriverv2.mvp.model.Brand;
 import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
 import com.wasilni.wasilnidriverv2.mvp.model.Color;
+import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class ObjectNameAdapter extends ArrayAdapter{
     private int mResource;
     private Object labelObject;
     private List<Object> mObjects;
+    private ArrayList<Location> suggestion = new ArrayList<>();
 
     public static final int DISABLED_ITEM_INDEX = 0;
 
@@ -64,12 +67,17 @@ public class ObjectNameAdapter extends ArrayAdapter{
         Object o = this.getItem(position);
         View row = convertView;
         String name = "";
+        TextView nameTV ;
 
 
         if(row == null) {
             row = mInfalter.inflate(mResource, null);
         }
-        TextView nameTV = (TextView) row.findViewById(R.id.name);
+        nameTV = (TextView) row.findViewById(R.id.name);
+        if(o instanceof Location) {
+            Log.d("SAED", "getview: " + ((Location) o).getName());
+
+        }
 
 
         if(o != null)
@@ -84,12 +92,14 @@ public class ObjectNameAdapter extends ArrayAdapter{
                 name = ((Color)o).getName();
             } else if(o instanceof Bank){
                 name = ((Bank)o).getName();
+            } else if(o instanceof Location){
+                name = ((Location)o).getName();
             } else if(o instanceof String){
                 name = (String)o;
             }
 
             // if first item set as disabled
-            if(position == 0) {
+            if(position == 0 && labelObject != null) {
                 nameTV.setTextColor(android.graphics.Color.GRAY);
             }
             nameTV.setText(name);
@@ -114,6 +124,8 @@ public class ObjectNameAdapter extends ArrayAdapter{
             name = ((Nationality)o).getName();
         } else if(o instanceof Color){
             name = ((Color)o).getName();
+        } else if(o instanceof Location){
+            name = ((Location)o).getName();
         } else if(o instanceof Bank){
             name = ((Bank)o).getName();
         } else if(o instanceof String){
@@ -121,7 +133,7 @@ public class ObjectNameAdapter extends ArrayAdapter{
         }
 
         // if first item set as disabled
-        if(position == 0) {
+        if(position == 0 && labelObject != null) {
             nameTV.setTextColor(android.graphics.Color.GRAY);
         }
         nameTV.setText(name);
@@ -131,6 +143,9 @@ public class ObjectNameAdapter extends ArrayAdapter{
 
     @Override
     public boolean isEnabled(int position) {
+        if(labelObject == null)
+            return true;
+
         if(position <= DISABLED_ITEM_INDEX)
         {
             return false;
@@ -140,9 +155,10 @@ public class ObjectNameAdapter extends ArrayAdapter{
 
     public void updateItems(List<Object> items){
         this.mObjects = items;
+
         this.clear();
         this.addAll(items);
-
+        Log.d("SAED", "updateItems: count " + this.getCount());
         this.insertLabelObject();
         this.notifyDataSetChanged();
     }
@@ -154,4 +170,58 @@ public class ObjectNameAdapter extends ArrayAdapter{
         }
     }
 
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return nameFilter;
+//        return super.getFilter();
+    }
+
+    private Filter nameFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            if(constraint != null)
+            {
+//                suggestion.clear();
+//                Log.d("SAED", "performFiltering: " + mObjects.size());
+//                for (Object object : mObjects) {
+//                    Location location = (Location)object;
+//                    Log.d("SAED", "performFiltering: location name " + location.getName());
+//
+//                    Log.d("SAED", "performFiltering: constraint " + constraint);
+//                    Log.d("SAED", "performFiltering: if result " + location.getName().toLowerCase()
+//                            .startsWith(constraint.toString().toLowerCase()));
+//                    if (location.getName().toLowerCase()
+//                            .startsWith(constraint.toString().toLowerCase())) {
+//                        Log.d("SAED", "performFiltering: location name inside " + location.getName());
+//                        Log.d("SAED", "performFiltering: constraint inside" + constraint);
+//                        suggestion.add(location);
+//                    }
+//                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mObjects;
+                filterResults.count = mObjects.size();
+//
+                return filterResults;
+
+            } else {
+                return new FilterResults();
+            }
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            ArrayList<Location> filteredList = (ArrayList<Location>) results.values;
+
+            if (results != null && results.count > 0) {
+                clear();
+                for (Location c : filteredList) {
+                    add(c);
+                }
+                notifyDataSetChanged();
+            }
+
+        }
+    };
 }
