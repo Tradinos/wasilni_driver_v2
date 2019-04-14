@@ -5,6 +5,7 @@ public enum RideStatus {
 
 
     APPROVED("ACCEPTED") ,
+    ACCEPTED("ACCEPTED") ,
     STARTED("STARTED") ,
     ARRIVED ("ARRIVED") ,
     PICKED_UP("PICKED_UP"),
@@ -25,6 +26,8 @@ public enum RideStatus {
     }
     public static String nextState(String state){
         switch (state){
+            case "APPROVED" :
+                return "ACCEPTED" ;
             case "ACCEPTED" :
                 return "STARTED" ;
             case "STARTED" :
@@ -34,7 +37,7 @@ public enum RideStatus {
             case "PICKED_UP" :
                 return  "DONE";
             case "DONE" :
-                return  "FINISH";
+                return  "PAID";
         }
         return  null;
     }

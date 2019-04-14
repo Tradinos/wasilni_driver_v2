@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
@@ -37,8 +38,8 @@ import java.util.List;
 public class TripPassengersActionsFragment extends BottomSheetFragment implements BookingsFragmentContract.BookingFragmentView {
     private OnFragmentInteractionListener mListener;
     public BookingAdapter mAdapter ;
-    public Activity activity ;
-    public TripPassengersActionsFragment(Activity activity) {
+    public HomeActivity activity ;
+    public TripPassengersActionsFragment(HomeActivity activity) {
         this.activity = activity ;
         mAdapter = new BookingAdapter(new ArrayList<Booking>() , this);
         // Required empty public constructor
@@ -50,7 +51,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
      *
      * @return A new instance of fragment TripPassengersActionsFragment.
      */
-    public static TripPassengersActionsFragment newInstance(Activity activity) {
+    public static TripPassengersActionsFragment newInstance(HomeActivity activity) {
         TripPassengersActionsFragment fragment = new TripPassengersActionsFragment(activity);
         Bundle args = new Bundle();
         fragment.setArguments(args);

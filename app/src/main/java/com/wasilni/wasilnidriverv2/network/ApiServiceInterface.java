@@ -31,7 +31,6 @@ import retrofit2.http.Query;
 
 public interface ApiServiceInterface {
     @Headers("Accept: application/json")
-    @FormUrlEncoded
     @PUT("booking/{booking}/action")
     Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking);
 

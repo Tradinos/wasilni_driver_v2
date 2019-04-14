@@ -31,7 +31,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<Response<PaginationAPI<List<Ride>>>> call =
-                service.GetRides( Token , 20,"NOT_DONE" );
+                service.GetRides( Token , 20,"NOT_PAID" );
 
         call.enqueue(this);
     }

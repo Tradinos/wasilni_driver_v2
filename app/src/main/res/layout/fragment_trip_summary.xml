@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.Dialogs.RideSummaryFragment">
+    tools:context=".ui.Dialogs.RideSummaryFragment"
+    android:id="@+id/frame">
     <android.support.constraint.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

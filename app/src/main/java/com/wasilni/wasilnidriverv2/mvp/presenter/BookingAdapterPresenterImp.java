@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.view.View;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
@@ -24,7 +25,10 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
     @Override
     public void ObjectToHolder(final Booking object, BookingAdapter.BookingItemViewHolder holder) {
 
-        holder.timeTextView.setText(object.getDatetime());
+
+        if(holder.timeTextView != null) {
+            holder.timeTextView.setText(object.getDatetime());
+        }
         if(holder.seatCountTextView != null ) {
             holder.seatCountTextView.setText(""+object.getSeats());
         }
@@ -33,8 +37,16 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
         holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(object.getStatus().equals("DONE")){
+                        // show ride summary
 
-                presenter.sendToServer(object);
+                    RideSummaryFragment rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
+                    rideSummaryFragment.responseCode200(object,tripPassengersActionsFragment);
+                    tripPassengersActionsFragment.deleteBooking(object);
+                }
+                else{
+                    presenter.sendToServer(object);
+                }
             }
         });
         if(holder.callImageView != null ) {

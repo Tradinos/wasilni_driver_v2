@@ -19,7 +19,6 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 public class ChangeBookingStatePresenterImp implements ChangeRideContract.ChangeBookingPresenter {
 
     Booking mBooking;
-    Activity activity ;
     TripPassengersActionsFragment tripPassengersActionsFragment;
     RideSummaryFragment rideSummaryFragment ;
     public ChangeBookingStatePresenterImp(TripPassengersActionsFragment tripPassengersActionsFragment) {
@@ -48,10 +47,11 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
         switch (response.code())
         {
             case 200 :
+                Log.e("data", ""+response.body().getData().getStatus() );
                 if(response.body().getData().getStatus().equals("DONE")){
-                    rideSummaryFragment = RideSummaryFragment.newInstance();
-                    rideSummaryFragment.responseCode200(response.body().getData());
-                    tripPassengersActionsFragment.deleteBooking(response.body().getData());
+                    mBooking.setStatus(response.body().getData().getStatus());
+                    rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
+                    rideSummaryFragment.responseCode200(response.body().getData(),tripPassengersActionsFragment);
                 }
                 else {
                     mBooking.setStatus(response.body().getData().getStatus());
@@ -59,12 +59,16 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                 }
                 break;
             case 422 :
+                tripPassengersActionsFragment.activity.responseCode422();
                 break;
             case 500 :
+                tripPassengersActionsFragment.activity.responseCode500();
                 break;
             case 400 :
+                tripPassengersActionsFragment.activity.responseCode400();
                 break;
             case 401 :
+                tripPassengersActionsFragment.activity.responseCode401();
                 break;
         }
     }

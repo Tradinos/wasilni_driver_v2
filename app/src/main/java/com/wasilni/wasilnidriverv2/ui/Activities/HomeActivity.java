@@ -145,7 +145,6 @@ public class HomeActivity extends NavigationActivity implements
         checkDriverStatus();
 
 
-        notificationButton.setOnClickListener(this);
         driverStatus.setOnClickListener(this);
         passengersActionsBtn.setOnClickListener(this);
 

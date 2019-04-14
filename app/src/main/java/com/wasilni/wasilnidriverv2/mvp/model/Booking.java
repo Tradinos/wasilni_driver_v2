@@ -16,6 +16,9 @@ public class Booking {
     @SerializedName("dates")
     @Expose
     List<String> dates ;
+    @SerializedName("is_pooling")
+    @Expose
+    int is_pooling ;
     @SerializedName("price")
     @Expose
     String price ;
@@ -81,6 +84,14 @@ public class Booking {
     }
     public Booking() {
 
+    }
+
+    public int getIs_pooling() {
+        return is_pooling;
+    }
+
+    public void setIs_pooling(int is_pooling) {
+        this.is_pooling = is_pooling;
     }
 
     public Booking(String status) {

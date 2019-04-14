@@ -1,5 +1,8 @@
 package com.wasilni.wasilnidriverv2.ui.Dialogs;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +36,18 @@ import java.util.List;
  * Use the {@link RideSummaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressLint("ValidFragment")
+
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
-    private ImageView passengerPictureIV;
-    private TextView rateBtn;
+    private ImageView passengerPictureIV,stationImageView,time_imgImageView;
+    private TextView rateBtn ,trip_wait_duration,trip_duration, trip_length;
     private Button submit ;
     public EditText moneyCost ;
     private OnFragmentInteractionListener mListener;
     private Booking dataToShow , sendedBooking;
     private View view ;
+    private Activity activity ;
+    TripPassengersActionsFragment tripPassengersActionsFragment ;
     public void setDataToShow(Booking dataToShow) {
         this.dataToShow = dataToShow;
     }
@@ -48,7 +56,9 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.sendedBooking = mBooking;
     }
 
-    public RideSummaryFragment() {
+    public RideSummaryFragment(Activity activity) {
+        this.activity = activity ;
+
         // Required empty public constructor
     }
 
@@ -58,8 +68,8 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
      *
      * @return A new instance of fragment RideSummaryFragment.
      */
-    public static RideSummaryFragment newInstance() {
-        RideSummaryFragment fragment = new RideSummaryFragment();
+    public static RideSummaryFragment newInstance(Activity activity) {
+        RideSummaryFragment fragment = new RideSummaryFragment(activity);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -118,12 +128,20 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.rateBtn = view.findViewById(R.id.rate_btn);
         this.submit = view.findViewById(R.id.done_btn);
         this.moneyCost = view.findViewById(R.id.delivered_money);
+        this.time_imgImageView = view.findViewById(R.id.time_img) ;
+        this.stationImageView = view.findViewById(R.id.station) ;
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
-
+        if(sendedBooking != null){
+            if(sendedBooking.getIs_pooling() == 1){
+                this.time_imgImageView.setVisibility(View.GONE);
+                this.stationImageView.setVisibility(View.GONE);
+            }
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
+                tripPassengersActionsFragment.deleteBooking(sendedBooking);
 
             }
         });
@@ -136,10 +154,22 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
     }
 
     @Override
-    public void responseCode200(Booking response) {
+    public void responseCode200(Booking response ,TripPassengersActionsFragment tripPassengersActionsFragment ) {
         sendedBooking = response;
         setDataToShow(response);
-        show(((FragmentActivity)getActivity()).getSupportFragmentManager(),"123");
+        this.tripPassengersActionsFragment = tripPassengersActionsFragment;
+        show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
+        Log.e("TAG", "responseCode200: "+response.getIs_pooling() );
+        initView();
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Dialog d = super.onCreateDialog(savedInstanceState);
+        d.setContentView(R.layout.fragment_trip_summary);
+        // ... do stuff....
+         onViewCreated(d.findViewById(R.id.frame), savedInstanceState);
+         return d;
     }
 
     /**

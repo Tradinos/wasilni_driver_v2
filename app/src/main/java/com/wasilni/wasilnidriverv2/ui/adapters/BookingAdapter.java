@@ -51,28 +51,31 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
 
     @Override
     public int getItemViewType(int position) {
-        Log.d("SAED", "getItemViewType:  I am changing postition " + position);
-        Log.e("Booking View Type",list.get(position).getStatus()) ;
+//        Log.d("SAED", "getItemViewType:  I am changing postition " + position);
+//        Log.e("Booking View Type",list.get(position).getStatus()) ;
         if(position == 0 && this.tripPassengersActionsFragment instanceof BookingAdapter.OnAdapterInteractionListener)
         {
             ((BookingAdapter.OnAdapterInteractionListener)this.tripPassengersActionsFragment.getActivity()).itemChanged(list.get(position).getStatus());
         }
 
         switch (list.get(position).getStatus()){
-            case "ACCEPTED" :{
+            case "APPROVED" :{
                 return -1;
             }
-            case "STARTED" :{
+            case "ACCEPTED" :{
                 return 0;
             }
-            case "ARRIVED" :{
+            case "STARTED" :{
                 return 1;
             }
-            case "PICKED_UP" :{
+            case "ARRIVED" :{
                 return 2 ;
             }
-            case "DONE" :{
+            case "PICKED_UP" :{
                 return 3 ;
+            }
+            case "DONE" :{
+                return 4 ;
             }
         }
         return 0;
@@ -105,6 +108,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
         else if(viewType == 3){
             v =  LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_drop_off_passenger, parent, false);
+        }else if(viewType == 4){
+            v =  LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.fragment_paid_passenger, parent, false);
         }
 
         BookingItemViewHolder vh = new BookingItemViewHolder(v);
