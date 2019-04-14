@@ -1,13 +1,16 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,29 +18,33 @@ import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.OnSheetDismissedListener;
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.BookingAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.presenter.HomeActivityPresenterImp;
-import com.wasilni.wasilnidriverv2.adapters.UpcomingRidesAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.UpcomingRidesAdapter;
+import com.wasilni.wasilnidriverv2.mvp.presenter.OnOffDriverPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
+import com.wasilni.wasilnidriverv2.mvp.view.OnOffDriverContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideContruct;
+import com.wasilni.wasilnidriverv2.receivers.NotificationReceiver;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
-import com.wasilni.wasilnidriverv2.ui.Dialogs.TripSummaryFragment;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.wasilni.wasilnidriverv2.mvp.presenter.RideBookingsPresenterImp.ischecked;
+import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
 
-public class HomeActivity extends FragmentActivity implements
+public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
-        TripSummaryFragment.OnFragmentInteractionListener ,
+        RideSummaryFragment.OnFragmentInteractionListener ,
         BookingAdapter.OnAdapterInteractionListener,
         View.OnClickListener,
         OnMapReadyCallback,
@@ -56,19 +63,36 @@ public class HomeActivity extends FragmentActivity implements
     public TripPassengersActionsFragment tripPassengersActionsFragment = TripPassengersActionsFragment.newInstance(this);
     public BottomSheetLayout bottomSheet;
 
+    private NotificationReceiver notificationReceiver = new NotificationReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            recreate();
+        }
+    };
+
+
     public static final int PEEK_HEIGHT_DROP_OFF = 210;
     public static final int PEEK_HEIGHT_PICKED_UP = 150;
     public static final int PEEK_HEIGHT_NORMAL = 200;
     public static HomeActivity homeActivity ;
-    public HomeContract.HomeActivityPresenter presenter = new HomeActivityPresenterImp(this);
+
+
     public RideContruct.MyRidesPresenter myRidesPresenter ;
+    private OnOffDriverContract.OnOffDriverPresenter onOffDriverPresenter = new OnOffDriverPresenterImp(this);
 
     public UpcomingRidesAdapter mAdapter ;
+
+    @Override
+    public void setRides(List<Ride> data) {
+        mAdapter.setList(data);
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ischecked = false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
         homeActivity = this;
         myRidesPresenter = new GetMyRidesPresenterImp(this);
         initView();
@@ -92,14 +116,13 @@ public class HomeActivity extends FragmentActivity implements
         notificationImageView.bringToFront();
         newOrderLayout = findViewById(R.id.new_order_layout) ;
         bottomLayout = findViewById(R.id.bottom_layout) ;
-        notificationButton = findViewById(R.id.saw);
         passengersActionsBtn = findViewById(R.id.passenger_actions_btn);
         recyclerView = findViewById(R.id.my_recycler_view);
 
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment,this) ;
+        mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment) ;
         recyclerView.setAdapter(mAdapter);
 
         myRidesPresenter.sendToServer(null);
@@ -119,36 +142,34 @@ public class HomeActivity extends FragmentActivity implements
                 passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
+        checkDriverStatus();
+
 
         notificationButton.setOnClickListener(this);
         driverStatus.setOnClickListener(this);
-        presenter.checkDriverStatus();
-        this.testBottomSheet();
-
-
         passengersActionsBtn.setOnClickListener(this);
+
     }
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.regesterRecivers();
+        regesterRecivers();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.unregesterRecivers();
+        unregesterRecivers();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.driver_status_image :
-                presenter.driverStatusOnclick();
-                break;
-            case R.id.saw :
-                presenter.notificationButotnOnclick();
+                driverStatusOnclick();
                 break;
             case R.id.passenger_actions_btn:
                 if(!tripPassengersActionsFragment.isAdded()) {
@@ -170,25 +191,6 @@ public class HomeActivity extends FragmentActivity implements
 
     }
 
-    private void testBottomSheet(){
-    }
-
-    private void testTripList(){
-        recyclerView = findViewById(R.id.my_recycler_view);
-
-        // use a linear layout manager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        List<Ride> list = new ArrayList();
-        list.add(new Ride("mahmoud","مزة",1));
-        list.add(new Ride("ahmad","حمرا",1));
-        list.add(new Ride("kinan","ركن الدين",1));
-        list.add(new Ride("mahmoud","ميدان",3));
-//        UpcomingRidesAdapter mAdapter = new UpcomingRidesAdapter(list,this,tripPassengersActionsFragment);
-//        recyclerView.setAdapter(mAdapter);
-    }
 
     @Override
     public void itemChanged(String status) {
@@ -215,5 +217,94 @@ public class HomeActivity extends FragmentActivity implements
             }
         }
         this.bottomSheet.peekSheet();
+    }
+
+    @Override
+    public void driverStatusOnclick() {
+        onOffDriverPresenter.sendToServer(null);
+    }
+
+
+    @Override
+    public void regesterNotification() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.wasilni.wasilnidriverv2.receivers");
+        registerReceiver(notificationReceiver , intentFilter) ;
+    }
+
+    @Override
+    public void regesterRecivers() {
+        regesterNotification();
+    }
+
+    @Override
+    public void unregesterNotification() {
+        unregisterReceiver(notificationReceiver); ;
+
+    }
+
+    @Override
+    public void unregesterRecivers() {
+        unregesterNotification();
+    }
+
+    @Override
+    public void checkDriverStatus() {
+        if(!UtilUser.getUserInstance().isChecked()){
+            driverStatus.setImageResource(R.mipmap.power_off);
+            driverStatusTextView.setText("You're offline");
+            passengersActionsBtn.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            driverStatus.setImageResource(R.mipmap.power_on);
+            driverStatusTextView.setText("You're online");
+            passengersActionsBtn.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            bottomLayout.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+
+
+    @Override
+    public void onFailure(Throwable t) {
+        UtilFunction.showToast(this,"onFailure : "+t.getMessage());
+
+    }
+
+    @Override
+    public void responseCode200() {
+        if(UtilUser.getUserInstance().isChecked()){
+            UtilUser.getUserInstance().setChecked(false);
+            driverStatus.setImageResource(R.mipmap.power_off);
+            driverStatusTextView.setText("You're offline");
+            passengersActionsBtn.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+
+            ViewAnimator
+                    .animate(bottomLayout)
+                    .translationY(onlineOfflineLayout.getHeight() , 0)
+                    .duration(1000)
+                    .start();
+
+        }
+        else
+        {
+            UtilUser.getUserInstance().setChecked(true);
+            driverStatus.setImageResource(R.mipmap.power_on);
+            driverStatusTextView.setText("You're online");
+            passengersActionsBtn.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+
+            ViewAnimator
+                    .animate(bottomLayout)
+                    .translationY(0 ,onlineOfflineLayout.getHeight() )
+                    .duration(1000)
+                    .start();
+        }
     }
 }

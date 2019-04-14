@@ -14,10 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.adapters.RegistrationViewPagerAdapter;
+import com.wasilni.wasilnidriverv2.ui.adapters.RegistrationViewPagerAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
-import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 /**
  * A simple {@link Fragment} subclass.

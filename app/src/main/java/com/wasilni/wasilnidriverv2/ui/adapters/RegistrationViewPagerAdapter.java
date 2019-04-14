@@ -1,4 +1,4 @@
-package com.wasilni.wasilnidriverv2.adapters;
+package com.wasilni.wasilnidriverv2.ui.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

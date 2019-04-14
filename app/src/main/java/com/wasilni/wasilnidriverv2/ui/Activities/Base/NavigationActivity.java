@@ -1,19 +1,31 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
-public class NavigationActivity extends BasicActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class NavigationActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener ,
+        NavigationContract.NavigationView {
     protected DrawerLayout mainLayout ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +34,9 @@ public class NavigationActivity extends BasicActivity
         setContentView(R.layout.activity_navigation);
         initNavigationView();
     }
-    protected void initNavigationView(){
+
+    @Override
+    public void initNavigationView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,10 +46,10 @@ public class NavigationActivity extends BasicActivity
                 this, mainLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mainLayout.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -45,8 +59,6 @@ public class NavigationActivity extends BasicActivity
             super.onBackPressed();
         }
     }
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -68,18 +80,45 @@ public class NavigationActivity extends BasicActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
-    public void onFailure(Throwable t) {
+    public void showProgressBar() {
 
     }
 
     @Override
-    public void responseCode200() {
+    public void hideProgressBar() {
 
     }
+
+    @Override
+    public ProgressBar initProgressBar() {
+        return null;
+    }
+
+    @Override
+    public void responseCode422() {
+        UtilFunction.showToast(this,"422");
+    }
+
+    @Override
+    public void responseCode500() {
+        UtilFunction.showToast(this,"500");
+    }
+
+    @Override
+    public void responseCode400() {
+        UtilFunction.showToast(this,"400");
+    }
+
+    @Override
+    public void responseCode401() {
+        UtilFunction.showToast(this,"401");
+    }
+
+
 }

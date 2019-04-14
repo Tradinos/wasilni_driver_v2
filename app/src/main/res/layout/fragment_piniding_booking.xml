@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/place_name"
+            android:id="@+id/start_place"
             style="@style/botton_notification_big_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,19 +45,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/place_details"
+            android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="جزاماتية - جانب فلال على كيفك"
-            app:layout_constraintEnd_toEndOf="@+id/place_name"
+            app:layout_constraintEnd_toEndOf="@+id/start_place"
             app:layout_constraintHorizontal_bias="0.074"
-            app:layout_constraintStart_toStartOf="@+id/place_name"
-            app:layout_constraintTop_toBottomOf="@+id/place_name" />
+            app:layout_constraintStart_toStartOf="@+id/start_place"
+            app:layout_constraintTop_toBottomOf="@+id/start_place" />
 
         <TextView
             android:id="@+id/e_time"
+            android:visibility="gone"
             style="@style/botton_notification_big_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,10 +72,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/e_kilometer"
-            app:layout_constraintTop_toBottomOf="@+id/place_details"
+            app:layout_constraintTop_toBottomOf="@+id/details"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/e_kilometer"
             style="@style/botton_notification_big_text"
             android:layout_width="wrap_content"
@@ -91,7 +93,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/saw"
+            android:id="@+id/change_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

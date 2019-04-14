@@ -46,6 +46,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
+import com.wasilni.wasilnidriverv2.network.Response;
+import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -57,10 +60,13 @@ import java.util.Date;
 import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 import static com.wasilni.wasilnidriverv2.network.RetorfitSingelton.URL;
 import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
+import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 
 public class UtilFunction {
@@ -105,7 +111,39 @@ public class UtilFunction {
 
 
 
+    public static void sendRegistrationToServer(String refreshedToken , Context context) {
+        // Add custom implementation, as needed.
+        SharedPreferenceUtils.getEditorInstance(context)
+                .putString("fcm_token", refreshedToken);
 
+        // To implement: Only if user is registered, i.e. UserId is available in preference, update token on server.
+        int userId = SharedPreferenceUtils.getPreferencesInstance(context).getInt("user_id", -1);
+        if (userId != -1) {
+            ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
+
+            Call<Response> call = service.FCMToken(Token, refreshedToken);
+
+            call.enqueue(new Callback<Response>() {
+                @Override
+                public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response> call, retrofit2.Response<com.wasilni.wasilnidriverv2.network.Response> response) {
+                    Log.e("onResponse", "11111 ");
+
+                }
+
+                @Override
+                public void onFailure(Call<com.wasilni.wasilnidriverv2.network.Response> call, Throwable t) {
+                    Log.e("onFailure", t.getMessage());
+
+                }
+            });
+        }
+    }
+    public static void CheckFCMToken(Context context){
+        String fcm_token = SharedPreferenceUtils.getPreferencesInstance(context).getString("fcm_token",null);
+        if(fcm_token != null){
+            sendRegistrationToServer(fcm_token,context);
+        }
+    }
 
     public static void showToast(Context activity , int messageID){
         Toast.makeText(activity ,messageID,Toast.LENGTH_SHORT ).show();

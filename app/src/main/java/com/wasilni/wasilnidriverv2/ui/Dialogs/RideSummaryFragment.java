@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,32 +20,35 @@ import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.presenter.PayPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RideSummaryContract;
+
+import java.util.List;
 
 /**
  * A simple {@link BottomSheetDialogFragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TripSummaryFragment.OnFragmentInteractionListener} interface
+ * {@link RideSummaryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TripSummaryFragment#newInstance} factory method to
+ * Use the {@link RideSummaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TripSummaryFragment extends BottomSheetDialogFragment {
+public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
     private ImageView passengerPictureIV;
     private TextView rateBtn;
     private Button submit ;
     public EditText moneyCost ;
     private OnFragmentInteractionListener mListener;
-    private Booking dataToShow , mBooking;
-
+    private Booking dataToShow , sendedBooking;
+    private View view ;
     public void setDataToShow(Booking dataToShow) {
         this.dataToShow = dataToShow;
     }
 
     public void setmBooking(Booking mBooking) {
-        this.mBooking = mBooking;
+        this.sendedBooking = mBooking;
     }
 
-    public TripSummaryFragment() {
+    public RideSummaryFragment() {
         // Required empty public constructor
     }
 
@@ -52,10 +56,10 @@ public class TripSummaryFragment extends BottomSheetDialogFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment TripSummaryFragment.
+     * @return A new instance of fragment RideSummaryFragment.
      */
-    public static TripSummaryFragment newInstance() {
-        TripSummaryFragment fragment = new TripSummaryFragment();
+    public static RideSummaryFragment newInstance() {
+        RideSummaryFragment fragment = new RideSummaryFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -82,21 +86,8 @@ public class TripSummaryFragment extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
-        this.rateBtn = view.findViewById(R.id.rate_btn);
-        this.submit = view.findViewById(R.id.done_btn);
-        this.moneyCost = view.findViewById(R.id.delivered_money);
-        final PayContract.PayPresenter presenter = new PayPresenterImp(this);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.sendToServer(new Payment(mBooking , moneyCost.getText().toString()));
-
-            }
-        });
-
+        this.view = view;
+        initView();
     }
 
     public void onButtonPressed(Uri uri) {
@@ -119,6 +110,36 @@ public class TripSummaryFragment extends BottomSheetDialogFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void initView() {
+        this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
+        this.rateBtn = view.findViewById(R.id.rate_btn);
+        this.submit = view.findViewById(R.id.done_btn);
+        this.moneyCost = view.findViewById(R.id.delivered_money);
+        final PayContract.PayPresenter presenter = new PayPresenterImp(this);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
+
+    @Override
+    public void responseCode200(Booking response) {
+        sendedBooking = response;
+        setDataToShow(response);
+        show(((FragmentActivity)getActivity()).getSupportFragmentManager(),"123");
     }
 
     /**

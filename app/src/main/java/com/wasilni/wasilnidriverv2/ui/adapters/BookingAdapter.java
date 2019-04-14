@@ -1,6 +1,5 @@
-package com.wasilni.wasilnidriverv2.adapters;
+package com.wasilni.wasilnidriverv2.ui.adapters;
 
-import android.app.Activity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,18 +13,19 @@ import android.widget.TextView;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.presenter.BookingAdapterPresenterImp;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
 import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingItemViewHolder> {
 
     private List<Booking> list ;
-    private Activity activity ;
+    private TripPassengersActionsFragment tripPassengersActionsFragment;
     private BookingAdapterPresenterImp presenter ;
-    public BookingAdapter(List<Booking> list, Activity activity) {
+    public BookingAdapter(List<Booking> list, TripPassengersActionsFragment tripPassengersActionsFragment) {
         this.list = list;
-        this.activity = activity;
-        presenter = new BookingAdapterPresenterImp(this,activity);
+        this.tripPassengersActionsFragment = tripPassengersActionsFragment;
+        presenter = new BookingAdapterPresenterImp(tripPassengersActionsFragment);
     }
 
     public List<Booking> getList() {
@@ -40,7 +40,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
     @Override
     public void onBindViewHolder(BookingItemViewHolder holder, int position) {
         Booking booking = list.get(position) ;
-        presenter.ObjectToHolder(booking , holder,activity);
+        presenter.ObjectToHolder(booking , holder);
     }
 
 
@@ -53,26 +53,26 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
     public int getItemViewType(int position) {
         Log.d("SAED", "getItemViewType:  I am changing postition " + position);
         Log.e("Booking View Type",list.get(position).getStatus()) ;
-        if(position == 0 && this.activity instanceof BookingAdapter.OnAdapterInteractionListener)
+        if(position == 0 && this.tripPassengersActionsFragment instanceof BookingAdapter.OnAdapterInteractionListener)
         {
-            ((BookingAdapter.OnAdapterInteractionListener)this.activity).itemChanged(list.get(position).getStatus());
+            ((BookingAdapter.OnAdapterInteractionListener)this.tripPassengersActionsFragment.getActivity()).itemChanged(list.get(position).getStatus());
         }
 
         switch (list.get(position).getStatus()){
-            case "APPROVED" :{
-                return 0;
+            case "ACCEPTED" :{
+                return -1;
             }
             case "STARTED" :{
-                return 1;
+                return 0;
             }
             case "ARRIVED" :{
-                return 2;
+                return 1;
             }
             case "PICKED_UP" :{
-                return 3 ;
+                return 2 ;
             }
             case "DONE" :{
-                return 0 ;
+                return 3 ;
             }
         }
         return 0;
@@ -84,7 +84,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
                                                                    int viewType) {
         // create a new view
         View v = null;
-        if(viewType == 0)
+        if(viewType == -1)
+        {
+            v =  LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.fragment_piniding_booking, parent, false);
+        }
+        else if(viewType == 0)
         {
             v =  LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_getting_passenger, parent, false);
@@ -125,7 +130,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
             ChangeButton = v.findViewById(R.id.change_btn);
             whatsappImageView = v.findViewById(R.id.whatsapp_passenger);
             callImageView = v.findViewById(R.id.call_passenger);
-            Log.d("SED", "BookingItemViewHolder: I am doing it the right way right ?");
         }
     }
 

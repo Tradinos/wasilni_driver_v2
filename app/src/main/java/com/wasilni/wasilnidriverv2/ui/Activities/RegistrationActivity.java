@@ -15,6 +15,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CompleteDataPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.FullScreenActivity;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
@@ -26,8 +27,8 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
 
 import com.wasilni.wasilnidriverv2.R;
 
-public class RegistrationActivity extends BasicActivity implements
-        HomeContract.HomeView,
+public class RegistrationActivity extends FullScreenActivity implements
+
         PhoneVerificationFragment.OnFragmentInteractionListener ,
         RegistrationFragment.OnFragmentInteractionListener ,
         InterviewRegistrationFragment.OnFragmentInteractionListener ,
@@ -56,7 +57,6 @@ public class RegistrationActivity extends BasicActivity implements
 
     }
 
-    @Override
     public void initView() {
         Log.d("SAED", "initView: I am doing this for the greater good ");
         FragmentManager fragmentManager = getSupportFragmentManager();

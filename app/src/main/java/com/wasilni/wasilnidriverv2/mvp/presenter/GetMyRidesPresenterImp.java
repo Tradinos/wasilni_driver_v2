@@ -44,8 +44,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
         {
             case 200 :
                 Log.e("list ride", ""+response.body().getData().getData().toString());
-                activity.mAdapter.setList(response.body().getData().getData());
-                activity.mAdapter.notifyDataSetChanged();
+                activity.setRides(response.body().getData().getData());
                 break;
             case 422 :
                 break;

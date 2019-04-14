@@ -22,12 +22,9 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
 
-    TripPassengersActionsFragment activity ;
-    Activity context ;
-    public static boolean ischecked = false  ;
-    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment , Activity activity) {
-        this.activity = fragment ;
-        context = activity ;
+    TripPassengersActionsFragment tripPassengersActionsFragment ;
+    public RideBookingsPresenterImp(TripPassengersActionsFragment fragment) {
+        this.tripPassengersActionsFragment = fragment ;
     }
 
     @Override
@@ -50,12 +47,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         {
             case 200 :
                 Log.e("booking list :",response.body().getData().getBookings().toString()) ;
-                ischecked = true;
-                if(!activity.isAdded()) {
-                    activity.show(((FragmentActivity) context).getSupportFragmentManager(), R.id.bottomsheet);
-                }
-                activity.mAdapter.setList(response.body().getData().getBookings());
-                activity.mAdapter.notifyDataSetChanged();
+                tripPassengersActionsFragment.setBookings(response.body().getData());
                 break;
             case 422 :
                 break;
