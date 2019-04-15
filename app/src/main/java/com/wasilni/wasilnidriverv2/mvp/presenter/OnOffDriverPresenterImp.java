@@ -35,10 +35,10 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
     public void onResponse(Call<Response<Boolean>> call, retrofit2.Response<Response<Boolean>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
 
-        switch (response.code())
+        switch(response.code())
         {
             case 200 :
-                activity.responseCode200();
+                activity.responseCode200(response.body().getData());
                 break;
             case 422 :
                 activity.responseCode422();
@@ -60,4 +60,5 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
         Log.e("onFailure",t.getMessage());
         activity.onFailure(t);
     }
+
 }

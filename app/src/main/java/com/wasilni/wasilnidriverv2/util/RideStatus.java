@@ -4,12 +4,13 @@ public enum RideStatus {
     // this enum descripe what i should todo now
 
 
-    APPROVED("ACCEPTED") ,
+    APPROVED("APPROVED") ,
     ACCEPTED("ACCEPTED") ,
     STARTED("STARTED") ,
     ARRIVED ("ARRIVED") ,
     PICKED_UP("PICKED_UP"),
     DONE("DONE") ,
+    PAID("PAID") ,
     ;
     String state ;
 

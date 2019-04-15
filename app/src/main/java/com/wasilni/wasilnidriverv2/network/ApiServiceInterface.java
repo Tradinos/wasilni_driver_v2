@@ -108,4 +108,8 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @GET("car_brand/{car_brand_id}/models")
     Call<Response<PaginationAPI<BrandModel>>> BrandModels(@Header("Authorization") String Authorization, @Path("car_brand_id") int carBrandId);
+
+    @Headers("Accept: application/json")
+    @GET("check_auth")
+    Call<Response<User>> GetUserData(@Header("Authorization") String token);
 }

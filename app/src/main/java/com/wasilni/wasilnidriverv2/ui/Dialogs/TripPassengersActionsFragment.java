@@ -116,7 +116,14 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
     @Override
     public void deleteBooking(Booking data) {
         List<Booking> list = mAdapter.getList();
-        list.remove(data);
+        Booking deletedItem = null ;
+        for (Booking booking : list){
+            if(booking.getId().equals(data.getId())){
+                deletedItem = booking ;
+            }
+        }
+        Log.e("deleteBooking", "deleteBooking: "+deletedItem );
+        list.remove(deletedItem);
         mAdapter.setList(list);
         mAdapter.notifyDataSetChanged();
     }

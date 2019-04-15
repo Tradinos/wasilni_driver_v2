@@ -1,5 +1,7 @@
 package com.wasilni.wasilnidriverv2.ui.Activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -22,7 +25,15 @@ import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.GetUserDataPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.UserData;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
@@ -77,9 +88,9 @@ public class HomeActivity extends NavigationActivity implements
     public static HomeActivity homeActivity ;
 
 
-    public RideContruct.MyRidesPresenter myRidesPresenter ;
+    private RideContruct.MyRidesPresenter myRidesPresenter ;
     private OnOffDriverContract.OnOffDriverPresenter onOffDriverPresenter = new OnOffDriverPresenterImp(this);
-
+    private UserData.GetUserData userDataPresenter = new GetUserDataPresenterImp(this);
     public UpcomingRidesAdapter mAdapter ;
 
     @Override
@@ -142,11 +153,25 @@ public class HomeActivity extends NavigationActivity implements
                 passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
-        checkDriverStatus();
-
+        userDataPresenter.sendToServer(null);
 
         driverStatus.setOnClickListener(this);
         passengersActionsBtn.setOnClickListener(this);
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION
+                        , Manifest.permission.ACCESS_COARSE_LOCATION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        Log.e("home", "onPermissionsChecked: true" );
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        Log.e("home", "onPermissionsChecked: false" );
+
+                    }
+                }).check();
 
     }
 
@@ -249,6 +274,7 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void checkDriverStatus() {
+        Log.e("checkDriverStatus",""+UtilUser.getUserInstance().isChecked() );
         if(!UtilUser.getUserInstance().isChecked()){
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
@@ -266,7 +292,18 @@ public class HomeActivity extends NavigationActivity implements
 
     }
 
-
+    @Override
+    public void setDriverStatus(User user) {
+        if(user.getLast_check() == 1) {
+            user.setChecked(true);
+        }
+        else{
+            user.setChecked(false);
+        }
+        UtilUser.setUser(user);
+        Log.e("checkDriverStatus",""+user.isChecked() );
+        checkDriverStatus();
+    }
 
     @Override
     public void onFailure(Throwable t) {
@@ -275,14 +312,17 @@ public class HomeActivity extends NavigationActivity implements
     }
 
     @Override
-    public void responseCode200() {
-        if(UtilUser.getUserInstance().isChecked()){
+    public void responseCode200(Boolean response) {
+        if(!response){
             UtilUser.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
             passengersActionsBtn.setVisibility(View.INVISIBLE);
+            if(tripPassengersActionsFragment.isVisible()){
+                tripPassengersActionsFragment.setMenuVisibility(false);
+            }
             recyclerView.setVisibility(View.INVISIBLE);
-
+            UtilUser.getUserInstance().setChecked(false);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(onlineOfflineLayout.getHeight() , 0)
@@ -297,6 +337,7 @@ public class HomeActivity extends NavigationActivity implements
             driverStatusTextView.setText("You're online");
             passengersActionsBtn.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
+            UtilUser.getUserInstance().setChecked(false);
 
 
             ViewAnimator

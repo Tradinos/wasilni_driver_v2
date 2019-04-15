@@ -11,7 +11,7 @@ public interface MainContract {
     void hideProgressBar();
     ProgressBar initProgressBar();
     void onFailure(Throwable t);
-    void responseCode200();
+    void responseCode200(Boolean response);
     void responseCode422();
     void responseCode500();
     void responseCode400();

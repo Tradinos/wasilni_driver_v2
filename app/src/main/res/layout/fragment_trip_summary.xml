@@ -125,21 +125,26 @@
 
                 <TextView
                     android:id="@+id/trip_wait_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="0 د"
-                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/time_img"
-                    app:layout_constraintTop_toTopOf="@id/time_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintTop_toBottomOf="@+id/trip_destination" />
+
                 <TextView
-                    android:text="الانتظار"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toStartOf="@id/trip_wait_duration"
-                    app:layout_constraintBottom_toBottomOf="@id/time_img"
-                    app:layout_constraintTop_toTopOf="@id/time_img"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="الانتظار"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/trip_wait_duration"
+                    app:layout_constraintTop_toBottomOf="@+id/trip_destination" />
             </android.support.constraint.ConstraintLayout>
             <LinearLayout
                 android:paddingTop="@dimen/register_card_padding"
@@ -224,6 +229,7 @@
             <EditText
                 android:paddingBottom="@dimen/register_card_padding"
                 android:hint="took"
+                android:inputType="number"
                 android:padding="4dp"
                 android:gravity="center"
                 android:id="@+id/delivered_money"

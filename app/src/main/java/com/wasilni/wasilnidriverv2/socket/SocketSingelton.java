@@ -1,5 +1,7 @@
 package com.wasilni.wasilnidriverv2.socket;
 
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
@@ -18,24 +20,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
+import static com.wasilni.wasilnidriverv2.gps.GPSLocation.myLocation;
 import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
+import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class SocketSingelton {
-    private static final String SOCKET_URL = "http://192.168.9.148:3000/passengers";
-    private static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjgwZGFkNTE4Zjk3ZjYxMmIyMmY1MzgzM2ZlM2ZiMTQ5ZDdlOTcyOWI2ZjI3ZTgwZGJhODMxZTA4YjY5ZTNiZjM5ZWMyOGZlOWU5YjA5NWZlIn0.eyJhdWQiOiIxIiwianRpIjoiODBkYWQ1MThmOTdmNjEyYjIyZjUzODMzZmUzZmIxNDlkN2U5NzI5YjZmMjdlODBkYmE4MzFlMDhiNjllM2JmMzllYzI4ZmU5ZTliMDk1ZmUiLCJpYXQiOjE1NTI5MTA2OTMsIm5iZiI6MTU1MjkxMDY5MywiZXhwIjoxNTg0NTMzMDkzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.HsG0UD6rg4bbchf5jbp5J93_DAAYRO8Kgi1qKPKaU0oHHL35Pq9spWBnifb_tU6saVZfGDkxAjtr25TrwgLVhVdyl_FXONsF5r-bm4omxXHtC4ddzXFoT7RdFN8_vv6m54tjZLD-kykcyDvJFBHblrRmIUaSkd-AIpKPZkX-IjnGs9zVWHNOGa46BBJ6pEwWuDiwIZ36Z2rXFUP8RotWmpvynhV81JhcGe0u6MYr9Kqmn-RW0y3oxGV-ASMPcd1UnAEcSFm7GbkSDutAyZtsBo5Zs7OU5oCPaTKPlIGYSS9rJQmkv_Aobd94ouAtmz57DMxaqtMcNFaUCZ_fVwTJ-JCvG4ppmAF4Zm3191yABJCwmcS0BrO-kIxuMdkCy9s4udwjvX_C8EHqqT5_FBNyMxi1TjlXTh1clC-r2wSHf6qEaA6j0MNHC2u1tHY30xRRbhMo8fm9IvyJ6ptFu88e6yiEjU1PHstkAGFB_2DS3Jb5zqB54b3nXSbQRn8lMUP_bx1XvFOAkJZiLC6Ul0knlC7MxrDZI1Dw_5qkaBkPajFseDc6dtdh8hg-P09cjptX7PGF4bgG7yf4xiywOpkARurPKZffO-dlEaLnfiNSh-EFsE4xPEDLXPiQ1HmvFMIdbhF4F9NOriux1yAs0pSupa-Pe9hj1MY1kbWl_IjIbwQ";
+    private static final String SOCKET_URL = "http://192.168.9.175:3000/captains";
     private static Socket socket = null;
     private static IO.Options mOptions;
-    private static Realm realm = Realm.getDefaultInstance();
-    private static RealmQuery<SocketItem> query = realm.where(SocketItem.class);
+    private static String TAG = "socket" ;
+    private static Realm realm;
+    private static RealmQuery<SocketItem> query ;
+    public static boolean isTracking = false;
+
+
+
+
 
     private static void createInstance() {
         try {
             mOptions = new IO.Options();
-           // mOptions.query = "accessToken=" + TOKEN;
+            mOptions.query = "authorization=" + Token;
             socket = IO.socket(SOCKET_URL, mOptions);
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -63,26 +73,47 @@ public class SocketSingelton {
     }
 
     public static void disconnect() {
+        Log.e(TAG, "disconnect" );
+        isTracking = false ;
         socket.close();
         socket.disconnect();
 
     }
 
-    public static void startTracking(final Location location) {
+    public static void startTracking(final Context mContext , Location location) {
+        Log.e(TAG, "startTracking" );
         socket = getInstance();
+
         Timer timer = new Timer();
 
-        GPSLocation.startUpdateLocaiton();
-        final Location myLocation = GPSLocation.getMyLocation();
-
+        GPSLocation.startUpdateLocaiton(mContext);
+        location = myLocation[0];
+        final Location finalLocation = location;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                reConnect();
-
-                if (myLocation != null) {
-                    location.set(myLocation) ;
-                    addLocationToRealm(myLocation);
+//                reConnect();
+                GPSLocation.startUpdateLocaiton(mContext);
+                if(realm == null){
+                    // i put it here because we can access it from one thread
+                    initRealm(mContext);
+                }
+                if(socket.connected()){
+                    Log.e(TAG, "coonected true" );
+                }
+                else{
+                    if(UtilUser.getUserInstance().isChecked()) {
+                        reConnect();
+                    }
+                    Log.e(TAG, "coonected false" );
+                }
+                isTracking = true ;
+                if (myLocation[0] != null) {
+                    Log.e(TAG, "get location + "+ myLocation[0].getLatitude() + " " + myLocation[0].getLongitude()  );
+                    if(finalLocation != null) {
+                        finalLocation.set(myLocation[0]);
+                    }
+                    addLocationToRealm(myLocation[0]);
                 }
                 if (socket.connected()) {
                     sendAllDB();
@@ -90,7 +121,6 @@ public class SocketSingelton {
                 }
             }
         }, 0, 10000);
-
     }
 
     public static void stopTracking() {
@@ -128,7 +158,19 @@ public class SocketSingelton {
                 Log.e(ETAG, e.getMessage());
             }
 
-            socket.emit("update_driver_location", obj);
+            socket.emit("update_location", obj);
         }
+    }
+
+    static private void initRealm(Context context) {
+        Realm.init(context);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .name("wasilni.realm")
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
+
+
+        realm  = Realm.getDefaultInstance();
+        query = realm.where(SocketItem.class);
     }
 }

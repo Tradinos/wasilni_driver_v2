@@ -177,7 +177,7 @@ public class RegistrationActivity extends FullScreenActivity implements
     }
 
     @Override
-    public void responseCode200() {
+    public void responseCode200(Boolean response) {
 
     }
 }

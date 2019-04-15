@@ -27,7 +27,7 @@ public class FullScreenActivity extends BasicActivity {
     }
 
     @Override
-    public void responseCode200() {
+    public void responseCode200(Boolean response) {
 
     }
 }

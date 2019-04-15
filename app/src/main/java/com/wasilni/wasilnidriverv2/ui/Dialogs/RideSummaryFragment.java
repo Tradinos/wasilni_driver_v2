@@ -25,6 +25,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.presenter.PayPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideSummaryContract;
+import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
 
@@ -130,17 +131,23 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.moneyCost = view.findViewById(R.id.delivered_money);
         this.time_imgImageView = view.findViewById(R.id.time_img) ;
         this.stationImageView = view.findViewById(R.id.station) ;
+        this.trip_duration = view.findViewById(R.id.trip_duration);
+        this.trip_length= view.findViewById(R.id.trip_length);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
         if(sendedBooking != null){
             if(sendedBooking.getIs_pooling() == 1){
                 this.time_imgImageView.setVisibility(View.GONE);
                 this.stationImageView.setVisibility(View.GONE);
+                this.trip_duration.setVisibility(View.GONE);
+                this.trip_length.setVisibility(View.GONE);
             }
         }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
+                sendedBooking.setStatus(RideStatus.nextState(sendedBooking.getStatus()));
+                Log.e("submit", "onClick: "+sendedBooking.getId());
                 tripPassengersActionsFragment.deleteBooking(sendedBooking);
 
             }
@@ -160,7 +167,6 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.tripPassengersActionsFragment = tripPassengersActionsFragment;
         show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
         Log.e("TAG", "responseCode200: "+response.getIs_pooling() );
-        initView();
     }
 
     @Override
@@ -168,6 +174,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         final Dialog d = super.onCreateDialog(savedInstanceState);
         d.setContentView(R.layout.fragment_trip_summary);
         // ... do stuff....
+        Log.e("123", "onCreateDialog: " );
          onViewCreated(d.findViewById(R.id.frame), savedInstanceState);
          return d;
     }
