@@ -120,10 +120,27 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         for (Booking booking : list){
             if(booking.getId().equals(data.getId())){
                 deletedItem = booking ;
+                break;
             }
         }
         Log.e("deleteBooking", "deleteBooking: "+deletedItem );
         list.remove(deletedItem);
+
+        if(list.size() == 0){
+            Log.e("deleteride", "deleteride: "+deletedItem );
+            Ride deletedRide= null ;
+            List<Ride> rides = activity.mAdapter.getList();
+            for (Ride ride : rides){
+                if(ride.getId() == deletedItem.getRideId()){
+                    deletedRide = ride ;
+                    break;
+                }
+            }
+            rides.remove(deletedRide);
+            activity.mAdapter.setList(rides);
+            activity.mAdapter.notifyDataSetChanged();
+        }
+
         mAdapter.setList(list);
         mAdapter.notifyDataSetChanged();
     }

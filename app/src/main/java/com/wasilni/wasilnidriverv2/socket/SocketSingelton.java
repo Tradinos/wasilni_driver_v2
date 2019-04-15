@@ -89,15 +89,17 @@ public class SocketSingelton {
         GPSLocation.startUpdateLocaiton(mContext);
         location = myLocation[0];
         final Location finalLocation = location;
+
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-//                reConnect();
                 GPSLocation.startUpdateLocaiton(mContext);
                 if(realm == null){
                     // i put it here because we can access it from one thread
                     initRealm(mContext);
                 }
+
                 if(socket.connected()){
                     Log.e(TAG, "coonected true" );
                 }
@@ -107,6 +109,7 @@ public class SocketSingelton {
                     }
                     Log.e(TAG, "coonected false" );
                 }
+
                 isTracking = true ;
                 if (myLocation[0] != null) {
                     Log.e(TAG, "get location + "+ myLocation[0].getLatitude() + " " + myLocation[0].getLongitude()  );
