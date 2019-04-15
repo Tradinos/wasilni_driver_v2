@@ -42,7 +42,6 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
 
                     RideSummaryFragment rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
                     rideSummaryFragment.responseCode200(object,tripPassengersActionsFragment);
-                    tripPassengersActionsFragment.deleteBooking(object);
                 }
                 else{
                     presenter.sendToServer(object);
