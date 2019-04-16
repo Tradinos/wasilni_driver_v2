@@ -8,8 +8,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 
 public interface MainContract {
 
-    void showProgressBar(Activity activity);
-    void hideProgressBar();
+
     ProgressBar initProgressBar();
     void onFailure(Throwable t);
     void responseCode200(Boolean response);

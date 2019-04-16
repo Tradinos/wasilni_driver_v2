@@ -40,13 +40,11 @@ public abstract class BasicActivity extends AppCompatActivity implements MainCon
         return progressBar;
     }
 
-    @Override
     public void showProgressBar(Activity activity) {
         grayLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void hideProgressBar() {
         grayLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);

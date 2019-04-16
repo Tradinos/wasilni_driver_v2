@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.util;
 
 import android.Manifest;
 import android.app.Activity;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -71,6 +73,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class UtilFunction {
     public static String INTENT_REQUESTER = "intent-requester";
+    public static KProgressHUD hud ;
 
     public static void setFontBAHIJ(Activity activity) {
         Calligrapher calligrapher = new Calligrapher(activity);
@@ -504,6 +507,21 @@ public class UtilFunction {
 
     public static String getFullURL(String url){
         return URL + url;
+    }
+
+    public void showProgressBar(Activity activity) {
+        hud =KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("الرجاء الانتظار")
+                .setDetailsLabel("جاري ")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
+
+    }
+
+    public void hideProgressBar() {
+        hud.dismiss();
     }
 
 }

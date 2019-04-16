@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.github.florent37.viewanimator.ViewAnimator;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
@@ -30,7 +29,6 @@ public abstract class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         NavigationContract.NavigationView {
     protected DrawerLayout mainLayout ;
-    protected KProgressHUD hud ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,22 +90,6 @@ public abstract class NavigationActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void showProgressBar(Activity activity) {
-         hud =KProgressHUD.create(NavigationActivity.this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("الرجاء الانتظار")
-                .setDetailsLabel("جاري ")
-                .setCancellable(true)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f);
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-        hud.dismiss();
-    }
 
     @Override
     public ProgressBar initProgressBar() {

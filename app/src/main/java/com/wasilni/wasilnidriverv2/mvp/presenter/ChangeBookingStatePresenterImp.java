@@ -28,7 +28,6 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
     @Override
     public void sendToServer(Booking request) {
         request.setStatus(RideStatus.nextState(request.getStatus()));
-
         mBooking = request ;
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
