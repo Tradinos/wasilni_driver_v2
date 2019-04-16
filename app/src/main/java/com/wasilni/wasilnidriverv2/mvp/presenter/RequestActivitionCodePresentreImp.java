@@ -6,11 +6,17 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneRegistrationFragment;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class RequestActivitionCodePresentreImp implements RequestActivitionCodeContract.RequestActivitionCodePresentre {
+    PhoneRegistrationFragment phoneRegistrationFragment;
+    public RequestActivitionCodePresentreImp(PhoneRegistrationFragment phoneRegistrationFragment) {
+        this.phoneRegistrationFragment = phoneRegistrationFragment ;
+    }
+
     @Override
     public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
@@ -27,11 +33,12 @@ public class RequestActivitionCodePresentreImp implements RequestActivitionCodeC
 
     @Override
     public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response<User>> call, Response<com.wasilni.wasilnidriverv2.network.Response<User>> response) {
-        Log.e("onResponse",response.message()+" code :"+response.code());
+        Log.e("onResponse",response.message()+" RequestActivitionCodePresentreImp code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
+                phoneRegistrationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
                 break;
