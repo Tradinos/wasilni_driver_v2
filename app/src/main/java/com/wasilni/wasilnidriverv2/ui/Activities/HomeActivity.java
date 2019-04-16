@@ -53,6 +53,8 @@ import com.wasilni.wasilnidriverv2.util.UtilUser;
 import java.util.List;
 
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -118,9 +120,6 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void initView() {
-//        avi.show();
-//        ProgressDialog progress = new ProgressDialog(this);
-//        progress.show();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -154,7 +153,7 @@ public class HomeActivity extends NavigationActivity implements
         bottomSheet.addOnSheetDismissedListener(new OnSheetDismissedListener() {
             @Override
             public void onDismissed(BottomSheetLayout bottomSheetLayout) {
-                passengersActionsBtn.setVisibility(View.VISIBLE);
+//                passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
         userDataPresenter.sendToServer(null);
@@ -203,13 +202,13 @@ public class HomeActivity extends NavigationActivity implements
                 if(!tripPassengersActionsFragment.isAdded()) {
                     this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
                 }
-                if(ischecked) {
-                    this.passengersActionsBtn.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
-                    UtilFunction.showToast(this, "please select ride");
-                }
+//                if(ischecked) {
+//                    this.passengersActionsBtn.setVisibility(View.INVISIBLE);
+//                }
+//                else
+//                {
+//                    UtilFunction.showToast(this, "please select ride");
+//                }
                 break;
         }
     }
@@ -282,14 +281,12 @@ public class HomeActivity extends NavigationActivity implements
         if(!UtilUser.getUserInstance().isChecked()){
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
-            passengersActionsBtn.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
         else
         {
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
-            passengersActionsBtn.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             bottomLayout.setVisibility(View.INVISIBLE);
         }
@@ -321,7 +318,6 @@ public class HomeActivity extends NavigationActivity implements
             UtilUser.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
-            passengersActionsBtn.setVisibility(View.INVISIBLE);
             if(tripPassengersActionsFragment.isVisible()){
                 tripPassengersActionsFragment.setMenuVisibility(false);
             }
@@ -339,7 +335,6 @@ public class HomeActivity extends NavigationActivity implements
             UtilUser.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
-            passengersActionsBtn.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             UtilUser.getUserInstance().setChecked(false);
 

@@ -16,6 +16,8 @@ import java.util.List;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     HomeActivity activity ;
@@ -29,6 +31,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
+        showProgressBar(activity);
 
         Call<Response<PaginationAPI<Ride>>> call =
                 service.GetRides( Token , 20,"NOT_PAID" );
@@ -39,7 +42,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     @Override
     public void onResponse(Call<Response<PaginationAPI<Ride>>> call, retrofit2.Response<Response<PaginationAPI<Ride>>> response) {
         Log.e("onResponse GetRides",response.message()+" code :"+response.code());
-
+        hideProgressBar();
         switch (response.code())
         {
             case 200 :
@@ -59,6 +62,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     @Override
     public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
+        hideProgressBar();
     }
 
 }

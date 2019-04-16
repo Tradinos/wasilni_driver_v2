@@ -19,6 +19,8 @@ import java.util.List;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
 
@@ -30,7 +32,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
     @Override
     public void sendToServer(Ride request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
+        showProgressBar(tripPassengersActionsFragment.activity);
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<Response<Ride>> call =
@@ -42,7 +44,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
     @Override
     public void onResponse(Call<Response<Ride>> call, retrofit2.Response<Response<Ride>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
-
+        hideProgressBar();
         switch (response.code())
         {
             case 200 :
@@ -63,5 +65,6 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
     @Override
     public void onFailure(Call<Response<Ride>> call, Throwable t) {
         Log.e("onFailure ride booking",t.getMessage());
+        hideProgressBar();
     }
 }

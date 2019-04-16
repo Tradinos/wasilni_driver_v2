@@ -25,6 +25,7 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
             public void onClick(View v) {
                 // change bottom sheet adapter data ;
                 presenter.sendToServer(object);
+                fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
         holder.duration.setText(object.getStart_datetime());
@@ -32,7 +33,6 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
         if(object.getBookings_count() == 1) {
             holder.passengerName.setText(object.getPassengaer_name());
         }
-
     }
 
     @Override

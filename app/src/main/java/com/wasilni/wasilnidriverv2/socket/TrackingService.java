@@ -84,7 +84,7 @@ public class TrackingService extends Service {
                     if(UtilUser.getUserInstance().isChecked()) {
                         Log.e("tracking service", "run: start" );
                         startTracking();
-
+                        return;
                     }
                 }
             }, 1000);

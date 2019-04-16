@@ -15,6 +15,8 @@ import com.wasilni.wasilnidriverv2.util.RideStatus;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class ChangeBookingStatePresenterImp implements ChangeRideContract.ChangeBookingPresenter {
 
@@ -30,7 +32,7 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
         request.setStatus(RideStatus.nextState(request.getStatus()));
         mBooking = request ;
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
+        showProgressBar(tripPassengersActionsFragment.activity);
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<Response<Booking>> call =
@@ -42,10 +44,12 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
     @Override
     public void onResponse(Call<Response<Booking>> call, retrofit2.Response<Response<Booking>> response) {
         Log.e("onResponse do action",response.message()+" code :"+response.code());
+        hideProgressBar();
 
         switch (response.code())
         {
             case 200 :
+                hideProgressBar();
                 Log.e("data", ""+response.body().getData().getStatus() );
                 if(response.body().getData().getStatus().equals("DONE")){
                     mBooking.setStatus(response.body().getData().getStatus());
@@ -78,5 +82,6 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
     @Override
     public void onFailure(Call<Response<Booking>> call, Throwable t) {
         Log.e("onFailure do action",t.getMessage());
+        hideProgressBar();
     }
 }

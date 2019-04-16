@@ -72,6 +72,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 
 public class UtilFunction {
+    private static int pro = 0 ;
     public static String INTENT_REQUESTER = "intent-requester";
     public static KProgressHUD hud ;
 
@@ -509,19 +510,28 @@ public class UtilFunction {
         return URL + url;
     }
 
-    public void showProgressBar(Activity activity) {
+    public static void showProgressBar(Activity activity) {
+        Log.e("TAG", "showProgressBar: " );
+        if(hud == null  ){
         hud =KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("الرجاء الانتظار")
-                .setDetailsLabel("جاري ")
+                .setDetailsLabel("جاري التحميل")
                 .setCancellable(true)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f);
-
+                .setAnimationSpeed(2);
+        }
+        if(!hud.isShowing()){
+            hud.show();
+        }
+        pro++;
     }
 
-    public void hideProgressBar() {
-        hud.dismiss();
+    public static void hideProgressBar() {
+        Log.e("TAG", "hideProgressBar: " );
+        pro--;
+        if(pro == 0) {
+            hud.dismiss();
+        }
     }
 
 }

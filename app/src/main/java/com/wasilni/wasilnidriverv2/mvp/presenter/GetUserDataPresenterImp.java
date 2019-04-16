@@ -14,6 +14,8 @@ import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class GetUserDataPresenterImp implements UserData.GetUserData {
     HomeActivity activity ;
@@ -25,6 +27,7 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
     @Override
     public void sendToServer(Object request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
+        showProgressBar(activity);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
@@ -37,7 +40,7 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse GetUserData",response.message()+" code :"+response.code());
-
+        hideProgressBar();
         switch(response.code())
         {
             case 200 :
@@ -61,6 +64,6 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
         Log.e("onFailure GetUserData",t.getMessage());
-
+        hideProgressBar();
     }
 }

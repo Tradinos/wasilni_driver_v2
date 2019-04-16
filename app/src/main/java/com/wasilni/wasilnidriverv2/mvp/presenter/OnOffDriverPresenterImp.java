@@ -13,6 +13,8 @@ import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverPresenter {
     HomeActivity activity ;
@@ -23,7 +25,7 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
     @Override
     public void sendToServer(Boolean request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
+        showProgressBar(activity);
         /** Call the method with parameter in the interface to get the notice data*/
         Call<Response<Boolean>> call =
                 service.ChangeDriverState(Token);
@@ -34,6 +36,7 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
     @Override
     public void onResponse(Call<Response<Boolean>> call, retrofit2.Response<Response<Boolean>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
+        hideProgressBar();
 
         switch(response.code())
         {
@@ -59,6 +62,8 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
     public void onFailure(Call<Response<Boolean>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
         activity.onFailure(t);
+        hideProgressBar();
+
     }
 
 }
