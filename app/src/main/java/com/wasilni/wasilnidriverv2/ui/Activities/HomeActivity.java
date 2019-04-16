@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -117,6 +118,9 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void initView() {
+//        avi.show();
+//        ProgressDialog progress = new ProgressDialog(this);
+//        progress.show();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

@@ -1,6 +1,8 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
@@ -14,10 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
@@ -25,6 +30,7 @@ public abstract class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         NavigationContract.NavigationView {
     protected DrawerLayout mainLayout ;
+    protected KProgressHUD hud ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public abstract class NavigationActivity extends AppCompatActivity
 
     @Override
     public void initNavigationView() {
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -86,13 +93,20 @@ public abstract class NavigationActivity extends AppCompatActivity
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgressBar(Activity activity) {
+         hud =KProgressHUD.create(NavigationActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("الرجاء الانتظار")
+                .setDetailsLabel("جاري ")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
 
     }
 
     @Override
     public void hideProgressBar() {
-
+        hud.dismiss();
     }
 
     @Override

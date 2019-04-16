@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,7 +41,7 @@ public abstract class BasicActivity extends AppCompatActivity implements MainCon
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgressBar(Activity activity) {
         grayLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
     }

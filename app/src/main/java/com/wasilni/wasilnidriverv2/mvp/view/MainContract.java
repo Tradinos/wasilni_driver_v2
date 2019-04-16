@@ -1,13 +1,14 @@
 package com.wasilni.wasilnidriverv2.mvp.view;
 
 
+import android.app.Activity;
 import android.widget.ProgressBar;
 
 import com.wasilni.wasilnidriverv2.network.Response;
 
 public interface MainContract {
 
-    void showProgressBar();
+    void showProgressBar(Activity activity);
     void hideProgressBar();
     ProgressBar initProgressBar();
     void onFailure(Throwable t);
