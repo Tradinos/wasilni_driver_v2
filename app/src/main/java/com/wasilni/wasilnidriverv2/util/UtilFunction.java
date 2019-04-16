@@ -511,27 +511,29 @@ public class UtilFunction {
     }
 
     public static void showProgressBar(Activity activity) {
-        Log.e("TAG", "showProgressBar: " );
+        pro++;
+        Log.e("TAG", "showProgressBar: " +pro);
         if(hud == null  ){
         hud =KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("الرجاء الانتظار")
                 .setDetailsLabel("جاري التحميل")
-                .setCancellable(true)
+                .setCancellable(false)
                 .setAnimationSpeed(2);
+        }
+        if(activity == null){
+            return;
         }
         if(!hud.isShowing()){
             hud.show();
         }
-        pro++;
     }
 
     public static void hideProgressBar() {
-        Log.e("TAG", "hideProgressBar: " );
         pro--;
+        Log.e("TAG", "hideProgressBar: "+pro );
         if(pro == 0) {
             hud.dismiss();
         }
     }
-
 }

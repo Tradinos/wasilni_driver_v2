@@ -318,6 +318,10 @@ public class HomeActivity extends NavigationActivity implements
             UtilUser.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
+            passengersActionsBtn.setVisibility(View.INVISIBLE);
+            if(bottomLayout.isShown()){
+                bottomSheet.dismissSheet();
+            }
             if(tripPassengersActionsFragment.isVisible()){
                 tripPassengersActionsFragment.setMenuVisibility(false);
             }

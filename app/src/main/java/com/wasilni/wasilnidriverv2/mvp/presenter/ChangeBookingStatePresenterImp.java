@@ -49,7 +49,6 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
         switch (response.code())
         {
             case 200 :
-                hideProgressBar();
                 Log.e("data", ""+response.body().getData().getStatus() );
                 if(response.body().getData().getStatus().equals("DONE")){
                     mBooking.setStatus(response.body().getData().getStatus());
