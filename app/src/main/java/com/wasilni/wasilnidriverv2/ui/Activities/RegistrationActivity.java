@@ -61,7 +61,7 @@ public class RegistrationActivity extends FullScreenActivity implements
         Log.d("SAED", "initView: I am doing this for the greater good ");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment phoneRegFragment = new RegistrationFragment();
+        Fragment phoneRegFragment = new PhoneRegistrationFragment();
         fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
         fragmentTransaction.commit();
 
