@@ -85,6 +85,8 @@ public class PhoneVerificationFragment extends Fragment implements
         oneDigitEditTexts.add(R.id.digit_2);
         oneDigitEditTexts.add(R.id.digit_3);
         oneDigitEditTexts.add(R.id.digit_4);
+        oneDigitEditTexts.add(R.id.digit_5);
+        oneDigitEditTexts.add(R.id.digit_6);
 
         for (final Integer editTextId : oneDigitEditTexts) {
             EditText currentEditText = (EditText)view.findViewById(editTextId);

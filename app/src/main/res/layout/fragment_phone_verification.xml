@@ -5,17 +5,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <FrameLayout
         android:id="@+id/frame"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/verify"
-        android:layout_margin="@dimen/register_card_margin"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/register_card_margin"
+        app:layout_constraintBottom_toTopOf="@+id/verify"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp">
+
         <android.support.v7.widget.CardView
-            app:cardElevation="3dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:cardElevation="3dp" />
     </FrameLayout>
 
     <ImageView
@@ -94,8 +98,30 @@
                 android:layout_marginEnd="@dimen/one_digit_margin_end"
                 android:layout_width="@dimen/one_digit_width"
                 android:layout_height="@dimen/one_digit_height" />
+
             <EditText
                 android:id="@+id/digit_4"
+                android:layout_width="@dimen/one_digit_width"
+                android:layout_height="@dimen/one_digit_height"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_white_border_green"
+                android:gravity="center"
+                android:hint="@string/one_digit_hint"
+                android:inputType="numberDecimal"
+                android:maxLength="1" />
+
+            <EditText
+                android:id="@+id/digit_5"
+                android:layout_width="@dimen/one_digit_width"
+                android:layout_height="@dimen/one_digit_height"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_white_border_green"
+                android:gravity="center"
+                android:hint="@string/one_digit_hint"
+                android:inputType="numberDecimal"
+                android:maxLength="1" />
+            <EditText
+                android:id="@+id/digit_6"
                 android:maxLength="1"
                 android:inputType="numberDecimal"
                 android:gravity="center"
