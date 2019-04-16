@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.Nationality;
@@ -392,6 +393,11 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+
+    }
+
+    @Override
+    public void responseCode200(User user) {
 
     }
 

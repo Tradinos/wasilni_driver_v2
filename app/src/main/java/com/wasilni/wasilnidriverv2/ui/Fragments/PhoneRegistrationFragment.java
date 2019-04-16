@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
@@ -143,6 +144,11 @@ public class PhoneRegistrationFragment extends Fragment implements
         else{
             return false;
         }
+
+    }
+
+    @Override
+    public void responseCode200(User user) {
 
     }
 

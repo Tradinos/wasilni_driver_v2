@@ -17,7 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.VerfiyPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
+import com.wasilni.wasilnidriverv2.mvp.view.VerifyContract;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import java.util.ArrayList;
 
@@ -34,8 +38,9 @@ import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideSoftKeyboard;
 public class PhoneVerificationFragment extends Fragment implements
         FormContract,
         View.OnClickListener {
+    private static final String TAG ="PhoneVerification" ;
     private OnFragmentInteractionListener mListener;
-
+    VerifyContract.VerfiyPresenter presenter = new VerfiyPresenterImp(this);
     ArrayList<Integer> oneDigitEditTexts ;
     boolean isLastKeyStrokeBackspace = false;
 
@@ -197,8 +202,17 @@ public class PhoneVerificationFragment extends Fragment implements
 
     @Override
     public boolean submit() {
-        this.mListener.goToRegistrationFragment();
+        Log.d(TAG, "submit: "+getVerificationcCode() );
+        UtilUser.getUserInstance().setActivation_code(getVerificationcCode());
+        presenter.sendToServer(UtilUser.getUserInstance());
+
         return true;
+    }
+
+    @Override
+    public void responseCode200(User user) {
+        Log.e(TAG, "responseCode200: phonever " );
+        mListener.goToRegistrationFragment();
     }
 
     private String getVerificationcCode(){

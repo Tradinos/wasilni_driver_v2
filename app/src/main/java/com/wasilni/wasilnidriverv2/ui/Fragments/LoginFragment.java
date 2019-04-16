@@ -159,6 +159,11 @@ public class LoginFragment extends Fragment implements
         return true;
     }
 
+    @Override
+    public void responseCode200(User user) {
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -6,11 +6,17 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.VerifyContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
+    PhoneVerificationFragment phoneVerificationFragment ;
+    public VerfiyPresenterImp(PhoneVerificationFragment phoneVerificationFragment) {
+        this.phoneVerificationFragment = phoneVerificationFragment ;
+    }
+
     @Override
     public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
@@ -31,6 +37,7 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
         switch (response.code())
         {
             case 200 :
+                phoneVerificationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
                 break;
