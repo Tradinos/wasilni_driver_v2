@@ -1,6 +1,7 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
+import android.view.View;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
@@ -23,7 +24,7 @@ public class PayPresenterImp implements PayContract.PayPresenter {
     @Override
     public void sendToServer(Payment request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
+        UtilFunction.showProgressBar(fragment.activity);
         /** Call the method with parameter in the interface to get the notice data*/
 
         Call<com.wasilni.wasilnidriverv2.network.Response<Payment>> call =
@@ -36,17 +37,18 @@ public class PayPresenterImp implements PayContract.PayPresenter {
     @Override
     public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response<Payment>> call, Response<com.wasilni.wasilnidriverv2.network.Response<Payment>> response) {
         Log.e("onResponse pay",response.message()+" code :"+response.code());
-
+        UtilFunction.hideProgressBar();
         switch (response.code())
         {
             case 200 :
                 UtilFunction.showToast(fragment.getActivity(),"Done");
                 fragment.dismiss();
                 fragment.moneyCost.setText("");
+                fragment.activity.passengersActionsBtn.setVisibility(View.INVISIBLE);
                 break;
-            case 422 :
+            case 422:
                 break;
-            case 500 :
+            case 500:
                 break;
             case 400:
                 break;

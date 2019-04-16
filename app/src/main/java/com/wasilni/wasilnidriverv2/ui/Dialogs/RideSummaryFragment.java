@@ -25,6 +25,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.presenter.PayPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideSummaryContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
     private OnFragmentInteractionListener mListener;
     private Booking dataToShow , sendedBooking;
     private View view ;
-    private Activity activity ;
+    public HomeActivity activity ;
     TripPassengersActionsFragment tripPassengersActionsFragment ;
     public void setDataToShow(Booking dataToShow) {
         this.dataToShow = dataToShow;
@@ -57,7 +58,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.sendedBooking = mBooking;
     }
 
-    public RideSummaryFragment(Activity activity) {
+    public RideSummaryFragment(HomeActivity activity) {
         this.activity = activity ;
 
         // Required empty public constructor
@@ -69,7 +70,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
      *
      * @return A new instance of fragment RideSummaryFragment.
      */
-    public static RideSummaryFragment newInstance(Activity activity) {
+    public static RideSummaryFragment newInstance(HomeActivity activity) {
         RideSummaryFragment fragment = new RideSummaryFragment(activity);
         Bundle args = new Bundle();
         fragment.setArguments(args);
