@@ -8,13 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.presenter.InterviewPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.InterviewContract;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +33,12 @@ import java.util.Calendar;
 public class InterviewRegistrationFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
+    private String time, date ;
     private TextView interviewDateTV, interviewTimeTV;
     private CalendarDatePickerDialogFragment cdpInterview;
     private RadialTimePickerDialogFragment rtpInterview;
-
+    private Button setInterviewBtn;
+    private InterviewContract.InterviewPresenter presenter = new InterviewPresenterImp(this);
     public InterviewRegistrationFragment() {
         // Required empty public constructor
     }
@@ -65,7 +73,11 @@ public class InterviewRegistrationFragment extends Fragment implements View.OnCl
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        String date = ""+year+"-"+monthOfYear+"-"+dayOfMonth ;
+                        Date cDate = new Date();
+                        cDate.setYear(year-1900);
+                        cDate.setMonth(monthOfYear);
+                        cDate.setDate(dayOfMonth);
+                        date = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
                         interviewDateTV.setText(date);
                     }
                 })
@@ -79,12 +91,18 @@ public class InterviewRegistrationFragment extends Fragment implements View.OnCl
                 .setOnTimeSetListener(new RadialTimePickerDialogFragment.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
-                        String time = ""+hourOfDay+":"+minute;
+
+                        Date cDate = new Date();
+                        cDate.setHours(hourOfDay);
+                        cDate.setMinutes(minute);
+                        time = new SimpleDateFormat("HH:mm").format(cDate);
+
+
                         interviewTimeTV.setText(time);
 
                     }
                 })
-                .setForced12hFormat()
+                .setForced24hFormat()
                 .setDoneText(getActivity().getString(R.string.yes))
                 .setCancelText(getActivity().getString(R.string.no))//.setThemeLight();
                 .setThemeCustom(R.style.MyCustomBetterPickersDialogs);
@@ -97,7 +115,9 @@ public class InterviewRegistrationFragment extends Fragment implements View.OnCl
 
         this.interviewDateTV = view.findViewById(R.id.interview_date);
         this.interviewTimeTV = view.findViewById(R.id.interview_time);
+        this.setInterviewBtn = view.findViewById(R.id.set_interview);
 
+        this.setInterviewBtn.setOnClickListener(this);
         this.interviewDateTV.setOnClickListener(this);
         this.interviewTimeTV.setOnClickListener(this);
     }
@@ -132,6 +152,11 @@ public class InterviewRegistrationFragment extends Fragment implements View.OnCl
                 break;
             case R.id.interview_time:
                 rtpInterview.show(getActivity().getSupportFragmentManager(),"interview_time");
+                break;
+            case R.id.set_interview :
+                presenter.sendToServer(
+                        date+" "+time
+                );
                 break;
         }
     }

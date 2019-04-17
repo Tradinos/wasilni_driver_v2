@@ -7,11 +7,19 @@ import com.wasilni.wasilnidriverv2.mvp.view.InterviewContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import retrofit2.Call;
 
+import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+
 public class InterviewPresenterImp implements InterviewContract.InterviewPresenter {
+    InterviewRegistrationFragment interviewRegistrationFragment;
+    public InterviewPresenterImp(InterviewRegistrationFragment interviewRegistrationFragment) {
+        this.interviewRegistrationFragment = interviewRegistrationFragment ;
+    }
+
     @Override
     public void sendToServer(String request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
@@ -20,7 +28,7 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
 
         Log.d("CompleteData", "sendToServer: " + request);
         Call<com.wasilni.wasilnidriverv2.network.Response<Object>> call =
-                service.Interview(UtilUser.getUserInstance().getAccessToken(), request);
+                service.Interview(Token, request);
 
         call.enqueue(this);
     }

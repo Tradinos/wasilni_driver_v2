@@ -84,7 +84,9 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @POST("captain")
     Call<Response<User>> CompleteInfo(@Body RegisterCaptain registerCaptain);
+
     @Headers("Accept: application/json")
+    @FormUrlEncoded
     @POST("interview")
     Call<Response<Object>> Interview(@Header("Authorization") String Authorization ,@Field("datetime") String datetime);
 
