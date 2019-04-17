@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.ColorContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
+        UtilFunction.showProgressBar(context);
         Call<Response<PaginationAPI<Color>>> call =
                 service.Colors( Token );
 
@@ -41,6 +42,7 @@ public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
     @Override
     public void onResponse(Call<Response<PaginationAPI<Color>>> call, retrofit2.Response<Response<PaginationAPI<Color>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -61,6 +63,7 @@ public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
     @Override
     public void onFailure(Call<Response<PaginationAPI<Color>>> call, Throwable t) {
         t.printStackTrace();
+        UtilFunction.hideProgressBar();
     }
 
     public interface OnResponseInterface{
