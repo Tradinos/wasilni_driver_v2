@@ -345,12 +345,11 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             valid = false;
             UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
         }
-
         if(this.genderSp.getSelectedItemPosition() != DISABLED_ITEM_INDEX){
             valid = false;
             this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-
+        Log.e("validate", " " + regions.size() +" "+ regions.indexOf(regionAC.getText().toString()) );
         if (regions.size() == 0 || regions.indexOf(regionAC.getText().toString()) == -1) {
             valid = false;
             UtilFunction.setErrorToInputLayout(regionLT, getString(R.string.auto_complete_selection));
@@ -410,6 +409,10 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     public void populateLocations(List<Location> locations) {
         Log.d("SIZE", "populateLocations: " + locations.size());
         this.regionsAdapter.updateItems((List)locations);
+        regions.clear();
+        for(Location location : locations){
+            regions.add(location.getName());
+        }
     }
 
     @Override

@@ -8,17 +8,23 @@ import com.wasilni.wasilnidriverv2.mvp.view.CompleteDataContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
 
 import retrofit2.Call;
 
 public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDataPresenter {
+    RegistrationActivity registrationActivity ;
+    public CompleteDataPresenterImp(RegistrationActivity registrationActivity) {
+        this.registrationActivity = registrationActivity ;
+    }
+
     @Override
     public void sendToServer(RegisterCaptain request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Log.d("SAED", "sendToServer: " + request);
+        Log.d("CompleteData", "sendToServer: " + request);
         Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
                 service.CompleteInfo( request);
 
@@ -33,6 +39,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         switch (response.code())
         {
             case 200 :
+                registrationActivity.responseCode200(null);
                 break;
             case 422 :
                 break;

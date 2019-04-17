@@ -26,6 +26,7 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public class RegistrationActivity extends FullScreenActivity implements
 
@@ -39,7 +40,6 @@ public class RegistrationActivity extends FullScreenActivity implements
         PhoneRegistrationFragment.OnFragmentInteractionListener {
 
     private FrameLayout frameContent;
-    private User user;
     private Car car;
 
     private CompleteDataPresenterImp completeDataPresenterImp;
@@ -50,9 +50,8 @@ public class RegistrationActivity extends FullScreenActivity implements
         setContentView(R.layout.activity_registration);
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 
-        this.user = new User();
         this.car = new Car();
-        this.completeDataPresenterImp = new CompleteDataPresenterImp();
+        this.completeDataPresenterImp = new CompleteDataPresenterImp(this);
         this.initView();
 
     }
@@ -85,8 +84,8 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void goToPhoneVerification(String phoneNumber) {
-        this.user.setUsername(phoneNumber);
-        this.user.setPhone_number(phoneNumber);
+        UtilUser.getUserInstance().setUsername(phoneNumber);
+        UtilUser.getUserInstance().setPhone_number(phoneNumber);
         changeFragment(new PhoneVerificationFragment());
     }
 
@@ -108,7 +107,7 @@ public class RegistrationActivity extends FullScreenActivity implements
     @Override
     public void completeRegistration() {
         RegisterCaptain reg = new RegisterCaptain();
-        reg.setCaptain(this.user);
+        reg.setCaptain(UtilUser.getUserInstance());
         reg.setCar(this.car);
         this.completeDataPresenterImp.sendToServer(reg);
     }
@@ -137,8 +136,8 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void submitCivilData(String licenseStartDate, String licenseEndDate, String bank) {
-        this.user.setDriving_certificate_end_date(licenseEndDate);
-        this.user.setDriving_certificate_start_date(licenseStartDate);
+        UtilUser.getUserInstance().setDriving_certificate_end_date(licenseEndDate);
+        UtilUser.getUserInstance().setDriving_certificate_start_date(licenseStartDate);
     }
 
     @Override
@@ -150,23 +149,22 @@ public class RegistrationActivity extends FullScreenActivity implements
                                    int nationality,
                                    String birthdate, int gender, String address, String password) {
 
-        this.user.setWhatsapp_number(whatsappNumber);
-        this.user.setFirst_name(firstName);
-        this.user.setLast_name(lastName);
-        this.user.setEmail(email);
-        this.user.setBirthday(birthdate);
-        this.user.setAddress(address);
-        this.user.setRegionId(region);
-        this.user.setNationality_id(nationality);
-        this.user.setPassword(password);
-        this.user.setPassword_confirmation(password);
-        this.user.setActivation_code("123456");
+        UtilUser.getUserInstance().setWhatsapp_number(whatsappNumber);
+        UtilUser.getUserInstance().setFirst_name(firstName);
+        UtilUser.getUserInstance().setLast_name(lastName);
+        UtilUser.getUserInstance().setEmail(email);
+        UtilUser.getUserInstance().setBirthday(birthdate);
+        UtilUser.getUserInstance().setAddress(address);
+        UtilUser.getUserInstance().setRegionId(region);
+        UtilUser.getUserInstance().setNationality_id(nationality);
+        UtilUser.getUserInstance().setPassword(password);
+        UtilUser.getUserInstance().setPassword_confirmation(password);
 
         if(gender == 0) {
-            this.user.setGender(true);
+            UtilUser.getUserInstance().setGender(true);
         }
         else{
-            this.user.setGender(false);
+            UtilUser.getUserInstance().setGender(false);
         }
 
     }
@@ -178,6 +176,6 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void responseCode200(Boolean response) {
-
+        goToInterviewBooking();
     }
 }
