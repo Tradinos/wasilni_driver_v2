@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import retrofit2.Call;
@@ -24,8 +25,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
-        Log.d("CompleteData", "sendToServer: " + request);
+        UtilFunction.showProgressBar(registrationActivity);
         Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
                 service.CompleteInfo( request);
 
@@ -36,6 +36,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse register",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -57,5 +58,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
+        UtilFunction.hideProgressBar();
+
     }
 }
