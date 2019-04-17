@@ -11,6 +11,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.NationalityContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
+        UtilFunction.showProgressBar(context);
         Call<Response<PaginationAPI<Bank>>> call =
                 service.Banks( Token );
 
@@ -42,8 +43,8 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
 
     @Override
     public void onResponse(Call<Response<PaginationAPI<Bank>>> call, retrofit2.Response<Response<PaginationAPI<Bank>>> response) {
-        Log.d("SAED", "onResponse: I am having problem");
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -64,6 +65,7 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
     @Override
     public void onFailure(Call<Response<PaginationAPI<Bank>>> call, Throwable t) {
         t.printStackTrace();
+        UtilFunction.hideProgressBar();
     }
 
     public interface OnResponseInterface{
