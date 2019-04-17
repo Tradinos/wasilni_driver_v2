@@ -14,6 +14,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import retrofit2.Call;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 public class LoginPresenterImp implements LoginContract.LoginPresenter {
-    Context activity;
+    Activity activity;
     public LoginPresenterImp(Activity activity){
         this.activity = activity;
     }
@@ -35,14 +36,14 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
 
         Call<Response<User>> call =
                 service.Login( request.getPhone_number(),request.getPassword() , "captains");
-
+        UtilFunction.showProgressBar(activity);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse login",response.message()+" code :"+response.code());
-
+        UtilFunction.hideProgressBar();
         switch (response.code())
         {
             case 200 :
@@ -63,5 +64,6 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
+        UtilFunction.hideProgressBar();
     }
 }
