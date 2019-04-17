@@ -10,6 +10,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.BrandModelContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class BrandModelsPresenterImp implements BrandModelContract.BrandModelsPr
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
+        UtilFunction.showProgressBar(context);
         Call<Response<PaginationAPI<BrandModel>>> call =
                 service.BrandModels( Token, request.getId());
 
@@ -42,6 +43,7 @@ public class BrandModelsPresenterImp implements BrandModelContract.BrandModelsPr
     @Override
     public void onResponse(Call<Response<PaginationAPI<BrandModel>>> call, retrofit2.Response<Response<PaginationAPI<BrandModel>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -62,6 +64,8 @@ public class BrandModelsPresenterImp implements BrandModelContract.BrandModelsPr
     @Override
     public void onFailure(Call<Response<PaginationAPI<BrandModel>>> call, Throwable t) {
         t.printStackTrace();
+        UtilFunction.hideProgressBar();
+
     }
 
     public interface OnResponseInterface{
