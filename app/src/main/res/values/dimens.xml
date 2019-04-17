@@ -7,7 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="register_card_margin">16dp</dimen>
-    <dimen name="register_card_padding">18dp</dimen>
+    <dimen name="register_card_padding">4dp</dimen>
     <dimen name="one_digit_width">43dp</dimen>
     <dimen name="one_digit_height">37dp</dimen>
     <dimen name="one_digit_margin_end">10dp</dimen>

@@ -142,6 +142,7 @@
                             android:id="@+id/phone_edit"
                             android:hint="@string/phone_number"
                             android:inputType="phone"
+                            android:maxLength="9"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
