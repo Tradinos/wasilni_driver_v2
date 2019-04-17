@@ -345,7 +345,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             valid = false;
             UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
         }
-        if(this.genderSp.getSelectedItemPosition() != DISABLED_ITEM_INDEX){
+        if(this.genderSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }

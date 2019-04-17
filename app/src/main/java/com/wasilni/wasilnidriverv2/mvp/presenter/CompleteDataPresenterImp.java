@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
+import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import retrofit2.Call;
 
@@ -39,6 +40,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         switch (response.code())
         {
             case 200 :
+                UtilUser.getUserInstance().setAccessToken(response.body().getData().getAccessToken());
                 registrationActivity.responseCode200(null);
                 break;
             case 422 :
