@@ -23,12 +23,12 @@ public class RetorfitSingelton {
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
 
-            creatInstance();
+            createInstance();
         }
         return retrofit;
     }
 
-    public static void creatInstance(){
+    public static void createInstance(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);

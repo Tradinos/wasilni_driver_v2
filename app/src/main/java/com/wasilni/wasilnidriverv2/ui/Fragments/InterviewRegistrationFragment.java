@@ -1,6 +1,7 @@
 package com.wasilni.wasilnidriverv2.ui.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFra
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.presenter.InterviewPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.InterviewContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +33,8 @@ import java.util.Date;
  * Use the {@link InterviewRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InterviewRegistrationFragment extends Fragment implements View.OnClickListener {
+public class InterviewRegistrationFragment extends Fragment implements
+        View.OnClickListener , InterviewContract.InterviewView {
     private OnFragmentInteractionListener mListener;
 
     private String time, date ;
@@ -159,6 +163,31 @@ public class InterviewRegistrationFragment extends Fragment implements View.OnCl
                 );
                 break;
         }
+    }
+
+    @Override
+    public void responseCode200() {
+        startActivity(new Intent(this.getActivity() ,HomeActivity.class));
+    }
+
+    @Override
+    public void responseCode422() {
+        UtilFunction.showToast(this.getActivity(), "الرجاء اختيار موعد اخر هذا الموعد محجوز");
+    }
+
+    @Override
+    public void responseCode500() {
+
+    }
+
+    @Override
+    public void responseCode400() {
+
+    }
+
+    @Override
+    public void responseCode401() {
+
     }
 
     /**

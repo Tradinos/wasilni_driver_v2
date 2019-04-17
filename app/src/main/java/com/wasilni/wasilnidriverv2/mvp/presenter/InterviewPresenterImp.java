@@ -26,7 +26,6 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
 
         /** Call the method with parameter in the interface to get the notice data*/
 
-        Log.d("CompleteData", "sendToServer: " + request);
         Call<com.wasilni.wasilnidriverv2.network.Response<Object>> call =
                 service.Interview(Token, request);
 
@@ -35,19 +34,24 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
 
     @Override
     public void onResponse(Call<Response<Object>> call, retrofit2.Response<Response<Object>> response) {
-        Log.e("onResponse register",response.message()+" code :"+response.code());
+        Log.e("onResponse Interview",response.message()+" code :"+response.code());
 
         switch (response.code())
         {
             case 200 :
+                interviewRegistrationFragment.responseCode200();
                 break;
             case 422 :
+                interviewRegistrationFragment.responseCode422();
                 break;
             case 500 :
+                interviewRegistrationFragment.responseCode500();
                 break;
             case 400:
+                interviewRegistrationFragment.responseCode401();
                 break;
             case 401:
+                interviewRegistrationFragment.responseCode401();
                 break;
         }
     }
