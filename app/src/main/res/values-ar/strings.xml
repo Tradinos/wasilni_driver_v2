@@ -48,7 +48,8 @@
     <string name="on_the_way_pick_up_passenger">رايح اخد الزبون</string>
     <string name="picked_up_passenger">خدت الزبون</string>
     <string name="drop_off_passenger">تم توصيل</string>
-
+    <string name="date_hint">اختيار تاريخ</string>
+    <string name="time_hint">اختيار وقت</string>
     <string name="preferred_time_interview">التوقيت المناسب لإجراء المقابلة</string>
     <string name="preferred_date_interview">التاريخ المناسب لإجراء المقابلة</string>
 

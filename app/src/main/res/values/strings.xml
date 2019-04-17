@@ -27,8 +27,8 @@
     <string name="birthdate">birthdate</string>
     <string name="male">male</string>
     <string name="female">female</string>
-    <string name="date_hint">dd/mm/yyyy</string>
-    <string name="time_hint">hh:mm</string>
+    <string name="date_hint">selecte date</string>
+    <string name="time_hint">selecte time</string>
     <string name="region">region</string>
     <string name="region_details">region details</string>
     <string name="nationality">nationality</string>
