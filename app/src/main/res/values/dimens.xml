@@ -14,7 +14,7 @@
 
     <dimen name="icon_size_height">30dp</dimen>
     <dimen name="icon_size_width">30dp</dimen>
-    <dimen name="label_icon_end_margin">4dp</dimen>
+    <dimen name="label_icon_end_margin">12dp</dimen>
 
     <dimen name="registration_image_size">225dp</dimen>
     <dimen name="space_between_fields"> 10dp </dimen>
