@@ -8,6 +8,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import retrofit2.Call;
@@ -30,12 +31,13 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
                 service.Interview(Token, request);
 
         call.enqueue(this);
+        UtilFunction.showProgressBar(interviewRegistrationFragment.getActivity());
     }
 
     @Override
     public void onResponse(Call<Response<Object>> call, retrofit2.Response<Response<Object>> response) {
         Log.e("onResponse Interview",response.message()+" code :"+response.code());
-
+        UtilFunction.hideProgressBar();
         switch (response.code())
         {
             case 200 :
@@ -59,6 +61,6 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
     @Override
     public void onFailure(Call<Response<Object>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
-
+        UtilFunction.hideProgressBar();
     }
 }
