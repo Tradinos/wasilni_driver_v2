@@ -48,10 +48,10 @@ public class DriverApplication extends android.app.Application {
                 Log.e(TAG, "run startServiceTracking " );
                 if(UtilUser.getUserInstance().isLogingIn() && !SocketSingelton.isTracking){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        startForegroundService(new Intent(mContext, TrackingService.class));
+                        startForegroundService(new Intent(mContext, TrackingService.class));
                     }
                     else{
-//                        startService(new Intent(mContext, TrackingService.class));
+                        startService(new Intent(mContext, TrackingService.class));
 
                     }
                 }

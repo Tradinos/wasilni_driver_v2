@@ -22,6 +22,8 @@ import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import java.net.Socket;
 
+import static java.lang.Thread.sleep;
+
 public class TrackingService extends Service {
     private String CHANEEL_ID = "772233";
 
@@ -70,6 +72,11 @@ public class TrackingService extends Service {
     private void startTracking() {
         SocketSingelton.connect();
         SocketSingelton.startTracking(getApplicationContext(),null);
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

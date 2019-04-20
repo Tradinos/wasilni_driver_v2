@@ -28,6 +28,7 @@ import io.socket.client.Socket;
 import static com.wasilni.wasilnidriverv2.gps.GPSLocation.myLocation;
 import static com.wasilni.wasilnidriverv2.util.Constants.ETAG;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static java.lang.Thread.sleep;
 
 public class SocketSingelton {
     private static final String SOCKET_URL = "http://192.168.9.175:3000/captains";
@@ -37,6 +38,7 @@ public class SocketSingelton {
     private static Realm realm;
     private static RealmQuery<SocketItem> query ;
     public static boolean isTracking = false;
+    private static int runingThreads=0;
 
 
 
@@ -81,36 +83,34 @@ public class SocketSingelton {
     }
 
     public static void startTracking(final Context mContext , Location location) {
-        Log.e(TAG, "startTracking" );
+        Log.e(TAG, "startTracking2" );
         socket = getInstance();
 
-        Timer timer = new Timer();
 
         GPSLocation.startUpdateLocaiton(mContext);
         location = myLocation[0];
         final Location finalLocation = location;
 
-
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
+        try {
+            while(true){
+                isTracking = true ;
                 GPSLocation.startUpdateLocaiton(mContext);
+
                 if(realm == null){
-                    // i put it here because we can access it from one thread
+                    // i put it here because we can access it from this thread
                     initRealm(mContext);
                 }
 
                 if(socket.connected()){
-                    Log.e(TAG, "coonected true" );
+                    Log.e(TAG, "connected true" );
                 }
                 else{
                     if(UtilUser.getUserInstance().isChecked()) {
                         reConnect();
                     }
-                    Log.e(TAG, "coonected false" );
+                    Log.e(TAG, "connected false" );
                 }
 
-                isTracking = true ;
                 if (myLocation[0] != null) {
                     Log.e(TAG, "get location + "+ myLocation[0].getLatitude() + " " + myLocation[0].getLongitude()  );
                     if(finalLocation != null) {
@@ -122,8 +122,13 @@ public class SocketSingelton {
                     sendAllDB();
                     clearRealM();
                 }
+
+                sleep(10000);
             }
-        }, 0, 10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "startTracking: finish" );
     }
 
     public static void stopTracking() {
