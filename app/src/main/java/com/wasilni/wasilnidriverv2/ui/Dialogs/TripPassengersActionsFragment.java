@@ -147,6 +147,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
 
         mAdapter.setList(list);
         mAdapter.notifyDataSetChanged();
+        initMarker(ride);
     }
 
     @Override
