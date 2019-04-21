@@ -33,8 +33,9 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
 //                }
 //            });
             Log.e("ObjectToHolder: ","1233" );
+
             presenter.sendToServer(object);
-            Log.e("ObjectToHolder: ","8888" );
+            Log.e("ObjectToHolder: ","8888" +object.getId());
             fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
         }
         holder.duration.setText(object.getStart_datetime());

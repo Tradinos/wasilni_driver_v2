@@ -41,15 +41,15 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
-    private ImageView passengerPictureIV,stationImageView,time_imgImageView;
-    private TextView rateBtn ,trip_wait_duration,trip_duration, trip_length;
-    private Button submit ;
+    public ImageView passengerPictureIV,stationImageView,time_imgImageView;
+    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length;
+    public Button submit ;
     public EditText moneyCost ;
-    private OnFragmentInteractionListener mListener;
-    private Booking dataToShow , sendedBooking;
-    private View view ;
+    public OnFragmentInteractionListener mListener;
+    public Booking dataToShow , sendedBooking;
+    public View view ;
     public HomeActivity activity ;
-    TripPassengersActionsFragment tripPassengersActionsFragment ;
+    public TripPassengersActionsFragment tripPassengersActionsFragment ;
     public void setDataToShow(Booking dataToShow) {
         this.dataToShow = dataToShow;
     }
@@ -147,9 +147,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
             @Override
             public void onClick(View v) {
                 presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
-                sendedBooking.setStatus(RideStatus.nextState(sendedBooking.getStatus()));
-                Log.e("submit", "onClick: "+sendedBooking.getId());
-                tripPassengersActionsFragment.deleteBooking(sendedBooking);
+
 
             }
         });

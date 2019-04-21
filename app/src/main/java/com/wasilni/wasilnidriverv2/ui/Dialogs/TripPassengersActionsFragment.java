@@ -40,7 +40,7 @@ import java.util.List;
 public class TripPassengersActionsFragment extends BottomSheetFragment implements BookingsFragmentContract.BookingFragmentView {
     private OnFragmentInteractionListener mListener;
     public BookingAdapter mAdapter ;
-    private Ride  ride ;
+    public Ride  ride ;
     public HomeActivity activity ;
     public  List<Marker>  markers =new ArrayList<>();
     public List<MarkerOptions>markerOptionsList= new ArrayList<>();

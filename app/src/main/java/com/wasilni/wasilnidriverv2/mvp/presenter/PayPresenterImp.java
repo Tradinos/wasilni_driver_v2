@@ -8,6 +8,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
+import com.wasilni.wasilnidriverv2.util.RideStatus;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import retrofit2.Call;
@@ -44,7 +45,9 @@ public class PayPresenterImp implements PayContract.PayPresenter {
                 UtilFunction.showToast(fragment.getActivity(),"Done");
                 fragment.dismiss();
                 fragment.moneyCost.setText("");
-                fragment.activity.passengersActionsBtn.setVisibility(View.INVISIBLE);
+                fragment.sendedBooking.setStatus(RideStatus.nextState(fragment.sendedBooking.getStatus()));
+                Log.e("submit", "onClick: "+fragment.sendedBooking.getId());
+                fragment.tripPassengersActionsFragment.deleteBooking(fragment.sendedBooking);
                 break;
             case 422:
                 break;
