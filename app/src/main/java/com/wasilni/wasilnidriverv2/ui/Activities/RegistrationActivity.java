@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +24,7 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 public class RegistrationActivity extends FullScreenActivity implements
@@ -55,6 +57,9 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     public void initView() {
         Log.d("SAED", "initView: I am doing this for the greater good ");
+        checkAuth();
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment phoneRegFragment = new PhoneRegistrationFragment();
@@ -63,6 +68,15 @@ public class RegistrationActivity extends FullScreenActivity implements
 
 //        RatingDialog.newInstance().show(getSupportFragmentManager(),"rating_dialog");
 //        PickingUpPassengerFragment.newInstance().show(getSupportFragmentManager(),"PickingUpPassengerFragment");
+    }
+
+    private void checkAuth() {
+        String auth = SharedPreferenceUtils.getPreferencesInstance(getApplicationContext()).getString("auth_token",null);
+        if(auth != null){
+            Intent intent = new Intent(this , HomeActivity.class) ;
+            startActivity(intent);
+            ActivityCompat.finishAffinity(this);
+        }
     }
 
     @Override

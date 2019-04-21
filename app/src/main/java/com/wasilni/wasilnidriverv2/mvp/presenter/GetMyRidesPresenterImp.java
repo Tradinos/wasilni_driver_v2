@@ -49,12 +49,16 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
                 activity.setRides(response.body().getData().getData());
                 break;
             case 422 :
+                activity.responseCode422();
                 break;
             case 500 :
+                activity.responseCode500();
                 break;
             case 400 :
+                activity.responseCode400();
                 break;
             case 401 :
+                activity.responseCode401();
                 break;
         }
     }

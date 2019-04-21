@@ -1,8 +1,10 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,8 @@ import android.widget.ProgressBar;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 public abstract class NavigationActivity extends AppCompatActivity
@@ -104,6 +108,9 @@ public abstract class NavigationActivity extends AppCompatActivity
     @Override
     public void responseCode401() {
         UtilFunction.showToast(this,"401");
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        this.startActivity(intent);
+        ActivityCompat.finishAffinity(this);
     }
 
 
