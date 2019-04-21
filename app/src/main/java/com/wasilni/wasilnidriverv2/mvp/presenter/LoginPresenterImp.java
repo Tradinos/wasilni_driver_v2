@@ -14,6 +14,7 @@ import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
@@ -47,6 +48,8 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
         switch (response.code())
         {
             case 200 :
+                SharedPreferenceUtils.getEditorInstance(activity)
+                        .putString("auth_token", response.body().getData().getAccessToken());
                 Intent intent = new Intent(activity, HomeActivity.class);
                 activity.startActivity(intent);
                 break;

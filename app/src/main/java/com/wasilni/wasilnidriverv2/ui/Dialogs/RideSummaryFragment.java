@@ -42,7 +42,7 @@ import java.util.List;
 
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
     public ImageView passengerPictureIV,stationImageView,time_imgImageView;
-    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination;
+    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
     public Button submit ;
     public EditText moneyCost ;
     public OnFragmentInteractionListener mListener;
@@ -123,6 +123,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
         this.rateBtn = view.findViewById(R.id.rate_btn);
         this.submit = view.findViewById(R.id.done_btn);
+        this.trip_wait_duration = view.findViewById(R.id.trip_wait_duration);
         this.trip_source = view.findViewById(R.id.trip_source );
         this.trip_destination = view.findViewById(R.id.trip_destination);
         this.moneyCost = view.findViewById(R.id.delivered_money);
@@ -130,10 +131,14 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.stationImageView = view.findViewById(R.id.station) ;
         this.trip_duration = view.findViewById(R.id.trip_duration);
         this.trip_length= view.findViewById(R.id.trip_length);
+        this.calculated_cost= view.findViewById(R.id.calculated_cost);
+        this.booking_cost= view.findViewById(R.id.booking_cost);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
         if(sendedBooking != null){
-            this.trip_wait_duration.setText(sendedBooking.getSummary().getWaiting_time_count());
+            this.trip_wait_duration.setText(""+sendedBooking.getSummary().getWaiting_time_count());
             this.trip_source.setText(sendedBooking.getPickUpName());
+            this.calculated_cost.setText(sendedBooking.getTo_pay());
+            this.booking_cost.setText(sendedBooking.getPrice());
             this.trip_destination.setText(sendedBooking.getPullDownName());
 
             if(sendedBooking.getIs_pooling() == 1){
@@ -143,8 +148,8 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
                 this.trip_length.setVisibility(View.GONE);
 
             }else{
-                this.trip_duration.setText(sendedBooking.getSummary().getBooking_time());
-                this.trip_length.setText(sendedBooking.getSummary().getKm_count());
+                this.trip_duration.setText(""+sendedBooking.getSummary().getBooking_time());
+                this.trip_length.setText(""+sendedBooking.getSummary().getKm_count());
 
             }
         }

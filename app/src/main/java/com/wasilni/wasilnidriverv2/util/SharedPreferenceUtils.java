@@ -8,7 +8,7 @@ import com.wasilni.wasilnidriverv2.MyFirebaseInstanceIDService;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SharedPreferenceUtils {
-    private static final String MY_PREFS_NAME = "fcm_token";
+    private static final String MY_PREFS_NAME = "driver_app";
     private static SharedPreferences prefs ;
     private static SharedPreferences.Editor editor ;
     public static SharedPreferences  getPreferencesInstance(Context context) {

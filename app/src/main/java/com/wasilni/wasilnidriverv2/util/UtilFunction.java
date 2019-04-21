@@ -66,6 +66,7 @@ import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -597,8 +598,27 @@ public class UtilFunction {
             }
         });
     }
+    public static void massegingWasilniWhatsAPP(Activity activity , String number){
+        try {
+            Intent sendMsg = new Intent(Intent.ACTION_VIEW);
+            String url = "https://api.whatsapp.com/send?phone=" + "+"+number+ "&text=" + URLEncoder.encode("", "UTF-8");
+            sendMsg.setPackage("com.whatsapp");
+            sendMsg.setData(Uri.parse(url));
+            if (sendMsg.resolveActivity(activity.getPackageManager()) != null) {
+                activity.startActivity(sendMsg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public static LatLng getLatLng(List<Double> list){
         return new LatLng(list.get(1),list.get(0));
+    }
+    public static void dialContactPhone(Activity activity ,final String phoneNumber) {
+        activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
 
 }

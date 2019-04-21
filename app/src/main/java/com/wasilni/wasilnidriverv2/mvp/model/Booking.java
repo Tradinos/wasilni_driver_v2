@@ -16,6 +16,15 @@ public class Booking {
     @SerializedName("dates")
     @Expose
     List<String> dates ;
+    @SerializedName("whatsapp_number")
+    @Expose
+    String whatsapp ;
+    @SerializedName("username")
+    @Expose
+    String  phoneNumber ;
+    @SerializedName("date")
+    @Expose
+    String date ;
     @SerializedName("is_pooling")
     @Expose
     int is_pooling ;
@@ -43,10 +52,10 @@ public class Booking {
     @SerializedName("pull_down_location")
     @Expose
     private GeoJson pullDownLocation;
-    @SerializedName("pick_up_location_Name")
+    @SerializedName("pick_up_location_name")
     @Expose
     private String  pickUpName;
-    @SerializedName("pull_down_location_Name")
+    @SerializedName("pull_down_location_name")
     @Expose
     private String pullDownName;
     @SerializedName("status")
@@ -283,6 +292,30 @@ public class Booking {
 
     public void setPullDownName(String pullDownName) {
         this.pullDownName = pullDownName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getWhatsapp() {
+        return whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
