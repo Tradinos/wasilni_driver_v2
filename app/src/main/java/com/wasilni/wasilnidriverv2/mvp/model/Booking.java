@@ -43,6 +43,12 @@ public class Booking {
     @SerializedName("pull_down_location")
     @Expose
     private GeoJson pullDownLocation;
+    @SerializedName("pick_up_location_Name")
+    @Expose
+    private String  pickUpName;
+    @SerializedName("pull_down_location_Name")
+    @Expose
+    private String pullDownName;
     @SerializedName("status")
     @Expose
     private String status;
@@ -261,6 +267,22 @@ public class Booking {
 
     public void setSummary(BookingSummary summary) {
         this.summary = summary;
+    }
+
+    public String getPickUpName() {
+        return pickUpName;
+    }
+
+    public void setPickUpName(String pickUpName) {
+        this.pickUpName = pickUpName;
+    }
+
+    public String getPullDownName() {
+        return pullDownName;
+    }
+
+    public void setPullDownName(String pullDownName) {
+        this.pullDownName = pullDownName;
     }
 
     @Override

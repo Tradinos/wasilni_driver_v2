@@ -42,21 +42,15 @@ import java.util.List;
 
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
     public ImageView passengerPictureIV,stationImageView,time_imgImageView;
-    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length;
+    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination;
     public Button submit ;
     public EditText moneyCost ;
     public OnFragmentInteractionListener mListener;
-    public Booking dataToShow , sendedBooking;
+    public Booking  sendedBooking;
     public View view ;
     public HomeActivity activity ;
     public TripPassengersActionsFragment tripPassengersActionsFragment ;
-    public void setDataToShow(Booking dataToShow) {
-        this.dataToShow = dataToShow;
-    }
 
-    public void setmBooking(Booking mBooking) {
-        this.sendedBooking = mBooking;
-    }
 
     public RideSummaryFragment(HomeActivity activity) {
         this.activity = activity ;
@@ -129,6 +123,8 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
         this.rateBtn = view.findViewById(R.id.rate_btn);
         this.submit = view.findViewById(R.id.done_btn);
+        this.trip_source = view.findViewById(R.id.trip_source );
+        this.trip_destination = view.findViewById(R.id.trip_destination);
         this.moneyCost = view.findViewById(R.id.delivered_money);
         this.time_imgImageView = view.findViewById(R.id.time_img) ;
         this.stationImageView = view.findViewById(R.id.station) ;
@@ -136,11 +132,20 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.trip_length= view.findViewById(R.id.trip_length);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
         if(sendedBooking != null){
+            this.trip_wait_duration.setText(sendedBooking.getSummary().getWaiting_time_count());
+            this.trip_source.setText(sendedBooking.getPickUpName());
+            this.trip_destination.setText(sendedBooking.getPullDownName());
+
             if(sendedBooking.getIs_pooling() == 1){
                 this.time_imgImageView.setVisibility(View.GONE);
                 this.stationImageView.setVisibility(View.GONE);
                 this.trip_duration.setVisibility(View.GONE);
                 this.trip_length.setVisibility(View.GONE);
+
+            }else{
+                this.trip_duration.setText(sendedBooking.getSummary().getBooking_time());
+                this.trip_length.setText(sendedBooking.getSummary().getKm_count());
+
             }
         }
         submit.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +167,6 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
     @Override
     public void responseCode200(Booking response ,TripPassengersActionsFragment tripPassengersActionsFragment ) {
         sendedBooking = response;
-        setDataToShow(response);
         this.tripPassengersActionsFragment = tripPassengersActionsFragment;
         show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
         Log.e("TAG", "responseCode200: "+response.getIs_pooling() );
