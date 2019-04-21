@@ -597,5 +597,8 @@ public class UtilFunction {
             }
         });
     }
+    public static LatLng getLatLng(List<Double> list){
+        return new LatLng(list.get(1),list.get(0));
+    }
 
 }

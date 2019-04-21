@@ -60,7 +60,8 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                 }
                 else {
                     mBooking.setStatus(response.body().getData().getStatus());
-                    tripPassengersActionsFragment.updateListList();
+                    tripPassengersActionsFragment.updateListList(mBooking);
+
                 }
                 break;
             case 422 :

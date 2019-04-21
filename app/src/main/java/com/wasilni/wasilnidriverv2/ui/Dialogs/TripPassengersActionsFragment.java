@@ -1,7 +1,6 @@
 package com.wasilni.wasilnidriverv2.ui.Dialogs;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.BookingsFragmentContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,10 @@ import java.util.List;
 public class TripPassengersActionsFragment extends BottomSheetFragment implements BookingsFragmentContract.BookingFragmentView {
     private OnFragmentInteractionListener mListener;
     public BookingAdapter mAdapter ;
+    private Ride  ride ;
     public HomeActivity activity ;
+    public  List<Marker>  markers =new ArrayList<>();
+    public List<MarkerOptions>markerOptionsList= new ArrayList<>();
     public TripPassengersActionsFragment(HomeActivity activity) {
         this.activity = activity ;
         mAdapter = new BookingAdapter(new ArrayList<Booking>() , this);
@@ -110,7 +115,8 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         mListener = null;
     }
     @Override
-    public void updateListList() {
+    public void updateListList(Booking mBooking) {
+        initMarker(ride);
         mAdapter.notifyDataSetChanged();
     }
     @Override
@@ -123,11 +129,9 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
                 break;
             }
         }
-        Log.e("deleteBooking", "deleteBooking: "+deletedItem );
         list.remove(deletedItem);
 
         if(list.size() == 0){
-            Log.e("deleteride", "deleteride: "+deletedItem );
             Ride deletedRide= null ;
             List<Ride> rides = activity.mAdapter.getList();
             for (Ride ride : rides){
@@ -154,9 +158,39 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
     }
+    @Override
+    public void initMarker(Ride ride){
+        activity.mMap.clear();
+        for(Marker marker : markers){
+            marker.remove();
+        }
+        markers.clear();
+        markerOptionsList.clear();
+        for(Booking booking : ride.getBookings()){
+            if(booking.getStatus().equals("DONE")) {
+                continue;
+            }
+
+            MarkerOptions markerOptions = new MarkerOptions();
+            if(booking.getStatus().equals("PICKED_UP")){
+                markerOptions.position(UtilFunction.getLatLng(booking.getPullDownLocation().getCoordinates()));
+            }else{
+                markerOptions.position(UtilFunction.getLatLng(booking.getPickUpLocation().getCoordinates()));
+            }
+            markerOptions.title(booking.getName());
+            Marker locationMarker = activity.mMap.addMarker(markerOptions);
+            locationMarker.showInfoWindow();
+
+            markerOptionsList.add(markerOptions);
+            markers.add(locationMarker);
+        }
+    }
 
     @Override
     public void setBookings(Ride ride) {
+        this.ride = ride;
+
+        initMarker(ride);
 
         ischecked = true;
         if(!this.isAdded()) {
