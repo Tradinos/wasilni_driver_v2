@@ -408,7 +408,7 @@ public class HomeActivity extends NavigationActivity implements
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
             recyclerView.setVisibility(View.VISIBLE);
-            UserUtil.getUserInstance().setChecked(false);
+            UserUtil.getUserInstance().setChecked(true);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(0 ,onlineOfflineLayout.getHeight() )

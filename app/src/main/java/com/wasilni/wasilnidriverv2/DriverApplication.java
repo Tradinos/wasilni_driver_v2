@@ -37,6 +37,7 @@ public class DriverApplication extends android.app.Application {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+//                Log.e("startServiceTracking ","123" +UserUtil.getUserInstance().isChecked() +" "+ !SocketSingelton.isTracking);
                 if(UserUtil.getUserInstance().isChecked() && !SocketSingelton.isTracking){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         startForegroundService(new Intent(mContext, TrackingService.class));
