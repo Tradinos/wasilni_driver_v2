@@ -47,15 +47,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
         holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(object.getStatus().equals("DONE")){
-                        // show ride summary
-
-                    RideSummaryFragment rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
-                    rideSummaryFragment.responseCode200(object,tripPassengersActionsFragment);
-                }
-                else{
-                    presenter.sendToServer(object);
-                }
+                presenter.sendToServer(object);
             }
         });
         if(holder.callImageView != null ) {

@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
@@ -42,8 +43,10 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         switch (response.code())
         {
             case 200 :
-                SharedPreferenceUtils.getEditorInstance(registrationActivity)
-                        .putString("auth_token", response.body().getData().getAccessToken());
+                SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext())
+                        .putString("auth_token", "Bearer "+response.body().getData().getAccessToken());
+                SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).commit();
+
                 registrationActivity.responseCode200(null);
                 break;
             case 422 :

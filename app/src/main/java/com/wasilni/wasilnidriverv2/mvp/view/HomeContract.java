@@ -9,6 +9,7 @@ import java.util.List;
 public interface HomeContract {
     public interface HomeView{
         public void addDriverLocationToMap();
+        public void getTokenFromLocalData();
         public void setRides(List<Ride> data);
         public void initView();
         public void driverStatusOnclick();

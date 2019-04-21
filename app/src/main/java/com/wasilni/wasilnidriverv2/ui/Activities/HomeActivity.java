@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -49,6 +50,7 @@ import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.GpsUtils;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
@@ -58,6 +60,7 @@ import java.util.TimerTask;
 
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
 import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
+import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.bitmapDescriptorFromVector;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
@@ -127,6 +130,8 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void initView() {
+        getTokenFromLocalData();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -162,7 +167,6 @@ public class HomeActivity extends NavigationActivity implements
 //                passengersActionsBtn.setVisibility(View.VISIBLE);
             }
         });
-        userDataPresenter.sendToServer(null);
 
         driverStatus.setOnClickListener(this);
         passengersActionsBtn.setOnClickListener(this);
@@ -370,6 +374,13 @@ public class HomeActivity extends NavigationActivity implements
                 }
             }
         },0,10000);
+    }
+
+    @Override
+    public void getTokenFromLocalData() {
+        UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils.getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
+        Token = UserUtil.getUserInstance().getAccessToken();
+        userDataPresenter.sendToServer(null);
     }
 
     @Override

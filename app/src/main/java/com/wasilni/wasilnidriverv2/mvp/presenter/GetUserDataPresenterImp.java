@@ -30,7 +30,7 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
         showProgressBar(activity);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
+        Log.e("sendToServer token ", Token);
         Call<Response<User>> call =
                 service.GetUserData( Token );
 

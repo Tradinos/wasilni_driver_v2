@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
@@ -15,6 +16,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
@@ -48,10 +50,12 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
         switch (response.code())
         {
             case 200 :
-                SharedPreferenceUtils.getEditorInstance(activity)
-                        .putString("auth_token", response.body().getData().getAccessToken());
+                SharedPreferenceUtils.getEditorInstance(activity.getApplicationContext())
+                        .putString("auth_token","Bearer "+ response.body().getData().getAccessToken());
+                SharedPreferenceUtils.getEditorInstance(activity.getApplicationContext()).commit();
                 Intent intent = new Intent(activity, HomeActivity.class);
                 activity.startActivity(intent);
+                ActivityCompat.finishAffinity(activity);
                 break;
             case 422 :
                 break;

@@ -8,7 +8,7 @@ public class UserUtil {
     public static User getUserInstance(){
         if(user == null){
             user = new User();
-            user.setLogingIn(true);
+            //user.setLogingIn(true);
         }
         return user ;
     }

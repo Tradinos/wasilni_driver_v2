@@ -132,6 +132,7 @@ public class UtilFunction {
         // Add custom implementation, as needed.
         SharedPreferenceUtils.getEditorInstance(context)
                 .putString("fcm_token", refreshedToken);
+        SharedPreferenceUtils.getEditorInstance(context.getApplicationContext()).commit();
 
         // To implement: Only if user is registered, i.e. UserId is available in preference, update token on server.
         int userId = SharedPreferenceUtils.getPreferencesInstance(context).getInt("user_id", -1);
