@@ -32,7 +32,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 import static java.lang.Thread.sleep;
 
 public class SocketSingelton {
-    private static final String SOCKET_URL = "http://192.168.9.175:3000/captains";
+    private static final String SOCKET_URL = "http://wasilni.com:3000/captains";
     private static Socket socket = null;
     private static IO.Options mOptions;
     private static String TAG = "socket";

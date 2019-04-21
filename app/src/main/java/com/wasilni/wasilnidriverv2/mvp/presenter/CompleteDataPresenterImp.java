@@ -27,7 +27,6 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-        UtilFunction.showProgressBar(registrationActivity);
         Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
                 service.CompleteInfo( request);
 
@@ -38,14 +37,15 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse register",response.message()+" code :"+response.code());
-        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
             case 200 :
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext())
                         .putString("auth_token", "Bearer "+response.body().getData().getAccessToken());
+                SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).putInt("user_id",1);
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).commit();
+                UtilFunction.CheckFCMToken(registrationActivity.getApplicationContext());
 
                 registrationActivity.responseCode200(null);
                 break;

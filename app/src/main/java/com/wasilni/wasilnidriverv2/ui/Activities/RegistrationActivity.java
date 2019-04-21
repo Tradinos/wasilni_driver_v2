@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Car;
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CompleteDataPresenterImp;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.FullScreenActivity;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
@@ -112,7 +113,12 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void goToInterviewBooking() {
-        changeFragment(new InterviewRegistrationFragment());
+//        changeFragment(new InterviewRegistrationFragment());
+        UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils
+                .getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
+        Log.e("auth", UserUtil.getUserInstance().getAccessToken());
+        startActivity(new Intent(this , InterviewActivity.class));
+        ActivityCompat.finishAffinity(this);
     }
 
     @Override
@@ -166,7 +172,7 @@ public class RegistrationActivity extends FullScreenActivity implements
         UserUtil.getUserInstance().setEmail(email);
         UserUtil.getUserInstance().setBirthday(birthdate);
         UserUtil.getUserInstance().setAddress(address);
-        UserUtil.getUserInstance().setRegionId(region);
+        UserUtil.getUserInstance().setLocation_id(region);
         UserUtil.getUserInstance().setNationality_id(nationality);
         UserUtil.getUserInstance().setPassword(password);
         UserUtil.getUserInstance().setPassword_confirmation(password);

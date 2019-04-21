@@ -39,7 +39,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
@@ -60,7 +62,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
 
     private TextInputEditText firstnameET, lastnameET, whatsappPhoneET, emailET, passwordET, addressDetailsEdit;
     private TextInputLayout firstnameIL, lastnameIL, whatsappPhoneIN, emailIN, passwordLT, regionLT;
-
+    private Map<String,Integer> regionID = new HashMap<>();
     private AutoCompleteTextView regionAC;
     private TextView birthdateTV, noWhatsappTV, yesWhatsappTV;
     private ImageView profilePicture;
@@ -375,12 +377,13 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     public boolean submit() {
         if(this.validate())
         {
+            Log.e("submit","locaiton id : " + regionID.get(regionAC.getText().toString()));
             this.mListener.submitPersonalData(
                     this.firstnameET.getText().toString(),
                     this.lastnameET.getText().toString(),
                     this.emailET.getText().toString(),
                     this.whatsappPhoneET.getText().toString(),
-                    1,
+                    regionID.get(regionAC.getText().toString()),
                     ((Nationality)this.nationalityAC.getSelectedItem()).getId(),
                     this.birthdateTV.getText().toString(),
                     this.genderSp.getSelectedItemPosition(),
@@ -410,7 +413,9 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         Log.d("SIZE", "populateLocations: " + locations.size());
         this.regionsAdapter.updateItems((List)locations);
         regions.clear();
+        regionID.clear();
         for(Location location : locations){
+            regionID.put(location.getName(),location.getId());
             regions.add(location.getName());
         }
     }

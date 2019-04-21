@@ -130,9 +130,6 @@ public class UtilFunction {
 
     public static void sendRegistrationToServer(String refreshedToken , Context context) {
         // Add custom implementation, as needed.
-        SharedPreferenceUtils.getEditorInstance(context)
-                .putString("fcm_token", refreshedToken);
-        SharedPreferenceUtils.getEditorInstance(context.getApplicationContext()).commit();
 
         // To implement: Only if user is registered, i.e. UserId is available in preference, update token on server.
         int userId = SharedPreferenceUtils.getPreferencesInstance(context).getInt("user_id", -1);
@@ -525,7 +522,7 @@ public class UtilFunction {
     }
 
     public static void showProgressBar(Activity activity) {
-        pro++;
+
         Log.e("TAG", "showProgressBar: " +pro);
         if(hud == null  ){
         hud =KProgressHUD.create(activity)
@@ -535,17 +532,17 @@ public class UtilFunction {
                 .setCancellable(false)
                 .setAnimationSpeed(2);
         }
-        if(activity != null){
+        if(activity == null){
             return;
         }
-
+        pro++;
         if(!hud.isShowing()){
             hud.show();
         }
     }
 
     public static void hideProgressBar() {
-        if(pro >= 0 ) {
+        if(pro > 0 ) {
             pro--;
             Log.e("TAG", "hideProgressBar: " + pro);
             if (pro == 0) {

@@ -25,7 +25,7 @@ public class User{
 
     private String driving_certificate_start_date, driving_certificate_end_date;
     private boolean verified , gender;
-    private int id, regionId, nationality_id;
+    private int id, location_id, nationality_id;
 
     public boolean isChecked() {
         return isChecked;
@@ -197,12 +197,12 @@ public class User{
         this.activation_code = activation_code;
     }
 
-    public int getRegionId() {
-        return regionId;
+    public int getLocation_id() {
+        return location_id;
     }
 
-    public void setRegionId(int regionId) {
-        this.regionId = regionId;
+    public void setLocation_id(int location_id) {
+        this.location_id = location_id;
     }
 
     public int getNationality_id() {

@@ -17,6 +17,7 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 public abstract class NavigationActivity extends AppCompatActivity
@@ -108,6 +109,9 @@ public abstract class NavigationActivity extends AppCompatActivity
     @Override
     public void responseCode401() {
         UtilFunction.showToast(this,"401");
+
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).clear();
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).commit();
         Intent intent = new Intent(this, RegistrationActivity.class);
         this.startActivity(intent);
         ActivityCompat.finishAffinity(this);

@@ -308,7 +308,6 @@ public class HomeActivity extends NavigationActivity implements
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
-            UserUtil.getUserInstance().setChecked(false);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(onlineOfflineLayout.getHeight() , 0)
@@ -322,7 +321,6 @@ public class HomeActivity extends NavigationActivity implements
             UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
-            UserUtil.getUserInstance().setChecked(false);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(0 ,onlineOfflineLayout.getHeight() )
