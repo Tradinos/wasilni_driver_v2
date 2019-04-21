@@ -24,6 +24,9 @@ import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -50,10 +53,13 @@ import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
 import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.bitmapDescriptorFromVector;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
 
 public class HomeActivity extends NavigationActivity implements
@@ -63,7 +69,8 @@ public class HomeActivity extends NavigationActivity implements
         View.OnClickListener,
         OnMapReadyCallback,
         HomeContract.HomeView {
-
+    public Marker myMarker ;
+    public MarkerOptions myMarkerOptions;
     public GoogleMap mMap;
     public RecyclerView recyclerView;
     public ImageView driverStatus;
@@ -160,6 +167,8 @@ public class HomeActivity extends NavigationActivity implements
 
         driverStatus.setOnClickListener(this);
         passengersActionsBtn.setOnClickListener(this);
+
+
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION
                         , Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -175,6 +184,9 @@ public class HomeActivity extends NavigationActivity implements
 
                     }
                 }).check();
+
+
+
         new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
             @Override
             public void gpsStatus(boolean isGPSEnable) {
@@ -182,6 +194,7 @@ public class HomeActivity extends NavigationActivity implements
                 Log.e( "gpsStatus: ",""+isGPSEnable );
             }
         });
+        addDriverLocationToMap();
     }
 
 
@@ -310,6 +323,36 @@ public class HomeActivity extends NavigationActivity implements
         UserUtil.setUser(user);
         Log.e("checkDriverStatus",""+user.isChecked() );
         checkDriverStatus();
+    }
+
+    @Override
+    public void addDriverLocationToMap(){
+        final Activity activity = this;
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if( UserUtil.getUserInstance().getLocation()!=null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(myMarker == null){
+                                myMarkerOptions = new MarkerOptions();
+                                myMarkerOptions.title("أنا");
+                                LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
+                                myMarkerOptions.position(latLng);
+                                myMarkerOptions.icon(bitmapDescriptorFromVector(getApplicationContext(), R.mipmap.driver_location));
+                                myMarker = mMap.addMarker(myMarkerOptions);
+                            }
+
+                            LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
+                            myMarkerOptions.position(latLng);
+                            myMarker.remove();
+                            myMarker = mMap.addMarker(myMarkerOptions);
+                        }
+                    });
+                }
+            }
+        },0,10000);
     }
 
     @Override

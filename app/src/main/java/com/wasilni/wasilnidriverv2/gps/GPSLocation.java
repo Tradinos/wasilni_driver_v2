@@ -17,6 +17,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class GPSLocation {
             Log.i(LOCATION, "lng " + location.getLongitude());
             if (((int) location.getLatitude()) != 0 && ((int) location.getLongitude()) != 0) {
                 myLocation[0] = location;
+                UserUtil.getUserInstance().setLocation(location);
             }
         }
 
