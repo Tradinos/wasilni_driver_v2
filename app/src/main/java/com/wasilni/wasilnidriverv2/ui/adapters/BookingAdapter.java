@@ -40,7 +40,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingI
     @Override
     public void onBindViewHolder(BookingItemViewHolder holder, int position) {
         Booking booking = list.get(position) ;
-        presenter.ObjectToHolder(booking , holder);
+        presenter.ObjectToHolder(booking ,position, holder);
     }
 
 

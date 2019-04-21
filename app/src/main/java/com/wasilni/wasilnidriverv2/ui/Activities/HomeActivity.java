@@ -146,7 +146,6 @@ public class HomeActivity extends NavigationActivity implements
         mAdapter = new UpcomingRidesAdapter(tripPassengersActionsFragment) ;
         recyclerView.setAdapter(mAdapter);
 
-        myRidesPresenter.sendToServer(null);
 
 
 
@@ -220,6 +219,10 @@ public class HomeActivity extends NavigationActivity implements
             case R.id.passenger_actions_btn:
                 if(!tripPassengersActionsFragment.isAdded()) {
                     this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
+                }else{
+                    this.tripPassengersActionsFragment.dismiss();
+                    this.tripPassengersActionsFragment.show(getSupportFragmentManager(), R.id.bottomsheet);
+
                 }
 //                if(ischecked) {
 //                    this.passengersActionsBtn.setVisibility(View.INVISIBLE);
@@ -298,17 +301,31 @@ public class HomeActivity extends NavigationActivity implements
     public void checkDriverStatus() {
         Log.e("checkDriverStatus",""+ UserUtil.getUserInstance().isChecked() );
         if(!UserUtil.getUserInstance().isChecked()){
+            UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
-            recyclerView.setVisibility(View.INVISIBLE);
+            UserUtil.getUserInstance().setChecked(false);
+            ViewAnimator
+                    .animate(bottomLayout)
+                    .translationY(onlineOfflineLayout.getHeight() , 0)
+                    .duration(1000)
+                    .start();
+
         }
         else
         {
+            myRidesPresenter.sendToServer(null);
+            UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
-            recyclerView.setVisibility(View.VISIBLE);
-            bottomLayout.setVisibility(View.INVISIBLE);
+            UserUtil.getUserInstance().setChecked(false);
+            ViewAnimator
+                    .animate(bottomLayout)
+                    .translationY(0 ,onlineOfflineLayout.getHeight() )
+                    .duration(1000)
+                    .start();
         }
+
 
     }
 
@@ -367,6 +384,7 @@ public class HomeActivity extends NavigationActivity implements
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
+            mMap.clear();
             passengersActionsBtn.setVisibility(View.INVISIBLE);
             if(bottomLayout.isShown()){
                 bottomSheet.dismissSheet();
@@ -385,13 +403,12 @@ public class HomeActivity extends NavigationActivity implements
         }
         else
         {
+            myRidesPresenter.sendToServer(null);
             UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
             recyclerView.setVisibility(View.VISIBLE);
             UserUtil.getUserInstance().setChecked(false);
-
-
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(0 ,onlineOfflineLayout.getHeight() )

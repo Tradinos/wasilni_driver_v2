@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,15 +23,20 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
     }
 
     @Override
-    public void ObjectToHolder(final Ride object, UpcomingRidesAdapter.RideViewHolder holder) {
-        holder.allItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // change bottom sheet adapter data ;
-                presenter.sendToServer(object);
-                fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
-            }
-        });
+    public void ObjectToHolder(final Ride object, int position , UpcomingRidesAdapter.RideViewHolder holder) {
+        if(position == 0){
+//            holder.allItem.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    presenter.sendToServer(object);
+//                    fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
+//                }
+//            });
+            Log.e("ObjectToHolder: ","1233" );
+            presenter.sendToServer(object);
+            Log.e("ObjectToHolder: ","8888" );
+            fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
+        }
         holder.duration.setText(object.getStart_datetime());
         holder.startPlace.setText(object.getPick_up_location_name());
         if(object.getBookings_count() == 1) {

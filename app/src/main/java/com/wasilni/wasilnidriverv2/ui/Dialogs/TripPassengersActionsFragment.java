@@ -146,6 +146,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         }
 
         mAdapter.setList(list);
+        Log.e( "deleteBooking: ", "notifyDataSetChanged");
         mAdapter.notifyDataSetChanged();
         initMarker(ride);
     }
@@ -195,6 +196,9 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
 
         ischecked = true;
         if(!this.isAdded()) {
+            this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+        }else{
+            this.dismiss();
             this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
         }
         mAdapter.setList(ride.getBookings());

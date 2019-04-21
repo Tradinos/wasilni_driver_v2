@@ -23,7 +23,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
 
 
     @Override
-    public void ObjectToHolder(final Booking object, BookingAdapter.BookingItemViewHolder holder) {
+    public void ObjectToHolder(final Booking object,int position , BookingAdapter.BookingItemViewHolder holder) {
 
 
         if(holder.timeTextView != null) {
