@@ -1,13 +1,14 @@
 package com.wasilni.wasilnidriverv2.socket;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
 
 import com.wasilni.wasilnidriverv2.gps.GPSLocation;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,14 +35,11 @@ public class SocketSingelton {
     private static final String SOCKET_URL = "http://192.168.9.175:3000/captains";
     private static Socket socket = null;
     private static IO.Options mOptions;
-    private static String TAG = "socket" ;
+    private static String TAG = "socket";
     private static Realm realm;
-    private static RealmQuery<SocketItem> query ;
+    private static RealmQuery<SocketItem> query;
     public static boolean isTracking = false;
-    private static int runingThreads=0;
-
-
-
+    private static int runingThreads = 0;
 
 
     private static void createInstance() {
@@ -75,45 +73,46 @@ public class SocketSingelton {
     }
 
     public static void disconnect() {
-        Log.e(TAG, "disconnect" );
-        isTracking = false ;
+        Log.e(TAG, "disconnect");
         socket.close();
         socket.disconnect();
 
     }
 
-    public static void startTracking(final Context mContext , Location location) {
-        Log.e(TAG, "startTracking2" );
+    public static void startTracking(final Context mContext, Location location) {
+        Log.e(TAG, "startTracking");
         socket = getInstance();
-
-
+        Timer timer = new Timer();
         GPSLocation.startUpdateLocaiton(mContext);
         location = myLocation[0];
         final Location finalLocation = location;
 
-        try {
-            while(true){
-                isTracking = true ;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(!isTracking) {
+                    cancel();
+                    return;
+                }
                 GPSLocation.startUpdateLocaiton(mContext);
 
-                if(realm == null){
+                if (realm == null) {
                     // i put it here because we can access it from this thread
                     initRealm(mContext);
                 }
 
-                if(socket.connected()){
-                    Log.e(TAG, "connected true" );
-                }
-                else{
-                    if(UtilUser.getUserInstance().isChecked()) {
+                if (socket.connected()) {
+                    Log.e(TAG, "connected true");
+                } else {
+                    if (UserUtil.getUserInstance().isChecked()) {
                         reConnect();
                     }
-                    Log.e(TAG, "connected false" );
+                    Log.e(TAG, "connected false");
                 }
 
                 if (myLocation[0] != null) {
-                    Log.e(TAG, "get location + "+ myLocation[0].getLatitude() + " " + myLocation[0].getLongitude()  );
-                    if(finalLocation != null) {
+                    Log.e(TAG, "get location + " + myLocation[0].getLatitude() + " " + myLocation[0].getLongitude());
+                    if (finalLocation != null) {
                         finalLocation.set(myLocation[0]);
                     }
                     addLocationToRealm(myLocation[0]);
@@ -122,13 +121,15 @@ public class SocketSingelton {
                     sendAllDB();
                     clearRealM();
                 }
-
-                sleep(10000);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.e(TAG, "startTracking: finish" );
+
+            @Override
+            public boolean cancel() {
+                isTracking = false ;
+                Log.e(TAG, "cancel" );
+                return super.cancel();
+            }
+        }, 0,10000);
     }
 
     public static void stopTracking() {
@@ -142,7 +143,7 @@ public class SocketSingelton {
                 , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                         format(Calendar.getInstance().getTime()));
         realm.commitTransaction();
-        UtilUser.getUserInstance().setLocation(location);
+        UserUtil.getUserInstance().setLocation(location);
     }
 
     private static void clearRealM() {
@@ -178,7 +179,7 @@ public class SocketSingelton {
         Realm.setDefaultConfiguration(realmConfiguration);
 
 
-        realm  = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
         query = realm.where(SocketItem.class);
     }
 }

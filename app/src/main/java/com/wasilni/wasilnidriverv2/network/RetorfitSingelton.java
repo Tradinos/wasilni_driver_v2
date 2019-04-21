@@ -18,7 +18,7 @@ public class RetorfitSingelton {
 
     /**
      * Create an instance of Retrofit object
-     * */
+     **/
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

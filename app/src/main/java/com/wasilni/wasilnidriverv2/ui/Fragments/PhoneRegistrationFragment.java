@@ -20,7 +20,7 @@ import com.wasilni.wasilnidriverv2.mvp.presenter.RequestActivitionCodePresentreI
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -142,8 +142,8 @@ public class PhoneRegistrationFragment extends Fragment implements
     @Override
     public boolean submit() {
         if(this.validate()) {
-            UtilUser.getUserInstance().setPhone_number(phoneEdit.getText().toString());
-            presentre.sendToServer(UtilUser.getUserInstance());
+            UserUtil.getUserInstance().setPhone_number(phoneEdit.getText().toString());
+            presentre.sendToServer(UserUtil.getUserInstance());
             return true;
         }
         else{

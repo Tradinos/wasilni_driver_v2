@@ -11,10 +11,7 @@ import android.widget.FrameLayout;
 
 import com.wasilni.wasilnidriverv2.mvp.model.Car;
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
-import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CompleteDataPresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
-import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.FullScreenActivity;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
@@ -26,7 +23,7 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
 
 import com.wasilni.wasilnidriverv2.R;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 public class RegistrationActivity extends FullScreenActivity implements
 
@@ -84,8 +81,8 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void goToPhoneVerification(String phoneNumber) {
-        UtilUser.getUserInstance().setUsername(phoneNumber);
-        UtilUser.getUserInstance().setPhone_number(phoneNumber);
+        UserUtil.getUserInstance().setUsername(phoneNumber);
+        UserUtil.getUserInstance().setPhone_number(phoneNumber);
         changeFragment(new PhoneVerificationFragment());
     }
 
@@ -107,7 +104,7 @@ public class RegistrationActivity extends FullScreenActivity implements
     @Override
     public void completeRegistration() {
         RegisterCaptain reg = new RegisterCaptain();
-        reg.setCaptain(UtilUser.getUserInstance());
+        reg.setCaptain(UserUtil.getUserInstance());
         reg.setCar(this.car);
         this.completeDataPresenterImp.sendToServer(reg);
     }
@@ -136,8 +133,8 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void submitCivilData(String licenseStartDate, String licenseEndDate, String bank) {
-        UtilUser.getUserInstance().setDriving_certificate_end_date(licenseEndDate);
-        UtilUser.getUserInstance().setDriving_certificate_start_date(licenseStartDate);
+        UserUtil.getUserInstance().setDriving_certificate_end_date(licenseEndDate);
+        UserUtil.getUserInstance().setDriving_certificate_start_date(licenseStartDate);
     }
 
     @Override
@@ -149,22 +146,22 @@ public class RegistrationActivity extends FullScreenActivity implements
                                    int nationality,
                                    String birthdate, int gender, String address, String password) {
 
-        UtilUser.getUserInstance().setWhatsapp_number(whatsappNumber);
-        UtilUser.getUserInstance().setFirst_name(firstName);
-        UtilUser.getUserInstance().setLast_name(lastName);
-        UtilUser.getUserInstance().setEmail(email);
-        UtilUser.getUserInstance().setBirthday(birthdate);
-        UtilUser.getUserInstance().setAddress(address);
-        UtilUser.getUserInstance().setRegionId(region);
-        UtilUser.getUserInstance().setNationality_id(nationality);
-        UtilUser.getUserInstance().setPassword(password);
-        UtilUser.getUserInstance().setPassword_confirmation(password);
+        UserUtil.getUserInstance().setWhatsapp_number(whatsappNumber);
+        UserUtil.getUserInstance().setFirst_name(firstName);
+        UserUtil.getUserInstance().setLast_name(lastName);
+        UserUtil.getUserInstance().setEmail(email);
+        UserUtil.getUserInstance().setBirthday(birthdate);
+        UserUtil.getUserInstance().setAddress(address);
+        UserUtil.getUserInstance().setRegionId(region);
+        UserUtil.getUserInstance().setNationality_id(nationality);
+        UserUtil.getUserInstance().setPassword(password);
+        UserUtil.getUserInstance().setPassword_confirmation(password);
 
         if(gender == 0) {
-            UtilUser.getUserInstance().setGender(true);
+            UserUtil.getUserInstance().setGender(true);
         }
         else{
-            UtilUser.getUserInstance().setGender(false);
+            UserUtil.getUserInstance().setGender(false);
         }
 
     }

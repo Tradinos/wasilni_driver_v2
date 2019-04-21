@@ -2,10 +2,21 @@ package com.wasilni.wasilnidriverv2.util;
 
 import android.Manifest;
 import android.app.Activity;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -74,6 +85,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 public class UtilFunction {
     private static int pro = 0 ;
     public static String INTENT_REQUESTER = "intent-requester";
+    public static final int REQUEST_CHECK_SETTINGS = 0x1;
     public static KProgressHUD hud ;
 
     public static void setFontBAHIJ(Activity activity) {
@@ -521,19 +533,69 @@ public class UtilFunction {
                 .setCancellable(false)
                 .setAnimationSpeed(2);
         }
-        if(activity == null){
+        if(activity != null){
             return;
         }
+
         if(!hud.isShowing()){
             hud.show();
         }
     }
 
     public static void hideProgressBar() {
-        pro--;
-        Log.e("TAG", "hideProgressBar: "+pro );
-        if(pro == 0) {
-            hud.dismiss();
+        if(pro >= 0 ) {
+            pro--;
+            Log.e("TAG", "hideProgressBar: " + pro);
+            if (pro == 0) {
+                hud.dismiss();
+            }
         }
     }
+    public static void settingsRequest(final Activity activity) {
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(30 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true); //this is the key ingredient
+        builder.setNeedBle(true);
+        Task<LocationSettingsResponse> result =
+                LocationServices.getSettingsClient(activity).checkLocationSettings(builder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    // All location settings are satisfied. The client can initialize location
+                    // requests here.
+
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            // Location settings are not satisfied. But could be fixed by showing the
+                            // user a dialog.
+                            try {
+                                // Cast to a resolvable exception.
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
+                                resolvable.startResolutionForResult(
+                                        activity,
+                                        REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException | ClassCastException e) {
+                                // Ignore the error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            // Location settings are not satisfied. However, we have no way to fix the
+                            // settings so we won't show the dialog.
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
 }

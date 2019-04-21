@@ -2,7 +2,6 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,14 +45,16 @@ import com.wasilni.wasilnidriverv2.receivers.NotificationReceiver;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
+import com.wasilni.wasilnidriverv2.util.GpsUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import java.util.List;
 
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
-import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
-import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
+import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
 
 public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -175,7 +175,13 @@ public class HomeActivity extends NavigationActivity implements
 
                     }
                 }).check();
-
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                Log.e( "gpsStatus: ",""+isGPSEnable );
+            }
+        });
     }
 
 
@@ -277,8 +283,8 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void checkDriverStatus() {
-        Log.e("checkDriverStatus",""+UtilUser.getUserInstance().isChecked() );
-        if(!UtilUser.getUserInstance().isChecked()){
+        Log.e("checkDriverStatus",""+ UserUtil.getUserInstance().isChecked() );
+        if(!UserUtil.getUserInstance().isChecked()){
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
             recyclerView.setVisibility(View.INVISIBLE);
@@ -301,7 +307,7 @@ public class HomeActivity extends NavigationActivity implements
         else{
             user.setChecked(false);
         }
-        UtilUser.setUser(user);
+        UserUtil.setUser(user);
         Log.e("checkDriverStatus",""+user.isChecked() );
         checkDriverStatus();
     }
@@ -315,7 +321,7 @@ public class HomeActivity extends NavigationActivity implements
     @Override
     public void responseCode200(Boolean response) {
         if(!response){
-            UtilUser.getUserInstance().setChecked(false);
+            UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText("You're offline");
             passengersActionsBtn.setVisibility(View.INVISIBLE);
@@ -326,7 +332,7 @@ public class HomeActivity extends NavigationActivity implements
                 tripPassengersActionsFragment.setMenuVisibility(false);
             }
             recyclerView.setVisibility(View.INVISIBLE);
-            UtilUser.getUserInstance().setChecked(false);
+            UserUtil.getUserInstance().setChecked(false);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(onlineOfflineLayout.getHeight() , 0)
@@ -336,11 +342,11 @@ public class HomeActivity extends NavigationActivity implements
         }
         else
         {
-            UtilUser.getUserInstance().setChecked(true);
+            UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
             driverStatusTextView.setText("You're online");
             recyclerView.setVisibility(View.VISIBLE);
-            UtilUser.getUserInstance().setChecked(false);
+            UserUtil.getUserInstance().setChecked(false);
 
 
             ViewAnimator
@@ -348,6 +354,29 @@ public class HomeActivity extends NavigationActivity implements
                     .translationY(0 ,onlineOfflineLayout.getHeight() )
                     .duration(1000)
                     .start();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        final LocationSettingsStates states = LocationSettingsStates.fromIntent(data);
+        switch (requestCode) {
+            case REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        // All required changes were successfully made
+                        if (requestCode == GPS_REQUEST) {
+
+                        }
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        // The user was asked to change settings, but chose not to
+                        settingsRequest(this);
+                        break;
+                    default:
+                        break;
+                }
+                break;
         }
     }
 }

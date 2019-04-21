@@ -2,14 +2,12 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 
 import android.util.Log;
 
-import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.InterviewContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Fragments.InterviewRegistrationFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 import retrofit2.Call;
 

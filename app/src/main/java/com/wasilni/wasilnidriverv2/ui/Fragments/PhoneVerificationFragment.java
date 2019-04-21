@@ -21,7 +21,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.VerfiyPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.mvp.view.VerifyContract;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import java.util.ArrayList;
 
@@ -203,8 +203,8 @@ public class PhoneVerificationFragment extends Fragment implements
     @Override
     public boolean submit() {
         Log.d(TAG, "submit: "+getVerificationcCode() );
-        UtilUser.getUserInstance().setActivation_code(getVerificationcCode());
-        presenter.sendToServer(UtilUser.getUserInstance());
+        UserUtil.getUserInstance().setActivation_code(getVerificationcCode());
+        presenter.sendToServer(UserUtil.getUserInstance());
 
         return true;
     }

@@ -2,7 +2,7 @@ package com.wasilni.wasilnidriverv2.util;
 
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 
-public class UtilUser {
+public class UserUtil {
     private static User user ;
 
     public static User getUserInstance(){
@@ -17,6 +17,6 @@ public class UtilUser {
     }
 
     public static void setUser(User user) {
-        UtilUser.user = user;
+        UserUtil.user = user;
     }
 }
