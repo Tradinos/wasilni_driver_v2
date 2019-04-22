@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
@@ -116,6 +117,5 @@ public abstract class NavigationActivity extends AppCompatActivity
         this.startActivity(intent);
         ActivityCompat.finishAffinity(this);
     }
-
 
 }

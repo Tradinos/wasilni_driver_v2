@@ -32,7 +32,7 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
+        Log.e("interveiw auth",UserUtil.getUserInstance().getAccessToken());
         Call<com.wasilni.wasilnidriverv2.network.Response<Object>> call =
                 service.Interview(UserUtil.getUserInstance().getAccessToken(), request);
 

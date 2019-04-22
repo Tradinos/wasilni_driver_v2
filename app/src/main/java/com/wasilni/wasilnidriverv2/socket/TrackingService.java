@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.gps.GPSLocation;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import static com.wasilni.wasilnidriverv2.socket.SocketSingelton.isTracking;
@@ -57,6 +58,7 @@ public class TrackingService extends Service {
     }
 
     private void startTracking() {
+        GPSLocation.startUpdateLocaiton(getApplicationContext());
         SocketSingelton.connect();
         SocketSingelton.startTracking(getApplicationContext(), null);
     }

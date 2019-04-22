@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.wasilni.wasilnidriverv2.R;
@@ -176,7 +177,13 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
             MarkerOptions markerOptions = new MarkerOptions();
             if(booking.getStatus().equals("PICKED_UP")){
                 markerOptions.position(UtilFunction.getLatLng(booking.getPullDownLocation().getCoordinates()));
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             }else{
+                if(booking.getStatus().equals("DONE")) {
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }else{
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
+                }
                 markerOptions.position(UtilFunction.getLatLng(booking.getPickUpLocation().getCoordinates()));
             }
             markerOptions.title(booking.getName());

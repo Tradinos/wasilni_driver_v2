@@ -3,7 +3,10 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.app.Activity;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.model.LatLng;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
@@ -11,10 +14,12 @@ import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.getLatLng;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
@@ -54,12 +59,24 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                     mBooking.setStatus(response.body().getData().getStatus());
                     mBooking.setSummary(response.body().getData().getSummary());
                     mBooking.setIs_pooling(response.body().getData().getIs_pooling());
-
                     rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
                     rideSummaryFragment.responseCode200(mBooking,tripPassengersActionsFragment);
+                    try {
+                        tripPassengersActionsFragment.activity.moveCamera(new LatLng(UserUtil.getUserInstance().getLocation().getLatitude(), UserUtil.getUserInstance().getLocation().getLongitude()));
+                    }
+                    catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     mBooking.setStatus(response.body().getData().getStatus());
+                    if(mBooking.getStatus().equals("PICKED_UP")){
+                        tripPassengersActionsFragment.activity.moveCamera(getLatLng(mBooking.getPullDownLocation().getCoordinates()));
+                    }
+                    else{
+                        tripPassengersActionsFragment.activity.moveCamera(getLatLng(mBooking.getPickUpLocation().getCoordinates()));
+                    }
+
                     tripPassengersActionsFragment.updateListList(mBooking);
 
                 }

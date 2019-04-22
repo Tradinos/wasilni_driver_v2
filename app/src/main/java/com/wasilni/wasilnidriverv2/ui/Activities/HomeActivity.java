@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.OnSheetDismissedListener;
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -59,8 +61,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
+import static com.wasilni.wasilnidriverv2.util.Constants.DAMASCUSE;
 import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.bitmapDescriptorFromVector;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
@@ -123,6 +127,7 @@ public class HomeActivity extends NavigationActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        moveCamera(DAMASCUSE);
     }
 
     @Override
@@ -452,5 +457,9 @@ public class HomeActivity extends NavigationActivity implements
                 }
                 break;
         }
+    }
+
+    public void moveCamera(LatLng latLng){
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,ZOOM));
     }
 }

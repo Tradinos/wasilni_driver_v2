@@ -34,7 +34,7 @@ public class Booking {
     @SerializedName("to_pay")
     @Expose
     String to_pay ;
-    @SerializedName("summary")
+    @SerializedName("meter")
     @Expose
     BookingSummary summary ;
     @SerializedName("id")

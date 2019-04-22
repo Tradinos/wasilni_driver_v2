@@ -141,7 +141,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
             this.booking_cost.setText(sendedBooking.getPrice());
             this.trip_destination.setText(sendedBooking.getPullDownName());
 
-            if(sendedBooking.getIs_pooling() == 1){
+            if(sendedBooking.getSummary() == null){
                 this.time_imgImageView.setVisibility(View.GONE);
                 this.stationImageView.setVisibility(View.GONE);
                 this.trip_duration.setVisibility(View.GONE);
@@ -150,7 +150,6 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
             }else{
                 this.trip_duration.setText(""+sendedBooking.getSummary().getBooking_time());
                 this.trip_length.setText(""+sendedBooking.getSummary().getKm_count());
-
             }
         }
         submit.setOnClickListener(new View.OnClickListener() {

@@ -10,7 +10,7 @@ public class BookingSummary {
     @SerializedName("booking_time")
     @Expose
     int booking_time ;
-    @SerializedName("waiting_time_count")
+    @SerializedName("elapsed_time")
     @Expose
     int waiting_time_count ;
 
