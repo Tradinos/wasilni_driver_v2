@@ -563,6 +563,7 @@ public class UtilFunction {
             Log.e("TAG", "hideProgressBar: " + pro);
             if (pro == 0) {
                 hud.dismiss();
+                hud=null;
             }
         }
     }

@@ -44,7 +44,7 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse login",response.message()+" code :"+response.code());
-        UtilFunction.showProgressBar(activity);
+        UtilFunction.hideProgressBar();
         switch (response.code())
         {
             case 200 :
