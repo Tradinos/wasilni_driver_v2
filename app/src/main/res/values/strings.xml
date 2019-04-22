@@ -95,8 +95,10 @@
     <string name="pay">Pay</string>
     <string name="wait">Wait</string>
     <string name="error_401">Please login again</string>
-    <string name="error_500">الرجاء التواصل مع خدمة العملاء للتحقق من المشكلة</string>
-    <string name="error_400">الرجاء التحقق من الانترنت</string>
+    <string name="error_500">Please contact to customer service</string>
+    <string name="error_400">please check your internt</string>
+    <string name="error_422_interview">Please select another time</string>
+
     <string name="me">me</string>
 
 </resources>

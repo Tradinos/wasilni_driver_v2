@@ -109,7 +109,7 @@ public class InterviewActivity extends AppCompatActivity
 
     @Override
     public void responseCode422() {
-        UtilFunction.showToast(this, "الرجاء اختيار موعد اخر هذا الموعد محجوز");
+        UtilFunction.showToast(this, R.string.error_422_interview);
 
     }
 
