@@ -83,8 +83,8 @@
     <string name="required_field">This field is required</string>
     <string name="auto_complete_selection">Please pick from the suggestion list.</string>
     <string name="car_number">Car number</string>
-    <string name="You_are_offline">You are offline</string>
-    <string name="You_are_online">You are online</string>
+    <string name="you_are_offline">You are offline</string>
+    <string name="you_are_online">You are online</string>
 
     <string name="profile">Profile</string>
     <string name="schedule">Schedule</string>
@@ -97,5 +97,6 @@
     <string name="error_401">Please login again</string>
     <string name="error_500">الرجاء التواصل مع خدمة العملاء للتحقق من المشكلة</string>
     <string name="error_400">الرجاء التحقق من الانترنت</string>
+    <string name="me">me</string>
 
 </resources>

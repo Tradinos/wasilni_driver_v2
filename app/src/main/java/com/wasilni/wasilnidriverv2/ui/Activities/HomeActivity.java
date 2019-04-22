@@ -318,7 +318,7 @@ public class HomeActivity extends NavigationActivity implements
         if(!UserUtil.getUserInstance().isChecked()){
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
-            driverStatusTextView.setText("You're offline");
+            driverStatusTextView.setText(R.string.you_are_offline);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(onlineOfflineLayout.getHeight() , 0)
@@ -331,7 +331,7 @@ public class HomeActivity extends NavigationActivity implements
             myRidesPresenter.sendToServer(null);
             UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
-            driverStatusTextView.setText("You're online");
+            driverStatusTextView.setText(R.string.you_are_online);
             ViewAnimator
                     .animate(bottomLayout)
                     .translationY(0 ,onlineOfflineLayout.getHeight() )
@@ -367,7 +367,7 @@ public class HomeActivity extends NavigationActivity implements
                         public void run() {
                             if(myMarker == null){
                                 myMarkerOptions = new MarkerOptions();
-                                myMarkerOptions.title("أنا");
+                                myMarkerOptions.title(getResources().getString(R.string.me));
                                 LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
                                 myMarkerOptions.position(latLng);
                                 myMarkerOptions.icon(bitmapDescriptorFromVector(getApplicationContext(), R.mipmap.driver_location));

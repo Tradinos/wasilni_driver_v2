@@ -44,7 +44,7 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
                 activity.responseCode200(response.body().getData());
                 break;
             case 422 :
-                activity.responseCode422();
+                activity.responseCode422(response.body().getMessage());
                 break;
             case 500 :
                 activity.responseCode500();

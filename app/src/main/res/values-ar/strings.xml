@@ -83,8 +83,8 @@
     <string name="auto_complete_selection">الرجاء اختيار اخدى الخيارات المقرحة</string>
     <string name="car_number">رقم السيارة</string>
 
-    <string name="You_are_offline">انت غير نشط الان</string>
-    <string name="You_are_online">انت نشط الان</string>
+    <string name="you_are_offline">انت غير نشط الان</string>
+    <string name="you_are_online">انت نشط الان</string>
     <string name="profile">صفحتي الشخصية</string>
     <string name="schedule">اوقات الدوام</string>
     <string name="daily_report">رحلاتي اليومية</string>
@@ -97,6 +97,7 @@
     <string name="error_401">Please login again </string>
     <string name="error_500">Please contact to customer service</string>
     <string name="error_400">please check your internt</string>
+    <string name="me">انا</string>
 
 
 </resources>

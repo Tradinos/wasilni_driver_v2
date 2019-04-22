@@ -52,7 +52,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
                 tripPassengersActionsFragment.setBookings(response.body().getData());
                 break;
             case 422 :
-                tripPassengersActionsFragment.activity.responseCode422();
+                tripPassengersActionsFragment.activity.responseCode422(response.body().getMessage());
                 break;
             case 500 :
                 tripPassengersActionsFragment.activity.responseCode500();
