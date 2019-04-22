@@ -57,7 +57,6 @@ public class RegistrationActivity extends FullScreenActivity implements
     }
 
     public void initView() {
-        Log.d("SAED", "initView: I am doing this for the greater good ");
         checkAuth();
 
 
@@ -116,7 +115,6 @@ public class RegistrationActivity extends FullScreenActivity implements
 //        changeFragment(new InterviewRegistrationFragment());
         UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils
                 .getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
-        Log.e("auth", UserUtil.getUserInstance().getAccessToken());
         startActivity(new Intent(this , InterviewActivity.class));
         ActivityCompat.finishAffinity(this);
     }
