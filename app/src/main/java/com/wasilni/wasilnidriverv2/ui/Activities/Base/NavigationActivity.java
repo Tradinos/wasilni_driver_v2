@@ -93,23 +93,23 @@ public abstract class NavigationActivity extends AppCompatActivity
     }
 
     @Override
-    public void responseCode422() {
-        UtilFunction.showToast(this,"422");
+    public void responseCode422(String message) {
+        UtilFunction.showToast(this,message);
     }
 
     @Override
     public void responseCode500() {
-        UtilFunction.showToast(this,"500");
+        UtilFunction.showToast(this, R.string.error_500);
     }
 
     @Override
     public void responseCode400() {
-        UtilFunction.showToast(this,"400");
+        UtilFunction.showToast(this, R.string.error_400);
     }
 
     @Override
     public void responseCode401() {
-        UtilFunction.showToast(this,"401");
+        UtilFunction.showToast(this, R.string.error_401);
 
         SharedPreferenceUtils.getEditorInstance(getApplicationContext()).clear();
         SharedPreferenceUtils.getEditorInstance(getApplicationContext()).commit();

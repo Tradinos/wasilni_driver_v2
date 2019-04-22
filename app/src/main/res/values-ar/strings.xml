@@ -94,6 +94,9 @@
 
     <string name="pay">دفع</string>
     <string name="wait">الانتظار</string>
+    <string name="error_401">Please login again </string>
+    <string name="error_500">Please contact to customer service</string>
+    <string name="error_400">please check your internt</string>
 
 
 </resources>
