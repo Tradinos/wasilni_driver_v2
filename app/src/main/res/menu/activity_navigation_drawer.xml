@@ -7,27 +7,27 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@mipmap/profile"
-            android:title="صفحتي الشخصية" />
+            android:title="@string/profile" />
         <item
             android:icon="@mipmap/shcdual"
             android:id="@+id/nav_gallery"
-            android:title="اوقات الدوام" />
+            android:title="@string/schedule" />
         <item
             android:icon="@mipmap/dailly"
             android:id="@+id/nav_slideshow"
-            android:title="رحلاتي اليومية" />
+            android:title="@string/daily_report" />
         <item
             android:icon="@mipmap/weekly"
             android:id="@+id/nav_manage"
-            android:title="الكشف الاسبوعي" />
+            android:title="@string/weekly_report" />
         <item
             android:icon="@mipmap/settings"
             android:id="@+id/nav_share"
-            android:title="الاعدادات" />
+            android:title="@string/settings" />
         <item
             android:icon="@mipmap/notification"
             android:id="@+id/nav_send"
-            android:title="التنبيهات" />
+            android:title="@string/notification" />
     </group>
 
 

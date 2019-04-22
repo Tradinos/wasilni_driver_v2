@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Wasilni Driver v2</string>
     <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_subtitle"> </string>
+    <string name="nav_header_desc"> </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="welcome">Welcome in wasilni</string>
@@ -13,74 +13,86 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name="captain_register">register captain</string>
-    <string name="login">login</string>
-    <string name="password">password</string>
-    <string name="send">send</string>
+    <string name="captain_register">Register captain</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="send">Send</string>
     <string name="one_digit_hint">0</string>
     <string name="phone_number_hint">98…</string>
     <string name="country_code">+963</string>
-    <string name="phone_number">phone number</string>
-    <string name="verification_code">verification code</string>
-    <string name="whatsapp_number_same_phone_number">is whatsapp number is same as the phone number</string>
-    <string name="email">email</string>
-    <string name="birthdate">birthdate</string>
-    <string name="male">male</string>
-    <string name="female">female</string>
-    <string name="date_hint">selecte date</string>
-    <string name="time_hint">selecte time</string>
-    <string name="region">region</string>
-    <string name="region_details">region details</string>
-    <string name="nationality">nationality</string>
-    <string name="first_name">first name</string>
-    <string name="last_name">last name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="verification_code">Verification code</string>
+    <string name="whatsapp_number_same_phone_number">Is whatsapp number is same as the phone number?</string>
+    <string name="email">Email</string>
+    <string name="birthdate">Birth date</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="date_hint">Select date</string>
+    <string name="time_hint">Select time</string>
+    <string name="region">Region</string>
+    <string name="region_details">Region details</string>
+    <string name="nationality">Nationality</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
     <string name="image_identification">ID image</string>
-    <string name="the_image">image</string>
-    <string name="has_bank_account">do you have account bank ?</string>
-    <string name="has_no_conviction">do you have a no conviction ?</string>
-    <string name="driving_license">car license</string>
-    <string name="start_date">start date</string>
-    <string name="end_date">end date</string>
-    <string name="car_mechanic">car mechanic</string>
-    <string name="car_insurance">car insurance</string>
-    <string name="brand_manufacture_year">brand and manufacture year</string>
-    <string name="brand">brand</string>
-    <string name="model">model</string>
-    <string name="year">year</string>
-    <string name="bank">bank</string>
-    <string name="number">number</string>
+    <string name="the_image">Image</string>
+    <string name="has_bank_account">Do you have account bank ?</string>
+    <string name="has_no_conviction">Do you have a no conviction ?</string>
+    <string name="driving_license">Car license</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="car_mechanic">Car mechanic</string>
+    <string name="car_insurance">Car insurance</string>
+    <string name="brand_manufacture_year">Brand and manufacture year</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
+    <string name="bank">Bank</string>
+    <string name="number">Number</string>
 
-    <string name="front_page">front</string>
-    <string name="back_page">back</string>
-    <string name="color">color</string>
+    <string name="front_page">Front</string>
+    <string name="back_page">Back</string>
+    <string name="color">Color</string>
 
-    <string name="dialog_image_title">upload options</string>
+    <string name="dialog_image_title">Upload options</string>
     <string name="dialog_image_message">Please pick your upload option</string>
-    <string name="dialog_image_camera">camera</string>
-    <string name="dialog_image_gallery">gallery</string>
+    <string name="dialog_image_camera">Camera</string>
+    <string name="dialog_image_gallery">Gallery</string>
 
-    <string name="yes">yes</string>
-    <string name="no">no</string>
-    <string name="optional">(optional)</string>
-    <string name="seat_count"> seat count </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="optional">(Optional)</string>
+    <string name="seat_count"> Seat count </string>
     <string name="ready_to_pick_up_passenger">I am here, notify passenger</string>
-    <string name="on_the_way_pick_up_passenger">gonna pick up passenger</string>
-    <string name="picked_up_passenger">picked up passenger</string>
-    <string name="drop_off_passenger">drop-off done</string>
+    <string name="on_the_way_pick_up_passenger">Gonna pick up passenger</string>
+    <string name="picked_up_passenger">Picked up passenger</string>
+    <string name="drop_off_passenger">Drop-off done</string>
 
-    <string name="preferred_time_interview">preferred time for an interview </string>
-    <string name="preferred_date_interview">preferred date for an interview </string>
+    <string name="preferred_time_interview">Preferred time for an interview </string>
+    <string name="preferred_date_interview">Preferred date for an interview </string>
 
     <string name="waslni_region">Baramkah</string>
-    <string name="waslni_address">free zone - Nahaas company</string>
+    <string name="waslni_address">Free zone - Nahaas company</string>
 
-    <string name="rate">rate</string>
-    <string name="waiting"> waiting </string>
-    <string name="calculated_cost"> calculated cost</string>
-    <string name="booking_cost"> booking cost </string>
-    <string name="gender"> gender</string>
+    <string name="rate">Rate</string>
+    <string name="waiting"> Waiting </string>
+    <string name="calculated_cost"> Calculated cost</string>
+    <string name="booking_cost"> Booking cost </string>
+    <string name="gender"> Gender</string>
 
-    <string name="required_field">this field is required</string>
-    <string name="auto_complete_selection">please pick from the suggestion list.</string>
-    <string name="car_number">car number</string>
+    <string name="required_field">This field is required</string>
+    <string name="auto_complete_selection">Please pick from the suggestion list.</string>
+    <string name="car_number">Car number</string>
+    <string name="You_are_offline">You are offline</string>
+    <string name="You_are_online">You are online</string>
+
+    <string name="profile">Profile</string>
+    <string name="schedule">Schedule</string>
+    <string name="daily_report">Daily report</string>
+    <string name="weekly_report">Weekly report</string>
+    <string name="settings">Settings</string>
+    <string name="notification">Notification</string>
+    <string name="pay">Pay</string>
+    <string name="wait">Wait</string>
+
 </resources>

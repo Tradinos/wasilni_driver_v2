@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">وصلني كابتن</string>
+    <string name="nav_header_title">وصلني كابتن</string>
+    <string name="nav_header_subtitle"> </string>
+    <string name="nav_header_desc"> </string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="welcome">اهلا في وصلني</string>
+    <string name="next">التالي</string>
+    <string name="title_activity_home">خريطة</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="captain_register">تسجيل حساب الكابتن</string>
     <string name="login">تسجيل الدخول</string>
     <string name="password">كلمة السر</string>
@@ -70,4 +82,18 @@
 
     <string name="auto_complete_selection">الرجاء اختيار اخدى الخيارات المقرحة</string>
     <string name="car_number">رقم السيارة</string>
+
+    <string name="You_are_offline">انت غير نشط الان</string>
+    <string name="You_are_online">انت نشط الان</string>
+    <string name="profile">صفحتي الشخصية</string>
+    <string name="schedule">اوقات الدوام</string>
+    <string name="daily_report">رحلاتي اليومية</string>
+    <string name="weekly_report">الكشف الاسبوعي</string>
+    <string name="settings">الاعدادات</string>
+    <string name="notification">التنبيهات</string>
+
+    <string name="pay">دفع</string>
+    <string name="wait">الانتظار</string>
+
+
 </resources>
