@@ -403,7 +403,7 @@ public class HomeActivity extends NavigationActivity implements
         if(!response){
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
-            driverStatusTextView.setText("You're offline");
+            driverStatusTextView.setText(R.string.you_are_offline);
             mMap.clear();
             passengersActionsBtn.setVisibility(View.INVISIBLE);
             if(bottomLayout.isShown()){
@@ -426,7 +426,7 @@ public class HomeActivity extends NavigationActivity implements
             myRidesPresenter.sendToServer(null);
             UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
-            driverStatusTextView.setText("You're online");
+            driverStatusTextView.setText(R.string.you_are_online);
             recyclerView.setVisibility(View.VISIBLE);
             UserUtil.getUserInstance().setChecked(true);
             ViewAnimator
