@@ -117,20 +117,16 @@ public class HomeActivity extends NavigationActivity implements
         ischecked = false;
         super.onCreate(savedInstanceState);
         UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
-        homeActivity = this;
-        myRidesPresenter = new GetMyRidesPresenterImp(this);
-        initView();
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
     }
 
     @Override
     public void initView() {
-        getTokenFromLocalData();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -198,13 +194,22 @@ public class HomeActivity extends NavigationActivity implements
             }
         });
         addDriverLocationToMap();
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTokenFromLocalData();
 
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
+        homeActivity = this;
+        myRidesPresenter = new GetMyRidesPresenterImp(this);
+        initView();
         regesterRecivers();
     }
 

@@ -524,20 +524,27 @@ public class UtilFunction {
     public static void showProgressBar(Activity activity) {
 
         Log.e("TAG", "showProgressBar: " +pro);
-        if(hud == null  ){
-        hud =KProgressHUD.create(activity)
+        if(activity == null || activity.isFinishing()|| activity.isDestroyed()){
+            return;
+        }
+        if(hud == null){
+            hud =KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("الرجاء الانتظار")
                 .setDetailsLabel("جاري التحميل")
                 .setCancellable(false)
                 .setAnimationSpeed(2);
         }
-        if(activity == null){
-            return;
-        }
         pro++;
-        if(!hud.isShowing()){
-            hud.show();
+        try {
+            if (!hud.isShowing()) {
+                hud.show();
+            }
+        }
+        catch (RuntimeException e){
+            pro=0;
+            hud=null;
+            e.printStackTrace();
         }
     }
 

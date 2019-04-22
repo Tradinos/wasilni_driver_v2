@@ -36,7 +36,6 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-
         Call<Response<User>> call =
                 service.Login( request.getPhone_number(),request.getPassword() , "captains");
         call.enqueue(this);
