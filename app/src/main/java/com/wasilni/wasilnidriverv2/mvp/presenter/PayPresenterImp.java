@@ -50,7 +50,7 @@ public class PayPresenterImp implements PayContract.PayPresenter {
                 fragment.tripPassengersActionsFragment.deleteBooking(fragment.sendedBooking);
                 break;
             case 422:
-                fragment.activity.responseCode422();
+                fragment.activity.responseCode422(response.body().getMessage());
                 break;
             case 500:
                 fragment.activity.responseCode500();

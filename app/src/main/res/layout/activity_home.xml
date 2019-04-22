@@ -60,7 +60,7 @@
                         android:layout_margin="8dp"
                         android:gravity="center"
                         android:padding="4dp"
-                        android:text="@string/You_are_offline"
+                        android:text="@string/you_are_offline"
                         android:textSize="22sp" />
 
                 </LinearLayout>

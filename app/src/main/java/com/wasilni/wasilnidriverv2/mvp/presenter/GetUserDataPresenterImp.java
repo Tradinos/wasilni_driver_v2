@@ -47,7 +47,7 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
                 activity.setDriverStatus(response.body().getData());
                 break;
             case 422 :
-                activity.responseCode422();
+                activity.responseCode422(response.body().getMessage());
                 break;
             case 500 :
                 activity.responseCode500();

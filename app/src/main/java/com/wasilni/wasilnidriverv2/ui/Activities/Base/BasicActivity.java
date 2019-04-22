@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.MainContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 
 public abstract class BasicActivity extends AppCompatActivity implements MainContract {
@@ -51,22 +52,22 @@ public abstract class BasicActivity extends AppCompatActivity implements MainCon
     }
 
     @Override
-    public void responseCode422() {
-
+    public void responseCode422(String message) {
+        UtilFunction.showToast(this, message);
     }
 
     @Override
     public void responseCode500() {
-
+        UtilFunction.showToast(this, R.string.error_500);
     }
 
     @Override
     public void responseCode400() {
-
+        UtilFunction.showToast(this, R.string.error_400);
     }
 
     @Override
     public void responseCode401() {
-
+        UtilFunction.showToast(this, R.string.error_401);
     }
 }
