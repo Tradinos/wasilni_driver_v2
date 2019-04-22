@@ -42,7 +42,7 @@ import java.util.List;
 
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
     public ImageView passengerPictureIV,stationImageView,time_imgImageView;
-    public TextView rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
+    public TextView waiting_txt,rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
     public Button submit ;
     public EditText moneyCost ;
     public OnFragmentInteractionListener mListener;
@@ -130,12 +130,13 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.time_imgImageView = view.findViewById(R.id.time_img) ;
         this.stationImageView = view.findViewById(R.id.station) ;
         this.trip_duration = view.findViewById(R.id.trip_duration);
+        this.waiting_txt = view.findViewById(R.id.waiting_txt);
         this.trip_length= view.findViewById(R.id.trip_length);
         this.calculated_cost= view.findViewById(R.id.calculated_cost);
         this.booking_cost= view.findViewById(R.id.booking_cost);
+        rateBtn.setVisibility(View.INVISIBLE);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
         if(sendedBooking != null){
-            this.trip_wait_duration.setText(""+sendedBooking.getSummary().getWaiting_time_count());
             this.trip_source.setText(sendedBooking.getPickUpName());
             this.calculated_cost.setText(sendedBooking.getTo_pay());
             this.booking_cost.setText(sendedBooking.getPrice());
@@ -143,11 +144,14 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
 
             if(sendedBooking.getSummary() == null){
                 this.time_imgImageView.setVisibility(View.GONE);
+                this.trip_wait_duration.setVisibility(View.GONE);
                 this.stationImageView.setVisibility(View.GONE);
+                this.waiting_txt.setVisibility(View.GONE);
                 this.trip_duration.setVisibility(View.GONE);
                 this.trip_length.setVisibility(View.GONE);
 
             }else{
+                this.trip_wait_duration.setText(""+sendedBooking.getSummary().getWaiting_time_count());
                 this.trip_duration.setText(""+sendedBooking.getSummary().getBooking_time());
                 this.trip_length.setText(""+sendedBooking.getSummary().getKm_count());
             }

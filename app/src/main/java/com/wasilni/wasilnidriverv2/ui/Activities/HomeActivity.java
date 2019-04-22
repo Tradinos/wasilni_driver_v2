@@ -64,7 +64,8 @@ import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragme
 import static com.wasilni.wasilnidriverv2.util.Constants.DAMASCUSE;
 import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
-import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM;
+import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM1;
+import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM2;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.bitmapDescriptorFromVector;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
@@ -460,6 +461,11 @@ public class HomeActivity extends NavigationActivity implements
     }
 
     public void moveCamera(LatLng latLng){
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,ZOOM));
+        if(latLng == DAMASCUSE) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM1));
+        }
+        else{
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM2));
+        }
     }
 }

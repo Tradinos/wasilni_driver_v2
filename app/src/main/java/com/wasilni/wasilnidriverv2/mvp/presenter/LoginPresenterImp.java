@@ -34,7 +34,7 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
     @Override
     public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
+        UtilFunction.showProgressBar(activity);
         /** Call the method with parameter in the interface to get the notice data*/
         Call<Response<User>> call =
                 service.Login( request.getPhone_number(),request.getPassword() , "captains");
@@ -44,6 +44,7 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
         Log.e("onResponse login",response.message()+" code :"+response.code());
+        UtilFunction.showProgressBar(activity);
         switch (response.code())
         {
             case 200 :

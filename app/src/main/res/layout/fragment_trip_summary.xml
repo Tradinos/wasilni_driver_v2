@@ -135,7 +135,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/trip_destination" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/waiting_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

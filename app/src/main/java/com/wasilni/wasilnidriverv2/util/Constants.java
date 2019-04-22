@@ -12,7 +12,8 @@ public class Constants {
     public static final String MAPKEY = "AIzaSyCdHpUzZnuN8JyZ5vKUxNwU7pQBWQZzoFM";
     public static final String DTAG = "#######";
     public static final int GPS_REQUEST = 97;
-    public static final Float ZOOM = 15.96F;
+    public static final Float ZOOM1 = 12.96F;
+    public static final Float ZOOM2 = 15.96F;
     public static final LatLng DAMASCUSE = new LatLng(33.51379419126303,36.27660099416971) ;
     public static final int OPEN_DOCUMENT_CODE = 12;
     public static final String DATE_FORMAT = "dd/mm/yyyy";

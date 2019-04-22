@@ -134,20 +134,29 @@ public class UtilFunction {
         // To implement: Only if user is registered, i.e. UserId is available in preference, update token on server.
         int userId = SharedPreferenceUtils.getPreferencesInstance(context).getInt("user_id", -1);
         if (userId != -1) {
+            Log.e("sendRegistration","send" );
             ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
-            Call<Response> call = service.FCMToken(Token, refreshedToken);
+            UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils.getPreferencesInstance(context).getString("auth_token",null));
+            Call<Response> call = service.FCMToken(UserUtil.getUserInstance().getAccessToken(), refreshedToken);
 
             call.enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response> call, retrofit2.Response<com.wasilni.wasilnidriverv2.network.Response> response) {
-                    Log.e("onResponse", "11111 ");
+                    Log.e("onResponse", "fcm ");
+                    switch (response.code()){
+                        case 200 :
+                            Log.e( "onResponse","200" );
+                            break;
+                        case 400 :
+                            Log.e( "onResponse","400" );
+                            break;
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<com.wasilni.wasilnidriverv2.network.Response> call, Throwable t) {
-                    Log.e("onFailure", t.getMessage());
+                    Log.e("onFailure fcm", t.getMessage());
 
                 }
             });
