@@ -7,7 +7,7 @@
     <string name="nav_header_desc"> </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="welcome">اهلا في وصلني</string>
+    <string name="welcome">اهلا بك في وصلني</string>
     <string name="next">التالي</string>
     <string name="title_activity_home">خريطة</string>
 
@@ -20,8 +20,8 @@
     <string name="one_digit_hint">0</string>
     <string name="phone_number_hint">98…</string>
     <string name="phone_number">رقم الموبايل</string>
-    <string name="verification_code">رمز التا:يد</string>
-    <string name="whatsapp_number_same_phone_number">رقم الواتس نفس رقم الموبايل</string>
+    <string name="verification_code">رمز التاكيد</string>
+    <string name="whatsapp_number_same_phone_number">رقم الواتساب نفس رقم الموبايل</string>
     <string name="email">البريد الالكتروني</string>
     <string name="birthdate">تاريخ الولادة</string>
     <string name="male">ذكر</string>
@@ -51,14 +51,14 @@
     <string name="dialog_image_camera">camera</string>
     <string name="dialog_image_gallery">gallery</string>
 
-    <string name="required_field">الرجاء تعبئة هذا الحق</string>
+    <string name="required_field">الرجاء تعبئة هذا الحقل</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="optional">)اختياري)</string>
     <string name="seat_count"> عدد المقاعد</string>
     <string name="ready_to_pick_up_passenger">وصلت خبر الزبون</string>
-    <string name="on_the_way_pick_up_passenger">رايح اخد الزبون</string>
-    <string name="picked_up_passenger">خدت الزبون</string>
+    <string name="on_the_way_pick_up_passenger">رايح اخد الزبون</string>أنا ع الطريق خبر الزبون
+    <string name="picked_up_passenger">أخدت الزبون</string>
     <string name="drop_off_passenger">تم توصيل</string>
     <string name="date_hint">اختيار تاريخ</string>
     <string name="time_hint">اختيار وقت</string>
@@ -69,18 +69,18 @@
     <string name="waslni_address">المنطقة الحرة - شركة نحاس</string>
 
     <string name="rate">تقييم</string>
-    <string name="waiting"> الانتظار </string>
-    <string name="calculated_cost">التكلفة المستحقة</string>
-    <string name="booking_cost"> تكلفة الحجز </string>
+    <string name="waiting"> انتظار </string>
+    <string name="calculated_cost">التكلفة المستحقة</string>المستحق للدفع
+    <string name="booking_cost"> تكلفة الحجز </string>تكلفة الحجز الاجمالي
 
     <string name="brand">النوع</string>
     <string name="model">الموديل</string>
     <string name="bank">البنك</string>
-    <string name="year">النسة</string>
+    <string name="year">السنة</string>
     <string name="nationality">الجنسية</string>
     <string name="gender">الجنس</string>
 
-    <string name="auto_complete_selection">الرجاء اختيار اخدى الخيارات المقرحة</string>
+    <string name="auto_complete_selection">الرجاء اختيار احدى الخيارات المقترحة</string>
     <string name="car_number">رقم السيارة</string>
 
     <string name="you_are_offline">انت غير نشط الان</string>
@@ -90,10 +90,10 @@
     <string name="daily_report">رحلاتي اليومية</string>
     <string name="weekly_report">الكشف الاسبوعي</string>
     <string name="settings">الاعدادات</string>
-    <string name="notification">التنبيهات</string>
+    <string name="notification">الإشعارات</string>
 
     <string name="pay">دفع</string>
-    <string name="wait">الانتظار</string>
+    <string name="wait">انتظر </string>
     <string name="error_401">الرجاء اعادة تسجيل الدخول </string>
     <string name="error_500">الرجاء التواصل مع خدمة العملاء للتحقق من المشكلة</string>
     <string name="error_400">الرجاء التحقق من الانترنت</string>
