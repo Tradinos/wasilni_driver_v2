@@ -99,6 +99,7 @@
     <string name="error_400">الرجاء التحقق من الانترنت</string>
     <string name="me">انا</string>
     <string name="error_422_interview">الرجاء اختيار موعد اخر هذا الموعد محجوز</string>
+    <string name="took">المبلغ المقبوض</string>
 
 
 </resources>

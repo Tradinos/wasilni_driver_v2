@@ -100,5 +100,6 @@
     <string name="error_422_interview">Please select another time</string>
 
     <string name="me">me</string>
+    <string name="took">Cash received</string>
 
 </resources>
