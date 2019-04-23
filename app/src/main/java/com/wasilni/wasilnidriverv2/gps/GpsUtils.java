@@ -1,4 +1,4 @@
-package com.wasilni.wasilnidriverv2.util;
+package com.wasilni.wasilnidriverv2.gps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
