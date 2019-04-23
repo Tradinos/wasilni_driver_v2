@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -368,7 +369,7 @@ public class HomeActivity extends NavigationActivity implements
                                 myMarkerOptions.title(getResources().getString(R.string.me));
                                 LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
                                 myMarkerOptions.position(latLng);
-                                myMarkerOptions.icon(bitmapDescriptorFromVector(getApplicationContext(), R.mipmap.driver_location));
+                                myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
                                 myMarker = mMap.addMarker(myMarkerOptions);
                             }
 
