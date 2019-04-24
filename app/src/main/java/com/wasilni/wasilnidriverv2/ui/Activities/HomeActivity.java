@@ -68,6 +68,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM2;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.bitmapDescriptorFromVector;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.updatePlayService;
 
 public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -132,7 +133,7 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void initView() {
-
+        updatePlayService(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

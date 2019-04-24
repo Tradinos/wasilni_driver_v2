@@ -635,7 +635,7 @@ public class UtilFunction {
     public static void dialContactPhone(Activity activity ,final String phoneNumber) {
         activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
-    private void updatePlayService(final Activity activity) {
+    public static void updatePlayService(final Activity activity) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
         builder1.setMessage("يجب تحديث خدمات google play serivce ليعمل تطبيق وصلني...");
         builder1.setCancelable(false);
