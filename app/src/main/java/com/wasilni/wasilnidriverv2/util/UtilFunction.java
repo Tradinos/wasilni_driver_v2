@@ -635,5 +635,22 @@ public class UtilFunction {
     public static void dialContactPhone(Activity activity ,final String phoneNumber) {
         activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
+    private void updatePlayService(final Activity activity) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+        builder1.setMessage("يجب تحديث خدمات google play serivce ليعمل تطبيق وصلني...");
+        builder1.setCancelable(false);
 
+        builder1.setPositiveButton(
+                "حسنا",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        activity.finish();
+                    }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 }
