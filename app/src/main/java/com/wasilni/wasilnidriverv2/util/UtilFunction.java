@@ -2,9 +2,21 @@ package com.wasilni.wasilnidriverv2.util;
 
 import android.Manifest;
 import android.app.Activity;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -49,10 +61,12 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Activities.Base.NavigationActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,7 +84,10 @@ import static com.wasilni.wasilnidriverv2.util.Constants.Token;
 
 
 public class UtilFunction {
+    private static int pro = 0 ;
     public static String INTENT_REQUESTER = "intent-requester";
+    public static final int REQUEST_CHECK_SETTINGS = 0x1;
+    public static KProgressHUD hud ;
 
     public static void setFontBAHIJ(Activity activity) {
         Calligrapher calligrapher = new Calligrapher(activity);
@@ -113,26 +130,33 @@ public class UtilFunction {
 
     public static void sendRegistrationToServer(String refreshedToken , Context context) {
         // Add custom implementation, as needed.
-        SharedPreferenceUtils.getEditorInstance(context)
-                .putString("fcm_token", refreshedToken);
 
         // To implement: Only if user is registered, i.e. UserId is available in preference, update token on server.
         int userId = SharedPreferenceUtils.getPreferencesInstance(context).getInt("user_id", -1);
         if (userId != -1) {
+            Log.e("sendRegistration","send" );
             ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
-
-            Call<Response> call = service.FCMToken(Token, refreshedToken);
+            UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils.getPreferencesInstance(context).getString("auth_token",null));
+            Call<Response> call = service.FCMToken(UserUtil.getUserInstance().getAccessToken(), refreshedToken);
 
             call.enqueue(new Callback<Response>() {
                 @Override
                 public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response> call, retrofit2.Response<com.wasilni.wasilnidriverv2.network.Response> response) {
-                    Log.e("onResponse", "11111 ");
+                    Log.e("onResponse", "fcm ");
+                    switch (response.code()){
+                        case 200 :
+                            Log.e( "onResponse","200" );
+                            break;
+                        case 400 :
+                            Log.e( "onResponse","400" );
+                            break;
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<com.wasilni.wasilnidriverv2.network.Response> call, Throwable t) {
-                    Log.e("onFailure", t.getMessage());
+                    Log.e("onFailure fcm", t.getMessage());
 
                 }
             });
@@ -506,4 +530,127 @@ public class UtilFunction {
         return URL + url;
     }
 
+    public static void showProgressBar(Activity activity) {
+
+        Log.e("TAG", "showProgressBar: " +pro);
+        if(activity == null || activity.isFinishing()|| activity.isDestroyed()){
+            return;
+        }
+        if(hud == null){
+            hud =KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("الرجاء الانتظار")
+                .setDetailsLabel("جاري التحميل")
+                .setCancellable(false)
+                .setAnimationSpeed(2);
+        }
+        pro++;
+        try {
+            if (!hud.isShowing()) {
+                hud.show();
+            }
+        }
+        catch (RuntimeException e){
+            pro=0;
+            hud=null;
+            e.printStackTrace();
+        }
+    }
+
+    public static void hideProgressBar() {
+        if(pro > 0 ) {
+            pro--;
+            Log.e("TAG", "hideProgressBar: " + pro);
+            if (pro == 0) {
+                hud.dismiss();
+                hud=null;
+            }
+        }
+    }
+    public static void settingsRequest(final Activity activity) {
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(30 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true); //this is the key ingredient
+        builder.setNeedBle(true);
+        Task<LocationSettingsResponse> result =
+                LocationServices.getSettingsClient(activity).checkLocationSettings(builder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    // All location settings are satisfied. The client can initialize location
+                    // requests here.
+
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            // Location settings are not satisfied. But could be fixed by showing the
+                            // user a dialog.
+                            try {
+                                // Cast to a resolvable exception.
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
+                                resolvable.startResolutionForResult(
+                                        activity,
+                                        REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException | ClassCastException e) {
+                                // Ignore the error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            // Location settings are not satisfied. However, we have no way to fix the
+                            // settings so we won't show the dialog.
+                            break;
+                    }
+                }
+            }
+        });
+    }
+    public static void massegingWasilniWhatsAPP(Activity activity , String number){
+        try {
+            Intent sendMsg = new Intent(Intent.ACTION_VIEW);
+            String url = "https://api.whatsapp.com/send?phone=" + "+"+number+ "&text=" + URLEncoder.encode("", "UTF-8");
+            sendMsg.setPackage("com.whatsapp");
+            sendMsg.setData(Uri.parse(url));
+            if (sendMsg.resolveActivity(activity.getPackageManager()) != null) {
+                activity.startActivity(sendMsg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static LatLng getLatLng(List<Double> list){
+        return new LatLng(list.get(1),list.get(0));
+    }
+    public static void dialContactPhone(Activity activity ,final String phoneNumber) {
+        activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
+    }
+    public static void updatePlayService(final Activity activity) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+        builder1.setMessage("يجب تحديث خدمات google play serivce ليعمل تطبيق وصلني...");
+        builder1.setCancelable(false);
+
+        builder1.setPositiveButton(
+                "حسنا",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        activity.finish();
+                    }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 }

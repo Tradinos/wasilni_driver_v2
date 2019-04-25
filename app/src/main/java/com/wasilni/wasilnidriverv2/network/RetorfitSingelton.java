@@ -9,8 +9,8 @@ public class RetorfitSingelton {
 
     private static Retrofit retrofit;
 //    public static final String URL ="http://192.168.9.175:8000";
-//    public static final String URL ="http://wasilni.com:8899";
-    public static final String URL ="http://192.168.9.170:8000";
+    public static final String URL ="http://wasilni.com:8899";
+//    public static final String URL ="http://192.168.9.170:8000";
     public static final String BASE_URL = URL+"/api/";
 
     private RetorfitSingelton() {
@@ -18,17 +18,17 @@ public class RetorfitSingelton {
 
     /**
      * Create an instance of Retrofit object
-     * */
+     **/
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
 
-            creatInstance();
+            createInstance();
         }
         return retrofit;
     }
 
-    public static void creatInstance(){
+    public static void createInstance(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);

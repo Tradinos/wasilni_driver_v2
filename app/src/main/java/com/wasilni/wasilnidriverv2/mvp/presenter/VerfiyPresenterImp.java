@@ -6,11 +6,18 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.VerifyContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
+    PhoneVerificationFragment phoneVerificationFragment ;
+    public VerfiyPresenterImp(PhoneVerificationFragment phoneVerificationFragment) {
+        this.phoneVerificationFragment = phoneVerificationFragment ;
+    }
+
     @Override
     public void sendToServer(User request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
@@ -19,6 +26,7 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
 
         Call<com.wasilni.wasilnidriverv2.network.Response<User>> call =
                 service.VerifyCode( request.getPhone_number(),request.getActivation_code() , "captains");
+        UtilFunction.showProgressBar(phoneVerificationFragment.getActivity());
 
         call.enqueue(this);
 
@@ -27,10 +35,12 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
     @Override
     public void onResponse(Call<com.wasilni.wasilnidriverv2.network.Response<User>> call, Response<com.wasilni.wasilnidriverv2.network.Response<User>> response) {
         Log.e("onResponse",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
             case 200 :
+                phoneVerificationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
                 break;
@@ -45,6 +55,7 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
 
     @Override
     public void onFailure(Call call, Throwable t) {
+        UtilFunction.hideProgressBar();
         Log.e("onFailure",t.getMessage());
     }
 }

@@ -15,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.RequestActivitionCodePresentreImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
+import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +35,7 @@ public class PhoneRegistrationFragment extends Fragment implements
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
+    RequestActivitionCodeContract.RequestActivitionCodePresentre presentre = new RequestActivitionCodePresentreImp(this);
     TextInputLayout phoneLayout;
     TextInputEditText phoneEdit;
 
@@ -137,13 +142,19 @@ public class PhoneRegistrationFragment extends Fragment implements
     @Override
     public boolean submit() {
         if(this.validate()) {
-            this.mListener.goToPhoneVerification(this.phoneEdit.getText().toString());
+            UserUtil.getUserInstance().setPhone_number(phoneEdit.getText().toString());
+            presentre.sendToServer(UserUtil.getUserInstance());
             return true;
         }
         else{
             return false;
         }
 
+    }
+
+    @Override
+    public void responseCode200(User user) {
+        this.mListener.goToPhoneVerification(this.phoneEdit.getText().toString());
     }
 
     /**

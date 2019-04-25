@@ -2,6 +2,9 @@ package com.wasilni.wasilnidriverv2.mvp.model;
 
 import android.location.Location;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by bpn on 11/30/17.
  */
@@ -12,6 +15,9 @@ public class User{
     private boolean isLogingIn ;
     private boolean isChecked ;
     private boolean isConfirmed ;
+    @SerializedName("last_check")
+    @Expose
+    private Integer last_check ;
     private String username = "", email = "", accessToken="" , first_name="",
             last_name="" , phone_number="" ,birthday="" ,profile_image="",
             whatsapp_number="" , id_image="" , password="", password_confirmation = "", activation_code="",
@@ -19,7 +25,7 @@ public class User{
 
     private String driving_certificate_start_date, driving_certificate_end_date;
     private boolean verified , gender;
-    private int id, regionId, nationality_id;
+    private int id, location_id, nationality_id;
 
     public boolean isChecked() {
         return isChecked;
@@ -191,12 +197,12 @@ public class User{
         this.activation_code = activation_code;
     }
 
-    public int getRegionId() {
-        return regionId;
+    public int getLocation_id() {
+        return location_id;
     }
 
-    public void setRegionId(int regionId) {
-        this.regionId = regionId;
+    public void setLocation_id(int location_id) {
+        this.location_id = location_id;
     }
 
     public int getNationality_id() {
@@ -229,5 +235,13 @@ public class User{
 
     public void setPassword_confirmation(String password_confirmation) {
         this.password_confirmation = password_confirmation;
+    }
+
+    public Integer getLast_check() {
+        return last_check;
+    }
+
+    public void setLast_check(Integer last_check) {
+        this.last_check = last_check;
     }
 }

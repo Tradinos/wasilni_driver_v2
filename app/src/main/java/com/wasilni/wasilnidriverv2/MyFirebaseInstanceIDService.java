@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.CheckFCMToken;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.sendRegistrationToServer;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -24,7 +25,10 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(refreshedToken,this);
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext())
+                .putString("fcm_token", refreshedToken);
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).commit();
+        CheckFCMToken(getApplicationContext());
     }
 
 }

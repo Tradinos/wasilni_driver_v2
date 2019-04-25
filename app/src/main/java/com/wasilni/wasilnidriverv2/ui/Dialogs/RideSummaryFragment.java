@@ -1,5 +1,8 @@
 package com.wasilni.wasilnidriverv2.ui.Dialogs;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,8 @@ import com.wasilni.wasilnidriverv2.mvp.model.Payment;
 import com.wasilni.wasilnidriverv2.mvp.presenter.PayPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideSummaryContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
 
@@ -32,23 +38,23 @@ import java.util.List;
  * Use the {@link RideSummaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressLint("ValidFragment")
+
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
-    private ImageView passengerPictureIV;
-    private TextView rateBtn;
-    private Button submit ;
+    public ImageView passengerPictureIV,stationImageView,time_imgImageView;
+    public TextView waiting_txt,rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
+    public Button submit ;
     public EditText moneyCost ;
-    private OnFragmentInteractionListener mListener;
-    private Booking dataToShow , sendedBooking;
-    private View view ;
-    public void setDataToShow(Booking dataToShow) {
-        this.dataToShow = dataToShow;
-    }
+    public OnFragmentInteractionListener mListener;
+    public Booking  sendedBooking;
+    public View view ;
+    public HomeActivity activity ;
+    public TripPassengersActionsFragment tripPassengersActionsFragment ;
 
-    public void setmBooking(Booking mBooking) {
-        this.sendedBooking = mBooking;
-    }
 
-    public RideSummaryFragment() {
+    public RideSummaryFragment(HomeActivity activity) {
+        this.activity = activity ;
+
         // Required empty public constructor
     }
 
@@ -58,8 +64,8 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
      *
      * @return A new instance of fragment RideSummaryFragment.
      */
-    public static RideSummaryFragment newInstance() {
-        RideSummaryFragment fragment = new RideSummaryFragment();
+    public static RideSummaryFragment newInstance(HomeActivity activity) {
+        RideSummaryFragment fragment = new RideSummaryFragment(activity);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -117,13 +123,44 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.passengerPictureIV = view.findViewById(R.id.passenger_photo);
         this.rateBtn = view.findViewById(R.id.rate_btn);
         this.submit = view.findViewById(R.id.done_btn);
+        this.trip_wait_duration = view.findViewById(R.id.trip_wait_duration);
+        this.trip_source = view.findViewById(R.id.trip_source );
+        this.trip_destination = view.findViewById(R.id.trip_destination);
         this.moneyCost = view.findViewById(R.id.delivered_money);
+        this.time_imgImageView = view.findViewById(R.id.time_img) ;
+        this.stationImageView = view.findViewById(R.id.station) ;
+        this.trip_duration = view.findViewById(R.id.trip_duration);
+        this.waiting_txt = view.findViewById(R.id.waiting_txt);
+        this.trip_length= view.findViewById(R.id.trip_length);
+        this.calculated_cost= view.findViewById(R.id.calculated_cost);
+        this.booking_cost= view.findViewById(R.id.booking_cost);
+        rateBtn.setVisibility(View.INVISIBLE);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
+        if(sendedBooking != null){
+            this.trip_source.setText(sendedBooking.getPickUpName());
+            this.calculated_cost.setText(sendedBooking.getTo_pay());
+            this.booking_cost.setText(sendedBooking.getPrice());
+            this.trip_destination.setText(sendedBooking.getPullDownName());
 
+            if(sendedBooking.getSummary() == null){
+                this.time_imgImageView.setVisibility(View.GONE);
+                this.trip_wait_duration.setVisibility(View.GONE);
+                this.stationImageView.setVisibility(View.GONE);
+                this.waiting_txt.setVisibility(View.GONE);
+                this.trip_duration.setVisibility(View.GONE);
+                this.trip_length.setVisibility(View.GONE);
+
+            }else{
+                this.trip_wait_duration.setText(""+sendedBooking.getSummary().getWaiting_time_count());
+                this.trip_duration.setText(""+sendedBooking.getSummary().getBooking_time());
+                this.trip_length.setText(""+sendedBooking.getSummary().getKm_count());
+            }
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
+
 
             }
         });
@@ -136,10 +173,21 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
     }
 
     @Override
-    public void responseCode200(Booking response) {
+    public void responseCode200(Booking response ,TripPassengersActionsFragment tripPassengersActionsFragment ) {
         sendedBooking = response;
-        setDataToShow(response);
-        show(((FragmentActivity)getActivity()).getSupportFragmentManager(),"123");
+        this.tripPassengersActionsFragment = tripPassengersActionsFragment;
+        show(((FragmentActivity)activity).getSupportFragmentManager(),"123");
+        Log.e("TAG", "responseCode200: "+response.getIs_pooling() );
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Dialog d = super.onCreateDialog(savedInstanceState);
+        d.setContentView(R.layout.fragment_trip_summary);
+        // ... do stuff....
+        Log.e("123", "onCreateDialog: " );
+         onViewCreated(d.findViewById(R.id.frame), savedInstanceState);
+         return d;
     }
 
     /**

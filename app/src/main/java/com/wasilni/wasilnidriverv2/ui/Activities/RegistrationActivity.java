@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.ui.Activities;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +14,6 @@ import com.wasilni.wasilnidriverv2.mvp.model.Car;
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.CompleteDataPresenterImp;
-import com.wasilni.wasilnidriverv2.mvp.view.HomeContract;
-import com.wasilni.wasilnidriverv2.ui.Activities.Base.BasicActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.Base.FullScreenActivity;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CarInfoRegistrationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.CivilInfoRegistrationFragment;
@@ -26,6 +25,8 @@ import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.ui.Fragments.RegistrationFragment;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 public class RegistrationActivity extends FullScreenActivity implements
 
@@ -39,7 +40,6 @@ public class RegistrationActivity extends FullScreenActivity implements
         PhoneRegistrationFragment.OnFragmentInteractionListener {
 
     private FrameLayout frameContent;
-    private User user;
     private Car car;
 
     private CompleteDataPresenterImp completeDataPresenterImp;
@@ -50,23 +50,33 @@ public class RegistrationActivity extends FullScreenActivity implements
         setContentView(R.layout.activity_registration);
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 
-        this.user = new User();
         this.car = new Car();
-        this.completeDataPresenterImp = new CompleteDataPresenterImp();
+        this.completeDataPresenterImp = new CompleteDataPresenterImp(this);
         this.initView();
 
     }
 
     public void initView() {
-        Log.d("SAED", "initView: I am doing this for the greater good ");
+        checkAuth();
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment phoneRegFragment = new RegistrationFragment();
+        Fragment phoneRegFragment = new PhoneRegistrationFragment();
         fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
         fragmentTransaction.commit();
 
 //        RatingDialog.newInstance().show(getSupportFragmentManager(),"rating_dialog");
 //        PickingUpPassengerFragment.newInstance().show(getSupportFragmentManager(),"PickingUpPassengerFragment");
+    }
+
+    private void checkAuth() {
+        String auth = SharedPreferenceUtils.getPreferencesInstance(getApplicationContext()).getString("auth_token",null);
+        if(auth != null){
+            Intent intent = new Intent(this , HomeActivity.class) ;
+            startActivity(intent);
+            ActivityCompat.finishAffinity(this);
+        }
     }
 
     @Override
@@ -79,14 +89,14 @@ public class RegistrationActivity extends FullScreenActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame,fragment);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     @Override
     public void goToPhoneVerification(String phoneNumber) {
-        this.user.setUsername(phoneNumber);
-        this.user.setPhone_number(phoneNumber);
+        UserUtil.getUserInstance().setUsername(phoneNumber);
+        UserUtil.getUserInstance().setPhone_number(phoneNumber);
         changeFragment(new PhoneVerificationFragment());
     }
 
@@ -102,13 +112,17 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void goToInterviewBooking() {
-        changeFragment(new InterviewRegistrationFragment());
+//        changeFragment(new InterviewRegistrationFragment());
+        UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils
+                .getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
+        startActivity(new Intent(this , InterviewActivity.class));
+        ActivityCompat.finishAffinity(this);
     }
 
     @Override
     public void completeRegistration() {
         RegisterCaptain reg = new RegisterCaptain();
-        reg.setCaptain(this.user);
+        reg.setCaptain(UserUtil.getUserInstance());
         reg.setCar(this.car);
         this.completeDataPresenterImp.sendToServer(reg);
     }
@@ -137,8 +151,8 @@ public class RegistrationActivity extends FullScreenActivity implements
 
     @Override
     public void submitCivilData(String licenseStartDate, String licenseEndDate, String bank) {
-        this.user.setDriving_certificate_end_date(licenseEndDate);
-        this.user.setDriving_certificate_start_date(licenseStartDate);
+        UserUtil.getUserInstance().setDriving_certificate_end_date(licenseEndDate);
+        UserUtil.getUserInstance().setDriving_certificate_start_date(licenseStartDate);
     }
 
     @Override
@@ -150,23 +164,22 @@ public class RegistrationActivity extends FullScreenActivity implements
                                    int nationality,
                                    String birthdate, int gender, String address, String password) {
 
-        this.user.setWhatsapp_number(whatsappNumber);
-        this.user.setFirst_name(firstName);
-        this.user.setLast_name(lastName);
-        this.user.setEmail(email);
-        this.user.setBirthday(birthdate);
-        this.user.setAddress(address);
-        this.user.setRegionId(region);
-        this.user.setNationality_id(nationality);
-        this.user.setPassword(password);
-        this.user.setPassword_confirmation(password);
-        this.user.setActivation_code("123456");
+        UserUtil.getUserInstance().setWhatsapp_number(whatsappNumber);
+        UserUtil.getUserInstance().setFirst_name(firstName);
+        UserUtil.getUserInstance().setLast_name(lastName);
+        UserUtil.getUserInstance().setEmail(email);
+        UserUtil.getUserInstance().setBirthday(birthdate);
+        UserUtil.getUserInstance().setAddress(address);
+        UserUtil.getUserInstance().setLocation_id(region);
+        UserUtil.getUserInstance().setNationality_id(nationality);
+        UserUtil.getUserInstance().setPassword(password);
+        UserUtil.getUserInstance().setPassword_confirmation(password);
 
         if(gender == 0) {
-            this.user.setGender(true);
+            UserUtil.getUserInstance().setGender(true);
         }
         else{
-            this.user.setGender(false);
+            UserUtil.getUserInstance().setGender(false);
         }
 
     }
@@ -177,7 +190,7 @@ public class RegistrationActivity extends FullScreenActivity implements
     }
 
     @Override
-    public void responseCode200() {
-
+    public void responseCode200(Boolean response) {
+        goToInterviewBooking();
     }
 }

@@ -32,7 +32,6 @@ import retrofit2.http.Query;
 
 public interface ApiServiceInterface {
     @Headers("Accept: application/json")
-    @FormUrlEncoded
     @PUT("booking/{booking}/action")
     Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking);
 
@@ -87,6 +86,11 @@ public interface ApiServiceInterface {
     Call<Response<User>> CompleteInfo(@Body RegisterCaptain registerCaptain);
 
     @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("interview")
+    Call<Response<Object>> Interview(@Header("Authorization") String Authorization ,@Field("datetime") String datetime);
+
+    @Headers("Accept: application/json")
     @GET("color")
     Call<Response<PaginationAPI<Color>>> Colors(@Header("Authorization") String Authorization );
 
@@ -109,4 +113,8 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @GET("car_brand/{car_brand_id}/models")
     Call<Response<PaginationAPI<BrandModel>>> BrandModels(@Header("Authorization") String Authorization, @Path("car_brand_id") int carBrandId);
+
+    @Headers("Accept: application/json")
+    @GET("check_auth")
+    Call<Response<User>> GetUserData(@Header("Authorization") String token);
 }

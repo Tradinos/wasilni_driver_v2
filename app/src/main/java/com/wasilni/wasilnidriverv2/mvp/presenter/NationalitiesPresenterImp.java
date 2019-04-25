@@ -9,6 +9,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.NationalityContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
 
         Call<Response<PaginationAPI<Nationality>>> call =
                 service.Nationalities( Token );
+        UtilFunction.showProgressBar(context);
 
         call.enqueue(this);
     }
@@ -42,6 +44,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
     @Override
     public void onResponse(Call<Response<PaginationAPI<Nationality>>> call, retrofit2.Response<Response<PaginationAPI<Nationality>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
+        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -62,9 +65,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
     @Override
     public void onFailure(Call<Response<PaginationAPI<Nationality>>> call, Throwable t) {
         t.printStackTrace();
-//        Log.d("SAED", t.getStackTrace());
-        Log.e("onFailure RideBooking",t.getStackTrace().toString());
-
+        UtilFunction.hideProgressBar();
     }
 
     public interface OnResponseInterface{

@@ -1,25 +1,25 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.github.florent37.viewanimator.ViewAnimator;
+import com.google.android.gms.maps.model.LatLng;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
+import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
-import com.wasilni.wasilnidriverv2.util.UtilUser;
 
 public abstract class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
@@ -37,6 +37,7 @@ public abstract class NavigationActivity extends AppCompatActivity
 
     @Override
     public void initNavigationView() {
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,20 +81,11 @@ public abstract class NavigationActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+//        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
 
     @Override
     public ProgressBar initProgressBar() {
@@ -101,24 +93,29 @@ public abstract class NavigationActivity extends AppCompatActivity
     }
 
     @Override
-    public void responseCode422() {
-        UtilFunction.showToast(this,"422");
+    public void responseCode422(String message) {
+        UtilFunction.showToast(this,message);
     }
 
     @Override
     public void responseCode500() {
-        UtilFunction.showToast(this,"500");
+        UtilFunction.showToast(this, R.string.error_500);
     }
 
     @Override
     public void responseCode400() {
-        UtilFunction.showToast(this,"400");
+        UtilFunction.showToast(this, R.string.error_400);
     }
 
     @Override
     public void responseCode401() {
-        UtilFunction.showToast(this,"401");
-    }
+        UtilFunction.showToast(this, R.string.error_401);
 
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).clear();
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).commit();
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        this.startActivity(intent);
+        ActivityCompat.finishAffinity(this);
+    }
 
 }

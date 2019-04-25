@@ -16,13 +16,25 @@ public class Booking {
     @SerializedName("dates")
     @Expose
     List<String> dates ;
+    @SerializedName("whatsapp_number")
+    @Expose
+    String whatsapp ;
+    @SerializedName("username")
+    @Expose
+    String  phoneNumber ;
+    @SerializedName("date")
+    @Expose
+    String date ;
+    @SerializedName("is_pooling")
+    @Expose
+    int is_pooling ;
     @SerializedName("price")
     @Expose
     String price ;
     @SerializedName("to_pay")
     @Expose
     String to_pay ;
-    @SerializedName("summary")
+    @SerializedName("meter")
     @Expose
     BookingSummary summary ;
     @SerializedName("id")
@@ -40,6 +52,12 @@ public class Booking {
     @SerializedName("pull_down_location")
     @Expose
     private GeoJson pullDownLocation;
+    @SerializedName("pick_up_location_name")
+    @Expose
+    private String  pickUpName;
+    @SerializedName("pull_down_location_name")
+    @Expose
+    private String pullDownName;
     @SerializedName("status")
     @Expose
     private String status;
@@ -81,6 +99,14 @@ public class Booking {
     }
     public Booking() {
 
+    }
+
+    public int getIs_pooling() {
+        return is_pooling;
+    }
+
+    public void setIs_pooling(int is_pooling) {
+        this.is_pooling = is_pooling;
     }
 
     public Booking(String status) {
@@ -250,6 +276,46 @@ public class Booking {
 
     public void setSummary(BookingSummary summary) {
         this.summary = summary;
+    }
+
+    public String getPickUpName() {
+        return pickUpName;
+    }
+
+    public void setPickUpName(String pickUpName) {
+        this.pickUpName = pickUpName;
+    }
+
+    public String getPullDownName() {
+        return pullDownName;
+    }
+
+    public void setPullDownName(String pullDownName) {
+        this.pullDownName = pullDownName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getWhatsapp() {
+        return whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

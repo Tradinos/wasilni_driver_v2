@@ -3,11 +3,13 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.view.View;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.view.AdapterContract;
 import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresenter<Booking, BookingAdapter.BookingItemViewHolder> {
 
@@ -22,24 +24,45 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
 
 
     @Override
-    public void ObjectToHolder(final Booking object, BookingAdapter.BookingItemViewHolder holder) {
+    public void ObjectToHolder(final Booking object,int position , BookingAdapter.BookingItemViewHolder holder) {
 
-        holder.timeTextView.setText(object.getDatetime());
+
+        if(holder.timeTextView != null) {
+            holder.timeTextView.setText(object.getDatetime());
+        }
+        if(holder.dateTextView != null) {
+            holder.dateTextView.setText(object.getDate());
+        }
+        if(holder.timeTextView != null) {
+            holder.timeTextView.setText(object.getDatetime());
+        }
+        if(holder.passengerNameTextView != null) {
+            holder.passengerNameTextView.setText(object.getName());
+        }
+
         if(holder.seatCountTextView != null ) {
             holder.seatCountTextView.setText(""+object.getSeats());
         }
 
-
         holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 presenter.sendToServer(object);
             }
         });
         if(holder.callImageView != null ) {
-            holder.callImageView.setOnClickListener(this);
-            holder.whatsappImageView.setOnClickListener(this);
+            holder.callImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UtilFunction.dialContactPhone(tripPassengersActionsFragment.activity,object.getPhoneNumber());
+                }
+            });
+            holder.whatsappImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UtilFunction.massegingWasilniWhatsAPP(tripPassengersActionsFragment.activity , object.getWhatsapp());
+                }
+            });
         }
 
     }

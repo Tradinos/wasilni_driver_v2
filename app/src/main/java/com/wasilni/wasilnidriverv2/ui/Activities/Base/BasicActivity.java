@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.ui.Activities.Base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.MainContract;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 
 public abstract class BasicActivity extends AppCompatActivity implements MainContract {
@@ -39,35 +41,33 @@ public abstract class BasicActivity extends AppCompatActivity implements MainCon
         return progressBar;
     }
 
-    @Override
-    public void showProgressBar() {
+    public void showProgressBar(Activity activity) {
         grayLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void hideProgressBar() {
         grayLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void responseCode422() {
-
+    public void responseCode422(String message) {
+        UtilFunction.showToast(this, message);
     }
 
     @Override
     public void responseCode500() {
-
+        UtilFunction.showToast(this, R.string.error_500);
     }
 
     @Override
     public void responseCode400() {
-
+        UtilFunction.showToast(this, R.string.error_400);
     }
 
     @Override
     public void responseCode401() {
-
+        UtilFunction.showToast(this, R.string.error_401);
     }
 }

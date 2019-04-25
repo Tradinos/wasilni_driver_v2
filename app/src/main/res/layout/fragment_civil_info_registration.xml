@@ -14,199 +14,209 @@
         android:layout_margin="@dimen/register_card_margin"
         android:layout_width="match_parent"
         android:layout_height="0dp">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="@dimen/register_card_padding"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <LinearLayout
-                android:layout_marginTop="@dimen/label_icon_end_margin"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_icon_end_margin"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/license"
-                    android:layout_marginEnd="@dimen/label_icon_end_margin"
                     android:layout_width="@dimen/icon_size_height"
-                    android:layout_height="@dimen/icon_size_height" />
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginEnd="@dimen/label_icon_end_margin"
+                    android:src="@drawable/license" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/driving_license"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/driving_license" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/register_card_padding"
                 android:layout_marginTop="@dimen/label_icon_end_margin"
                 android:layout_marginEnd="@dimen/register_card_padding"
-                android:layout_marginStart="@dimen/register_card_padding"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/license_date_start"
-                    android:padding="@dimen/text_view_border_padding"
-                    android:background="@drawable/gray_border"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/text_view_border_padding"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:background="@drawable/gray_border"
                     android:gravity="center"
-                    android:text="@string/start_date"
-                    android:layout_height="wrap_content" />
+                    android:padding="@dimen/text_view_border_padding"
+                    android:text="@string/start_date" />
 
                 <TextView
                     android:id="@+id/license_date_end"
-                    android:padding="@dimen/text_view_border_padding"
-                    android:background="@drawable/gray_border"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/gray_border"
                     android:gravity="center"
-                    android:text="@string/end_date"
-                    android:layout_height="wrap_content" />
+                    android:padding="@dimen/text_view_border_padding"
+                    android:text="@string/end_date" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/label_icon_end_margin"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_icon_end_margin"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/no_conviction"
-                    android:layout_marginEnd="@dimen/label_icon_end_margin"
                     android:layout_width="@dimen/icon_size_height"
-                    android:layout_height="@dimen/icon_size_height" />
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginEnd="@dimen/label_icon_end_margin"
+                    android:src="@drawable/no_conviction" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/has_no_conviction"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/has_no_conviction" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/optional"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/optional" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/register_card_padding"
                 android:layout_marginTop="@dimen/label_icon_end_margin"
                 android:layout_marginEnd="@dimen/register_card_padding"
-                android:layout_marginStart="@dimen/register_card_padding"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/convicted_image"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/the_image"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/the_image" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/label_icon_end_margin"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_icon_end_margin"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/bank"
-                    android:layout_marginEnd="@dimen/label_icon_end_margin"
                     android:layout_width="@dimen/icon_size_height"
-                    android:layout_height="@dimen/icon_size_height" />
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginEnd="@dimen/label_icon_end_margin"
+                    android:src="@drawable/bank" />
+
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/has_bank_account"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/has_bank_account" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/register_card_padding"
                 android:layout_marginTop="@dimen/label_icon_end_margin"
                 android:layout_marginEnd="@dimen/register_card_padding"
-                android:layout_marginStart="@dimen/register_card_padding"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/bank_yes"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/yes"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/yes" />
 
                 <TextView
                     android:id="@+id/bank_no"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/no"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/no" />
             </LinearLayout>
 
             <Spinner
                 android:id="@+id/bank_spinner"
-                android:layout_marginTop="@dimen/space_between_fields"
-                android:background="@drawable/bg_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"/>
+                android:layout_marginTop="@dimen/space_between_fields"
+                android:background="@drawable/bg_spinner"
+                android:spinnerMode="dropdown" />
 
 
             <LinearLayout
-                android:layout_marginTop="@dimen/label_icon_end_margin"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_icon_end_margin"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/captain"
-                    android:layout_marginEnd="@dimen/label_icon_end_margin"
                     android:layout_width="@dimen/icon_size_height"
-                    android:layout_height="@dimen/icon_size_height" />
-                <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/image_identification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginEnd="@dimen/label_icon_end_margin"
+                    android:src="@drawable/captain" />
 
                 <TextView
-                    android:layout_gravity="center"
-                    android:text="@string/optional"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/image_identification" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/optional" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/register_card_padding"
                 android:layout_marginTop="@dimen/label_icon_end_margin"
                 android:layout_marginEnd="@dimen/register_card_padding"
-                android:layout_marginStart="@dimen/register_card_padding"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/id_front_page"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/front_page"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/front_page" />
 
                 <TextView
                     android:id="@+id/id_back_page"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/back_page"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/back_page" />
             </LinearLayout>
 
         </LinearLayout>

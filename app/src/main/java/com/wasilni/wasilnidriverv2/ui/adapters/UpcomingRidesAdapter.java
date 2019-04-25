@@ -75,7 +75,7 @@ public class UpcomingRidesAdapter extends RecyclerView.Adapter<UpcomingRidesAdap
     @Override
     public void onBindViewHolder(RideViewHolder holder, int position) {
         Ride ride = list.get(position) ;
-        presenter.ObjectToHolder(ride , holder);
+        presenter.ObjectToHolder(ride ,position, holder);
     }
 
     @Override

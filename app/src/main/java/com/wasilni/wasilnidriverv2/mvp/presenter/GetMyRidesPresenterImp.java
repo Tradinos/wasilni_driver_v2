@@ -16,6 +16,8 @@ import java.util.List;
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     HomeActivity activity ;
@@ -29,9 +31,10 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
+        showProgressBar(activity);
 
         Call<Response<PaginationAPI<Ride>>> call =
-                service.GetRides( Token , 20,"NOT_DONE" );
+                service.GetRides( Token , 20,"NOT_PAID" );
 
         call.enqueue(this);
     }
@@ -39,20 +42,23 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     @Override
     public void onResponse(Call<Response<PaginationAPI<Ride>>> call, retrofit2.Response<Response<PaginationAPI<Ride>>> response) {
         Log.e("onResponse GetRides",response.message()+" code :"+response.code());
-
+        hideProgressBar();
         switch (response.code())
         {
             case 200 :
-                Log.e("list ride", ""+response.body().getData().getData().toString());
                 activity.setRides(response.body().getData().getData());
                 break;
             case 422 :
+                activity.responseCode422(response.body().getMessage());
                 break;
             case 500 :
+                activity.responseCode500();
                 break;
             case 400 :
+                activity.responseCode400();
                 break;
             case 401 :
+                activity.responseCode401();
                 break;
         }
     }
@@ -60,6 +66,7 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
     @Override
     public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
+        hideProgressBar();
     }
 
 }
