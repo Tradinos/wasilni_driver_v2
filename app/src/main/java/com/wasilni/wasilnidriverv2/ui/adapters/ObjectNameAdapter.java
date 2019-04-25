@@ -202,11 +202,11 @@ public class ObjectNameAdapter extends ArrayAdapter{
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            ArrayList<Location> filteredList = (ArrayList<Location>) results.values;
+            ArrayList<Object> filteredList = (ArrayList<Object>) results.values;
 
             if (results != null && results.count > 0) {
                 clear();
-                for (Location c : filteredList) {
+                for (Object c : filteredList) {
                     add(c);
                 }
                 notifyDataSetChanged();
