@@ -351,6 +351,8 @@ public class HomeActivity extends NavigationActivity implements
             user.setChecked(false);
         }
         UserUtil.setUser(user);
+        UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils.getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
+        Token = UserUtil.getUserInstance().getAccessToken();
         Log.e("checkDriverStatus",""+user.isChecked() );
         checkDriverStatus();
     }
