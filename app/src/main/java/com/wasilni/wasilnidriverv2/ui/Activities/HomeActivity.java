@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -122,6 +123,7 @@ public class HomeActivity extends NavigationActivity implements
         ischecked = false;
         super.onCreate(savedInstanceState);
         UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     }
 

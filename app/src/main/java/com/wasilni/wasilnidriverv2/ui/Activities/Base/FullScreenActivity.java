@@ -13,6 +13,7 @@ public class FullScreenActivity extends BasicActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_full_screen);
         setTheme(R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);

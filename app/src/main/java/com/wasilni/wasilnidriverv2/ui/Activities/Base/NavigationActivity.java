@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -30,6 +31,7 @@ public abstract class NavigationActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //UtilFunction.doExtends(BasicmainLayout , this ,R.layout.activity_navigation);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_navigation);
         initNavigationView();
