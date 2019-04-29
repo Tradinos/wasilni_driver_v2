@@ -1,24 +1,30 @@
 package com.wasilni.wasilnidriverv2.mvp.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Service{
-    private String name , cost , icon;
-    private int imageID ,id,max_bookings,priority;
-
-    public Service(String name, String cost, String icon, int imageID, int id, int max_bookings, int priority) {
-        this.name = name;
-        this.cost = cost;
-        this.icon = icon;
-        this.imageID = imageID;
-        this.id = id;
-        this.max_bookings = max_bookings;
-        this.priority = priority;
-    }
-
-    public Service(String name, String cost, int imageID) {
-        this.name = name;
-        this.cost = cost;
-        this.imageID = imageID;
-    }
+    @SerializedName("name")
+    @Expose
+    private String name ;
+    @SerializedName("cost")
+    @Expose
+    private String cost ;
+    @SerializedName("icon")
+    @Expose
+    private String icon;
+    @SerializedName("imageID")
+    @Expose
+    private Integer imageID ;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("max_bookings")
+    @Expose
+    private Integer max_bookings;
+    @SerializedName("priority")
+    @Expose
+    private Integer priority;
 
     public String getName() {
         return name;
@@ -44,35 +50,35 @@ public class Service{
         this.icon = icon;
     }
 
-    public int getImageID() {
+    public Integer getImageID() {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(Integer imageID) {
         this.imageID = imageID;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getMax_bookings() {
+    public Integer getMax_bookings() {
         return max_bookings;
     }
 
-    public void setMax_bookings(int max_bookings) {
+    public void setMax_bookings(Integer max_bookings) {
         this.max_bookings = max_bookings;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 }
