@@ -316,8 +316,8 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void checkDriverStatus() {
-        Log.e("checkDriverStatus",""+ UserUtil.getUserInstance().isChecked() );
-        if(!UserUtil.getUserInstance().isChecked()){
+        Log.e("checkDriverStatus",""+ UserUtil.getUserInstance().getChecked() );
+        if(!UserUtil.getUserInstance().getChecked()){
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText(R.string.you_are_offline);
@@ -355,7 +355,7 @@ public class HomeActivity extends NavigationActivity implements
         UserUtil.setUser(user);
         UserUtil.getUserInstance().setAccessToken(SharedPreferenceUtils.getPreferencesInstance(getApplicationContext()).getString("auth_token",null));
         Token = UserUtil.getUserInstance().getAccessToken();
-        Log.e("checkDriverStatus",""+user.isChecked() );
+        Log.e("checkDriverStatus",""+user.getChecked() );
         checkDriverStatus();
     }
 

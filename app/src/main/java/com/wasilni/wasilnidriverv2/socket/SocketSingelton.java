@@ -104,7 +104,7 @@ public class SocketSingelton {
                 if (socket.connected()) {
                     Log.e(TAG, "connected true");
                 } else {
-                    if (UserUtil.getUserInstance().isChecked()) {
+                    if (UserUtil.getUserInstance().getChecked()) {
                         reConnect();
                     }
                     Log.e(TAG, "connected false");

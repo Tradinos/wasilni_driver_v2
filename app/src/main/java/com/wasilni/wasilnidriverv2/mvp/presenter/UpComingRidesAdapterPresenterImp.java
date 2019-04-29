@@ -41,7 +41,7 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
         holder.duration.setText(object.getStart_datetime());
         holder.startPlace.setText(object.getPick_up_location_name());
         if(object.getBookings_count() == 1) {
-            holder.passengerName.setText(object.getPassengaer_name());
+            holder.passengerName.setText(object.getPassenger_name());
         }
     }
 

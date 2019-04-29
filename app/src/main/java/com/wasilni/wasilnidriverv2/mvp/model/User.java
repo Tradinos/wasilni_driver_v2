@@ -11,82 +11,82 @@ import com.google.gson.annotations.SerializedName;
 
 public class User{
 
-    @SerializedName("last_check")
+    @SerializedName("location")
     @Expose
     private Location location ;
-    @SerializedName("last_check")
+    @SerializedName("isLogingIn")
     @Expose
-    private Boolean isLogingIn ;
-    @SerializedName("last_check")
+    private boolean isLogingIn ;
+    @SerializedName("isChecked")
     @Expose
-    private Boolean isChecked ;
-    @SerializedName("last_check")
+    private boolean isChecked ;
+    @SerializedName("isConfirmed")
     @Expose
-    private Boolean isConfirmed ;
+    private boolean isConfirmed ;
     @SerializedName("last_check")
     @Expose
     private Integer last_check ;
-    @SerializedName("last_check")
+    @SerializedName("username")
     @Expose
-    private String username = "";
-    @SerializedName("last_check")
+    private String username;
+    @SerializedName("email")
     @Expose
-    private String  email = "";
-    @SerializedName("last_check")
+    private String  email;
+    @SerializedName("accessToken")
     @Expose
-    private String  accessToken="" ;
-    @SerializedName("last_check")
+    private String  accessToken ;
+    @SerializedName("first_name")
     @Expose
-    private String  first_name="";
-    @SerializedName("last_check")
+    private String  first_name;
+    @SerializedName("last_name")
     @Expose
-    private String last_name="" ;
-    @SerializedName("last_check")
+    private String last_name ;
+    @SerializedName("phone_number")
     @Expose
-    private String  phone_number="" ;
-    @SerializedName("last_check")
+    private String  phone_number ;
+    @SerializedName("birthday")
     @Expose
-    private String birthday="" ;
-    @SerializedName("last_check")
+    private String birthday;
+    @SerializedName("profile_image")
     @Expose
-    private String profile_image="";
-    @SerializedName("last_check")
+    private String profile_image;
+    @SerializedName("whatsapp_number")
     @Expose
-    private String whatsapp_number="" ;
-    @SerializedName("last_check")
+    private String whatsapp_number;
+    @SerializedName("id_image")
     @Expose
-    private String  id_image="" ;
-    @SerializedName("last_check")
+    private String  id_image;
+    @SerializedName("password")
     @Expose
-    private String  password="";
-    @SerializedName("last_check")
+    private String  password;
+    @SerializedName("password_confirmation")
     @Expose
-    private String  password_confirmation = "";
-    @SerializedName("last_check")
+    private String  password_confirmation ;
+    @SerializedName("activation_code")
     @Expose
-    private String  activation_code="";
-    @SerializedName("last_check")
+    private String  activation_code;
+    @SerializedName("address")
     @Expose
-    private String address = "" ;
-    @SerializedName("last_check")
+    private String address  ;
+    @SerializedName("driving_certificate_start_date")
     @Expose
     private String driving_certificate_start_date;
-    @SerializedName("last_check")
+    @SerializedName("driving_certificate_end_date")
     @Expose
     private String driving_certificate_end_date;
-    @SerializedName("last_check")
+    @SerializedName("verified")
     @Expose
-    private Boolean verified ;
-    @SerializedName("last_check")
+    private boolean verified ;
+    @SerializedName("gender")
     @Expose
-    private Boolean  gender;
-    @SerializedName("last_check")
+    private boolean  gender;
+    @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("last_check")
+    @SerializedName("location_id")
     @Expose
     private Integer  location_id;
-    @SerializedName("last_check")
+    @SerializedName("nationality_id")
     @Expose
     private Integer  nationality_id;
 
@@ -106,7 +106,7 @@ public class User{
         isLogingIn = logingIn;
     }
 
-    public Boolean getChecked() {
+    public boolean getChecked() {
         return isChecked;
     }
 

@@ -73,7 +73,7 @@ public class TrackingService extends Service {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (UserUtil.getUserInstance().isChecked() && isTracking) {
+                    if (UserUtil.getUserInstance().getChecked() && isTracking) {
                         startTracking();
                         return;
                     }
