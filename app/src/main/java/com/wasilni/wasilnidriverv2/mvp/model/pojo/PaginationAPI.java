@@ -1,108 +1,94 @@
 package com.wasilni.wasilnidriverv2.mvp.model.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class PaginationAPI<T> {
+    @SerializedName("data")
+    @Expose
     protected List<T> data ;
-    private int current_page,from ,last_page,per_page,to,total;
-    private String first_page_url ,last_page_url,next_page_url,path ,prev_page_url;
+    @SerializedName("current_page")
+    @Expose
+    private Integer currentPage;
+    @SerializedName("first_page_url")
+    @Expose
+    private String firstPageUrl;
+    @SerializedName("from")
+    @Expose
+    private Integer from;
+    @SerializedName("last_page")
+    @Expose
+    private Integer lastPage;
+    @SerializedName("last_page_url")
+    @Expose
+    private String lastPageUrl;
+    @SerializedName("next_page_url")
+    @Expose
+    private String nextPageUrl;
+    @SerializedName("path")
+    @Expose
+    private String path;
+    @SerializedName("per_page")
+    @Expose
+    private Integer perPage;
+    @SerializedName("prev_page_url")
+    @Expose
+    private String prevPageUrl;
+    @SerializedName("to")
+    @Expose
+    private Integer to;
+    @SerializedName("total")
+    @Expose
+    private Integer total;
 
-    public PaginationAPI() {
+    public Integer getCurrentPage() {
+        return currentPage;
     }
 
-    public PaginationAPI(List<T> data, int current_page, int from, int last_page, int per_page, int to, int total, String first_page_url, String last_page_url, String next_page_url, String path, String prev_page_url) {
-        this.data = data;
-        this.current_page = current_page;
-        this.from = from;
-        this.last_page = last_page;
-        this.per_page = per_page;
-        this.to = to;
-        this.total = total;
-        this.first_page_url = first_page_url;
-        this.last_page_url = last_page_url;
-        this.next_page_url = next_page_url;
-        this.path = path;
-        this.prev_page_url = prev_page_url;
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public List<T> getData() {
-        return data;
+    public String getFirstPageUrl() {
+        return firstPageUrl;
     }
 
-    public void setData(List<T> data) {
-        this.data = data;
+    public void setFirstPageUrl(String firstPageUrl) {
+        this.firstPageUrl = firstPageUrl;
     }
 
-    public int getCurrent_page() {
-        return current_page;
-    }
-
-    public void setCurrent_page(int current_page) {
-        this.current_page = current_page;
-    }
-
-    public int getFrom() {
+    public Integer getFrom() {
         return from;
     }
 
-    public void setFrom(int from) {
+    public void setFrom(Integer from) {
         this.from = from;
     }
 
-    public int getLast_page() {
-        return last_page;
+    public Integer getLastPage() {
+        return lastPage;
     }
 
-    public void setLast_page(int last_page) {
-        this.last_page = last_page;
+    public void setLastPage(Integer lastPage) {
+        this.lastPage = lastPage;
     }
 
-    public int getPer_page() {
-        return per_page;
+    public String getLastPageUrl() {
+        return lastPageUrl;
     }
 
-    public void setPer_page(int per_page) {
-        this.per_page = per_page;
+    public void setLastPageUrl(String lastPageUrl) {
+        this.lastPageUrl = lastPageUrl;
     }
 
-    public int getTo() {
-        return to;
+    public String getNextPageUrl() {
+        return nextPageUrl;
     }
 
-    public void setTo(int to) {
-        this.to = to;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public String getFirst_page_url() {
-        return first_page_url;
-    }
-
-    public void setFirst_page_url(String first_page_url) {
-        this.first_page_url = first_page_url;
-    }
-
-    public String getLast_page_url() {
-        return last_page_url;
-    }
-
-    public void setLast_page_url(String last_page_url) {
-        this.last_page_url = last_page_url;
-    }
-
-    public String getNext_page_url() {
-        return next_page_url;
-    }
-
-    public void setNext_page_url(String next_page_url) {
-        this.next_page_url = next_page_url;
+    public void setNextPageUrl(String nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
     }
 
     public String getPath() {
@@ -113,11 +99,43 @@ public class PaginationAPI<T> {
         this.path = path;
     }
 
-    public String getPrev_page_url() {
-        return prev_page_url;
+    public Integer getPerPage() {
+        return perPage;
     }
 
-    public void setPrev_page_url(String prev_page_url) {
-        this.prev_page_url = prev_page_url;
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
+    }
+
+    public String getPrevPageUrl() {
+        return prevPageUrl;
+    }
+
+    public void setPrevPageUrl(String prevPageUrl) {
+        this.prevPageUrl = prevPageUrl;
+    }
+
+    public Integer getTo() {
+        return to;
+    }
+
+    public void setTo(Integer to) {
+        this.to = to;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
     }
 }
