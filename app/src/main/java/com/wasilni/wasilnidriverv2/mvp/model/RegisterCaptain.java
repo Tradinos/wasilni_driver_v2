@@ -1,9 +1,14 @@
 package com.wasilni.wasilnidriverv2.mvp.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class RegisterCaptain {
-
+    @SerializedName("captain")
+    @Expose
     private User captain;
-
+    @SerializedName("car")
+    @Expose
     private Car car;
 
     public User getCaptain() {
