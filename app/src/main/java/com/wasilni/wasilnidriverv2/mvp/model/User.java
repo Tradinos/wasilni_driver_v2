@@ -11,29 +11,84 @@ import com.google.gson.annotations.SerializedName;
 
 public class User{
 
+    @SerializedName("last_check")
+    @Expose
     private Location location ;
-    private boolean isLogingIn ;
-    private boolean isChecked ;
-    private boolean isConfirmed ;
+    @SerializedName("last_check")
+    @Expose
+    private Boolean isLogingIn ;
+    @SerializedName("last_check")
+    @Expose
+    private Boolean isChecked ;
+    @SerializedName("last_check")
+    @Expose
+    private Boolean isConfirmed ;
     @SerializedName("last_check")
     @Expose
     private Integer last_check ;
-    private String username = "", email = "", accessToken="" , first_name="",
-            last_name="" , phone_number="" ,birthday="" ,profile_image="",
-            whatsapp_number="" , id_image="" , password="", password_confirmation = "", activation_code="",
-            address = "" ;
-
-    private String driving_certificate_start_date, driving_certificate_end_date;
-    private boolean verified , gender;
-    private int id, location_id, nationality_id;
-
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
+    @SerializedName("last_check")
+    @Expose
+    private String username = "";
+    @SerializedName("last_check")
+    @Expose
+    private String  email = "";
+    @SerializedName("last_check")
+    @Expose
+    private String  accessToken="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String  first_name="";
+    @SerializedName("last_check")
+    @Expose
+    private String last_name="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String  phone_number="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String birthday="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String profile_image="";
+    @SerializedName("last_check")
+    @Expose
+    private String whatsapp_number="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String  id_image="" ;
+    @SerializedName("last_check")
+    @Expose
+    private String  password="";
+    @SerializedName("last_check")
+    @Expose
+    private String  password_confirmation = "";
+    @SerializedName("last_check")
+    @Expose
+    private String  activation_code="";
+    @SerializedName("last_check")
+    @Expose
+    private String address = "" ;
+    @SerializedName("last_check")
+    @Expose
+    private String driving_certificate_start_date;
+    @SerializedName("last_check")
+    @Expose
+    private String driving_certificate_end_date;
+    @SerializedName("last_check")
+    @Expose
+    private Boolean verified ;
+    @SerializedName("last_check")
+    @Expose
+    private Boolean  gender;
+    @SerializedName("last_check")
+    @Expose
+    private Integer id;
+    @SerializedName("last_check")
+    @Expose
+    private Integer  location_id;
+    @SerializedName("last_check")
+    @Expose
+    private Integer  nationality_id;
 
     public Location getLocation() {
         return location;
@@ -43,44 +98,36 @@ public class User{
         this.location = location;
     }
 
-    public String getId_image() {
-        return id_image;
+    public Boolean getLogingIn() {
+        return isLogingIn;
     }
 
-    public void setId_image(String id_image) {
-        this.id_image = id_image;
+    public void setLogingIn(Boolean logingIn) {
+        isLogingIn = logingIn;
     }
 
-    public boolean isGender() {
-        return gender;
+    public Boolean getChecked() {
+        return isChecked;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
 
-    public String getProfile_image() {
-        return profile_image;
+    public Boolean getConfirmed() {
+        return isConfirmed;
     }
 
-    public void setProfile_image(String profile_imag) {
-        this.profile_image = profile_imag;
+    public void setConfirmed(Boolean confirmed) {
+        isConfirmed = confirmed;
     }
 
-    public String getWhatsapp_number() {
-        return whatsapp_number;
+    public Integer getLast_check() {
+        return last_check;
     }
 
-    public void setWhatsapp_number(String whatsapp_number) {
-        this.whatsapp_number = whatsapp_number;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
+    public void setLast_check(Integer last_check) {
+        this.last_check = last_check;
     }
 
     public String getUsername() {
@@ -123,7 +170,6 @@ public class User{
         this.last_name = last_name;
     }
 
-
     public String getPhone_number() {
         return phone_number;
     }
@@ -140,22 +186,29 @@ public class User{
         this.birthday = birthday;
     }
 
-    public int getId() {
-        return id;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
-    @Override
-    public String toString() {
-        return  "verified:"+verified+"\nid:"+id+"\nEmail : " + email + "\nFullName : " + username + "\nfirst name :" +
-                first_name + "\nlast name :" +last_name + "\ngender :"+gender +
-                 "\nbirthdat :" + birthday + "\nwhatsapp number :" +whatsapp_number + "\naddress :"+address +
-                "\nphone number :" + phone_number + "\ntoken:"+accessToken;
+    public String getWhatsapp_number() {
+        return whatsapp_number;
     }
 
+    public void setWhatsapp_number(String whatsapp_number) {
+        this.whatsapp_number = whatsapp_number;
+    }
+
+    public String getId_image() {
+        return id_image;
+    }
+
+    public void setId_image(String id_image) {
+        this.id_image = id_image;
+    }
 
     public String getPassword() {
         return password;
@@ -165,28 +218,12 @@ public class User{
         this.password = password;
     }
 
-    public boolean isConfirmed() {
-        return isConfirmed;
+    public String getPassword_confirmation() {
+        return password_confirmation;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        isConfirmed = confirmed;
-    }
-
-    public boolean isLogingIn() {
-        return isLogingIn;
-    }
-
-    public void setLogingIn(boolean logingIn) {
-        isLogingIn = logingIn;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPassword_confirmation(String password_confirmation) {
+        this.password_confirmation = password_confirmation;
     }
 
     public String getActivation_code() {
@@ -197,20 +234,12 @@ public class User{
         this.activation_code = activation_code;
     }
 
-    public int getLocation_id() {
-        return location_id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
-    }
-
-    public int getNationality_id() {
-        return nationality_id;
-    }
-
-    public void setNationality_id(int nationality_id) {
-        this.nationality_id = nationality_id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDriving_certificate_start_date() {
@@ -229,19 +258,43 @@ public class User{
         this.driving_certificate_end_date = driving_certificate_end_date;
     }
 
-    public String getPassword_confirmation() {
-        return password_confirmation;
+    public Boolean getVerified() {
+        return verified;
     }
 
-    public void setPassword_confirmation(String password_confirmation) {
-        this.password_confirmation = password_confirmation;
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 
-    public Integer getLast_check() {
-        return last_check;
+    public Boolean getGender() {
+        return gender;
     }
 
-    public void setLast_check(Integer last_check) {
-        this.last_check = last_check;
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(Integer location_id) {
+        this.location_id = location_id;
+    }
+
+    public Integer getNationality_id() {
+        return nationality_id;
+    }
+
+    public void setNationality_id(Integer nationality_id) {
+        this.nationality_id = nationality_id;
     }
 }
