@@ -1,38 +1,34 @@
 package com.wasilni.wasilnidriverv2.mvp.model;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 
 import java.util.List;
 
 public class Ride  {
-    String status ;
-    String start_datetime ;
-    String passenger_name;
-    String pick_up_location_name;
-    int bookings_count , id;
-    List<Booking> bookings ;
-    public Ride(String status ) {
-        this.status = status ;
-    }
-
-    public Ride(int id) {
-        this.id = id;
-    }
-
-    public Ride(String passengaer_name, String pick_up_location_name, int bookings_count) {
-        this.passenger_name = passengaer_name;
-        this.pick_up_location_name = pick_up_location_name;
-        this.bookings_count = bookings_count;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @SerializedName("status")
+    @Expose
+    private String status ;
+    @SerializedName("start_datetime")
+    @Expose
+    private String start_datetime ;
+    @SerializedName("passenger_name")
+    @Expose
+    private String passenger_name;
+    @SerializedName("pick_up_location_name")
+    @Expose
+    private String pick_up_location_name;
+    @SerializedName("bookings_count")
+    @Expose
+    private Integer bookings_count ;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("bookings")
+    @Expose
+    private List<Booking> bookings ;
 
     public String getStatus() {
         return status;
@@ -40,14 +36,6 @@ public class Ride  {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
     }
 
     public String getStart_datetime() {
@@ -58,22 +46,13 @@ public class Ride  {
         this.start_datetime = start_datetime;
     }
 
-    public String getPassengaer_name() {
+    public String getPassenger_name() {
         return passenger_name;
     }
 
-    public void setPassengaer_name(String passengaer_name) {
-        this.passenger_name = passengaer_name;
+    public void setPassenger_name(String passenger_name) {
+        this.passenger_name = passenger_name;
     }
-
-    public int getBookings_count() {
-        return bookings_count;
-    }
-
-    public void setBookings_count(int bookings_count) {
-        this.bookings_count = bookings_count;
-    }
-
 
     public String getPick_up_location_name() {
         return pick_up_location_name;
@@ -81,6 +60,30 @@ public class Ride  {
 
     public void setPick_up_location_name(String pick_up_location_name) {
         this.pick_up_location_name = pick_up_location_name;
+    }
+
+    public Integer getBookings_count() {
+        return bookings_count;
+    }
+
+    public void setBookings_count(Integer bookings_count) {
+        this.bookings_count = bookings_count;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override
