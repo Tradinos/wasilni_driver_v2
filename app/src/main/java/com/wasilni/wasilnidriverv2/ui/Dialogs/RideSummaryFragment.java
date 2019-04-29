@@ -136,11 +136,13 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.booking_cost= view.findViewById(R.id.booking_cost);
         rateBtn.setVisibility(View.INVISIBLE);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
+        Log.e( "initView:22 ",""+sendedBooking.getTo_pay());
         if(sendedBooking != null){
-            this.trip_source.setText(sendedBooking.getPickUpName());
-            this.calculated_cost.setText(sendedBooking.getTo_pay());
-            this.booking_cost.setText(sendedBooking.getPrice());
-            this.trip_destination.setText(sendedBooking.getPullDownName());
+            Log.e( "initView: "," "+sendedBooking.getTo_pay());
+            this.trip_source.setText(""+sendedBooking.getPickUpName());
+            this.calculated_cost.setText(""+sendedBooking.getTo_pay());
+            this.booking_cost.setText(""+sendedBooking.getPrice());
+            this.trip_destination.setText(""+sendedBooking.getPullDownName());
 
             if(sendedBooking.getSummary() == null){
                 this.time_imgImageView.setVisibility(View.GONE);

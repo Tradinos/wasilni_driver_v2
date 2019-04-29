@@ -59,6 +59,8 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                     mBooking.setStatus(response.body().getData().getStatus());
                     mBooking.setSummary(response.body().getData().getSummary());
                     mBooking.setIs_pooling(response.body().getData().getIs_pooling());
+                    mBooking.setPrice(response.body().getData().getPrice());
+                    mBooking.setTo_pay(response.body().getData().getTo_pay());
                     rideSummaryFragment = RideSummaryFragment.newInstance(tripPassengersActionsFragment.activity);
                     rideSummaryFragment.responseCode200(mBooking,tripPassengersActionsFragment);
                     try {

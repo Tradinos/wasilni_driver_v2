@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2.util;
 import android.Manifest;
 import android.app.Activity;
 
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
@@ -17,6 +18,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -636,21 +638,29 @@ public class UtilFunction {
         activity.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
     public static void updatePlayService(final Activity activity) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-        builder1.setMessage("يجب تحديث خدمات google play serivce ليعمل تطبيق وصلني...");
-        builder1.setCancelable(false);
+        try {
+            int v = activity.getPackageManager().getPackageInfo(GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE, 0 ).versionCode;
+            if(14574009 > v){
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+                builder1.setMessage("يجب تحديث خدمات google play serivce ليعمل تطبيق وصلني...");
+                builder1.setCancelable(false);
 
-        builder1.setPositiveButton(
-                "حسنا",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        activity.finish();
-                    }
-                });
+                builder1.setPositiveButton(
+                        "حسنا",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                activity.finish();
+                            }
+                        });
 
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }

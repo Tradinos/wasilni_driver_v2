@@ -30,10 +30,10 @@ public class Booking {
     int is_pooling ;
     @SerializedName("price")
     @Expose
-    String price ;
+    Integer price ;
     @SerializedName("to_pay")
     @Expose
-    String to_pay ;
+    Integer to_pay ;
     @SerializedName("meter")
     @Expose
     BookingSummary summary ;
@@ -254,19 +254,19 @@ public class Booking {
         this.updatedAt = updatedAt;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public String getTo_pay() {
+    public Integer getTo_pay() {
         return to_pay;
     }
 
-    public void setTo_pay(String to_pay) {
+    public void setTo_pay(Integer to_pay) {
         this.to_pay = to_pay;
     }
 
