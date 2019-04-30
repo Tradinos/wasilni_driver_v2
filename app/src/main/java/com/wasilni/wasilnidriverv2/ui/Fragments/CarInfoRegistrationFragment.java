@@ -11,7 +11,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -150,18 +149,10 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
         this.insuranceDateTV.setOnClickListener(this);
-
         this.setUpAdapters();
-        this.brandSp.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP)//replacing with onclick
-                {
-                    fetchData();
-                }
-                return true;
-            }
-        });
+
+        this.fetchData();
+
     }
 
     private void setUpAdapters(){
