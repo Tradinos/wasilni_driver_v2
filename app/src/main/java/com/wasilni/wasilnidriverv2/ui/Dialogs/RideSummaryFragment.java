@@ -42,7 +42,7 @@ import java.util.List;
 
 public class RideSummaryFragment extends BottomSheetDialogFragment implements RideSummaryContract.RideSummaryView {
     public ImageView passengerPictureIV,stationImageView,time_imgImageView;
-    public TextView waiting_txt,rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
+    public TextView waiting_txt,nameTextView,rateBtn ,trip_wait_duration,trip_duration, trip_length,trip_source,trip_destination,calculated_cost,booking_cost;
     public Button submit ;
     public EditText moneyCost ;
     public OnFragmentInteractionListener mListener;
@@ -134,11 +134,11 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         this.trip_length= view.findViewById(R.id.trip_length);
         this.calculated_cost= view.findViewById(R.id.calculated_cost);
         this.booking_cost= view.findViewById(R.id.booking_cost);
+        this.nameTextView = view.findViewById(R.id.passenger_name);
         rateBtn.setVisibility(View.INVISIBLE);
         final PayContract.PayPresenter presenter = new PayPresenterImp(this);
-        Log.e( "initView:22 ",""+sendedBooking.getTo_pay());
         if(sendedBooking != null){
-            Log.e( "initView: "," "+sendedBooking.getTo_pay());
+            this.nameTextView.setText(sendedBooking.getName());
             this.trip_source.setText(""+sendedBooking.getPickUpName());
             this.calculated_cost.setText(""+sendedBooking.getTo_pay());
             this.booking_cost.setText(""+sendedBooking.getPrice());

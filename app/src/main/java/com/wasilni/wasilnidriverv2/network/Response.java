@@ -1,8 +1,15 @@
 package com.wasilni.wasilnidriverv2.network;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Response<T> {
-    protected String message ;
-    protected T data ;
+    @SerializedName("message")
+    @Expose
+    private String message ;
+    @SerializedName("data")
+    @Expose
+    private T data ;
     public Response(String message) {
         this.message = message;
     }

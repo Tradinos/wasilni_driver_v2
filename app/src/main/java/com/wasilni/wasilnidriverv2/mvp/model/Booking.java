@@ -16,10 +16,10 @@ public class Booking {
     @SerializedName("dates")
     @Expose
     List<String> dates ;
-    @SerializedName("whatsapp_number")
+    @SerializedName("passenger_whatsapp_number")
     @Expose
     String whatsapp ;
-    @SerializedName("username")
+    @SerializedName("passenger_username")
     @Expose
     String  phoneNumber ;
     @SerializedName("date")
@@ -55,6 +55,12 @@ public class Booking {
     @SerializedName("pick_up_location_name")
     @Expose
     private String  pickUpName;
+    @SerializedName("pick_up_location_details")
+    @Expose
+    private String pickUpLocationDetails;
+    @SerializedName("pull_down_location_details")
+    @Expose
+    private String pullDownLocationDetails;
     @SerializedName("pull_down_location_name")
     @Expose
     private String pullDownName;
@@ -316,6 +322,22 @@ public class Booking {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPickUpLocationDetails() {
+        return pickUpLocationDetails;
+    }
+
+    public void setPickUpLocationDetails(String pickUpLocationDetails) {
+        this.pickUpLocationDetails = pickUpLocationDetails;
+    }
+
+    public String getPullDownLocationDetails() {
+        return pullDownLocationDetails;
+    }
+
+    public void setPullDownLocationDetails(String pullDownLocationDetails) {
+        this.pullDownLocationDetails = pullDownLocationDetails;
     }
 
     @Override

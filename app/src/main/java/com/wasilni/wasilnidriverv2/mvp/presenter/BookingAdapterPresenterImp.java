@@ -39,7 +39,15 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
         if(holder.passengerNameTextView != null) {
             holder.passengerNameTextView.setText(object.getName());
         }
-
+        if(holder.DetailsTextView != null){
+            holder.DetailsTextView.setText(object.getPickUpLocationDetails());
+        }
+        if(holder.startPlaceTextView != null){
+            holder.startPlaceTextView.setText(object.getPickUpName());
+        }
+        if(holder.endPlaceTextView != null){
+            holder.endPlaceTextView.setText(object.getPullDownName());
+        }
         if(holder.seatCountTextView != null ) {
             holder.seatCountTextView.setText(""+object.getSeats());
         }
