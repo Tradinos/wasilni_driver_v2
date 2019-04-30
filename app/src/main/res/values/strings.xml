@@ -101,5 +101,6 @@
 
     <string name="me">me</string>
     <string name="took">Cash received</string>
+    <string name="logout">logout</string>
 
 </resources>
