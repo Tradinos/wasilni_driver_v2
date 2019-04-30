@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -109,7 +110,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        insuranceDateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
+                        insuranceDateTV.setText( UtilFunction.generateDate(year, monthOfYear  , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -149,10 +150,18 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
         this.insuranceDateTV.setOnClickListener(this);
+
         this.setUpAdapters();
-
-        this.fetchData();
-
+        this.brandSp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)//replacing with onclick
+                {
+                    fetchData();
+                }
+                return true;
+            }
+        });
     }
 
     private void setUpAdapters(){

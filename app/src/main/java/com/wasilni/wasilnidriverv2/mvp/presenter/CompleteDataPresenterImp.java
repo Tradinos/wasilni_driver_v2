@@ -46,17 +46,19 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).putInt("user_id",1);
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).commit();
                 UtilFunction.CheckFCMToken(registrationActivity.getApplicationContext());
-                Log.e("interview1 ",""+response.body().getData().getAccessToken());
-                Log.e("interview2 ",""+SharedPreferenceUtils.getPreferencesInstance(registrationActivity.getApplicationContext()).getString("auth_token",null));
                 registrationActivity.responseCode200(null);
                 break;
             case 422 :
+                registrationActivity.responseCode422(response.body().getMessage());
                 break;
             case 500 :
+                registrationActivity.responseCode500();
                 break;
             case 400:
+                registrationActivity.responseCode400();
                 break;
             case 401:
+                registrationActivity.responseCode401();
                 break;
         }
     }

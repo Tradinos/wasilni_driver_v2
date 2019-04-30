@@ -121,7 +121,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        birthdateTV.setText( UtilFunction.generateDate(year, monthOfYear + 1 , dayOfMonth) );
+                        birthdateTV.setText( UtilFunction.generateDate(year, monthOfYear , dayOfMonth) );
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
