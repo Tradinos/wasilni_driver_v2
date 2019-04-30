@@ -20,6 +20,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 public abstract class NavigationActivity extends AppCompatActivity
@@ -82,7 +83,11 @@ public abstract class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.notification) {
 
         } else if (id == R.id.logout) {
-
+            UserUtil.getUserInstance().setAccessToken(null);
+            SharedPreferenceUtils.getEditorInstance(this).clear();
+            SharedPreferenceUtils.getEditorInstance(this).commit();
+            startActivity(new Intent(this , RegistrationActivity.class));
+            ActivityCompat.finishAffinity(this);
         }
 
 //        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
