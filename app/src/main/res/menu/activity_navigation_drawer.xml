@@ -5,28 +5,28 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/profile"
             android:icon="@mipmap/profile"
             android:title="@string/profile" />
         <item
             android:icon="@mipmap/shcdual"
-            android:id="@+id/nav_gallery"
+            android:id="@+id/schedule"
             android:title="@string/schedule" />
         <item
             android:icon="@mipmap/dailly"
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/dailly"
             android:title="@string/daily_report" />
         <item
             android:icon="@mipmap/weekly"
-            android:id="@+id/nav_manage"
+            android:id="@+id/weekly"
             android:title="@string/weekly_report" />
         <item
             android:icon="@mipmap/settings"
-            android:id="@+id/nav_share"
+            android:id="@+id/settings"
             android:title="@string/settings" />
         <item
             android:icon="@mipmap/notification"
-            android:id="@+id/nav_send"
+            android:id="@+id/notification"
             android:title="@string/notification" />
         <item
             android:id="@+id/logout"
