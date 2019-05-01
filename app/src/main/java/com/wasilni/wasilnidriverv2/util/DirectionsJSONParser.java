@@ -19,9 +19,9 @@ import java.util.List;
 public class DirectionsJSONParser {
 
     /** Receives a JSONObject and returns a list of lists containing latitude and longitude */
-    public List<List<HashMap>> parse(JSONObject jObject){
+    public List<List<HashMap<String, String>>> parse(JSONObject jObject){
 
-        List<List<HashMap>> routes = new ArrayList<List<HashMap>>() ;
+        List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>() ;
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
         JSONArray jSteps = null;
@@ -60,6 +60,7 @@ public class DirectionsJSONParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (Exception e){
+            e.printStackTrace();
         }
 
         return routes;

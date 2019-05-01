@@ -86,8 +86,6 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
 
 
         int flags = this.getActivity().getWindow().getAttributes().flags;
-        Log.d("SAED", "onViewCreated: flags babye" + flags);
-
         initView();
 
     }

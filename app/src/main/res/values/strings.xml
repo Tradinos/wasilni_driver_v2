@@ -102,5 +102,8 @@
     <string name="me">me</string>
     <string name="took">Cash received</string>
     <string name="logout">logout</string>
+    <string name="password_error">password must be more then 8 characters</string>
+    <string name="first_name_error">first name must be more then 3 characters</string>
+    <string name="second_name_error">second name must be more then 3 characters</string>
 
 </resources>

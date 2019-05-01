@@ -274,7 +274,8 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.birthdate:
-                this.cdp.show(getActivity().getSupportFragmentManager(), "birthdate");
+                if(!cdp.isAdded())
+                    this.cdp.show(getActivity().getSupportFragmentManager(), "birthdate");
                 break;
             case R.id.whatsapp_yes:
                 this.setWhatsappChoice(true);
@@ -313,14 +314,14 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
         resetValidation();
         String requiredFieldStrId = getString(R.string.required_field);
 
-        if(this.firstnameET.getText().toString().isEmpty()){
+        if(this.firstnameET.getText().toString().length() <3 ){
             valid = false;
-            UtilFunction.setErrorToInputLayout(firstnameIL, requiredFieldStrId);
+            UtilFunction.setErrorToInputLayout(firstnameIL,getString( R.string.first_name_error));
         }
 
-        if(this.lastnameET.getText().toString().isEmpty()){
+        if(this.lastnameET.getText().toString().length() < 3 ){
             valid = false;
-            UtilFunction.setErrorToInputLayout(lastnameIL, requiredFieldStrId);
+            UtilFunction.setErrorToInputLayout(lastnameIL, getString( R.string.second_name_error));
         }
 
         if(!this.isWhatsappSameAsPhone && this.whatsappPhoneET.getText().toString().isEmpty()){
@@ -343,20 +344,18 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
             this.nationalityAC.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
 
-        if(this.passwordET.getText().toString().isEmpty()){
-            valid = false;
-            UtilFunction.setErrorToInputLayout(passwordLT, requiredFieldStrId);
-        }
         if(this.genderSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
             valid = false;
             this.genderSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        Log.e("validate", " " + regions.size() +" "+ regions.indexOf(regionAC.getText().toString()) );
         if (regions.size() == 0 || regions.indexOf(regionAC.getText().toString()) == -1) {
             valid = false;
             UtilFunction.setErrorToInputLayout(regionLT, getString(R.string.auto_complete_selection));
         }
 
+        if(passwordET.getText().toString().length() < 8){
+            UtilFunction.setErrorToInputLayout(passwordLT, getString(R.string.password_error));
+        }
         return valid;
     }
 

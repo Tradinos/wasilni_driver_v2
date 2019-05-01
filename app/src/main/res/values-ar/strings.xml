@@ -101,6 +101,9 @@
     <string name="error_422_interview">الرجاء اختيار موعد اخر هذا الموعد محجوز</string>
     <string name="took">المبلغ المقبوض</string>
     <string name="logout">تسجيل خروج</string>
+    <string name="password_error">كلمة السر يجب انت تكون على الاقل 8 احرف</string>
+    <string name="first_name_error">الاسم الاول يجب انت تكون على الاقل 8 احرف</string>
+    <string name="second_name_error">الاسم الاخير يجب انت تكون على الاقل 8 احرف</string>
 
 
 </resources>

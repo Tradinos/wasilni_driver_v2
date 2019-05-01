@@ -3,6 +3,7 @@ package com.wasilni.wasilnidriverv2.mvp.presenter;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.wasilni.wasilnidriverv2.mvp.model.RegisterCaptain;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.CompleteDataContract;
@@ -36,6 +37,7 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
 
     @Override
     public void onResponse(Call<Response<User>> call, retrofit2.Response<Response<User>> response) {
+
         Log.e("onResponse register",response.message()+" code :"+response.code());
         UtilFunction.hideProgressBar();
         switch (response.code())
