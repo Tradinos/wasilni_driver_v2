@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.flipboard.bottomsheet.commons.BottomSheetFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.wasilni.wasilnidriverv2.R;
@@ -24,10 +25,15 @@ import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.view.BookingsFragmentContract;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.wasilni.wasilnidriverv2.util.Constants.DAMASCUSE;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.getLatLng;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showToast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -158,6 +164,35 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+        try {
+            if (UserUtil.getUserInstance().getLocation() != null) {
+                List<Booking> list = mAdapter.getList();
+                LatLng origin = UserUtil.getUserInstance().getLatLan();
+                LatLng dest;
+
+                // Getting URL to the Google Directions API
+                if (activity.markerPoints == null)
+                    activity.markerPoints = new ArrayList<LatLng>();
+                activity.markerPoints.clear();
+                activity.markerPoints.add(UserUtil.getUserInstance().getLatLan());
+                for (Booking booking : list) {
+                    if (booking.getStatus().equals("PICKED_UP")) {
+                        activity.markerPoints.add(getLatLng(booking.getPullDownLocation().getCoordinates()));
+                    } else {
+                        activity.markerPoints.add(getLatLng(booking.getPickUpLocation().getCoordinates()));
+                    }
+                }
+                dest = activity.markerPoints.get(activity.markerPoints.size() - 1);
+                String url = activity.getDirectionsUrl(origin, dest);
+                Log.e("initView: ", url);
+                HomeActivity.DownloadTask downloadTask = new HomeActivity.DownloadTask();
+
+                // Start downloading json data from Google Directions API
+                downloadTask.execute(url);
+            }
+        }catch (Exception e){
+            showToast(activity,"1");
+        }
     }
     @Override
     public void initMarker(Ride ride){
@@ -174,7 +209,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
 
             MarkerOptions markerOptions = new MarkerOptions();
             if(booking.getStatus().equals("PICKED_UP")){
-                markerOptions.position(UtilFunction.getLatLng(booking.getPullDownLocation().getCoordinates()));
+                markerOptions.position(getLatLng(booking.getPullDownLocation().getCoordinates()));
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             }else{
                 if(booking.getStatus().equals("DONE")) {
@@ -182,7 +217,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
                 }else{
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker());
                 }
-                markerOptions.position(UtilFunction.getLatLng(booking.getPickUpLocation().getCoordinates()));
+                markerOptions.position(getLatLng(booking.getPickUpLocation().getCoordinates()));
             }
             markerOptions.title(booking.getName());
             Marker locationMarker = activity.mMap.addMarker(markerOptions);

@@ -2,6 +2,7 @@ package com.wasilni.wasilnidriverv2.mvp.model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -97,7 +98,9 @@ public class User{
     public void setLocation(Location location) {
         this.location = location;
     }
-
+    public LatLng getLatLan(){
+        return new LatLng(location.getLatitude() , location.getLongitude());
+    }
     public Boolean getLogingIn() {
         return isLogingIn;
     }

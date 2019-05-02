@@ -84,6 +84,7 @@ import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM1;
 import static com.wasilni.wasilnidriverv2.util.Constants.ZOOM2;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.REQUEST_CHECK_SETTINGS;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.settingsRequest;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.showToast;
 
 public class HomeActivity extends NavigationActivity implements
         TripPassengersActionsFragment.OnFragmentInteractionListener,
@@ -95,7 +96,7 @@ public class HomeActivity extends NavigationActivity implements
     public ArrayList<LatLng> markerPoints;
     public Marker myMarker ;
     public MarkerOptions myMarkerOptions;
-    public GoogleMap mMap;
+    public static GoogleMap mMap;
     public RecyclerView recyclerView;
     public ImageView driverStatus;
     public TextView driverStatusTextView ;
@@ -149,20 +150,7 @@ public class HomeActivity extends NavigationActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        markerPoints = new ArrayList<LatLng>();
-//        mMap.addMarker(new MarkerOptions().position(latLng));
-//        markerPoints.add(latLng);
         moveCamera(DAMASCUSE);
-//        LatLng origin = DAMASCUSE;
-//        LatLng dest = new LatLng(DAMASCUSE.latitude , DAMASCUSE.longitude+0.005);
-//
-//        // Getting URL to the Google Directions API
-//        String url = getDirectionsUrl(origin, dest);
-//        Log.e("onMapReady: ",url );
-//        DownloadTask downloadTask = new DownloadTask();
-//
-//        // Start downloading json data from Google Directions API
-//        downloadTask.execute(url);
     }
 
     @Override
@@ -171,6 +159,14 @@ public class HomeActivity extends NavigationActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                Log.e( "gpsStatus: ",""+isGPSEnable );
+            }
+        });
+        addDriverLocationToMap();
         driverStatus = findViewById(R.id.driver_status_image) ;
         onlineOfflineLayout = findViewById(R.id.bottom_linear_layout) ;
         driverStatusTextView = findViewById(R.id.driver_status);
@@ -226,14 +222,7 @@ public class HomeActivity extends NavigationActivity implements
 
 
 
-        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
-            @Override
-            public void gpsStatus(boolean isGPSEnable) {
-                // turn on GPS
-                Log.e( "gpsStatus: ",""+isGPSEnable );
-            }
-        });
-        addDriverLocationToMap();
+
 
     }
 
@@ -399,24 +388,28 @@ public class HomeActivity extends NavigationActivity implements
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(myMarker == null){
-                                myMarkerOptions = new MarkerOptions();
-                                myMarkerOptions.title(getResources().getString(R.string.me));
-                                LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
-                                myMarkerOptions.position(latLng);
-                                myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                                myMarker = mMap.addMarker(myMarkerOptions);
-                            }
+                            try {
+                                if (myMarker == null) {
+                                    myMarkerOptions = new MarkerOptions();
+                                    myMarkerOptions.title(getResources().getString(R.string.me));
+                                    LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude(), UserUtil.getUserInstance().getLocation().getLongitude());
+                                    myMarkerOptions.position(latLng);
+                                    myMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                                    myMarker = mMap.addMarker(myMarkerOptions);
+                                }
 
-                            LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude() ,UserUtil.getUserInstance().getLocation().getLongitude());
-                            myMarkerOptions.position(latLng);
-                            myMarker.remove();
-                            myMarker = mMap.addMarker(myMarkerOptions);
+                                LatLng latLng = new LatLng(UserUtil.getUserInstance().getLocation().getLatitude(), UserUtil.getUserInstance().getLocation().getLongitude());
+                                myMarkerOptions.position(latLng);
+                                myMarker.remove();
+                                myMarker = mMap.addMarker(myMarkerOptions);
+                            }catch (Exception e){
+                                showToast(activity,"2");
+                            }
                         }
                     });
                 }
             }
-        },0,10000);
+        },0,5000);
     }
 
     @Override
@@ -504,7 +497,7 @@ public class HomeActivity extends NavigationActivity implements
     }
 
 
-    private String getDirectionsUrl(LatLng origin,LatLng dest){
+    public String getDirectionsUrl(LatLng origin,LatLng dest){
 
         // Origin of route
         String str_origin = "origin="+origin.latitude+","+origin.longitude;
@@ -517,9 +510,9 @@ public class HomeActivity extends NavigationActivity implements
 
         // Waypoints
         String waypoints = "";
-        for(int i=0;i<markerPoints.size();i++){
+        for(int i=2;i<markerPoints.size();i++){
             LatLng point  = (LatLng) markerPoints.get(i);
-            if(i==0)
+            if(i==2)
                 waypoints = "waypoints=";
             waypoints += point.latitude + "," + point.longitude ;
             if(i+1 != markerPoints.size()){
@@ -540,7 +533,7 @@ public class HomeActivity extends NavigationActivity implements
     }
 
     /** A method to download json data from url */
-    private String downloadUrl(String strUrl) throws IOException {
+    public static String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
@@ -579,7 +572,7 @@ public class HomeActivity extends NavigationActivity implements
     }
 
     // Fetches data from url passed
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+    public static class DownloadTask extends AsyncTask<String, Void, String> {
 
         // Downloading data in non-ui thread
         @Override
@@ -612,7 +605,7 @@ public class HomeActivity extends NavigationActivity implements
     }
 
     /** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
+    public static class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
 
         // Parsing the data in non-ui thread
         @Override
@@ -666,11 +659,14 @@ public class HomeActivity extends NavigationActivity implements
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(10);
-                lineOptions.color(getColor(R.color.colorPrimary));
             }
 
             // Drawing polyline in the Google Map for the i-th route
-;            mMap.addPolyline(lineOptions);
+            try {
+                mMap.addPolyline(lineOptions);
+            }catch (Exception e){
+
+            }
         }
     }
 }
