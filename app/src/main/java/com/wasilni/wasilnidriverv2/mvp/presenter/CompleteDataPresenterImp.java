@@ -15,7 +15,12 @@ import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import retrofit2.Call;
+
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
 
 public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDataPresenter {
     RegistrationActivity registrationActivity ;
@@ -51,7 +56,23 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
                 registrationActivity.responseCode200(null);
                 break;
             case 422 :
-                registrationActivity.responseCode422(response.body().getMessage());
+                if(response.isSuccessful()) {
+                    registrationActivity.responseCode422(response.body().getMessage());
+                }else{
+                    UtilFunction.showToast(registrationActivity , "111");
+                    JSONObject jsonObject = null;
+                    try {
+                        p(response.errorBody().string());
+//                        jsonObject = new JSONObject(response.errorBody().string().substring(response.errorBody().string().indexOf("{"), response.errorBody().string().lastIndexOf("}") + 1));
+                        jsonObject = new JSONObject(response.errorBody().string());
+                        p(response.errorBody().toString());
+                        String userMessage = jsonObject.getString("message");
+                        UtilFunction.showToast(registrationActivity , userMessage);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case 500 :
                 registrationActivity.responseCode500();
