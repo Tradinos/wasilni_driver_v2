@@ -173,16 +173,17 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
                 // Getting URL to the Google Directions API
                 if (activity.markerPoints == null)
                     activity.markerPoints = new ArrayList<LatLng>();
+                Log.e("initView: ", ""+list.size());
                 activity.markerPoints.clear();
                 activity.markerPoints.add(UserUtil.getUserInstance().getLatLan());
                 for (Booking booking : list) {
                     if (booking.getStatus().equals("PICKED_UP")) {
                         activity.markerPoints.add(getLatLng(booking.getPullDownLocation().getCoordinates()));
-                    } else {
+                    }else {
                         activity.markerPoints.add(getLatLng(booking.getPickUpLocation().getCoordinates()));
                     }
                 }
-                dest = activity.markerPoints.get(activity.markerPoints.size() - 1);
+                dest = activity.markerPoints.get(1);
                 String url = activity.getDirectionsUrl(origin, dest);
                 Log.e("initView: ", url);
                 HomeActivity.DownloadTask downloadTask = new HomeActivity.DownloadTask();
