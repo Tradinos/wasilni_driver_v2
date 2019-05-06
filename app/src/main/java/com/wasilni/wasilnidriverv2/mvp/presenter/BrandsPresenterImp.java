@@ -11,11 +11,14 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
 
 public class BrandsPresenterImp implements BrandContract.BrandsPresenter {
 
@@ -49,6 +52,17 @@ public class BrandsPresenterImp implements BrandContract.BrandsPresenter {
                 this.responseInterface.populateBrands((List<Brand>) response.body().getData().getData());
                 break;
             case 422 :
+                JSONObject jsonObject = null;
+                try {
+                    String res = response.errorBody().string()  ;
+                    jsonObject = new JSONObject(res);
+                    p(response.errorBody().toString());
+                    String userMessage = jsonObject.getString("message");
+                    UtilFunction.showToast(context , userMessage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 break;

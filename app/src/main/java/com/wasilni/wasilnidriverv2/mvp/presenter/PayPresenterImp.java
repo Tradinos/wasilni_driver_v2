@@ -11,6 +11,8 @@ import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -50,7 +52,11 @@ public class PayPresenterImp implements PayContract.PayPresenter {
                 fragment.tripPassengersActionsFragment.deleteBooking(fragment.sendedBooking);
                 break;
             case 422:
-                fragment.activity.responseCode422(response.body().getMessage());
+                try {
+                    fragment.activity.responseCode422(response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500:
                 fragment.activity.responseCode500();

@@ -9,6 +9,8 @@ import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -43,6 +45,16 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
                 phoneVerificationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
+                JSONObject jsonObject = null;
+                try {
+                    String res = response.errorBody().string()  ;
+                    jsonObject = new JSONObject(res);
+                    String userMessage = jsonObject.getString("message");
+                    UtilFunction.showToast(phoneVerificationFragment.getActivity() , userMessage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 break;

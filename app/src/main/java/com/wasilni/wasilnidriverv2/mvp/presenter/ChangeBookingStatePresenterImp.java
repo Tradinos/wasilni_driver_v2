@@ -16,6 +16,8 @@ import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 
 import static com.wasilni.wasilnidriverv2.util.Constants.Token;
@@ -84,7 +86,11 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
                 }
                 break;
             case 422 :
-                tripPassengersActionsFragment.activity.responseCode422(response.body().getMessage());
+                try {
+                    tripPassengersActionsFragment.activity.responseCode422(response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 tripPassengersActionsFragment.activity.responseCode500();

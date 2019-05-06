@@ -14,6 +14,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,7 +53,11 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
                 tripPassengersActionsFragment.setBookings(response.body().getData());
                 break;
             case 422 :
-                tripPassengersActionsFragment.activity.responseCode422(response.body().getMessage());
+                try {
+                    tripPassengersActionsFragment.activity.responseCode422(response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 tripPassengersActionsFragment.activity.responseCode500();

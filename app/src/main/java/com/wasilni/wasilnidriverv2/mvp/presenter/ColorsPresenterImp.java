@@ -50,6 +50,7 @@ public class ColorsPresenterImp implements ColorContract.ColorsPresenter {
                 this.responseInterface.populateColors((List<Color>) response.body().getData().getData());
                 break;
             case 422 :
+
                 break;
             case 500 :
                 break;

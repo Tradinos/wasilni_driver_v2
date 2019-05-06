@@ -23,6 +23,10 @@ import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import org.json.JSONObject;
+
+import static com.wasilni.wasilnidriverv2.util.UtilFunction.p;
+
 public abstract class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         NavigationContract.NavigationView {
@@ -103,7 +107,16 @@ public abstract class NavigationActivity extends AppCompatActivity
 
     @Override
     public void responseCode422(String message) {
-        UtilFunction.showToast(this,message);
+        JSONObject jsonObject = null;
+        try {
+            String res = message  ;
+            jsonObject = new JSONObject(res);
+            String userMessage = jsonObject.getString("message");
+            UtilFunction.showToast(this , userMessage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

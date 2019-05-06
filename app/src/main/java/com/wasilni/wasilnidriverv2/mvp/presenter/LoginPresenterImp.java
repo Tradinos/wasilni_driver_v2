@@ -19,6 +19,8 @@ import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,6 +60,16 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
                 ActivityCompat.finishAffinity(activity);
                 break;
             case 422 :
+                JSONObject jsonObject = null;
+                try {
+                    String res = response.errorBody().string()  ;
+                    jsonObject = new JSONObject(res);
+                    String userMessage = jsonObject.getString("message");
+                    UtilFunction.showToast(activity , userMessage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 break;

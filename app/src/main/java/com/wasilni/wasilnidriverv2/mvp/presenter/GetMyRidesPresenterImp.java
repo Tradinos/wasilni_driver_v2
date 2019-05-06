@@ -11,6 +11,7 @@ import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,7 +50,11 @@ public class GetMyRidesPresenterImp implements RideContruct.MyRidesPresenter {
                 activity.setRides(response.body().getData().getData());
                 break;
             case 422 :
-                activity.responseCode422(response.body().getMessage());
+                try {
+                    activity.responseCode422(response.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 500 :
                 activity.responseCode500();
