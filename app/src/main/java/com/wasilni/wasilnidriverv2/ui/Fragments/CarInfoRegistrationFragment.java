@@ -113,7 +113,6 @@ public class CarInfoRegistrationFragment extends Fragment implements
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setPreselectedDate(2015, 12, 1)
                 .setDoneText(getActivity().getString(R.string.yes))
                 .setCancelText(getActivity().getString(R.string.no))//.setThemeLight();
                 .setThemeCustom(R.style.MyCustomBetterPickersDialogs);
