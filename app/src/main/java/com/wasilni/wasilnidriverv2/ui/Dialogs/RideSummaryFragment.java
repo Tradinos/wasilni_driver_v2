@@ -27,6 +27,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.PayContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RideSummaryContract;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.util.RideStatus;
+import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
@@ -161,7 +162,12 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendToServer(new Payment(sendedBooking , moneyCost.getText().toString()));
+                if( Integer.parseInt(moneyCost.getText().toString()) >= sendedBooking.getTo_pay() )
+                {
+                    presenter.sendToServer(new Payment(sendedBooking, moneyCost.getText().toString()));
+                }else{
+                    UtilFunction.showToast(activity,"المبلغ اقل من المبلغ الواجب دفعه");
+                }
 
 
             }
