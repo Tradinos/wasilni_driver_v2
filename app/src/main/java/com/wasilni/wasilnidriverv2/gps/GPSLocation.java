@@ -59,7 +59,12 @@ public class GPSLocation {
         }
         Log.e("permission ", "allow " );
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
     public static void stopUpdateLocation(){

@@ -330,15 +330,18 @@ public class CivilInfoRegistrationFragment extends Fragment implements
 
     @Override
     public boolean submit() {
-        if(this.validate())
-        {
-            this.mListener.submitCivilData(
-                    this.licenseStartDateTV.getText().toString(),
-                    this.licenseEndDateTV.getText().toString(),
-                    ((Bank)this.bankSp.getSelectedItem()).getName());
-            return true;
-        }
-        else{
+        try {
+            if (this.validate()) {
+                this.mListener.submitCivilData(
+                        this.licenseStartDateTV.getText().toString(),
+                        this.licenseEndDateTV.getText().toString(),
+                        ((Bank) this.bankSp.getSelectedItem()).getName());
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
 

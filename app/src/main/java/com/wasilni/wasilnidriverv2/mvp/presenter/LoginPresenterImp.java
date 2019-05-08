@@ -76,6 +76,16 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
             case 400:
                 break;
             case 401:
+                JSONObject jsonObject1 = null;
+                try {
+                    String res = response.errorBody().string()  ;
+                    jsonObject1 = new JSONObject(res);
+                    String userMessage = jsonObject1.getString("message");
+                    UtilFunction.showToast(activity , userMessage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
