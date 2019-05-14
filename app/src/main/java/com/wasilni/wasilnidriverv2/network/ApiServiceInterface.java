@@ -103,6 +103,10 @@ public interface ApiServiceInterface {
     Call<Response<PaginationAPI<Brand>>> Brands(@Header("Authorization") String Authorization );
 
     @Headers("Accept: application/json")
+    @GET("car_brand")
+    Call<Response<PaginationAPI<Brand>>> searchBrands(@Header("Authorization") String Authorization , @Query("search") String search);
+
+    @Headers("Accept: application/json")
     @GET("nationality")
     Call<Response<PaginationAPI<Nationality>>> Nationalities(@Header("Authorization") String Authorization );
 

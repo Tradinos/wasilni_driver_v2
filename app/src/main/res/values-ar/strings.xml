@@ -70,8 +70,8 @@
 
     <string name="rate">تقييم</string>
     <string name="waiting"> انتظار </string>
-    <string name="calculated_cost">التكلفة المستحقة</string>المستحق للدفع
-    <string name="booking_cost"> تكلفة الحجز </string>تكلفة الحجز الاجمالي
+    <string name="calculated_cost">المستحق للدفع</string>
+    <string name="booking_cost"> تكلفة الحجز الاجمالي </string>
 
     <string name="brand">النوع</string>
     <string name="model">الموديل</string>

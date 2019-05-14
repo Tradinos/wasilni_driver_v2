@@ -83,15 +83,15 @@
                 android:layout_marginEnd="@dimen/register_card_padding"
                 android:orientation="horizontal">
 
-                <Spinner
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/brand"
                     android:layout_width="0dp"
+                    android:hint="مثال: kia"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_between_fields"
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_spinner"
-                    android:spinnerMode="dropdown" />
+                    />
 
                 <Spinner
                     android:id="@+id/model"

@@ -9,17 +9,25 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.LocationsPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.presenter.SearchBrandsPresenterImp;
+import com.wasilni.wasilnidriverv2.mvp.view.LocationContract;
 import com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Brand;
 import com.wasilni.wasilnidriverv2.mvp.model.BrandModel;
@@ -49,31 +57,35 @@ import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED
 public class CarInfoRegistrationFragment extends Fragment implements
         ColorsPresenterImp.OnResponseInterface,
         BrandsPresenterImp.OnResponseInterface,
+        SearchBrandsPresenterImp.OnResponseInterface,
         BrandModelsPresenterImp.OnResponseInterface,
         FormContract,
         View.OnClickListener {
     private OnFragmentInteractionListener mListener;
-
-    Spinner brandSp, manufacturYearSp, modelSp, colorSp;
+    AutoCompleteTextView brandAutoCompleteTextView;
+    Spinner manufacturYearSp, modelSp, colorSp;
     TextView insuranceImageTV, insuranceDateTV;
     TextView mechanicFrontPageTV, mechanicBackPageTV;
     TextInputEditText carNumberET;
     TextInputLayout carNumberLY;
     CalendarDatePickerDialogFragment cdpInsuranceDate;
-
+    private SearchBrandsPresenterImp presenter ;
+    ArrayAdapter<String> adapterBrand;
+    Brand[] carBrands = new Brand[200];
+    String[] carBrandString = new String[200];
     private final int CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE = 1;
     private final int GALLERY_MECHANIC_FRONT_IMAGE_REQUEST_CODE = 2;
-    private String cameraTempFileMechanicFront = "wasilni_mechanic_front_" + (new Date().getTime()) +  ".jpg";
+    private String cameraTempFileMechanicFront = "wasilni_mechanic_front_" + (new Date().getTime()) + ".jpg";
 
     private final int CAMERA_MECHANIC_BACK_IMAGE_REQUEST_CODE = 3;
     private final int GALLERY_MECHANIC_BACK_IMAGE_REQUEST_CODE = 4;
-    private String cameraTempFileMechanicBack = "wasilni_mechanic_back_" + (new Date().getTime()) +  ".jpg";
+    private String cameraTempFileMechanicBack = "wasilni_mechanic_back_" + (new Date().getTime()) + ".jpg";
 
     private final int CAMERA_INSURANCE_IMAGE_REQUEST_CODE = 5;
     private final int GALLERY_INSURANCE_IMAGE_REQUEST_CODE = 6;
-    private String cameraTempFileInsurance = "wasilni_insurance_mechanic" + (new Date().getTime()) +  ".jpg";
+    private String cameraTempFileInsurance = "wasilni_insurance_mechanic" + (new Date().getTime()) + ".jpg";
 
-    private ObjectNameAdapter colorsAdapter, brandsAdapter, brandModelsAdapter;
+    private ObjectNameAdapter colorsAdapter, brandModelsAdapter;
     private BrandsPresenterImp brandsPresenterImp;
     private BrandModelsPresenterImp brandModelsPresenterImp;
     private ColorsPresenterImp colorsPresenterImp;
@@ -109,7 +121,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        insuranceDateTV.setText( UtilFunction.generateDate(year, monthOfYear  , dayOfMonth) );
+                        insuranceDateTV.setText(UtilFunction.generateDate(year, monthOfYear, dayOfMonth));
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -117,9 +129,8 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 .setCancelText(getActivity().getString(R.string.no))//.setThemeLight();
                 .setThemeCustom(R.style.MyCustomBetterPickersDialogs);
 
-        this.brandModelsPresenterImp = new BrandModelsPresenterImp(this,getActivity());
-        this.brandsPresenterImp = new BrandsPresenterImp(this,getActivity());
-        this.colorsPresenterImp = new ColorsPresenterImp(this,getActivity());
+        this.brandModelsPresenterImp = new BrandModelsPresenterImp(this, getActivity());
+        this.colorsPresenterImp = new ColorsPresenterImp(this, getActivity());
 
         return inflater.inflate(R.layout.fragment_car_info_registration, container, false);
     }
@@ -134,16 +145,38 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.mechanicBackPageTV = view.findViewById(R.id.back_page);
         this.modelSp = view.findViewById(R.id.model);
         this.manufacturYearSp = view.findViewById(R.id.manufacture_year);
-        this.brandSp = view.findViewById(R.id.brand);
+        this.brandAutoCompleteTextView = view.findViewById(R.id.brand);
         this.colorSp = view.findViewById(R.id.car_color);
         this.carNumberET = view.findViewById(R.id.car_number_edit);
         this.carNumberLY = view.findViewById(R.id.car_number_layout);
-
+        presenter = new SearchBrandsPresenterImp(this , getActivity());
         UtilFunction.underlineWidget(this.insuranceDateTV);
         UtilFunction.underlineWidget(this.insuranceImageTV);
         UtilFunction.underlineWidget(this.mechanicFrontPageTV);
         UtilFunction.underlineWidget(this.mechanicBackPageTV);
 
+        brandAutoCompleteTextView.setThreshold(1);
+        adapterBrand = new ArrayAdapter<>(this.getActivity(), R.layout.car_autocomplete_item, carBrandString);
+        brandAutoCompleteTextView.setAdapter(adapterBrand);
+//        adapterBrand.notifyDataSetChanged();
+
+        brandAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                presenter.sendToServer(new Brand(1, brandAutoCompleteTextView.getText().toString()));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         this.insuranceImageTV.setOnClickListener(this);
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
@@ -154,19 +187,18 @@ public class CarInfoRegistrationFragment extends Fragment implements
 
     }
 
-    private void setUpAdapters(){
+    private void setUpAdapters() {
 
         colorsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.color));
-        brandsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.brand));
         brandModelsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.model));
 
-        brandSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        brandAutoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SAED", "onItemSelected: I am around here");
-                if(brandSp.getSelectedItem() instanceof Brand) {
-                    brandModelsPresenterImp.sendToServer((Brand)brandSp.getSelectedItem());
-                }
+//                Log.d("SAED", "onItemSelected: I am around here");
+//                if(brandAutoCompleteTextView.getSelectedItem() instanceof Brand) {
+//                    brandModelsPresenterImp.sendToServer((Brand)brandSp.getSelectedItem());
+//                }
             }
 
             @Override
@@ -175,20 +207,19 @@ public class CarInfoRegistrationFragment extends Fragment implements
             }
         });
 
-        ObjectNameAdapter adapter6 = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, (ArrayList)UtilFunction.generateYears(2000,2020),getString(R.string.year));
+        ObjectNameAdapter adapter6 = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, (ArrayList) UtilFunction.generateYears(2000, 2020), getString(R.string.year));
         this.populateBrandModels(new ArrayList<BrandModel>());
         this.populateBrands(new ArrayList<Brand>());
         this.populateColors(new ArrayList<Color>());
 
         this.colorSp.setAdapter(colorsAdapter);
-        this.brandSp.setAdapter(brandsAdapter);
         this.modelSp.setAdapter(brandModelsAdapter);
         this.manufacturYearSp.setAdapter(adapter6);
     }
 
-    private void fetchData(){
+    private void fetchData() {
         this.colorsPresenterImp.sendToServer(null);
-        this.brandsPresenterImp.sendToServer(null);
+//        this.brandsPresenterImp.sendToServer(null);
 
 
 //        List<Brand> brands = new ArrayList<>();
@@ -211,9 +242,8 @@ public class CarInfoRegistrationFragment extends Fragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK) {
-            if( CAMERA_MECHANIC_BACK_IMAGE_REQUEST_CODE == requestCode || GALLERY_MECHANIC_BACK_IMAGE_REQUEST_CODE == requestCode)
-            {
+        if (resultCode == RESULT_OK) {
+            if (CAMERA_MECHANIC_BACK_IMAGE_REQUEST_CODE == requestCode || GALLERY_MECHANIC_BACK_IMAGE_REQUEST_CODE == requestCode) {
                 UtilFunction.setTextFromPickingPictureResult(
                         getActivity(),
                         requestCode,
@@ -222,9 +252,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                         this.cameraTempFileMechanicBack,
                         data,
                         this.mechanicBackPageTV);
-            }
-            else if( CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE == requestCode || GALLERY_MECHANIC_FRONT_IMAGE_REQUEST_CODE == requestCode)
-            {
+            } else if (CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE == requestCode || GALLERY_MECHANIC_FRONT_IMAGE_REQUEST_CODE == requestCode) {
                 UtilFunction.setTextFromPickingPictureResult(
                         getActivity(),
                         requestCode,
@@ -233,9 +261,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                         this.cameraTempFileMechanicFront,
                         data,
                         this.mechanicFrontPageTV);
-            }
-            else if( CAMERA_INSURANCE_IMAGE_REQUEST_CODE == requestCode || GALLERY_INSURANCE_IMAGE_REQUEST_CODE == requestCode)
-            {
+            } else if (CAMERA_INSURANCE_IMAGE_REQUEST_CODE == requestCode || GALLERY_INSURANCE_IMAGE_REQUEST_CODE == requestCode) {
                 UtilFunction.setTextFromPickingPictureResult(
                         getActivity(),
                         requestCode,
@@ -272,7 +298,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.front_page:
                 this.startCameraGalleryDialog(this.cameraTempFileMechanicFront, this.CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE, this.GALLERY_MECHANIC_FRONT_IMAGE_REQUEST_CODE);
                 break;
@@ -280,15 +306,15 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 this.startCameraGalleryDialog(this.cameraTempFileMechanicBack, this.CAMERA_MECHANIC_BACK_IMAGE_REQUEST_CODE, this.GALLERY_MECHANIC_BACK_IMAGE_REQUEST_CODE);
                 break;
             case R.id.insurance_image:
-                this.startCameraGalleryDialog(this.cameraTempFileInsurance, CAMERA_INSURANCE_IMAGE_REQUEST_CODE,GALLERY_INSURANCE_IMAGE_REQUEST_CODE);
+                this.startCameraGalleryDialog(this.cameraTempFileInsurance, CAMERA_INSURANCE_IMAGE_REQUEST_CODE, GALLERY_INSURANCE_IMAGE_REQUEST_CODE);
                 break;
             case R.id.insurance_date:
-                cdpInsuranceDate.show(getActivity().getSupportFragmentManager(),"insurance_date");
+                cdpInsuranceDate.show(getActivity().getSupportFragmentManager(), "insurance_date");
                 break;
         }
     }
 
-    public void startCameraGalleryDialog(String tempFile, int cameraCode, int galleryCode){
+    public void startCameraGalleryDialog(String tempFile, int cameraCode, int galleryCode) {
         UtilFunction.startCameraGalleryDialogFromFragment(
                 getActivity(),
                 getString(R.string.dialog_image_title),
@@ -304,19 +330,19 @@ public class CarInfoRegistrationFragment extends Fragment implements
     @Override
     public boolean validate() {
         boolean valid = true;
-        if( this.brandSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
-            valid = false;
-            this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
-        }
-        if( this.modelSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
+//        if( this.brandAutoCompleteTextView.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
+//            valid = false;
+//            this.brandAutoCompleteTextView.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
+//        }
+        if (this.modelSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX) {
             valid = false;
             this.modelSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        if( this.manufacturYearSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
+        if (this.manufacturYearSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX) {
             valid = false;
             this.manufacturYearSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
-        if( this.colorSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
+        if (this.colorSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX) {
             valid = false;
             this.colorSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
         }
@@ -328,24 +354,22 @@ public class CarInfoRegistrationFragment extends Fragment implements
         this.colorSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
         this.modelSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
         this.manufacturYearSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
-        this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
-        this.brandSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
+        this.brandAutoCompleteTextView.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
+        this.brandAutoCompleteTextView.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner));
 
     }
 
     @Override
     public boolean submit() {
-        if (this.validate())
-        {
+        if (this.validate()) {
             this.mListener.submitCarData(this.colorSp.getSelectedItemPosition(),
-                    ((BrandModel)this.modelSp.getSelectedItem()).getId(),
-                    (String)this.manufacturYearSp.getSelectedItem(),
-                    ((Brand)this.brandSp.getSelectedItem()).getId(),
-                    this.carNumberET.getText().toString(),
-                    this.insuranceDateTV.getText().toString() );
+                    ((BrandModel) this.modelSp.getSelectedItem()).getId(),
+                    (String) this.manufacturYearSp.getSelectedItem(),
+//                    ((Brand)this.brandAutoCompleteTextView.getSelectedItem()).getId(),
+                    1, this.carNumberET.getText().toString(),
+                    this.insuranceDateTV.getText().toString());
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -357,19 +381,34 @@ public class CarInfoRegistrationFragment extends Fragment implements
 
     @Override
     public void populateBrandModels(List<BrandModel> brandModels) {
-        brandModelsAdapter.updateItems((List)brandModels);
+        brandModelsAdapter.updateItems((List) brandModels);
     }
 
     @Override
     public void populateBrands(List<Brand> brands) {
-        brandsAdapter.updateItems((List)brands);
 
     }
 
     @Override
     public void populateColors(List<Color> colors) {
-        colorsAdapter.updateItems((List)colors);
+        colorsAdapter.updateItems((List) colors);
 
+    }
+
+    @Override
+    public void populateSearchBrands(List<Brand> brands) {
+        int i = 0 ;
+        adapterBrand.clear();
+        for(Brand brand : brands){
+            carBrands[i] = brand ;
+            carBrandString[i] = brand.getName() ;
+            adapterBrand.add(brand.getName());
+            Log.e("populateSearchBrands: ",brand.getName()  );
+            i++;
+        }
+        Log.e("populateSearchBrands: ","111" );
+        adapterBrand.notifyDataSetChanged();
+        Log.e("populateSearchBrands: ","222" );
     }
 
     @Override
