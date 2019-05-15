@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.Location;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.LocationsPresenterImp;
@@ -70,9 +71,9 @@ public class CarInfoRegistrationFragment extends Fragment implements
     TextInputLayout carNumberLY;
     CalendarDatePickerDialogFragment cdpInsuranceDate;
     private SearchBrandsPresenterImp presenter ;
-    ArrayAdapter<String> adapterBrand;
-    Brand[] carBrands = new Brand[200];
-    String[] carBrandString = new String[200];
+    ObjectNameAdapter adapterBrand;
+    List<Brand> carBrands = new ArrayList<>();
+    List<String> carBrandString = new ArrayList<>();
     private final int CAMERA_MECHANIC_FRONT_IMAGE_REQUEST_CODE = 1;
     private final int GALLERY_MECHANIC_FRONT_IMAGE_REQUEST_CODE = 2;
     private String cameraTempFileMechanicFront = "wasilni_mechanic_front_" + (new Date().getTime()) + ".jpg";
@@ -156,7 +157,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
         UtilFunction.underlineWidget(this.mechanicBackPageTV);
 
         brandAutoCompleteTextView.setThreshold(1);
-        adapterBrand = new ArrayAdapter<>(this.getActivity(), R.layout.car_autocomplete_item, carBrandString);
+        adapterBrand = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<>());
         brandAutoCompleteTextView.setAdapter(adapterBrand);
 //        adapterBrand.notifyDataSetChanged();
 
@@ -168,15 +169,27 @@ public class CarInfoRegistrationFragment extends Fragment implements
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                presenter.sendToServer(new Brand(1, brandAutoCompleteTextView.getText().toString()));
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                presenter.sendToServer(new Brand(1, brandAutoCompleteTextView.getText().toString()));
             }
         });
+        this.brandAutoCompleteTextView.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (!hasFocus) {
+                            int idx = carBrandString.indexOf(brandAutoCompleteTextView.getText().toString()) ;
+                            Log.e("onFocusChange: ", ""+idx+carBrands.size()  );
+                            if (carBrands.size() == 0 || idx == -1) {
+                                brandAutoCompleteTextView.setError(getString(R.string.auto_complete_selection));
+                            }
+                        }
+                    }
+                }
+        );
         this.insuranceImageTV.setOnClickListener(this);
         this.mechanicFrontPageTV.setOnClickListener(this);
         this.mechanicBackPageTV.setOnClickListener(this);
@@ -192,17 +205,14 @@ public class CarInfoRegistrationFragment extends Fragment implements
         colorsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.color));
         brandModelsAdapter = new ObjectNameAdapter(getActivity(), R.layout.name_spinner_item, new ArrayList<Object>(), getString(R.string.model));
 
-        brandAutoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        brandAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d("SAED", "onItemSelected: I am around here");
-//                if(brandAutoCompleteTextView.getSelectedItem() instanceof Brand) {
-//                    brandModelsPresenterImp.sendToServer((Brand)brandSp.getSelectedItem());
-//                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int idx = carBrandString.indexOf(brandAutoCompleteTextView.getText().toString());
+                Log.e( "onItemSelected: ", ""+idx);
+                if(idx != -1){
+                    brandModelsPresenterImp.sendToServer(carBrands.get(idx));
+                }
 
             }
         });
@@ -330,10 +340,10 @@ public class CarInfoRegistrationFragment extends Fragment implements
     @Override
     public boolean validate() {
         boolean valid = true;
-//        if( this.brandAutoCompleteTextView.getSelectedItemPosition() == DISABLED_ITEM_INDEX){
-//            valid = false;
-//            this.brandAutoCompleteTextView.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
-//        }
+        if (carBrands.size() == 0 || carBrandString.indexOf(brandAutoCompleteTextView.getText().toString()) == -1) {
+            valid = false;
+            brandAutoCompleteTextView.setError(getString(R.string.auto_complete_selection));
+        }
         if (this.modelSp.getSelectedItemPosition() == DISABLED_ITEM_INDEX) {
             valid = false;
             this.modelSp.setBackground(getActivity().getResources().getDrawable(R.drawable.bg_spinner_border_red));
@@ -399,15 +409,17 @@ public class CarInfoRegistrationFragment extends Fragment implements
     public void populateSearchBrands(List<Brand> brands) {
         int i = 0 ;
         adapterBrand.clear();
+        adapterBrand.updateItems((List)brands);
+        adapterBrand.notifyDataSetChanged();
+        carBrands.clear();
+        carBrandString.clear();
         for(Brand brand : brands){
-            carBrands[i] = brand ;
-            carBrandString[i] = brand.getName() ;
-            adapterBrand.add(brand.getName());
+           carBrands.add(brand);
+           carBrandString.add(brand.getName());
             Log.e("populateSearchBrands: ",brand.getName()  );
             i++;
         }
         Log.e("populateSearchBrands: ","111" );
-        adapterBrand.notifyDataSetChanged();
         Log.e("populateSearchBrands: ","222" );
     }
 

@@ -21,9 +21,9 @@
         <item name="bpBodySelectedTextColor">@color/lightcolorPrimary</item>
         <item name="bpBodyUnselectedTextColor">@color/gray</item>
 
-        <item name="bpRadialBackgroundColor">#123456</item>
-        <item name="bpRadialTextColor">#654321</item>
-        <item name="bpRadialPointerColor">@android:color/black</item>
+        <!--<item name="bpRadialBackgroundColor">#123456</item>-->
+        <!--<item name="bpRadialTextColor">#654321</item>-->
+        <!--<item name="bpRadialPointerColor">@android:color/black</item>-->
 
         <item name="bpButtonsBackgroundColor">@color/white</item>
         <item name="bpButtonsTextColor">@color/colorPrimary</item>
