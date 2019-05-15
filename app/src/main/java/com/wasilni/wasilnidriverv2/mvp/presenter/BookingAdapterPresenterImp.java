@@ -60,7 +60,12 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             holder.passengerNameTextView.setText(object.getName());
         }
         if(holder.DetailsTextView != null){
-            holder.DetailsTextView.setText(object.getPickUpLocationDetails());
+            if(object.getStatus().equals("PICKED_UP") ||object.getStatus().equals("DONE") )
+            {
+                holder.DetailsTextView.setText(object.getPullDownLocationDetails());
+            }else {
+                holder.DetailsTextView.setText(object.getPickUpLocationDetails());
+            }
         }
         if(holder.startPlaceTextView != null){
             holder.startPlaceTextView.setText(object.getPickUpName());
@@ -82,7 +87,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             holder.callImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    UtilFunction.dialContactPhone(tripPassengersActionsFragment.activity,object.getPhoneNumber());
+                    UtilFunction.dialContactPhone(tripPassengersActionsFragment.activity,"0"+object.getPhoneNumber());
                 }
             });
             holder.whatsappImageView.setOnClickListener(new View.OnClickListener() {

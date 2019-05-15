@@ -172,6 +172,7 @@ public class HomeActivity extends NavigationActivity implements
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS
                     mMap.setMyLocationEnabled(true);
+                    mMap.setPadding(0, getWindowManager(). getDefaultDisplay().getHeight()/2, 0, 0);
                     Log.e("gpsStatus: ", "" + isGPSEnable);
                 }
             });
