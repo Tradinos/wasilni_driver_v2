@@ -151,6 +151,34 @@ public class HomeActivity extends NavigationActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         moveCamera(DAMASCUSE);
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION
+                        , Manifest.permission.ACCESS_COARSE_LOCATION)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        Log.e("home", "onPermissionsChecked: true" );
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        Log.e("home", "onPermissionsChecked: false" );
+
+                    }
+                }).check();
+        try {
+            new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+                @Override
+                public void gpsStatus(boolean isGPSEnable) {
+                    // turn on GPS
+                    mMap.setMyLocationEnabled(true);
+                    Log.e("gpsStatus: ", "" + isGPSEnable);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -166,7 +194,7 @@ public class HomeActivity extends NavigationActivity implements
                 Log.e( "gpsStatus: ",""+isGPSEnable );
             }
         });
-        addDriverLocationToMap();
+
         driverStatus = findViewById(R.id.driver_status_image) ;
         onlineOfflineLayout = findViewById(R.id.bottom_linear_layout) ;
         driverStatusTextView = findViewById(R.id.driver_status);
@@ -204,21 +232,7 @@ public class HomeActivity extends NavigationActivity implements
         passengersActionsBtn.setOnClickListener(this);
 
 
-        Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION
-                        , Manifest.permission.ACCESS_COARSE_LOCATION)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        Log.e("home", "onPermissionsChecked: true" );
-                    }
 
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        Log.e("home", "onPermissionsChecked: false" );
-
-                    }
-                }).check();
 
 
 

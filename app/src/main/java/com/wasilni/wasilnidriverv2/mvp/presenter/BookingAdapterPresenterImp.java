@@ -11,6 +11,10 @@ import com.wasilni.wasilnidriverv2.mvp.view.ChangeRideContract;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresenter<Booking, BookingAdapter.BookingItemViewHolder> {
 
     BookingAdapter mAdapter;
@@ -31,10 +35,26 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             holder.timeTextView.setText(object.getDatetime());
         }
         if(holder.dateTextView != null) {
-            holder.dateTextView.setText(object.getDate());
+
+            try {
+                String time = object.getDatetime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = sdf.parse(time);
+                holder.dateTextView.setText((date.getYear()+1900) +"-"+(date.getMonth()+1)+"-"+date.getDate() );
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
         }
         if(holder.timeTextView != null) {
-            holder.timeTextView.setText(object.getDatetime());
+            try {
+                String time = object.getDatetime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = sdf.parse(time);
+                holder.timeTextView.setText(date.getHours() +":"+date.getMinutes());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         if(holder.passengerNameTextView != null) {
             holder.passengerNameTextView.setText(object.getName());
