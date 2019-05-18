@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
@@ -13,13 +14,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -151,6 +155,7 @@ public class HomeActivity extends NavigationActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         moveCamera(DAMASCUSE);
+        initMapButton();
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION
                         , Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -172,7 +177,6 @@ public class HomeActivity extends NavigationActivity implements
                 public void gpsStatus(boolean isGPSEnable) {
                     // turn on GPS
                     mMap.setMyLocationEnabled(true);
-                    mMap.setPadding(0, getWindowManager(). getDefaultDisplay().getHeight()/2, 0, 0);
                     Log.e("gpsStatus: ", "" + isGPSEnable);
                 }
             });
@@ -180,6 +184,51 @@ public class HomeActivity extends NavigationActivity implements
             e.printStackTrace();
         }
 
+    }
+    void initMapButton(){
+        View mMapView = findViewById(R.id.map);
+        try {
+            final ViewGroup parent = (ViewGroup) mMapView.findViewWithTag("GoogleMapMyLocationButton").getParent();
+            parent.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Resources r = getResources();
+                        //convert our dp margin into pixels
+                        int marginPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
+                        // Get the map compass view
+                        View mapCompass = parent.getChildAt(4);
+                        View mapMylocation = parent.getChildAt(0);
+
+                        // create layoutParams, giving it our wanted width and height(important, by default the width is "match parent")
+                        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(175,175);
+                        // position on top right
+                        rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+                        rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,0);
+                        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                        //give compass margin
+                        rlp.setMargins(marginPixels, marginPixels, marginPixels, marginPixels);
+                        mapCompass.setLayoutParams(rlp);
+
+
+                        RelativeLayout.LayoutParams rlp1 = new RelativeLayout.LayoutParams(150,150);
+                        // position on top right
+                        rlp1.addRule(RelativeLayout.ALIGN_PARENT_LEFT,0);
+                        rlp1.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+                        rlp1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                        rlp1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                        //give compass margin
+                        rlp1.setMargins(marginPixels, marginPixels, marginPixels, marginPixels);
+                        mapMylocation.setLayoutParams(rlp1);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
