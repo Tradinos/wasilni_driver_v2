@@ -236,16 +236,23 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         initMarker(ride);
 
         ischecked = true;
-        if(!this.isAdded()) {
-            this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
-        }else{
-            this.dismiss();
-            this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+        try {
+            if (!this.isAdded()) {
+                this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+            } else {
+                this.dismiss();
+                this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         mAdapter.setList(ride.getBookings());
         mAdapter.notifyDataSetChanged();
     }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
 
+    }
     @Override
     public void onFailuer() {
 

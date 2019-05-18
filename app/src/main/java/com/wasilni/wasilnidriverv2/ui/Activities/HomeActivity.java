@@ -339,7 +339,7 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void unregesterNotification() {
-        unregisterReceiver(notificationReceiver); ;
+        unregisterReceiver(notificationReceiver);
 
     }
 

@@ -88,7 +88,7 @@ public abstract class NavigationActivity extends AppCompatActivity
 
         } else if (id == R.id.logout) {
             UserUtil.getUserInstance().setAccessToken(null);
-            SharedPreferenceUtils.getEditorInstance(this).clear();
+            SharedPreferenceUtils.getEditorInstance(this).remove("auth_token");
             SharedPreferenceUtils.getEditorInstance(this).commit();
             startActivity(new Intent(this , RegistrationActivity.class));
             ActivityCompat.finishAffinity(this);
@@ -133,7 +133,7 @@ public abstract class NavigationActivity extends AppCompatActivity
     public void responseCode401() {
         UtilFunction.showToast(this, R.string.error_401);
 
-        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).clear();
+        SharedPreferenceUtils.getEditorInstance(getApplicationContext()).remove("auth_token");
         SharedPreferenceUtils.getEditorInstance(getApplicationContext()).commit();
         Intent intent = new Intent(this, RegistrationActivity.class);
         this.startActivity(intent);

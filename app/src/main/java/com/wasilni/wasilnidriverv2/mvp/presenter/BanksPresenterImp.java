@@ -81,7 +81,7 @@ public class BanksPresenterImp implements BankContract.BanksPresenter {
                 break;
             case 401 :
                 UtilFunction.showToast(context, R.string.error_401);
-                SharedPreferenceUtils.getEditorInstance(context).clear();
+                SharedPreferenceUtils.getEditorInstance(context).remove("auth_token");
                 SharedPreferenceUtils.getEditorInstance(context).commit();
                 Intent intent = new Intent(context, RegistrationActivity.class);
                 context.startActivity(intent);
