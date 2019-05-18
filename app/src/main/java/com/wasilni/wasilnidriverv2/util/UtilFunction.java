@@ -75,6 +75,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import me.anwarshahriar.calligrapher.Calligrapher;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -172,11 +173,21 @@ public class UtilFunction {
     }
 
     public static void showToast(Context activity , int messageID){
-        Toast.makeText(activity ,messageID,Toast.LENGTH_SHORT ).show();
+        try {
+            Toasty.Config.getInstance().apply();
+            Toasty.info(activity, messageID).show();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public static void showToast(Context activity , String message){
-        Toast.makeText(activity ,message,Toast.LENGTH_SHORT ).show();
-    }
+        try {
+            Toasty.Config.getInstance().apply();
+            Toasty.info(activity, message).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }    }
 
     private void showDialog(Activity activity){
         final AlertDialog.Builder builder1 = new AlertDialog.Builder( activity);

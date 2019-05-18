@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -72,6 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void notificationAction(Map<String ,String> data){
         String  messageCode =  data.get("code");
+        Log.e( "notificationAction: ", messageCode);
         Intent intent = new Intent("booking_notification");
         intent.putExtra("event",messageCode);
         intent.setAction("com.wasilni.wasilnidriverv2.receivers");

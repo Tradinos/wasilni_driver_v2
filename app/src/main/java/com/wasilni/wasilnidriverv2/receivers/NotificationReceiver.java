@@ -27,7 +27,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         if (code == Activity.RESULT_OK) {
             switch (event) {
                 case "new_ride": {
-                    UtilFunction.showToast(context , "new order approvid");
+                    UtilFunction.showToast(context , "new order approved");
                     GetMyRidesPresenterImp presenter = new GetMyRidesPresenterImp(homeActivity);
                     presenter.sendToServer(null);
 
