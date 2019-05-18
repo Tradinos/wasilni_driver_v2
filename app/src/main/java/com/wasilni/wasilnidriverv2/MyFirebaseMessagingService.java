@@ -37,7 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     private void setupNotification(RemoteMessage remoteMessage){
-        notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+        notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -72,35 +72,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void notificationAction(Map<String ,String> data){
         String  messageCode =  data.get("code");
-        switch (messageCode){
-            case "update_ride" : {
-                Intent intent = new Intent();
-                intent.putExtra("event","update_ride");
-                intent.setAction("com.wasilni.wasilnidriverv2.receivers");
-                sendOrderedBroadcast(intent,
-                        null,
-                        new NotificationReceiver(),
-                        null,
-                        Activity.RESULT_OK,
-                        null,
-                        null);
-                break;
-            }
-            case "new_ride" : {
-                p("new_ride");
-                Intent intent = new Intent("booking_notification");
-                intent.putExtra("event","new_ride");
-                intent.setAction("com.wasilni.wasilnidriverv2.receivers");
-                sendOrderedBroadcast(intent,
-                        null,
-                        new NotificationReceiver(),
-                        null,
-                        Activity.RESULT_OK,
-                        null,
-                        null);
-                break;
-            }
-        }
+        Intent intent = new Intent("booking_notification");
+        intent.putExtra("event",messageCode);
+        intent.setAction("com.wasilni.wasilnidriverv2.receivers");
+        sendOrderedBroadcast(intent,
+                null,
+                new NotificationReceiver(),
+                null,
+                Activity.RESULT_OK,
+                null,
+                null);
 
     }
 
