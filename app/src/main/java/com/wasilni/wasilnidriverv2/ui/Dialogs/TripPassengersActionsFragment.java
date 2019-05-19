@@ -250,12 +250,16 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
         ischecked = true;
         try {
             if (!this.isAdded()) {
+                Log.e( "setBookings: ", "11111111");
                 this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
             } else {
-                this.dismiss();
-                this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
+                Log.e( "setBookings: ", "2222222");
+//                this.dismiss();
+                this.notify();
+//                this.show(((FragmentActivity) activity).getSupportFragmentManager(), R.id.bottomsheet);
             }
         }catch (Exception e){
+            Log.e( "setBookings: ", "3333333");
             e.printStackTrace();
         }
         mAdapter.setList(ride.getBookings());
