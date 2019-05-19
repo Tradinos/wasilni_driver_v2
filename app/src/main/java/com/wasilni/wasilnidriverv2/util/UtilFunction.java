@@ -572,11 +572,15 @@ public class UtilFunction {
 
     public static void hideProgressBar() {
         if(pro > 0 ) {
-            pro--;
-            Log.e("TAG", "hideProgressBar: " + pro);
-            if (pro == 0) {
-                hud.dismiss();
-                hud=null;
+            try {
+                pro--;
+                Log.e("TAG", "hideProgressBar: " + pro);
+                if (pro == 0) {
+                    hud.dismiss();
+                    hud = null;
+                }
+            }catch (IllegalArgumentException e){
+                e.printStackTrace();
             }
         }
     }

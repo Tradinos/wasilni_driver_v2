@@ -80,94 +80,115 @@ public class SocketSingelton {
     }
 
     public static void startTracking(final Context mContext, Location location) {
-        Log.e(TAG, "startTracking");
-        socket = getInstance();
-        Timer timer = new Timer();
-        GPSLocation.startUpdateLocaiton(mContext);
-        location = myLocation[0];
-        final Location finalLocation = location;
+        try {
+            Log.e(TAG, "startTracking");
+            socket = getInstance();
+            Timer timer = new Timer();
+            GPSLocation.startUpdateLocaiton(mContext);
+            location = myLocation[0];
+            final Location finalLocation = location;
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if(!isTracking) {
-                    cancel();
-                    return;
-                }
-                GPSLocation.startUpdateLocaiton(mContext);
-
-                if (realm == null) {
-                    // i put it here because we can access it from this thread
-                    initRealm(mContext);
-                }
-
-                if (socket.connected()) {
-                    Log.e(TAG, "connected true");
-                } else {
-                    if (UserUtil.getUserInstance().getChecked()) {
-                        reConnect();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isTracking) {
+                        cancel();
+                        return;
                     }
-                    Log.e(TAG, "connected false");
-                }
+                    GPSLocation.startUpdateLocaiton(mContext);
 
-                if (myLocation[0] != null) {
-                    Log.e(TAG, "get location + " + myLocation[0].getLatitude() + " " + myLocation[0].getLongitude());
-                    if (finalLocation != null) {
-                        finalLocation.set(myLocation[0]);
+                    if (realm == null) {
+                        // i put it here because we can access it from this thread
+                        initRealm(mContext);
                     }
-                    addLocationToRealm(myLocation[0]);
-                }
-                if (socket.connected()) {
-                    sendAllDB();
-                    clearRealM();
-                }
-            }
 
-            @Override
-            public boolean cancel() {
-                isTracking = false ;
-                Log.e(TAG, "cancel" );
-                return super.cancel();
-            }
-        }, 0,10000);
+                    if (socket.connected()) {
+                        Log.e(TAG, "connected true");
+                    } else {
+                        if (UserUtil.getUserInstance().getChecked()) {
+                            reConnect();
+                        }
+                        Log.e(TAG, "connected false");
+                    }
+
+                    if (myLocation[0] != null) {
+                        Log.e(TAG, "get location + " + myLocation[0].getLatitude() + " " + myLocation[0].getLongitude());
+                        if (finalLocation != null) {
+                            finalLocation.set(myLocation[0]);
+                        }
+                        addLocationToRealm(myLocation[0]);
+                    }
+                    if (socket.connected()) {
+                        sendAllDB();
+                        clearRealM();
+                    }
+                }
+
+                @Override
+                public boolean cancel() {
+                    isTracking = false;
+                    Log.e(TAG, "cancel");
+                    return super.cancel();
+                }
+            }, 0, 10000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void stopTracking() {
         GPSLocation.stopUpdateLocation();
+        isTracking = false ;
+        realm = null;
     }
 
     private static void addLocationToRealm(Location location) {
-        realm.beginTransaction();
-        SocketItem socketItem = realm.createObject(SocketItem.class);
-        socketItem.setAttr(location.getLatitude(), location.getLongitude()
-                , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                        format(Calendar.getInstance().getTime()));
-        realm.commitTransaction();
-        UserUtil.getUserInstance().setLocation(location);
+        try {
+            realm.beginTransaction();
+            SocketItem socketItem = realm.createObject(SocketItem.class);
+            socketItem.setAttr(location.getLatitude(), location.getLongitude()
+                    , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                            format(Calendar.getInstance().getTime()));
+            realm.commitTransaction();
+            UserUtil.getUserInstance().setLocation(location);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private static void clearRealM() {
-        realm.beginTransaction();
-        realm.deleteAll();
-        realm.commitTransaction();
+        try {
+            realm.beginTransaction();
+            realm.deleteAll();
+            realm.commitTransaction();
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+
     }
 
     private static void sendAllDB() {
-        List<SocketItem> socketItemList = query.findAll();
-        for (SocketItem socketItem : socketItemList) {
-            JSONObject obj = new JSONObject();
-            SocketItem item = socketItem;
+        try {
+            List<SocketItem> socketItemList = query.findAll();
+            for (SocketItem socketItem : socketItemList) {
+                JSONObject obj = new JSONObject();
+                SocketItem item = socketItem;
 
-            try {
-                obj.put("lat", item.getLat());
-                obj.put("lng", item.getLng());
-                obj.put("date", item.getDate());
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.e(ETAG, e.getMessage());
+                try {
+                    obj.put("lat", item.getLat());
+                    obj.put("lng", item.getLng());
+                    obj.put("date", item.getDate());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(ETAG, e.getMessage());
+                }
+
+                socket.emit("update_location", obj);
             }
-
-            socket.emit("update_location", obj);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

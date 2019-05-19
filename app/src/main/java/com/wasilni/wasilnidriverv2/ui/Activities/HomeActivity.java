@@ -44,6 +44,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.wasilni.wasilnidriverv2.DriverApplication;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetUserDataPresenterImp;
@@ -492,6 +493,7 @@ public class HomeActivity extends NavigationActivity implements
     @Override
     public void responseCode200(Boolean response) {
         if(!response){
+            stopTracking();
             UserUtil.getUserInstance().setChecked(false);
             driverStatus.setImageResource(R.mipmap.power_off);
             driverStatusTextView.setText(R.string.you_are_offline);
@@ -514,6 +516,7 @@ public class HomeActivity extends NavigationActivity implements
         }
         else
         {
+            startTracking();
             myRidesPresenter.sendToServer(null);
             UserUtil.getUserInstance().setChecked(true);
             driverStatus.setImageResource(R.mipmap.power_on);
@@ -526,6 +529,16 @@ public class HomeActivity extends NavigationActivity implements
                     .duration(1000)
                     .start();
         }
+    }
+
+    private void startTracking() {
+        UserUtil.getUserInstance().setChecked(true);
+
+    }
+
+    private void stopTracking() {
+        UserUtil.getUserInstance().setChecked(false);
+        stopService(DriverApplication.trackingService);
     }
 
     @Override

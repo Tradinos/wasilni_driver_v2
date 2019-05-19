@@ -21,6 +21,7 @@ public class DriverApplication extends android.app.Application {
     public DriverApplication() {
 
     }
+    public static Intent trackingService ;
     private String TAG = "DriverApplication";
 
     public   Context mContext = this ;
@@ -28,6 +29,7 @@ public class DriverApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         EventBus.getDefault() ;
+        trackingService =new Intent(this, TrackingService.class) ;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         startServiceTracking();
     }
@@ -37,15 +39,23 @@ public class DriverApplication extends android.app.Application {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Log.e("startServiceTracking ","123" +UserUtil.getUserInstance().getChecked() +" "+ !SocketSingelton.isTracking);
-                if(UserUtil.getUserInstance().getChecked() && !SocketSingelton.isTracking){
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        startForegroundService(new Intent(mContext, TrackingService.class));
-                    }
-                    else{
-                        startService(new Intent(mContext, TrackingService.class));
+                try {
+                    Log.e("startServiceTracking ", "123" + UserUtil.getUserInstance().getChecked() + " " + !SocketSingelton.isTracking);
+                    if (UserUtil.getUserInstance().getChecked() && !SocketSingelton.isTracking) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            startForegroundService(trackingService);
+                        } else {
+                            startService(trackingService);
 
+                        }
+                    } else {
+                        if (!UserUtil.getUserInstance().getChecked()) {
+                            SocketSingelton.stopTracking();
+                            stopService(trackingService);
+                        }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
             }
