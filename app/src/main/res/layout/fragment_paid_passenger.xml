@@ -73,7 +73,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/bottom_sheet_padding"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@id/marker"
@@ -81,11 +81,13 @@
                     app:layout_constraintTop_toTopOf="@id/marker">
 
                     <TextView
+                        android:textSize="18sp"
                         android:id="@+id/end_place"
                         android:text="مرة اتوستراد"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:textSize="18sp"
                         android:id="@+id/details"
                         android:text="مفرق مدرسة عادلة الثانوية "
                         android:layout_width="wrap_content"
