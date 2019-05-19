@@ -147,7 +147,6 @@ public class HomeActivity extends NavigationActivity implements
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         homeActivity = this;
         myRidesPresenter = new GetMyRidesPresenterImp(this);
-
         initView();
 
     }

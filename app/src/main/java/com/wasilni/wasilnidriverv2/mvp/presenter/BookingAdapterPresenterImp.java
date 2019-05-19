@@ -51,7 +51,19 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
                 String time = object.getDatetime();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = sdf.parse(time);
-                holder.timeTextView.setText(date.getHours() +":"+date.getMinutes());
+                time = "";
+                if(date.getHours() < 10){
+                    time += "0"+date.getHours() ;
+                }else{
+                    time += date.getHours();
+                }
+                time +=":";
+                if(date.getMinutes() < 10){
+                    time += "0"+date.getMinutes() ;
+                }else{
+                    time += date.getMinutes();
+                }
+                holder.timeTextView.setText(time);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
