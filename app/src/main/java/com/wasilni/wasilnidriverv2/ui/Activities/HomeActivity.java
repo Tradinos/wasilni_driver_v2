@@ -46,6 +46,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.wasilni.wasilnidriverv2.DriverApplication;
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.mvp.model.EventBusMessage;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetUserDataPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.UserData;
@@ -67,6 +68,10 @@ import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -384,11 +389,32 @@ public class HomeActivity extends NavigationActivity implements
     @Override
     public void regesterRecivers() {
         regesterNotification();
-    }
+        EventBus.getDefault().register(this);
 
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
+    public void onEventBusEvent(@Nullable final EventBusMessage<String> event) {
+        if (event != null) {
+            if(event.getActivityName().equals("GPS_PROVIDER")){
+                switch (event.getData()){
+                    case "0" : {
+                        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+                            @Override
+                            public void gpsStatus(boolean isGPSEnable) {
+                                // turn on GPS
+                                Log.e( "gpsStatus: ",""+isGPSEnable );
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+    }
     @Override
     public void unregesterNotification() {
         unregisterReceiver(notificationReceiver);
+        EventBus.getDefault().unregister(this);
 
     }
 

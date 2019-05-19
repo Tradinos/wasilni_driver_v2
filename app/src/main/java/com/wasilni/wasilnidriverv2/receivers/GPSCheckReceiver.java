@@ -29,7 +29,6 @@ public class GPSCheckReceiver extends BroadcastReceiver {
         else
         {
             EventBus.getDefault().postSticky(new EventBusMessage<String>("GPS_PROVIDER", "0"));
-
         }
     }
 }
