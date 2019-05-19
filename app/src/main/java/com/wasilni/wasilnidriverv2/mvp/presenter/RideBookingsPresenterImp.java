@@ -24,7 +24,7 @@ import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 
 public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresenter {
-
+    int number ;
     TripPassengersActionsFragment tripPassengersActionsFragment ;
     public RideBookingsPresenterImp(TripPassengersActionsFragment fragment) {
         this.tripPassengersActionsFragment = fragment ;
@@ -35,7 +35,7 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
         showProgressBar(tripPassengersActionsFragment.activity);
         /** Call the method with parameter in the interface to get the notice data*/
-
+        number = request.getNumber() ;
         Call<Response<Ride>> call =
                 service.GetRideBookings( Token ,request.getId(), 20 );
 
@@ -50,6 +50,9 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
         {
             case 200 :
                 Log.e("booking list :",response.body().getData().getBookings().toString()) ;
+                for(Booking booking : response.body().getData().getBookings()){
+                    booking.setNumber(number);
+                }
                 tripPassengersActionsFragment.setBookings(response.body().getData());
                 break;
             case 422 :

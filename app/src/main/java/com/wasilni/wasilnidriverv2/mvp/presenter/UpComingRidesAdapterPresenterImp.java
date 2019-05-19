@@ -24,14 +24,18 @@ public class UpComingRidesAdapterPresenterImp implements AdapterContract.Adapter
 
     @Override
     public void ObjectToHolder(final Ride object, int position , UpcomingRidesAdapter.RideViewHolder holder) {
-        if(position == 0){
-//            holder.allItem.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    presenter.sendToServer(object);
+        object.setNumber(position);
+
+        holder.allItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.sendToServer(object);
 //                    fragment.activity.passengersActionsBtn.setVisibility(View.VISIBLE);
-//                }
-//            });
+            }
+        });
+
+        if(position == 0){
+
             Log.e("ObjectToHolder: ","1233" );
 
             presenter.sendToServer(object);

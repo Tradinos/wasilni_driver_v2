@@ -97,6 +97,17 @@ public class Booking {
     @SerializedName("seats")
     @Expose
     private int seats ;
+    @SerializedName("number")
+    @Expose
+    private Integer number ;
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     public Booking(String dates, String datetime) {
         this.dates = new ArrayList<>();

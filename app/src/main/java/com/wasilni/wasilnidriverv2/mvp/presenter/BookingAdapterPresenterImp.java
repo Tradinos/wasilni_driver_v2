@@ -1,5 +1,6 @@
 package com.wasilni.wasilnidriverv2.mvp.presenter;
 
+import android.graphics.Color;
 import android.view.View;
 
 import com.wasilni.wasilnidriverv2.R;
@@ -88,13 +89,16 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
         if(holder.seatCountTextView != null ) {
             holder.seatCountTextView.setText(""+object.getSeats());
         }
-
-        holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.sendToServer(object);
-            }
-        });
+        if(object.getNumber() == 0) {
+            holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.sendToServer(object);
+                }
+            });
+        }else{
+            holder.ChangeButton.setBackgroundColor(Color.GRAY);
+        }
         if(holder.callImageView != null ) {
             holder.callImageView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -29,7 +29,17 @@ public class Ride  {
     @SerializedName("bookings")
     @Expose
     private List<Booking> bookings ;
+    @SerializedName("number")
+    @Expose
+    private Integer number ;
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
     public String getStatus() {
         return status;
     }
