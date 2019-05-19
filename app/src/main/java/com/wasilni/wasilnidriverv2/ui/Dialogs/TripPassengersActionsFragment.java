@@ -51,11 +51,21 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
     public HomeActivity activity ;
     public  List<Marker>  markers =new ArrayList<>();
     public List<MarkerOptions>markerOptionsList= new ArrayList<>();
+
+    public TripPassengersActionsFragment() {
+    }
+
     public TripPassengersActionsFragment(HomeActivity activity) {
         this.activity = activity ;
         mAdapter = new BookingAdapter(new ArrayList<Booking>() , this);
+
         // Required empty public constructor
     }
+
+    public void setActivity(HomeActivity activity) {
+        this.activity = activity;
+    }
+
     public static boolean ischecked = false  ;
     /**
      * Use this factory method to create a new instance of
@@ -64,7 +74,9 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
      * @return A new instance of fragment TripPassengersActionsFragment.
      */
     public static TripPassengersActionsFragment newInstance(HomeActivity activity) {
-        TripPassengersActionsFragment fragment = new TripPassengersActionsFragment(activity);
+        TripPassengersActionsFragment fragment = new TripPassengersActionsFragment();
+        fragment.setActivity(activity);
+        fragment.mAdapter = new BookingAdapter(new ArrayList<Booking>() , fragment);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

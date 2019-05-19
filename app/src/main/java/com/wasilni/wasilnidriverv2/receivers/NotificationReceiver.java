@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.wasilni.wasilnidriverv2.mvp.presenter.GetMyRidesPresenterImp;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.NotificationActivity;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import static com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity.homeActivity;
@@ -27,9 +28,13 @@ public class NotificationReceiver extends BroadcastReceiver {
         if (code == Activity.RESULT_OK) {
             switch (event) {
                 case "new_ride": {
-                    UtilFunction.showToast(context , "new order approved");
-                    GetMyRidesPresenterImp presenter = new GetMyRidesPresenterImp(homeActivity);
-                    presenter.sendToServer(null);
+                    UtilFunction.showToast(context , "تم قبول طلب جديد");
+                    Log.e("onReceive: ","1111" );
+                    if(UserUtil.getUserInstance().getChecked()) {
+                        Log.e("onReceive: ","2222" );
+                        GetMyRidesPresenterImp presenter = new GetMyRidesPresenterImp(homeActivity);
+                        presenter.sendToServer(null);
+                    }
 
                     break;
                 }

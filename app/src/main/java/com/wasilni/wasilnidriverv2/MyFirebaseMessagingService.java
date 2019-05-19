@@ -73,7 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void notificationAction(Map<String ,String> data){
         String  messageCode =  data.get("code");
-        Log.e( "notificationAction: ", messageCode);
+//        Log.e( "notificationAction: ", messageCode);
         Intent intent = new Intent("booking_notification");
         intent.putExtra("event",messageCode);
         intent.setAction("com.wasilni.wasilnidriverv2.receivers");

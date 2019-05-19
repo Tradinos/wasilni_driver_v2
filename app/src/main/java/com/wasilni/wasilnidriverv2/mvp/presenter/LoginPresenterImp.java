@@ -92,7 +92,12 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
 
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+        try {
+            Log.e("onFailure",t.getMessage());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         UtilFunction.hideProgressBar();
     }
 }
