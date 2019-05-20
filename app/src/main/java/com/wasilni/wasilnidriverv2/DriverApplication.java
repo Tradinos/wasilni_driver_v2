@@ -6,10 +6,12 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.wasilni.wasilnidriverv2.socket.SocketSingelton;
 import com.wasilni.wasilnidriverv2.socket.TrackingService;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import io.fabric.sdk.android.Fabric;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Timer;
@@ -28,6 +30,7 @@ public class DriverApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         EventBus.getDefault() ;
         trackingService =new Intent(this, TrackingService.class) ;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
