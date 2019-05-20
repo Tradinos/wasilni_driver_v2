@@ -127,6 +127,7 @@ public class SocketSingelton {
                 @Override
                 public boolean cancel() {
                     isTracking = false;
+                    disconnect();
                     Log.e(TAG, "cancel");
                     return super.cancel();
                 }
