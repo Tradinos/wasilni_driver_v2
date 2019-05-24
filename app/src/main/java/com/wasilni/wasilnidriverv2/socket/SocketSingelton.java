@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -148,7 +149,7 @@ public class SocketSingelton {
             realm.beginTransaction();
             SocketItem socketItem = realm.createObject(SocketItem.class);
             socketItem.setAttr(location.getLatitude(), location.getLongitude()
-                    , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                    , new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).
                             format(Calendar.getInstance().getTime()));
             realm.commitTransaction();
             UserUtil.getUserInstance().setLocation(location);
