@@ -162,7 +162,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( Integer.parseInt(moneyCost.getText().toString()) >= sendedBooking.getTo_pay() )
+                if(! moneyCost.getText().toString().isEmpty() && Integer.parseInt(moneyCost.getText().toString()) >= sendedBooking.getTo_pay() )
                 {
                     presenter.sendToServer(new Payment(sendedBooking, moneyCost.getText().toString()));
                 }else{
