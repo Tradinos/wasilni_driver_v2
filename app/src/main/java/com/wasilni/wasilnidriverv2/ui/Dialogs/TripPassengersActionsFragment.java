@@ -204,7 +204,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
                 downloadTask.execute(url);
             }
         }catch (Exception e){
-            showToast(activity,"1");
+            e.printStackTrace();
         }
     }
     @Override
