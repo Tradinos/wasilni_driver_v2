@@ -23,6 +23,8 @@ import com.wasilni.wasilnidriverv2.R;
 
 import java.util.ArrayList;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 public class RatingDialog extends DialogFragment implements View.OnClickListener {
 
     ArrayList<Integer> stars ;
@@ -38,6 +40,8 @@ public class RatingDialog extends DialogFragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
+
     }
 
     @NonNull

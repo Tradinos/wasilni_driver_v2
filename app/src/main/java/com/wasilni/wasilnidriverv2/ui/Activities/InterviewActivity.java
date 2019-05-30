@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 public class InterviewActivity extends AppCompatActivity
         implements View.OnClickListener , InterviewContract.InterviewView{
     private String time, date ;
@@ -31,6 +33,7 @@ public class InterviewActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getApplicationContext() , "ar");
         setContentView(R.layout.activity_interview);
         initView();
     }

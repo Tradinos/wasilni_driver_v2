@@ -104,6 +104,7 @@
     <string name="password_error">كلمة السر يجب انت تكون على الاقل 8 احرف</string>
     <string name="first_name_error">الاسم الاول يجب انت تكون على الاقل 8 احرف</string>
     <string name="second_name_error">الاسم الاخير يجب انت تكون على الاقل 8 احرف</string>
+    <string name="done">تم</string>
 
 
 </resources>

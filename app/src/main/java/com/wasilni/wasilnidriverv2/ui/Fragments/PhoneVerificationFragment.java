@@ -25,6 +25,7 @@ import com.wasilni.wasilnidriverv2.util.UserUtil;
 
 import java.util.ArrayList;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideSoftKeyboard;
 
 /**
@@ -68,6 +69,8 @@ public class PhoneVerificationFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
+
         if (getArguments() != null) {
         }
     }

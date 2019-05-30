@@ -31,6 +31,8 @@ import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import java.util.List;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 /**
  * A simple {@link BottomSheetDialogFragment} subclass.
  * Activities that contain this fragment must implement the
@@ -75,6 +77,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
 
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
         this.setCancelable(false);

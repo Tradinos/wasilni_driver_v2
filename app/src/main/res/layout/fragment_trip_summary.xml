@@ -246,7 +246,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/gradient_red_radius_btn"
-                android:text="@string/done_label"
+                android:text="@string/done"
                 android:textColor="@color/white" />
         </LinearLayout>
 

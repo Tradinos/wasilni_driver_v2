@@ -18,6 +18,8 @@ import com.wasilni.wasilnidriverv2.ui.adapters.RegistrationViewPagerAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -54,6 +56,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
         if (getArguments() != null) {
         }
     }

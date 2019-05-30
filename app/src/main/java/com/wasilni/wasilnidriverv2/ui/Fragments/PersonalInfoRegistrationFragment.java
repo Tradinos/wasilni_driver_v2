@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
@@ -105,6 +106,7 @@ public class PersonalInfoRegistrationFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
 
         this.nationalitiesPresenterImp = new NationalitiesPresenterImp(this, getActivity());
         this.locationsPresenterImp = new LocationsPresenterImp(this, getActivity());

@@ -86,6 +86,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 import static com.wasilni.wasilnidriverv2.ui.Dialogs.TripPassengersActionsFragment.ischecked;
 import static com.wasilni.wasilnidriverv2.util.Constants.DAMASCUSE;
 import static com.wasilni.wasilnidriverv2.util.Constants.GPS_REQUEST;
@@ -148,6 +149,7 @@ public class HomeActivity extends NavigationActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         ischecked = false;
         super.onCreate(savedInstanceState);
+        updateResources(this , "ar");
         UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         homeActivity = this;

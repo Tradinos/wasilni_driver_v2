@@ -22,6 +22,8 @@ import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -61,6 +63,8 @@ public class PhoneRegistrationFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
+
         Log.d("SAED", "onCreate: I don't know what I am doing but I am fine thanks for asking");
         if (getArguments() != null) {
         }

@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.wasilni.wasilnidriverv2.R;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 public class SplashActivity extends AppCompatActivity {
     private int SPLASH_TIME_OUT=3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this , "ar");
         setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override

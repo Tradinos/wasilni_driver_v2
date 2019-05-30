@@ -45,6 +45,7 @@ import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 import static com.wasilni.wasilnidriverv2.ui.adapters.ObjectNameAdapter.DISABLED_ITEM_INDEX;
 
 /**
@@ -111,6 +112,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
         if (getArguments() != null) {
         }
     }

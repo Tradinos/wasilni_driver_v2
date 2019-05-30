@@ -28,6 +28,8 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
+
 public class RegistrationActivity extends FullScreenActivity implements
 
         PhoneVerificationFragment.OnFragmentInteractionListener ,
@@ -47,6 +49,8 @@ public class RegistrationActivity extends FullScreenActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(this , "ar");
+
         setContentView(R.layout.activity_registration);
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 

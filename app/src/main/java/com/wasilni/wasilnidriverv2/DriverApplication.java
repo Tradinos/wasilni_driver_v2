@@ -2,6 +2,8 @@ package com.wasilni.wasilnidriverv2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.os.Build;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.wasilni.wasilnidriverv2.util.UserUtil;
 import io.fabric.sdk.android.Fabric;
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,11 +35,24 @@ public class DriverApplication extends android.app.Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         EventBus.getDefault() ;
+        updateResources(getApplicationContext() , "ar");
         trackingService =new Intent(this, TrackingService.class) ;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         startServiceTracking();
     }
+    public static boolean updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
 
+        Resources resources = context.getResources();
+
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        configuration.setLayoutDirection(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        return true;
+    }
     private void startServiceTracking(){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {

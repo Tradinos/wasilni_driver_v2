@@ -31,6 +31,7 @@ import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 import static com.wasilni.wasilnidriverv2.util.Constants.DAMASCUSE;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.getLatLng;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showToast;
@@ -85,6 +86,7 @@ public class TripPassengersActionsFragment extends BottomSheetFragment implement
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateResources(getActivity() , "ar");
 
 
         if (getArguments() != null) {
