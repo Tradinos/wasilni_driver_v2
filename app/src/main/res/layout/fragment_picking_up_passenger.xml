@@ -72,25 +72,29 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
-                    app:layout_constraintBottom_toBottomOf="@id/marker"
-                    app:layout_constraintStart_toEndOf="@id/marker"
-                    app:layout_constraintTop_toTopOf="@id/marker"
-                    android:layout_marginStart="@dimen/bottom_sheet_padding"
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/bottom_sheet_padding"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/marker"
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
-                        android:textSize="18sp"
                         android:id="@+id/start_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="مرة اتوستراد"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="18sp" />
+
                     <TextView
-                        android:textSize="18sp"
                         android:id="@+id/details"
-                        android:text="مفرق مدرسة عادلة الثانوية "
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="مفرق مدرسة عادلة الثانوية "
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
