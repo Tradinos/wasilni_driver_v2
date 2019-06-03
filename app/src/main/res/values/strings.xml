@@ -73,9 +73,9 @@
 
     <string name="waslni_region">Baramkah</string>
     <string name="waslni_address">Free zone - Nahaas company</string>
+    <string name="waiting"> Waiting </string>
 
     <string name="rate">Rate</string>
-    <string name="waiting"> Waiting </string>
     <string name="calculated_cost"> Calculated cost</string>
     <string name="booking_cost"> Booking cost </string>
     <string name="gender"> Gender</string>
