@@ -44,12 +44,13 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         try {
             Booking booking = list.get(position) ;
-            holder.name.setText(booking.getName());
-            holder.src.setText(booking.getPickUpName());
-            holder.des.setText(booking.getPullDownName());
-            holder.distance.setText(""+booking.getSummary().getKm_count()+"كم ");
-            holder.duration.setText(""+booking.getSummary().getBooking_time()+"د ");
-            holder.waitingTime.setText("انتظار "+booking.getSummary().getWaiting_time_count()+"د ");
+            holder.name.setText("الزبون: "+booking.getName());
+            holder.id.setText("الزبون: "+booking.getId());
+            holder.src.setText("من: "+booking.getPickUpName());
+            holder.des.setText("إلى: "+booking.getPullDownName());
+            holder.distance.setText(""+(int)booking.getSummary().getKm_count()+" كم ");
+            holder.duration.setText(""+(int)booking.getSummary().getBooking_time()+" د ");
+            holder.waitingTime.setText("انتظار "+(int)booking.getSummary().getWaiting_time_count()+" د ");
 //            holder.calcCost.setText(booking.getCalcCost());
 //            holder.bookingCost.setText(booking.getBookingCost());
 //            holder.deliveredMoney.setText(booking.getDeliveredMoney());
@@ -67,10 +68,11 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, src , des ,distance , duration ,
+        TextView name, src , des ,distance , duration , id ,
                 waitingTime , calcCost ,bookingCost , deliveredMoney;
         public MyViewHolder(View itemView) {
             super(itemView);
+            id = itemView.findViewById(R.id.id);
             name = itemView.findViewById(R.id.name);
             src = itemView.findViewById(R.id.ride_source);
             des = itemView.findViewById(R.id.ride_destination);
