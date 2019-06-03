@@ -64,6 +64,9 @@ public class Booking {
     @SerializedName("pull_down_location_name")
     @Expose
     private String pullDownName;
+    @SerializedName("paid")
+    @Expose
+    private String paid;
     @SerializedName("status")
     @Expose
     private String status;
@@ -116,6 +119,14 @@ public class Booking {
     }
     public Booking() {
 
+    }
+
+    public String getPaid() {
+        return paid;
+    }
+
+    public void setPaid(String paid) {
+        this.paid = paid;
     }
 
     public int getIs_pooling() {
