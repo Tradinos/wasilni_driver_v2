@@ -36,7 +36,8 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.Activities.DailyReportActivity"></activity>
+        <activity android:name=".ui.Activities.DailyReportActivity"
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".ui.Activities.InterviewActivity" />
 
         <service
