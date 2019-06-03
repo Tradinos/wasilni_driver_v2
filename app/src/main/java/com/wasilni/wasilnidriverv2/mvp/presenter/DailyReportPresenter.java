@@ -47,7 +47,7 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
         showProgressBar(activity);
 
         Call<Response<PaginationAPI<Booking>>> call =
-                service.dailyReport(UserUtil.getUserInstance().getAccessToken(), 100 );
+                service.dailyReport(UserUtil.getUserInstance().getAccessToken(), 100 ,"PAID");
 
         call.enqueue(this);
     }
