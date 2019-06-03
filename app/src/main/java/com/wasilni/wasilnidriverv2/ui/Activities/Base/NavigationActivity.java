@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.google.android.gms.maps.model.LatLng;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.view.NavigationContract;
+import com.wasilni.wasilnidriverv2.ui.Activities.DailyReportActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.HomeActivity;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
@@ -79,7 +80,7 @@ public abstract class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.schedule) {
 
         } else if (id == R.id.dailly) {
-
+            startActivity(new Intent(this , DailyReportActivity.class));
         } else if (id == R.id.weekly) {
 
         } else if (id == R.id.settings) {
