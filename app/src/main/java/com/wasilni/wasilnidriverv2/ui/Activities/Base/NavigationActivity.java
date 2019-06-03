@@ -88,6 +88,7 @@ public abstract class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.notification) {
 
         } else if (id == R.id.logout) {
+            UserUtil.getUserInstance().setChecked(false);
             UserUtil.getUserInstance().setAccessToken(null);
             SharedPreferenceUtils.getEditorInstance(this).remove("auth_token");
             SharedPreferenceUtils.getEditorInstance(this).commit();
