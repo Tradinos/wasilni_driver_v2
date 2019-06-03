@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,9 +26,9 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
     private Activity activity ;
     private List<Booking> list ;
 
-    public DailyReportAdapter(Activity activity, List<Booking> list) {
+    public DailyReportAdapter(Activity activity) {
         this.activity = activity;
-        this.list = list;
+        this.list = new ArrayList<>();
     }
 
     @NonNull
@@ -65,6 +66,9 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
         return list.size();
     }
 
+    public void setList(List<Booking> bookings) {
+        list = bookings;
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
