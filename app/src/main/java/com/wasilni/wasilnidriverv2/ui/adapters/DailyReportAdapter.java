@@ -47,9 +47,9 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             holder.name.setText(booking.getName());
             holder.src.setText(booking.getPickUpName());
             holder.des.setText(booking.getPullDownName());
-            holder.distance.setText(""+booking.getSummary().getKm_count());
-            holder.duration.setText(""+booking.getSummary().getBooking_time());
-            holder.waitingTime.setText(""+booking.getSummary().getWaiting_time_count());
+            holder.distance.setText(""+booking.getSummary().getKm_count()+"كم ");
+            holder.duration.setText(""+booking.getSummary().getBooking_time()+"د ");
+            holder.waitingTime.setText("انتظار "+booking.getSummary().getWaiting_time_count()+"د ");
 //            holder.calcCost.setText(booking.getCalcCost());
 //            holder.bookingCost.setText(booking.getBookingCost());
 //            holder.deliveredMoney.setText(booking.getDeliveredMoney());
