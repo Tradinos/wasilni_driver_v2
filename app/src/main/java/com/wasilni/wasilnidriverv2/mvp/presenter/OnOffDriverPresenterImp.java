@@ -66,8 +66,9 @@ public class OnOffDriverPresenterImp implements OnOffDriverContract.OnOffDriverP
 
     @Override
     public void onFailure(Call<Response<Boolean>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
         activity.onFailure(t);
+        t.printStackTrace();
         hideProgressBar();
 
     }

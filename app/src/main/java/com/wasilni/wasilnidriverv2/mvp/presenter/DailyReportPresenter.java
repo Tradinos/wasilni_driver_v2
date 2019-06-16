@@ -93,8 +93,9 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
 
     @Override
     public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
         hideProgressBar();
+        t.printStackTrace();
     }
     public interface OnResponseInterface{
         void populateBooking(List<Ride> rides);

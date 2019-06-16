@@ -46,7 +46,7 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/coins"
                 android:drawablePadding="8dp"
-                android:text="@string/calculated_cost" />
+                android:text="القيمة المدفوعة" />
 
             <View
                 android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                 android:background="@color/gray" />
 
             <TextView
-                android:id="@+id/calculated_cost"
+                android:id="@+id/booking_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -67,6 +67,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/deliveredmoneylo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -83,7 +84,7 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/coins"
                 android:drawablePadding="8dp"
-                android:text="القيمة المدفوعة" />
+                android:text="@string/calculated_cost" />
 
             <View
                 android:layout_width="match_parent"
@@ -93,7 +94,7 @@
                 android:background="@color/gray" />
 
             <TextView
-                android:id="@+id/booking_cost"
+                android:id="@+id/calculated_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

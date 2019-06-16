@@ -73,6 +73,7 @@ public class LocationsPresenterImp implements LocationContract.LocationsPresente
 
     @Override
     public void onFailure(Call<Response<PaginationAPI<Location>>> call, Throwable t) {
+        t.printStackTrace();
 
     }
 

@@ -83,8 +83,9 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
 
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
         UtilFunction.hideProgressBar();
+        t.printStackTrace();
 
     }
 }

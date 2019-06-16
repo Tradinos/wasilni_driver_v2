@@ -68,6 +68,7 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
     @Override
     public void onFailure(Call call, Throwable t) {
         UtilFunction.hideProgressBar();
+        t.printStackTrace();
         Log.e("onFailure",t.getMessage());
     }
 }

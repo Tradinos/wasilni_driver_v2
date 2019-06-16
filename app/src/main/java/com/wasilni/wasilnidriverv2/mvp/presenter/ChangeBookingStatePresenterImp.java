@@ -106,7 +106,8 @@ public class ChangeBookingStatePresenterImp implements ChangeRideContract.Change
 
     @Override
     public void onFailure(Call<Response<Booking>> call, Throwable t) {
-        Log.e("onFailure do action",""+t.getMessage());
+//        Log.e("onFailure do action",""+t.getMessage());
+        t.printStackTrace();
         hideProgressBar();
     }
 }

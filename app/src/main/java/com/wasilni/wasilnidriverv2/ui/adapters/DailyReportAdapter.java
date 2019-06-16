@@ -48,8 +48,13 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
         try {
             Ride ride = list.get(position) ;
             String names ="";
-            for(Booking booking : ride.getBookings())
-                names += booking.getName()+" ";
+            int i = 1 ;
+            for(Booking booking : ride.getBookings()) {
+                names += booking.getName() ;
+                if(i != ride.getBookings().size()){
+                    names += "+" ;
+                }
+            }
             holder.name.setText("الزبون: "+names);
             holder.id.setText(""+ride.getId());
             holder.src.setText("من: "+ride.getBookings().get(0).getPickUpName());
@@ -63,6 +68,11 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             holder.adapter.setList(ride.getBookings());
             holder.recyclerView.setAdapter(holder.adapter);
+            if(ride.getBookings().size() == 1){
+                holder.price_money.setVisibility(View.GONE);
+            }else {
+                holder.price_money.setText("قيمة الرحلة : "+ride.getMeterPrice());
+            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -81,7 +91,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, src , des ,distance , duration , id ,
-                waitingTime   , deliveredMoney;
+                waitingTime   , deliveredMoney , price_money;
         RecyclerView recyclerView ;
         UserCostAdapter adapter ;
         public MyViewHolder(View itemView) {
@@ -96,6 +106,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             duration = itemView.findViewById(R.id.duration);
             waitingTime = itemView.findViewById(R.id.wait_time);
             deliveredMoney = itemView.findViewById(R.id.total_delivered_money);
+            price_money = itemView.findViewById(R.id.price_money);
         }
     }
 }

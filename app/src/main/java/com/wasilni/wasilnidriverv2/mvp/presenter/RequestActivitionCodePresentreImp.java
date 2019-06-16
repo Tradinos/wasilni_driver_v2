@@ -68,6 +68,8 @@ public class RequestActivitionCodePresentreImp implements RequestActivitionCodeC
     @Override
     public void onFailure(Call call, Throwable t) {
         UtilFunction.hideProgressBar();
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
+        t.printStackTrace();
+
     }
 }

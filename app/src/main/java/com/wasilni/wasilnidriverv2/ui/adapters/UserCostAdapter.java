@@ -42,6 +42,9 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
             holder.name.setText(""+booking.getName()+" : ");
             holder.calcCost.setText(""+booking.getTo_pay());
             holder.deliveredMoney.setText(""+booking.getPaid());
+            if(list.size() != 1){
+                holder.deliveredMoneylo.setVisibility(View.GONE);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -60,11 +63,13 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, calcCost  , deliveredMoney;
+        View deliveredMoneylo ;
         public MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             calcCost = itemView.findViewById(R.id.calculated_cost);
             deliveredMoney = itemView.findViewById(R.id.booking_cost);
+            deliveredMoneylo = itemView.findViewById(R.id.deliveredmoneylo);
         }
     }
 }

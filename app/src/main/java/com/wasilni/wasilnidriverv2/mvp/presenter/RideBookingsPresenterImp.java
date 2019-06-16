@@ -76,7 +76,8 @@ public class RideBookingsPresenterImp implements RideContruct.RideBookingsPresen
 
     @Override
     public void onFailure(Call<Response<Ride>> call, Throwable t) {
-        Log.e("onFailure ride booking",t.getMessage());
+//        Log.e("onFailure ride booking",t.getMessage());
+        t.printStackTrace();
         hideProgressBar();
     }
 }

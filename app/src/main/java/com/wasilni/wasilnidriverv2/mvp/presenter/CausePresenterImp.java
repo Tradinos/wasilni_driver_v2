@@ -71,7 +71,8 @@ public class CausePresenterImp implements RateCauseContract.CausePresenter {
 
     @Override
     public void onFailure(Call<Response<PaginationAPI<List<Cause>>>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
+     t.printStackTrace();
     }
 
 }

@@ -72,6 +72,8 @@ public class PayPresenterImp implements PayContract.PayPresenter {
 
     @Override
     public void onFailure(Call<com.wasilni.wasilnidriverv2.network.Response<Payment>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
+        t.printStackTrace();
+
     }
 }

@@ -69,7 +69,8 @@ public class GetUserDataPresenterImp implements UserData.GetUserData {
 
     @Override
     public void onFailure(Call<Response<User>> call, Throwable t) {
-        Log.e("onFailure GetUserData",t.getMessage());
+//        Log.e("onFailure GetUserData",""+t.getMessage());
         hideProgressBar();
+        t.printStackTrace();
     }
 }

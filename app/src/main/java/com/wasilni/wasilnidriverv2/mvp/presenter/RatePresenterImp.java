@@ -46,6 +46,7 @@ public class RatePresenterImp implements RateCauseContract.RatePresenter {
 
     @Override
     public void onFailure(Call<Response<BookingCause>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
+        t.printStackTrace();
     }
 }

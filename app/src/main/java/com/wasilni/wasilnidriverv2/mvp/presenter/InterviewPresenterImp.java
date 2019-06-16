@@ -66,7 +66,8 @@ public class InterviewPresenterImp implements InterviewContract.InterviewPresent
 
     @Override
     public void onFailure(Call<Response<Object>> call, Throwable t) {
-        Log.e("onFailure",t.getMessage());
+//        Log.e("onFailure",t.getMessage());
+        t.printStackTrace();
         UtilFunction.hideProgressBar();
     }
 }
