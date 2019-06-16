@@ -31,7 +31,7 @@ import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showToast;
 
-public class DailyReportPresenter implements ServerPresenter<Object , PaginationAPI<Booking> > {
+public class DailyReportPresenter implements ServerPresenter<Object , PaginationAPI<Ride> > {
     Activity activity ;
     OnResponseInterface anInterface ;
     public DailyReportPresenter(Activity activity,OnResponseInterface anInterface) {
@@ -46,14 +46,14 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
         /** Call the method with parameter in the interface to get the notice data*/
         showProgressBar(activity);
 
-        Call<Response<PaginationAPI<Booking>>> call =
+        Call<Response<PaginationAPI<Ride>>> call =
                 service.dailyReport(UserUtil.getUserInstance().getAccessToken(), 100 ,"PAID");
 
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<Response<PaginationAPI<Booking>>> call, retrofit2.Response<Response<PaginationAPI<Booking>>> response) {
+    public void onResponse(Call<Response<PaginationAPI<Ride>>> call, retrofit2.Response<Response<PaginationAPI<Ride>>> response) {
         Log.e("onResponse GetRides",response.message()+" code :"+response.code());
         hideProgressBar();
         switch (response.code())
@@ -91,11 +91,11 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
     }
 
     @Override
-    public void onFailure(Call<Response<PaginationAPI<Booking>>> call, Throwable t) {
+    public void onFailure(Call<Response<PaginationAPI<Ride>>> call, Throwable t) {
         Log.e("onFailure",t.getMessage());
         hideProgressBar();
     }
     public interface OnResponseInterface{
-        void populateBooking(List<Booking> bookings);
+        void populateBooking(List<Ride> rides);
     }
 }

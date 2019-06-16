@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
 import com.wasilni.wasilnidriverv2.mvp.model.BookingSummary;
+import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.DailyReportPresenter;
 import com.wasilni.wasilnidriverv2.ui.adapters.DailyReportAdapter;
 
@@ -47,7 +48,7 @@ public class DailyReportActivity extends AppCompatActivity implements DailyRepor
     }
 
     @Override
-    public void populateBooking(List<Booking> bookings) {
+    public void populateBooking(List<Ride> bookings) {
         adapter.setList(bookings);
         adapter.notifyDataSetChanged();
     }
