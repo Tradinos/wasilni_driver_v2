@@ -54,6 +54,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
                 if(i != ride.getBookings().size()){
                     names += "+" ;
                 }
+                i++;
             }
             holder.name.setText("الزبون: "+names);
             holder.id.setText(""+ride.getId());
@@ -71,7 +72,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             if(ride.getBookings().size() == 1){
                 holder.price_money.setVisibility(View.GONE);
             }else {
-                holder.price_money.setText("قيمة الرحلة : "+ride.getMeterPrice());
+                holder.price_money.setText("قيمة الرحلة : "+ride.getMeterPrice().intValue());
             }
         }
         catch (Exception e){
