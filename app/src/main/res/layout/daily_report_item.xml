@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="20dp"
     app:cardBackgroundColor="@color/white"
-    >
+    app:cardCornerRadius="10dp"
+    app:cardElevation="20dp">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/delivered_money"
+            android:id="@+id/total_delivered_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -28,11 +27,11 @@
             android:hint="@string/took"
             android:padding="4dp"
             android:paddingBottom="@dimen/register_card_padding"
-            android:text="القيمة المدفوعة : 500 ل.س"
+            android:text="القيمة الاجمالية المدفوعة : 500 ل.س"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView4" />
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,8 +56,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:background="@drawable/gray_border"
+                    android:visibility="gone"
                     app:cardElevation="4dp">
 
                 </android.support.v7.widget.CardView>
@@ -76,15 +75,15 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:fontFamily="@font/bahij_thesansarabic_bold"
-                            android:gravity="center_vertical"
                             android:id="@+id/ride_source"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/bahij_thesansarabic_bold"
+                            android:gravity="center_vertical"
                             android:hint="بداية"
-                            android:text="من:"
                             android:maxLines="1"
+                            android:text="من:"
                             android:textSize="12sp" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -95,14 +94,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:fontFamily="@font/bahij_thesansarabic_bold"
-                            android:gravity="center_vertical"
                             android:id="@+id/ride_destination"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
+                            android:fontFamily="@font/bahij_thesansarabic_bold"
+                            android:gravity="center_vertical"
                             android:hint="نهاية"
-                            android:text="الى:"
                             android:maxLines="1"
+                            android:text="الى:"
                             android:textSize="12sp" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -125,16 +124,16 @@
             app:layout_constraintTop_toBottomOf="@+id/cardview">
 
             <TextView
-                android:fontFamily="@font/bahij_thesansarabic_bold"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/gasoline_station"
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/gasoline_station"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/bahij_thesansarabic_bold"
+                android:gravity="center"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/duration"
@@ -143,16 +142,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:fontFamily="@font/bahij_thesansarabic_bold"
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity=""
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/watch"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/bahij_thesansarabic_bold"
                 android:gravity="center"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -162,13 +160,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:fontFamily="@font/bahij_thesansarabic_bold"
                 android:id="@+id/wait_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/bahij_thesansarabic_bold"
                 android:text="انتظار 0د"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -178,121 +176,41 @@
         </android.support.constraint.ConstraintLayout>
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/register_card_padding"
-            android:paddingBottom="@dimen/register_card_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/gray_border"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="2dp">
-
-                <TextView
-                    android:layout_marginTop="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/coins"
-                    android:text="@string/calculated_cost" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/gray" />
-
-                <TextView
-                    android:fontFamily="@font/bahij_thesansarabic_bold"
-                    android:id="@+id/calculated_cost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:src="@drawable/coins"
-                    android:text="50" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/gray_border"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="2dp">
-
-
-                <TextView
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/coins"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/booking_cost" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/gray" />
-
-                <TextView
-                    android:fontFamily="@font/bahij_thesansarabic_bold"
-                    android:id="@+id/booking_cost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:src="@drawable/coins"
-                    android:text="50" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="name"
             android:fontFamily="@font/bahij_thesansarabic_bold"
+            android:text="name"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/bahij_thesansarabic_bold"
-            android:textColor="@color/black"
-            android:textSize="16sp"
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/bahij_thesansarabic_bold"
             android:text="123455"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
