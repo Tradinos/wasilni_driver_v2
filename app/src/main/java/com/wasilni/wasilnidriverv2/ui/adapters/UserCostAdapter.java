@@ -29,7 +29,7 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
     @Override
     public UserCostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.daily_report_item, parent, false);
+                .inflate(R.layout.past_ride_cost_item, parent, false);
 
         return new UserCostAdapter.MyViewHolder(itemView);
     }
@@ -39,7 +39,7 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
     public void onBindViewHolder(@NonNull UserCostAdapter.MyViewHolder holder, int position) {
         try {
             Booking booking = list.get(position) ;
-            holder.name.setText("الزبون: "+booking.getName());
+            holder.name.setText(""+booking.getName()+" : ");
             holder.calcCost.setText(""+booking.getTo_pay());
             holder.deliveredMoney.setText(""+booking.getPaid());
         }
@@ -64,7 +64,7 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
             super(itemView);
             name = itemView.findViewById(R.id.name);
             calcCost = itemView.findViewById(R.id.calculated_cost);
-            deliveredMoney = itemView.findViewById(R.id.delivered_money);
+            deliveredMoney = itemView.findViewById(R.id.booking_cost);
         }
     }
 }

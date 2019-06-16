@@ -59,7 +59,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             holder.waitingTime.setText("انتظار "+(int)ride.getWaiting_time_count()+" د ");
 //            holder.calcCost.setText(booking.getCalcCost());
 //            holder.bookingCost.setText(booking.getBookingCost());
-            holder.deliveredMoney.setText(""+ride.getCashReceived());
+            holder.deliveredMoney.setText("القيمة الاجمالية المدفوعة : "+ride.getCashReceived());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             holder.adapter.setList(ride.getBookings());
             holder.recyclerView.setAdapter(holder.adapter);
@@ -95,7 +95,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             distance = itemView.findViewById(R.id.distance);
             duration = itemView.findViewById(R.id.duration);
             waitingTime = itemView.findViewById(R.id.wait_time);
-            deliveredMoney = itemView.findViewById(R.id.delivered_money);
+            deliveredMoney = itemView.findViewById(R.id.total_delivered_money);
         }
     }
 }

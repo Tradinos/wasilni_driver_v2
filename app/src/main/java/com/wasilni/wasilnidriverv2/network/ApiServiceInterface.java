@@ -45,7 +45,7 @@ public interface ApiServiceInterface {
     Call<Response<PaginationAPI<List<Cause>>>> GetCauses(@Header("Authorization") String Authorization  , @Query("perPage") int perPage);
 
     @Headers("Accept: application/json")
-    @GET("ride")
+    @GET("payment/captain/daily_report")
     Call<Response<PaginationAPI<Ride>>> dailyReport(@Header("Authorization") String Authorization  , @Query("perPage") int perPage,@Query("filter") String filter);
 
     @Headers("Accept: application/json")

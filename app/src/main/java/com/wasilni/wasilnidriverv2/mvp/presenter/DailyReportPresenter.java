@@ -59,6 +59,7 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
         switch (response.code())
         {
             case 200 :
+                Log.e("onResponse: ",""+response.body().getData().getData().size() );
                 anInterface.populateBooking(response.body().getData().getData());
                 break;
             case 422 :
