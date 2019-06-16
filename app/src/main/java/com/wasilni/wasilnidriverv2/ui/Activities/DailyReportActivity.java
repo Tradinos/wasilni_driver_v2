@@ -15,7 +15,10 @@ import com.wasilni.wasilnidriverv2.mvp.model.Ride;
 import com.wasilni.wasilnidriverv2.mvp.presenter.DailyReportPresenter;
 import com.wasilni.wasilnidriverv2.ui.adapters.DailyReportAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
@@ -44,6 +47,11 @@ public class DailyReportActivity extends AppCompatActivity implements DailyRepor
 
             }
         });
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+        date.setText(formattedDate);
         adapter = new DailyReportAdapter(this  ) ;
         recyclerView.setAdapter(adapter);
         presenter.sendToServer(null);
