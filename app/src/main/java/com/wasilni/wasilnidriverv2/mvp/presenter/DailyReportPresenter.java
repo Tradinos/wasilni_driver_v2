@@ -31,7 +31,7 @@ import static com.wasilni.wasilnidriverv2.util.UtilFunction.hideProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showProgressBar;
 import static com.wasilni.wasilnidriverv2.util.UtilFunction.showToast;
 
-public class DailyReportPresenter implements ServerPresenter<Object , PaginationAPI<Ride> > {
+public class DailyReportPresenter implements ServerPresenter<String , PaginationAPI<Ride> > {
     Activity activity ;
     OnResponseInterface anInterface ;
     public DailyReportPresenter(Activity activity,OnResponseInterface anInterface) {
@@ -40,14 +40,14 @@ public class DailyReportPresenter implements ServerPresenter<Object , Pagination
     }
 
     @Override
-    public void sendToServer(Object request) {
+    public void sendToServer(String request) {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
         showProgressBar(activity);
 
         Call<Response<PaginationAPI<Ride>>> call =
-                service.dailyReport(UserUtil.getUserInstance().getAccessToken(), 100 ,"PAID");
+                service.dailyReport(UserUtil.getUserInstance().getAccessToken(), 100 ,request);
 
         call.enqueue(this);
     }

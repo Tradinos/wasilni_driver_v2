@@ -15,13 +15,18 @@ import android.widget.CompoundButton;
 
 
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.squareup.timessquare.CalendarPickerView;
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class DateFragment extends DialogFragment {
@@ -55,7 +60,7 @@ public class DateFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MaterialCalendarView calendarView = view.findViewById(R.id.calendarView);
+        final MaterialCalendarView calendarView = view.findViewById(R.id.calendarView);
         Button ok = view.findViewById(R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +68,24 @@ public class DateFragment extends DialogFragment {
                 dismiss();
             }
         });
+        Date date = Calendar.getInstance().getTime();
+        final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        final String[] formattedDate = {df.format(date)};
+        calendarView.setDateSelected(date,true);
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                formattedDate[0] = df.format(date.getDate());
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.selectNewDate(formattedDate[0]);
+                dismiss();
+            }
+        });
     }
 
 
@@ -88,6 +110,6 @@ public class DateFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(boolean repeatedRide);
+        void selectNewDate(String formattedDate);
     }
 }
