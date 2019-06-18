@@ -63,6 +63,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layoutDirection="ltr"
             android:orientation="horizontal"
             android:padding="@dimen/register_card_margin"
             android:gravity="center"
