@@ -13,99 +13,108 @@
         android:layout_margin="@dimen/register_card_margin"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <LinearLayout
-            android:orientation="vertical"
-            android:padding="@dimen/register_card_padding"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/receive_sms"
-                android:layout_width="@dimen/registration_image_size"
-                android:layout_height="@dimen/registration_image_size" />
-
             <LinearLayout
-                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/register_card_padding"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/receive_sms"
+                    android:layout_width="@dimen/registration_image_size"
+                    android:layout_height="@dimen/registration_image_size" />
 
-                <!--<ImageView-->
+                <LinearLayout
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--<ImageView-->
                     <!--android:src="@drawable/captain"-->
                     <!--android:layout_gravity="center"-->
                     <!--android:layout_marginEnd="4dp"-->
                     <!--android:layout_width="@dimen/icon_size_height"-->
                     <!--android:layout_height="@dimen/icon_size_height" />-->
 
-                <ImageView
-                    android:layout_gravity="center"
-                    android:src="@drawable/syria"
-                    android:layout_marginEnd="4dp"
-                    android:layout_width="@dimen/icon_size_height"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@string/country_code"
-                    android:layout_marginEnd="4dp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/syria"
+                        android:layout_marginEnd="4dp"
+                        android:layout_width="@dimen/icon_size_height"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="@string/country_code"
+                        android:layout_marginEnd="4dp"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/bahij_thesansarabic_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_weight="1"
+                        android:id="@+id/phone_layout"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/phone_edit"
+                            android:hint="@string/phone_number"
+                            android:maxLength="9"
+                            android:fontFamily="@font/bahij_thesansarabic_bold"
+                            android:inputType="phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
                 <android.support.design.widget.TextInputLayout
-                    android:layout_weight="1"
-                    android:id="@+id/phone_layout"
-                    android:layout_gravity="center"
-                    android:layout_width="0dp"
+                    android:id="@+id/password_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/phone_edit"
-                        android:hint="@string/phone_number"
-                        android:maxLength="9"
-                        android:inputType="phone"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/bahij_thesansarabic_bold"
+                        android:id="@+id/password_edit"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                 </android.support.design.widget.TextInputLayout>
-
-
+                <TextView
+                    android:id="@id/register"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:fontFamily="@font/bahij_thesansarabic_bold"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ليس لديك حساب ؟ انشاء واحد جديد"
+                    />
             </LinearLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/password_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputEditText
-                    android:drawablePadding="4dp"
-                    android:id="@+id/password_edit"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
     </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/login"
-        app:layout_constraintBottom_toTopOf="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/register_card_margin"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient_green_radius_btn"
+        android:fontFamily="@font/bahij_thesansarabic_bold"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:background="@drawable/gradient_green_radius_btn"
-        android:layout_margin="@dimen/register_card_margin"
         android:textSize="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:id="@id/register"
-        android:text="@string/captain_register"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/white"
-        android:background="@drawable/gradient_red_radius_btn"
-        android:layout_margin="@dimen/register_card_margin"
-        android:textSize="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        tools:layout_editor_absoluteX="16dp" />
+
 
 </android.support.constraint.ConstraintLayout>
 

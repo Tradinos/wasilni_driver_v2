@@ -66,7 +66,7 @@ public class RegistrationActivity extends FullScreenActivity implements
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment phoneRegFragment = new PhoneRegistrationFragment();
+        Fragment phoneRegFragment = new LoginFragment();
         fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
         fragmentTransaction.commit();
 

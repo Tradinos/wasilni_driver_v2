@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
@@ -41,7 +42,8 @@ public class PhoneRegistrationFragment extends Fragment implements
     TextInputLayout phoneLayout;
     TextInputEditText phoneEdit;
 
-    Button registerBtn, loginBtn;
+    Button registerBtn ;
+    TextView loginBtn;
 
     public PhoneRegistrationFragment() {
         // Required empty public constructor

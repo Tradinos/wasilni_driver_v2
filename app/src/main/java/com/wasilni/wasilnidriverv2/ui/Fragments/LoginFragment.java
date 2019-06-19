@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.LoginPresenterImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
+
+import org.w3c.dom.Text;
 
 import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 
@@ -36,7 +39,8 @@ public class LoginFragment extends Fragment implements
 
     TextInputLayout phoneLayout, passwordLayout;
     TextInputEditText phoneEdit, passwordEdit;
-    Button registerBtn, loginBtn;
+    TextView registerBtn;
+    Button loginBtn;
 
     LoginPresenterImp loginPresenterImp;
     public LoginFragment() {
