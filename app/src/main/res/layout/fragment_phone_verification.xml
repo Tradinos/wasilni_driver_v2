@@ -53,7 +53,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@id/verification_layout"
+        android:id="@+id/verification_layout"
         android:background="@color/wasilni_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
