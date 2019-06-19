@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:fontFamily="@font/bahij_thesansarabic_bold"
                     android:id="@+id/passenger_name"
                     android:text="dumo dumo"
                     android:textSize="16sp"
@@ -33,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:fontFamily="@font/bahij_thesansarabic_bold"
                     android:text="@string/date_hint"
                     android:id="@+id/date"
                     app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:fontFamily="@font/bahij_thesansarabic_bold"
                     android:text="3:15 AM"
                     android:id="@+id/time"
                     android:textSize="16sp"
@@ -73,7 +76,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/bottom_sheet_padding"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
@@ -83,13 +86,15 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:fontFamily="@font/bahij_thesansarabic_bold"
                         android:id="@+id/end_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="مرة اتوستراد"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
+                        android:fontFamily="@font/bahij_thesansarabic_bold"
                         android:id="@+id/details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
