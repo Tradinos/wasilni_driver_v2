@@ -171,7 +171,7 @@ public class SocketSingelton {
 
     }
 
-    private static void sendAllDB() {
+    public static void sendAllDB() {
         try {
             List<SocketItem> socketItemList = query.findAll();
             for (SocketItem socketItem : socketItemList) {

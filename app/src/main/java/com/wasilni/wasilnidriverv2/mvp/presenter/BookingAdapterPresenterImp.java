@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.wasilni.wasilnidriverv2.R;
+import com.wasilni.wasilnidriverv2.socket.SocketSingelton;
 import com.wasilni.wasilnidriverv2.ui.Dialogs.RideSummaryFragment;
 import com.wasilni.wasilnidriverv2.ui.adapters.BookingAdapter;
 import com.wasilni.wasilnidriverv2.mvp.model.Booking;
@@ -93,6 +94,7 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SocketSingelton.sendAllDB();
                     presenter.sendToServer(object);
                 }
             });
