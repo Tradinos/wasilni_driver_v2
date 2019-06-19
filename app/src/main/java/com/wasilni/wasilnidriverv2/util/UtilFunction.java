@@ -74,6 +74,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -526,7 +527,7 @@ public class UtilFunction {
 
         Date date = new Date(c.getTimeInMillis());
 
-        String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        String dateStr = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(date);
         return dateStr;
     }
 
