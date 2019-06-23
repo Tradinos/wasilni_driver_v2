@@ -50,19 +50,21 @@
         <TextView
             android:id="@+id/start_place"
             style="@style/botton_notification_big_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:drawableStart="@mipmap/green_marker"
             android:text="ميدان "
             android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/details"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
