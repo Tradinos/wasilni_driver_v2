@@ -496,7 +496,7 @@ public class HomeActivity extends NavigationActivity implements
                                 myMarkerOptions.position(latLng);
                                 myMarker.remove();
                                 myMarker = mMap.addMarker(myMarkerOptions);
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM2));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                             }catch (Exception e){
                                 showToast(activity,"2");
                             }
