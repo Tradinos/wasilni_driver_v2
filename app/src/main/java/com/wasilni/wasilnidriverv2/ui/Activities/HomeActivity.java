@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.OnSheetDismissedListener;
 import com.github.florent37.viewanimator.ViewAnimator;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -494,6 +495,7 @@ public class HomeActivity extends NavigationActivity implements
                                 myMarkerOptions.position(latLng);
                                 myMarker.remove();
                                 myMarker = mMap.addMarker(myMarkerOptions);
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM2));
                             }catch (Exception e){
                                 showToast(activity,"2");
                             }
