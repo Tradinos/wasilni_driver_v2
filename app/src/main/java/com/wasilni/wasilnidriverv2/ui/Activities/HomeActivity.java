@@ -504,7 +504,7 @@ public class HomeActivity extends NavigationActivity implements
                     });
                 }
             }
-        },0,5000);
+        },0,10000);
     }
 
     @Override
