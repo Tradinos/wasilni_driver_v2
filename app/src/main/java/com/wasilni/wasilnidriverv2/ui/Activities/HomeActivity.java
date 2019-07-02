@@ -154,6 +154,7 @@ public class HomeActivity extends NavigationActivity implements
         UtilFunction.doExtends(mainLayout , this , R.layout.activity_home);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         homeActivity = this;
+        addDriverLocationToMap();
         myRidesPresenter = new GetMyRidesPresenterImp(this);
         initView();
 
