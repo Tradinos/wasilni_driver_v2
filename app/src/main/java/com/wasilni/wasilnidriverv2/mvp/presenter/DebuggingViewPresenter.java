@@ -15,6 +15,7 @@ import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.network.ServerPresenter;
 import com.wasilni.wasilnidriverv2.ui.Activities.RegistrationActivity;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import org.json.JSONObject;
@@ -40,9 +41,8 @@ public class DebuggingViewPresenter implements ServerPresenter<User, Object > {
         ApiServiceInterface service = RetorfitSingelton.getRetrofitInstance().create(ApiServiceInterface.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-        UtilFunction.showProgressBar(context);
         Call<Response<Object>> call =
-                service.DebuggingView( Token ,request);
+                service.DebuggingView(UserUtil.getUserInstance().getAccessToken(),request);
 
         call.enqueue(this);
     }
@@ -50,7 +50,6 @@ public class DebuggingViewPresenter implements ServerPresenter<User, Object > {
     @Override
     public void onResponse(Call<Response<Object>> call, retrofit2.Response<Response<Object>> response) {
         Log.e("DebuggingViewPresenter",response.message()+" code :"+response.code());
-        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -90,7 +89,6 @@ public class DebuggingViewPresenter implements ServerPresenter<User, Object > {
     @Override
     public void onFailure(Call<Response<Object>> call, Throwable t) {
         t.printStackTrace();
-        UtilFunction.hideProgressBar();
     }
 
 }

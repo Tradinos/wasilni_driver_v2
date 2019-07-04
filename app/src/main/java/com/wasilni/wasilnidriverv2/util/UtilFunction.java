@@ -60,6 +60,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.wasilni.wasilnidriverv2.BuildConfig;
+import com.wasilni.wasilnidriverv2.mvp.model.User;
+import com.wasilni.wasilnidriverv2.mvp.presenter.DebuggingViewPresenter;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.Response;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
@@ -570,7 +573,19 @@ public class UtilFunction {
             e.printStackTrace();
         }
     }
+    public static void sendDeviceData(Activity activity){
+        DebuggingViewPresenter presenter = new DebuggingViewPresenter(activity) ;
+        String s="";
+        s += "OS API Level: " + android.os.Build.VERSION.SDK_INT;
+        s += " Device: " + android.os.Build.DEVICE;
+        s += " Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+        Log.e( "onResponse: ",s );
+        User user = new User();
+        user.setDeviceID(s);
+        user.setVersion(BuildConfig.VERSION_NAME);
+        presenter.sendToServer(user);
 
+    }
     public static void hideProgressBar() {
         if(pro > 0 ) {
             try {

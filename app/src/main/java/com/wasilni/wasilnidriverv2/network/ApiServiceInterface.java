@@ -36,7 +36,7 @@ public interface ApiServiceInterface {
     Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking);
 
     @Headers("Accept: application/json")
-    @PUT("booking/{booking}/action")
+    @PUT("debug_view")
     Call<Response<Object>> DebuggingView(@Header("Authorization") String Authorization , @Body User user);
 
     @Headers("Accept: application/json")

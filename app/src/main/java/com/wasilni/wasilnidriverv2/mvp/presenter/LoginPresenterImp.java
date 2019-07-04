@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.wasilni.wasilnidriverv2.BuildConfig;
 import com.wasilni.wasilnidriverv2.mvp.model.Cause;
 import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.model.pojo.PaginationAPI;
@@ -50,6 +51,9 @@ public class LoginPresenterImp implements LoginContract.LoginPresenter {
         switch (response.code())
         {
             case 200 :
+                UserUtil.getUserInstance().setAccessToken("Bearer "+ response.body().getData().getAccessToken());
+                UtilFunction.sendDeviceData(activity);
+
                 SharedPreferenceUtils.getEditorInstance(activity.getApplicationContext())
                         .putString("auth_token","Bearer "+ response.body().getData().getAccessToken());
                 SharedPreferenceUtils.getEditorInstance(activity.getApplicationContext()).putInt("user_id",1);
