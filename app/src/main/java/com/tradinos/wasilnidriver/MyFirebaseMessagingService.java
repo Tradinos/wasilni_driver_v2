@@ -40,8 +40,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle())
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.driver_logo_text)
                 .setAutoCancel(true);
 
         notificationManager =

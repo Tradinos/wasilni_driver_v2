@@ -21,7 +21,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         final int code = getResultCode();
         Bundle extras = intent.getExtras();
         String event = extras.getString("event");
-        p(event);
+        if(event == null){
+            return;
+        }
         if (code == Activity.RESULT_OK) {
             switch (event) {
                 case "new_ride": {
