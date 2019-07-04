@@ -516,7 +516,18 @@ public class HomeActivity extends NavigationActivity implements
         UtilFunction.showToast(this,"onFailure : "+t.getMessage());
 
     }
-
+    String ss = "12932173821kdsj12" ;
+    String ss1 = getString(R.string.daily_report) ;
+    String ss2 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
+    String ss3 = getString(R.string.bank) ;
+    String ss4 = getString(R.string.google_maps_key) ;
+    String ss5 = getString(R.string.day_picker_description) ;
+    String ss11 = getString(R.string.day_picker_description) ;
+    String ss6 = getString(R.string.weekly_report) ;
+    String ss7 = getString(R.string.day_picker_description) ;
+    String ss8 = getString(R.string.fab_transformation_scrim_behavior) ;
+    String ss9 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
+    String ss10 = getString(R.string.day_picker_description) ;
     @Override
     public void responseCode200(Boolean response) {
         if(!response){
@@ -625,7 +636,7 @@ public class HomeActivity extends NavigationActivity implements
         }
 
         // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+waypoints+"&key="+getString(R.string.google_maps_key);
+        String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+waypoints+"&key="+ss4;
 
         // Output format
         String output = "json";
