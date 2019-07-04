@@ -36,6 +36,10 @@ public interface ApiServiceInterface {
     Call<Response<Booking>> ChangeBookingState(@Header("Authorization") String Authorization , @Path("booking") int booking);
 
     @Headers("Accept: application/json")
+    @PUT("booking/{booking}/action")
+    Call<Response<Object>> DebuggingView(@Header("Authorization") String Authorization , @Body User user);
+
+    @Headers("Accept: application/json")
     @FormUrlEncoded
     @POST("booking/{id}/rate")
     Call<Response<BookingCause>> Rate(@Header("Authorization") String Authorization , @Path("id") int id, @Field("rating_cause_id") int rating_cause_id , @Field("extra") String extra);

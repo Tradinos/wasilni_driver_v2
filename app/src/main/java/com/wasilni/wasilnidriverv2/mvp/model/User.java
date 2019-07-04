@@ -30,6 +30,12 @@ public class User{
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("device_id")
+    @Expose
+    private String deviceID;
+    @SerializedName("version")
+    @Expose
+    private String version;
     @SerializedName("email")
     @Expose
     private String  email;
@@ -107,6 +113,22 @@ public class User{
 
     public void setLogingIn(Boolean logingIn) {
         isLogingIn = logingIn;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public boolean getChecked() {
