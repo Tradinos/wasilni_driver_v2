@@ -155,7 +155,7 @@ public class RideSummaryFragment extends BottomSheetDialogFragment implements Ri
             }else{
                 this.trip_wait_duration.setText(""+sendedBooking.getSummary().getWaiting_time_count());
                 this.trip_duration.setText(""+sendedBooking.getSummary().getBooking_time());
-                this.trip_length.setText(""+sendedBooking.getSummary().getKm_count());
+                this.trip_length.setText(""+((int)sendedBooking.getSummary().getKm_count()));
             }
         }
         submit.setOnClickListener(new View.OnClickListener() {

@@ -52,14 +52,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "745870180457-4q7us8d0uikf7n2v7pqt4bbcutm79m5l.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.wasilni.wasilnidriverv2",
-            "certificate_hash": "8f88ce65b943bca30c3d0e3cac46e8dbfc149bed"
-          }
-        },
-        {
           "client_id": "745870180457-8ku11d98vgkl7pfbk856t892n0en0k6d.apps.googleusercontent.com",
           "client_type": 3
         }

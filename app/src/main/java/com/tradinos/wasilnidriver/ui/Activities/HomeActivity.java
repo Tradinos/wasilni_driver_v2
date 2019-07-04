@@ -104,6 +104,7 @@ public class HomeActivity extends NavigationActivity implements
         HomeContract.HomeView {
     public ArrayList<LatLng> markerPoints;
     public Marker myMarker ;
+    public ImageView refreshButton ;
     public MarkerOptions myMarkerOptions;
     public static GoogleMap mMap;
     public RecyclerView recyclerView;
@@ -239,6 +240,26 @@ public class HomeActivity extends NavigationActivity implements
 
     @Override
     public void initView() {
+        refreshButton = findViewById(R.id.refresh_btn) ;
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
+         ss2 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
+         ss3 = getString(R.string.bank) ;
+         ss4 = getString(R.string.google_maps_key) ;
+         ss5 = getString(R.string.day_picker_description) ;
+         ss11 = getString(R.string.day_picker_description) ;
+         ss6 = getString(R.string.weekly_report) ;
+         ss7 = getString(R.string.day_picker_description) ;
+         ss8 = getString(R.string.fab_transformation_scrim_behavior) ;
+         ss9 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
+         ss10 = getString(R.string.day_picker_description) ;
+
+
+
         //updatePlayService(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -517,17 +538,17 @@ public class HomeActivity extends NavigationActivity implements
 
     }
     String ss = "12932173821kdsj12" ;
-    String ss1 = getString(R.string.daily_report) ;
-    String ss2 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
-    String ss3 = getString(R.string.bank) ;
-    String ss4 = getString(R.string.google_maps_key) ;
-    String ss5 = getString(R.string.day_picker_description) ;
-    String ss11 = getString(R.string.day_picker_description) ;
-    String ss6 = getString(R.string.weekly_report) ;
-    String ss7 = getString(R.string.day_picker_description) ;
-    String ss8 = getString(R.string.fab_transformation_scrim_behavior) ;
-    String ss9 = getString(R.string.acessibility_recurrence_choose_end_date_description) ;
-    String ss10 = getString(R.string.day_picker_description) ;
+    String ss2 ;
+    String ss3 ;
+    String ss4  ;
+    String ss5  ;
+    String ss11;
+    String ss6  ;
+    String ss7 ;
+    String ss9 ;
+    String ss8 ;
+    String ss10 ;
+
     @Override
     public void responseCode200(Boolean response) {
         if(!response){
