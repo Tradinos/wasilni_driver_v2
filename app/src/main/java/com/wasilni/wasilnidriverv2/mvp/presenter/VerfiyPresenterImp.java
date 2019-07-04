@@ -7,6 +7,7 @@ import com.wasilni.wasilnidriverv2.mvp.view.VerifyContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneVerificationFragment;
+import com.wasilni.wasilnidriverv2.util.UserUtil;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import org.json.JSONObject;
@@ -42,6 +43,8 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
         switch (response.code())
         {
             case 200 :
+                UserUtil.getUserInstance().setAccessToken("Bearer "+ response.body().getData().getAccessToken());
+                UtilFunction.sendDeviceData(phoneVerificationFragment.getActivity());
                 phoneVerificationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
