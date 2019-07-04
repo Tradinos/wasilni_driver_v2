@@ -20,6 +20,7 @@ import com.wasilni.wasilnidriverv2.mvp.model.User;
 import com.wasilni.wasilnidriverv2.mvp.presenter.RequestActivitionCodePresentreImp;
 import com.wasilni.wasilnidriverv2.mvp.view.FormContract;
 import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
@@ -161,6 +162,7 @@ public class PhoneRegistrationFragment extends Fragment implements
     @Override
     public void responseCode200(User user) {
         this.mListener.goToPhoneVerification(this.phoneEdit.getText().toString());
+        SharedPreferenceUtils.getEditorInstance(getActivity()).putString("phonenumber",this.phoneEdit.getText().toString()).commit();
     }
 
     /**

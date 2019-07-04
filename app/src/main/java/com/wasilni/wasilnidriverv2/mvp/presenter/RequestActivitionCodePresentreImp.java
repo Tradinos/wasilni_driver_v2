@@ -7,9 +7,12 @@ import com.wasilni.wasilnidriverv2.mvp.view.RequestActivitionCodeContract;
 import com.wasilni.wasilnidriverv2.network.ApiServiceInterface;
 import com.wasilni.wasilnidriverv2.network.RetorfitSingelton;
 import com.wasilni.wasilnidriverv2.ui.Fragments.PhoneRegistrationFragment;
+import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UtilFunction;
 
 import org.json.JSONObject;
+
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -42,6 +45,9 @@ public class RequestActivitionCodePresentreImp implements RequestActivitionCodeC
         switch (response.code())
         {
             case 200 :
+                SharedPreferenceUtils.getEditorInstance(phoneRegistrationFragment.getActivity()).remove("activition_code_time").commit();
+                SharedPreferenceUtils.getEditorInstance(phoneRegistrationFragment.getActivity()).putLong("activition_code_time", Calendar.getInstance().getTime().getTime()).commit();
+
                 phoneRegistrationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :

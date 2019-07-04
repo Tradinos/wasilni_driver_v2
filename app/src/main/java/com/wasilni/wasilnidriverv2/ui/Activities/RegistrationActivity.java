@@ -28,6 +28,8 @@ import com.wasilni.wasilnidriverv2.R;
 import com.wasilni.wasilnidriverv2.util.SharedPreferenceUtils;
 import com.wasilni.wasilnidriverv2.util.UserUtil;
 
+import java.util.Calendar;
+
 import static com.wasilni.wasilnidriverv2.DriverApplication.updateResources;
 
 public class RegistrationActivity extends FullScreenActivity implements
@@ -54,10 +56,28 @@ public class RegistrationActivity extends FullScreenActivity implements
         setContentView(R.layout.activity_registration);
 //        UtilFunction.doExtends(BasicmainLayout , this , R.layout.activity_registration);
 
+        checkActivitionCode();
+
+
         this.car = new Car();
         this.completeDataPresenterImp = new CompleteDataPresenterImp(this);
         this.initView();
 
+    }
+
+    private void checkActivitionCode() {
+        long time = SharedPreferenceUtils.getPreferencesInstance(this).getLong("activition_code_time",0);
+        time += (30*60*1000);
+        if(time > Calendar.getInstance().getTime().getTime()){
+            String phonenumber = SharedPreferenceUtils.getPreferencesInstance(this).getString("phonenumber","");
+
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            Fragment phoneRegFragment = new PhoneVerificationFragment();
+//            fragmentTransaction.add(R.id.content_frame,phoneRegFragment);
+//            fragmentTransaction.commit();
+            goToPhoneVerification(phonenumber);
+        }
     }
 
     public void initView() {
