@@ -1,6 +1,7 @@
 -dontwarn com.google.**
 -dontwarn io.blackbox_vision.materialcalendarview.**
 -dontwarn com.crashlytics.**
+-dontwarn com.tradinos.wasilnidriver.ui.Activities.**
 ## New rules for EventBus 3.0.x ##
 # http://greenrobot.org/eventbus/documentation/proguard/
 

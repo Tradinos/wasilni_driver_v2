@@ -19,10 +19,19 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
 
     private Activity activity ;
     private List<Booking> list ;
-
+    private int ispooling ;
     public UserCostAdapter(Activity activity) {
         list = new ArrayList<>();
         this.activity = activity ;
+    }
+
+    public UserCostAdapter(Activity activity, int ispooling) {
+        this.activity = activity;
+        this.ispooling = ispooling;
+    }
+
+    public void setIspooling(int ispooling) {
+        this.ispooling = ispooling;
     }
 
     @NonNull
@@ -34,6 +43,8 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
         return new UserCostAdapter.MyViewHolder(itemView);
     }
 
+
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull UserCostAdapter.MyViewHolder holder, int position) {
@@ -42,7 +53,7 @@ public class UserCostAdapter extends RecyclerView.Adapter<UserCostAdapter.MyView
             holder.name.setText(""+booking.getName()+" : ");
             holder.calcCost.setText(""+booking.getTo_pay());
             holder.deliveredMoney.setText(""+booking.getPaid());
-            if(list.size() != 1){
+            if(ispooling == 1){
                 holder.deliveredMoneylo.setVisibility(View.GONE);
             }
         }

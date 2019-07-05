@@ -19,6 +19,9 @@ public class Ride  {
     @SerializedName("pick_up_location_name")
     @Expose
     private String pick_up_location_name;
+    @SerializedName("is_pooling")
+    @Expose
+    private int isPooling;
     @SerializedName("bookings_count")
     @Expose
     private Integer bookings_count ;
@@ -46,6 +49,14 @@ public class Ride  {
     @SerializedName("waiting_time")
     @Expose
     double waiting_time_count ;
+
+    public int getIsPooling() {
+        return isPooling;
+    }
+
+    public void setIsPooling(int isPooling) {
+        this.isPooling = isPooling;
+    }
 
     public double getKm_count() {
         return km_count;

@@ -62,6 +62,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
 //            holder.bookingCost.setText(booking.getBookingCost());
             holder.deliveredMoney.setText("القيمة الاجمالية المدفوعة : "+ride.getCashReceived());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            holder.adapter.setIspooling(ride.getIsPooling());
             holder.adapter.setList(ride.getBookings());
             holder.recyclerView.setAdapter(holder.adapter);
             if(ride.getBookings().size() == 1){
