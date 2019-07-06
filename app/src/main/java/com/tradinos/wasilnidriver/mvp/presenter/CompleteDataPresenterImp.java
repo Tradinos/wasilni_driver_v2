@@ -10,6 +10,7 @@ import com.tradinos.wasilnidriver.network.Response;
 import com.tradinos.wasilnidriver.network.RetorfitSingelton;
 import com.tradinos.wasilnidriver.ui.Activities.RegistrationActivity;
 import com.tradinos.wasilnidriver.util.SharedPreferenceUtils;
+import com.tradinos.wasilnidriver.util.UserUtil;
 import com.tradinos.wasilnidriver.util.UtilFunction;
 
 import org.json.JSONObject;
@@ -44,6 +45,11 @@ public class CompleteDataPresenterImp implements CompleteDataContract.CompleteDa
         switch (response.code())
         {
             case 200 :
+                if(response.body().getData() != null && response.body().getData().getAccessToken()!=null) {
+                    UserUtil.getUserInstance().setAccessToken("Bearer " + response.body().getData().getAccessToken());
+                    UtilFunction.sendDeviceData(registrationActivity);
+                }
+
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext())
                         .putString("auth_token", "Bearer "+response.body().getData().getAccessToken());
                 SharedPreferenceUtils.getEditorInstance(registrationActivity.getApplicationContext()).putInt("user_id",1);

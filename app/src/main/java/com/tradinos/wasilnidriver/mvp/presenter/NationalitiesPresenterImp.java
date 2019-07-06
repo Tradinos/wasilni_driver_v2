@@ -38,7 +38,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
 
         Call<Response<PaginationAPI<Nationality>>> call =
                 service.Nationalities( Token );
-        UtilFunction.showProgressBar(context);
+//        UtilFunction.showProgressBar(context);
 
         call.enqueue(this);
     }
@@ -46,7 +46,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
     @Override
     public void onResponse(Call<Response<PaginationAPI<Nationality>>> call, retrofit2.Response<Response<PaginationAPI<Nationality>>> response) {
         Log.e("onResponse RideBooking",response.message()+" code :"+response.code());
-        UtilFunction.hideProgressBar();
+//        UtilFunction.hideProgressBar();
 
         switch (response.code())
         {
@@ -77,7 +77,7 @@ public class NationalitiesPresenterImp implements NationalityContract.Nationalit
     @Override
     public void onFailure(Call<Response<PaginationAPI<Nationality>>> call, Throwable t) {
         t.printStackTrace();
-        UtilFunction.hideProgressBar();
+//        UtilFunction.hideProgressBar();
     }
 
     public interface OnResponseInterface{

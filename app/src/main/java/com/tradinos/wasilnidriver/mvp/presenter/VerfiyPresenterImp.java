@@ -43,8 +43,10 @@ public class VerfiyPresenterImp implements VerifyContract.VerfiyPresenter {
         switch (response.code())
         {
             case 200 :
-                UserUtil.getUserInstance().setAccessToken("Bearer "+ response.body().getData().getAccessToken());
-                UtilFunction.sendDeviceData(phoneVerificationFragment.getActivity());
+                if(response.body().getData() != null && response.body().getData().getAccessToken()!=null) {
+                    UserUtil.getUserInstance().setAccessToken("Bearer " + response.body().getData().getAccessToken());
+                    UtilFunction.sendDeviceData(phoneVerificationFragment.getActivity());
+                }
                 phoneVerificationFragment.responseCode200(response.body().getData());
                 break;
             case 422 :
