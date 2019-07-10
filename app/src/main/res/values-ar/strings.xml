@@ -57,7 +57,7 @@
     <string name="optional">)اختياري)</string>
     <string name="seat_count"> عدد المقاعد</string>
     <string name="ready_to_pick_up_passenger">وصلت خبر الزبون</string>
-    <string name="on_the_way_pick_up_passenger">رايح اخد الزبون</string>أنا ع الطريق خبر الزبون
+    <string name="on_the_way_pick_up_passenger">أنا عالطريق خبر الزبون</string>
     <string name="picked_up_passenger">أخدت الزبون</string>
     <string name="drop_off_passenger">تم توصيل</string>
     <string name="date_hint">اختيار تاريخ</string>

@@ -26,7 +26,7 @@ public class DailyReportActivity extends AppCompatActivity implements
     RecyclerView recyclerView ;
     DailyReportAdapter adapter ;
     TextView date ;
-    DailyReportActivity activity = this;
+    DailyReportActivity activity = this ;
     DailyReportPresenter presenter = new DailyReportPresenter(this,this) ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
