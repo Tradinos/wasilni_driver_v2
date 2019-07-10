@@ -1,11 +1,15 @@
 package com.tradinos.wasilnidriver;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.tradinos.wasilnidriver.receivers.NotificationReceiver;
+import com.tradinos.wasilnidriver.ui.Activities.HomeActivity;
 
 import java.util.Map;
 
@@ -33,15 +38,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
     }
 
-
+    @SuppressLint("WrongConstant")
     private void setupNotification(RemoteMessage remoteMessage){
+        Uri defaultSoundUri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.arpeggio);
+        Intent intent = new Intent(this, HomeActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
         notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
                 .setContentTitle(remoteMessage.getNotification().getTitle())
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setSmallIcon(R.mipmap.driver_logo_text)
-                .setAutoCancel(true);
+                .setSound(defaultSoundUri)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        try {
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), defaultSoundUri);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -52,7 +74,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             CharSequence adminChannelName = "dragon-channel";
             String adminChannelDescription = "notification";
-
+            AudioAttributes att = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build();
 
 
             adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW);
@@ -60,6 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             adminChannel.enableLights(true);
             adminChannel.setLightColor(Color.RED);
             adminChannel.enableVibration(true);
+            adminChannel.setSound(defaultSoundUri,att);
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(adminChannel);
             }
