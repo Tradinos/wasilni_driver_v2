@@ -21,9 +21,9 @@ android {
         applicationId "com.tradinos.wasilnidriver"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 11
+        versionCode 12
         multiDexEnabled true
-        versionName "2.0.1"
+        versionName "2.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 

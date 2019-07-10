@@ -11,9 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.tradinos.wasilnidriver.BuildConfig;
 import com.tradinos.wasilnidriver.R;
 import com.tradinos.wasilnidriver.mvp.view.NavigationContract;
 import com.tradinos.wasilnidriver.ui.Activities.DailyReportActivity;
@@ -55,6 +58,10 @@ public abstract class NavigationActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView version = headerView.findViewById(android.R.id.wasilni_version) ;
+        String versionName = BuildConfig.VERSION_NAME;
+        version.setText("Wasilni Version "+versionName);
     }
 
     @Override
