@@ -66,6 +66,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
             holder.adapter.setList(ride.getBookings());
             holder.recyclerView.setAdapter(holder.adapter);
             if(ride.getIsPooling() == 1){
+                holder.price_money.setText("قيمة الرحلة : "+ride.getMeterPrice().intValue());
 //                holder.price_money.setVisibility(View.GONE);
             }else {
                 holder.deliveredMoney.setVisibility(View.GONE);

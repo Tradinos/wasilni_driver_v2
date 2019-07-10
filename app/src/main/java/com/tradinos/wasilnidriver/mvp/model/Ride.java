@@ -33,7 +33,7 @@ public class Ride  {
     private Double meterPrice;
     @SerializedName("cash_received")
     @Expose
-    private int cashReceived;
+    private String cashReceived;
     @SerializedName("bookings")
     @Expose
     private List<Booking> bookings ;
@@ -152,11 +152,11 @@ public class Ride  {
         this.meterPrice = meterPrice;
     }
 
-    public int getCashReceived() {
+    public String getCashReceived() {
         return cashReceived;
     }
 
-    public void setCashReceived(int cashReceived) {
+    public void setCashReceived(String cashReceived) {
         this.cashReceived = cashReceived;
     }
 
