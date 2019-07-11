@@ -59,7 +59,7 @@ public abstract class NavigationActivity extends AppCompatActivity
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        TextView version = headerView.findViewById(android.R.id.wasilni_version) ;
+        TextView version = headerView.findViewById(R.id.wasilni_version) ;
         String versionName = BuildConfig.VERSION_NAME;
         version.setText("Wasilni Version "+versionName);
     }
