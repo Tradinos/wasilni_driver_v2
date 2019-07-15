@@ -29,6 +29,10 @@
             android:id="@+id/notification"
             android:title="@string/notification" />
         <item
+            android:id="@+id/report"
+            android:icon="@drawable/report"
+            android:title="@string/report_problem" />
+        <item
             android:id="@+id/logout"
             android:title="@string/logout" />
     </group>

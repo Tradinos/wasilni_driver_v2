@@ -21,6 +21,7 @@ import com.tradinos.wasilnidriver.R;
 import com.tradinos.wasilnidriver.mvp.view.NavigationContract;
 import com.tradinos.wasilnidriver.ui.Activities.DailyReportActivity;
 import com.tradinos.wasilnidriver.ui.Activities.RegistrationActivity;
+import com.tradinos.wasilnidriver.ui.Dialogs.ReportingFragment;
 import com.tradinos.wasilnidriver.util.SharedPreferenceUtils;
 import com.tradinos.wasilnidriver.util.UserUtil;
 import com.tradinos.wasilnidriver.util.UtilFunction;
@@ -100,9 +101,19 @@ public abstract class NavigationActivity extends AppCompatActivity
             startActivity(new Intent(this , RegistrationActivity.class));
             ActivityCompat.finishAffinity(this);
         }
-
-//        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
+        else if(id == R.id.report) {
+            ReportingFragment reportingFragment = new ReportingFragment(this);
+            reportingFragment.setTicketTypeId(6);
+            try {
+                if (!reportingFragment.isAdded()) {
+                    reportingFragment.show(getSupportFragmentManager(), "ReportingFragment");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

@@ -105,6 +105,15 @@
     <string name="first_name_error">الاسم الاول يجب انت تكون على الاقل 8 احرف</string>
     <string name="second_name_error">الاسم الاخير يجب انت تكون على الاقل 8 احرف</string>
     <string name="done">تم</string>
-
+    <string name="failure_message">تحقق من اتصالك بالانترنت</string>
+    <string name="report_problem">إبلاغ عن مشكلة أو اقترح</string>
+    <string name="quesetions_report">الرجاء اختيار أحد الأسباب المطروحة</string>
+    <string name="select_number_report">الرجاء وضع الرقم المناسب</string>
+    <string name="radio_reporting">الرجاء اختيار سبب من الأسباب التالية:</string>
+    <string name="select_date_reporting">الرجاء اختيار تاريخ</string>
+    <string name="select_cuase_report">الرجاء اختيار سبب أو اكثر من الاسباب التالية:</string>
+    <string name="submit">تثبيت</string>
+    <string name="select_date">اختيار تاريخ</string>
+    <string name="reporting_text_title">الرجاء اضافة توصيف للمشكلة</string>
 
 </resources>

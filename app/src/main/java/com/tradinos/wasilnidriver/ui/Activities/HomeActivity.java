@@ -48,6 +48,7 @@ import com.tradinos.wasilnidriver.mvp.model.EventBusMessage;
 import com.tradinos.wasilnidriver.mvp.model.User;
 import com.tradinos.wasilnidriver.mvp.presenter.GetUserDataPresenterImp;
 import com.tradinos.wasilnidriver.mvp.view.UserData;
+import com.tradinos.wasilnidriver.ui.Dialogs.ReportingFragment;
 import com.tradinos.wasilnidriver.ui.adapters.BookingAdapter;
 import com.tradinos.wasilnidriver.mvp.model.Ride;
 import com.tradinos.wasilnidriver.mvp.presenter.GetMyRidesPresenterImp;
@@ -100,6 +101,7 @@ public class HomeActivity extends NavigationActivity implements
         RideSummaryFragment.OnFragmentInteractionListener ,
         BookingAdapter.OnAdapterInteractionListener,
         View.OnClickListener,
+        ReportingFragment.OnFragmentInteractionListener ,
         OnMapReadyCallback,
         HomeContract.HomeView {
     public ArrayList<LatLng> markerPoints;
@@ -705,6 +707,11 @@ public class HomeActivity extends NavigationActivity implements
             urlConnection.disconnect();
         }
         return data;
+    }
+
+    @Override
+    public void onFragmentInteraction(boolean repeatedRide) {
+
     }
 
     // Fetches data from url passed

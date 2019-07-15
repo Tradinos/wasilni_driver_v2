@@ -12,7 +12,9 @@ import com.tradinos.wasilnidriver.mvp.model.Location;
 import com.tradinos.wasilnidriver.mvp.model.Nationality;
 import com.tradinos.wasilnidriver.mvp.model.Payment;
 import com.tradinos.wasilnidriver.mvp.model.RegisterCaptain;
+import com.tradinos.wasilnidriver.mvp.model.Report;
 import com.tradinos.wasilnidriver.mvp.model.Ride;
+import com.tradinos.wasilnidriver.mvp.model.UploadReport;
 import com.tradinos.wasilnidriver.mvp.model.User;
 import com.tradinos.wasilnidriver.mvp.model.pojo.PaginationAPI;
 
@@ -38,6 +40,15 @@ public interface ApiServiceInterface {
     @Headers("Accept: application/json")
     @PUT("debug_view")
     Call<Response<Object>> DebuggingView(@Header("Authorization") String Authorization , @Body User user);
+
+    @Headers("Accept: application/json")
+    @GET("ticket_type/{id}/questions")
+    Call<Response<Report>> getReport(@Header("Authorization") String Authorization, @Path("id") int id , @Query("parent_id") Integer parentID  );
+
+    @Headers("Accept: application/json")
+    @POST("ticket")
+    Call<Response<Object>> PostReport(@Header("Authorization") String Authorization, @Body UploadReport uploadReport);
+
 
     @Headers("Accept: application/json")
     @FormUrlEncoded
