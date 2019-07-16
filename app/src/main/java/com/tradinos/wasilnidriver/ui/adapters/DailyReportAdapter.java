@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tradinos.wasilnidriver.R;
 import com.tradinos.wasilnidriver.mvp.model.Booking;
 import com.tradinos.wasilnidriver.mvp.model.Ride;
+import com.tradinos.wasilnidriver.ui.Activities.DailyReportActivity;
+import com.tradinos.wasilnidriver.ui.Dialogs.ReportingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +23,10 @@ import java.util.List;
 
 public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.MyViewHolder> {
 
-    private Activity activity ;
+    private DailyReportActivity activity ;
     private List<Ride> list ;
 
-    public DailyReportAdapter(Activity activity) {
+    public DailyReportAdapter(DailyReportActivity activity) {
         this.activity = activity;
         this.list = new ArrayList<>();
     }
@@ -41,7 +44,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         try {
-            Ride ride = list.get(position) ;
+            final Ride ride = list.get(position) ;
             String names ="";
             int i = 1 ;
             for(Booking booking : ride.getBookings()) {
@@ -72,6 +75,22 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
                 holder.deliveredMoney.setVisibility(View.GONE);
                 holder.price_money.setText("قيمة الرحلة : "+ride.getMeterPrice().intValue());
             }
+
+            holder.report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ReportingFragment reportingFragment = new ReportingFragment(activity);
+                    reportingFragment.setTicketTypeId(1);
+                    reportingFragment.setBookingId(ride.getId());
+                    try {
+                        if (!reportingFragment.isAdded()) {
+                            reportingFragment.show(activity.getSupportFragmentManager(), "ReportingFragment");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
         catch (Exception e){
             e.printStackTrace();
@@ -92,11 +111,13 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
         TextView name, src , des ,distance , duration , id ,
                 waitingTime   , deliveredMoney , price_money;
         RecyclerView recyclerView ;
+        ImageView report  ;
         UserCostAdapter adapter ;
         public MyViewHolder(View itemView) {
             super(itemView);
             adapter = new UserCostAdapter(activity);
             id = itemView.findViewById(R.id.id);
+            report = itemView.findViewById(R.id.report);
             recyclerView = itemView.findViewById(R.id.recyclerview);
             name = itemView.findViewById(R.id.name);
             src = itemView.findViewById(R.id.ride_source);

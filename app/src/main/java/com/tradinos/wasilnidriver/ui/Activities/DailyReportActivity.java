@@ -1,5 +1,6 @@
 package com.tradinos.wasilnidriver.ui.Activities;
 
+import android.arch.lifecycle.ReportFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import com.tradinos.wasilnidriver.R;
 import com.tradinos.wasilnidriver.mvp.model.Ride;
 import com.tradinos.wasilnidriver.mvp.presenter.DailyReportPresenter;
 import com.tradinos.wasilnidriver.ui.Dialogs.DateFragment;
+import com.tradinos.wasilnidriver.ui.Dialogs.ReportingFragment;
 import com.tradinos.wasilnidriver.ui.adapters.DailyReportAdapter;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +24,9 @@ import java.util.Locale;
 import static com.tradinos.wasilnidriver.DriverApplication.updateResources;
 
 public class DailyReportActivity extends AppCompatActivity implements
-        DailyReportPresenter.OnResponseInterface , DateFragment.OnFragmentInteractionListener {
+        DailyReportPresenter.OnResponseInterface ,
+        ReportingFragment.OnFragmentInteractionListener ,
+        DateFragment.OnFragmentInteractionListener {
     RecyclerView recyclerView ;
     DailyReportAdapter adapter ;
     TextView date ;
@@ -74,5 +78,10 @@ public class DailyReportActivity extends AppCompatActivity implements
     public void selectNewDate(String formattedDate) {
         presenter.sendToServer(formattedDate);
         date.setText(formattedDate);
+    }
+
+    @Override
+    public void onFragmentInteraction(boolean repeatedRide) {
+
     }
 }
