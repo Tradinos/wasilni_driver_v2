@@ -1,6 +1,9 @@
 package com.tradinos.wasilnidriver.mvp.presenter;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.tradinos.wasilnidriver.R;
@@ -93,8 +96,50 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
             holder.ChangeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SocketSingelton.sendAllDB();
-                    presenter.sendToServer(object);
+                    object.getStatus() ;
+                    Log.e( "onClick: ",object.getStatus()  );
+                    if(object.getStatus().equals("PICKED_UP") || object.getStatus().equals("ACCEPTED")  ){
+                        Log.e( "onClick: ","11111" );
+                        String s = "هل أنت متأكد من نهاية الرحلة";
+                        if(object.getStatus().equals("ACCEPTED")){
+                            s = "هل أنت متأكد من بداية الرحلة" ;
+                        }
+                        final AlertDialog.Builder builder1 = new AlertDialog.Builder(tripPassengersActionsFragment.activity);
+                        builder1.setMessage(s);
+                        builder1.setCancelable(false);
+                        builder1.setPositiveButton(
+                                R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        SocketSingelton.sendAllDB();
+                                        presenter.sendToServer(object);
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        builder1.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        final AlertDialog alert11 = builder1.create();
+                        alert11.setOnShowListener( new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface arg0) {
+                                alert11.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                                alert11.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+                            }
+                        });
+
+                        alert11.show();
+                    }else{
+                        Log.e( "onClick: ","22222" );
+                        SocketSingelton.sendAllDB();
+                        presenter.sendToServer(object);
+                    }
+
                 }
             });
         }else{
