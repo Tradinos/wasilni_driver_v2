@@ -18,6 +18,9 @@ public class ReportChild {
     @SerializedName("id")
     @Expose
     Integer id ;
+    @SerializedName("required")
+    @Expose
+    Integer require ;
     @SerializedName("extra")
     @Expose
     List<String> extra ;
@@ -56,6 +59,14 @@ public class ReportChild {
 
     public List<String> getExtra() {
         return extra;
+    }
+
+    public Integer getRequire() {
+        return require;
+    }
+
+    public void setRequire(Integer require) {
+        this.require = require;
     }
 
     public void setExtra(List<String> extra) {

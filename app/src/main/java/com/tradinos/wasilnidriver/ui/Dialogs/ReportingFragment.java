@@ -56,9 +56,9 @@ public class ReportingFragment extends DialogFragment implements
     private List<EditText> editTexts = new ArrayList<>();
     private List<RadioButton> radioButtons = new ArrayList<>();
 
-    private List<Integer> editTextsId = new ArrayList<>();
-    private List<Integer> checkBoxesId = new ArrayList<>();
-    private List<Integer> radioButtonsId = new ArrayList<>();
+    private List<ReportChild> editTextsId = new ArrayList<>();
+    private List<ReportChild> checkBoxesId = new ArrayList<>();
+    private List<ReportChild> radioButtonsId = new ArrayList<>();
 
     private Map<Integer , List<String>>checkBoxes= new HashMap<>() ;
 
@@ -124,19 +124,19 @@ public class ReportingFragment extends DialogFragment implements
                 // todo send report
 //            Log.e("button: ",""+report.getId() );
                 report.setAnswers(new HashMap());
-                int i = 0;
-                for (EditText editText : editTexts) {
-                    report.getAnswers().put("question_" + editTextsId.get(i).toString(), editText.getText().toString());
+                int i = 0 ;
+                for(EditText editText : editTexts) {
+                    report.getAnswers().put("question_"+editTextsId.get(i).getId(), editText.getText().toString());
                     i++;
                 }
                 i = 0;
-                for (Integer id : checkBoxes.keySet()) {
-                    report.getAnswers().put("question_" + id, checkBoxes.get(id));
+                for(Integer id : checkBoxes.keySet()) {
+                    report.getAnswers().put("question_"+id , checkBoxes.get(id));
                     i++;
                 }
-                i = 0;
-                for (RadioButton radioButton : radioButtons) {
-                    report.getAnswers().put("question_" + radioButtonsId.get(i), radioButton.getText().toString());
+                i=0;
+                for(RadioButton radioButton : radioButtons) {
+                    report.getAnswers().put("question_"+ radioButtonsId.get(i).getId(), radioButton.getText().toString());
                     i++;
                 }
                 sendReportPresenter.sendToServer(report);
@@ -196,11 +196,14 @@ public class ReportingFragment extends DialogFragment implements
                         title.setText(reportChild.getTitle());
                         title.setTypeface(face);
                         title.setTextColor(Color.BLACK);
+                        if(reportChild.getRequire() == 1){
+                            title.setText(reportChild.getTitle()+"*");
+                        }
                         title.setPadding(8,8,8,8);
                         editText.setPadding(8,8,8,8);
                         editText.setTypeface(face);
                         editTexts.add(editText);
-                        editTextsId.add(reportChild.getId());
+                        editTextsId.add(reportChild);
                         formL.addView(v);
                         break;
                     }
@@ -215,7 +218,9 @@ public class ReportingFragment extends DialogFragment implements
 
                         TextView title = v.findViewById(R.id.title);
                         title.setText(reportChild.getTitle());
-
+                        if(reportChild.getRequire() == 1){
+                            title.setText(reportChild.getTitle()+"*");
+                        }
                         for(String s : strings){
                             final CheckBox checkBox = new CheckBox(activity);
                             checkBox.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -248,7 +253,9 @@ public class ReportingFragment extends DialogFragment implements
 
                         TextView title = v.findViewById(R.id.title);
                         title.setText(reportChild.getTitle());
-
+                        if(reportChild.getRequire() == 1){
+                            title.setText(reportChild.getTitle()+"*");
+                        }
                         RadioGroup radioGroup = v.findViewById(R.id.radiogroup);
                         radioGroup.setPadding(8,8,8,8);
                         List<String>strings = reportChild.getExtra();
@@ -267,11 +274,11 @@ public class ReportingFragment extends DialogFragment implements
                                     if(isChecked){
                                         Log.e("onCheckedChanged","isChecked" );
                                         radioButtons.add(radioButton);
-                                        radioButtonsId.add(reportChild.getId());
+                                        radioButtonsId.add(reportChild);
                                     }else{
                                         Log.e("onCheckedChanged","!!!!isChecked" );
                                         radioButtons.remove(radioButton) ;
-                                        radioButtonsId.remove(reportChild.getId());
+                                        radioButtonsId.remove(reportChild);
                                     }
                                 }
                             });
@@ -324,7 +331,7 @@ public class ReportingFragment extends DialogFragment implements
                         });
 
 
-                        editTextsId.add(reportChild.getId());
+                        editTextsId.add(reportChild);
                         formL.addView(v);
                         break;
                     }
@@ -339,10 +346,13 @@ public class ReportingFragment extends DialogFragment implements
                         title.setPadding(8,8,8,8);
                         title.setTypeface(face);
                         title.setTextColor(Color.BLACK);
+                        if(reportChild.getRequire() == 1){
+                            title.setText(reportChild.getTitle()+"*");
+                        }
                         editText.setTypeface(face);
                         editText.setPadding(8,8,8,8);
                         editTexts.add(editText);
-                        editTextsId.add(reportChild.getId());
+                        editTextsId.add(reportChild);
                         formL.addView(v);
                         break;
                     }
@@ -354,7 +364,9 @@ public class ReportingFragment extends DialogFragment implements
 
                         TextView title = v.findViewById(R.id.title);
                         title.setText(reportChild.getTitle());
-
+                        if(reportChild.getRequire() == 1){
+                            title.setText(reportChild.getTitle()+"*");
+                        }
                         RadioGroup radioGroup = v.findViewById(R.id.radiogroup);
                         radioGroup.setPadding(8,8,8,8);
                         List<String>strings = new ArrayList<>();
@@ -375,7 +387,7 @@ public class ReportingFragment extends DialogFragment implements
                                     if(isChecked){
                                         Log.e("onCheckedChanged","isChecked" );
                                         radioButtons.add(radioButton);
-                                        radioButtonsId.add(reportChild.getId());
+                                        radioButtonsId.add(reportChild);
                                     }else{
                                         Log.e("onCheckedChanged","!!!!isChecked" );
                                         radioButtons.remove(radioButton) ;

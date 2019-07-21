@@ -41,7 +41,7 @@ public class TrackingService extends Service {
         String channelId = createNotificationChannel();
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId);
         Notification notification = notificationBuilder.setOngoing(true).setContentText("وصلني يعمل الان...").setContentTitle("وصلني")
-                .setSmallIcon(R.drawable.car_seat).setCategory(Notification.CATEGORY_SERVICE).build();
+                .setSmallIcon(R.mipmap.driver_logo_text).setCategory(Notification.CATEGORY_SERVICE).build();
         startForeground(101, notification);
     }
 
