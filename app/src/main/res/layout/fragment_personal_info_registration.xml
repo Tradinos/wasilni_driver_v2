@@ -26,6 +26,7 @@
                 android:layout_height="match_parent">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_picture"
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_launcher_foreground"
                     android:layout_width="@dimen/_100sdp"
