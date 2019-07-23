@@ -69,7 +69,9 @@ public class ReportingFragment extends DialogFragment implements
     private Activity activity ;
     private UploadReport report = new UploadReport();
     private CalendarDatePickerDialogFragment cdpRide;
-
+    public void setRideId(int id){
+        report.setRideId(id);
+    }
     public ReportingFragment() {
         // Required empty public constructor
     }

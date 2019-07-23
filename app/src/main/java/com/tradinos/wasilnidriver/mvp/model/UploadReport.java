@@ -19,6 +19,22 @@ public class UploadReport {
     @SerializedName("booking_id")
     @Expose
     Integer bookingId ;
+    @SerializedName("ride_id")
+    @Expose
+    Integer rideId ;
+
+    public void setAnswers(Map<String, Object> answers) {
+        this.answers = answers;
+    }
+
+    public Integer getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(Integer rideId) {
+        this.rideId = rideId;
+    }
+
     public Map<String, Object> getAnswers() {
         return answers;
     }

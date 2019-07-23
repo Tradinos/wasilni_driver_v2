@@ -81,7 +81,7 @@ public class DailyReportAdapter extends RecyclerView.Adapter<DailyReportAdapter.
                 public void onClick(View v) {
                     ReportingFragment reportingFragment = new ReportingFragment(activity);
                     reportingFragment.setTicketTypeId(1);
-                    reportingFragment.setBookingId(ride.getId());
+                    reportingFragment.setRideId(ride.getId());
                     try {
                         if (!reportingFragment.isAdded()) {
                             reportingFragment.show(activity.getSupportFragmentManager(), "ReportingFragment");
