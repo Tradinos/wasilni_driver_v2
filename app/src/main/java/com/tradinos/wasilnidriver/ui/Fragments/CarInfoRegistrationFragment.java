@@ -207,7 +207,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int idx = carBrandString.indexOf(brandAutoCompleteTextView.getText().toString());
-                Log.e( "onItemSelected: ", ""+idx +" "+id);
+                Log.e( "onItemSelected: ", ""+idx +" "+carBrands+" "+id);
                 if(id != -1){
                     brandModelsPresenterImp.sendToServer(carBrands.get((int)id));
                 }
