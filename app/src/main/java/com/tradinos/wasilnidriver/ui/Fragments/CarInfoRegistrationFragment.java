@@ -174,6 +174,7 @@ public class CarInfoRegistrationFragment extends Fragment implements
                 presenter.sendToServer(new Brand(1, brandAutoCompleteTextView.getText().toString()));
             }
         });
+
         this.brandAutoCompleteTextView.setOnFocusChangeListener(
                 new View.OnFocusChangeListener() {
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -206,9 +207,9 @@ public class CarInfoRegistrationFragment extends Fragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int idx = carBrandString.indexOf(brandAutoCompleteTextView.getText().toString());
-                Log.e( "onItemSelected: ", ""+idx);
-                if(idx != -1){
-                    brandModelsPresenterImp.sendToServer(carBrands.get(idx));
+                Log.e( "onItemSelected: ", ""+idx +" "+id);
+                if(id != -1){
+                    brandModelsPresenterImp.sendToServer(carBrands.get((int)id));
                 }
 
             }
