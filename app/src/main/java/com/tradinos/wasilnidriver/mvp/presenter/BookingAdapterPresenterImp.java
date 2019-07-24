@@ -98,10 +98,10 @@ public class BookingAdapterPresenterImp implements AdapterContract.AdapterPresen
                 public void onClick(View v) {
                     object.getStatus() ;
                     Log.e( "onClick: ",object.getStatus()  );
-                    if(object.getStatus().equals("PICKED_UP") || object.getStatus().equals("ACCEPTED")  ){
+                    if(object.getStatus().equals("PICKED_UP") || object.getStatus().equals("ARRIVED")  ){
                         Log.e( "onClick: ","11111" );
                         String s = "هل أنت متأكد من نهاية الرحلة";
-                        if(object.getStatus().equals("ACCEPTED")){
+                        if(object.getStatus().equals("ARRIVED")){
                             s = "هل أنت متأكد من بداية الرحلة" ;
                         }
                         final AlertDialog.Builder builder1 = new AlertDialog.Builder(tripPassengersActionsFragment.activity);
